@@ -84,6 +84,9 @@ def loadSettings():
       opt = arg[2:].split('=')
       if len(opt):
         settings[opt[0]] = True if len(opt) < 2 else int(opt[1]) if opt[0] == 'port' else opt[1]
+  # Run in prod
+  if not settings.get('debug', None):
+    settings['host'] = '0.0.0.0'
   return settings
 
 
