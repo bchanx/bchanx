@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>bchanx</title>
+    {% for css in settings["css"] %}
+      <link rel="stylesheet" href="{{ css }}" media="screen" title="no title" charset="UTF-8"
+            type="{{ 'text/less' if css.endswith('.less') else 'text/css' }}"/>
+    {% endfor %}
+  </head>
+
+  <body>
+    <div id="header">{% block header %}{% endblock %}</div>
+    <div id="body">{% block body %}{% endblock %}</div>
+    <div id="footer">{% block footer %}{% endblock %}</div>
+
+    {% for js in settings["js"] %}
+      <script type="text/javascript" charset="UTF-8" src="{{ js }}"></script>
+    {% endfor %}
+  </body>
+</html>
+
