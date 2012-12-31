@@ -87,6 +87,7 @@ def loadSettings():
   # Run in prod
   if not settings.get('debug', None):
     settings['host'] = '0.0.0.0'
+    settings['port'] = int(os.environ.get('PORT', settings.get('port', 5000)))
   return settings
 
 

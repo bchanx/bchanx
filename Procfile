@@ -1,2 +1,2 @@
-web: python server.py --port=7777
+web: python server.py
 
