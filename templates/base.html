@@ -3,6 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>bchanx</title>
+    <link rel="shorcut icon" href={{ url_for("static", filename="favicon.ico") }}/>
     {% for css in settings["css"] %}
       <link rel="stylesheet" href="{{ css }}" media="screen" title="no title" charset="UTF-8"
             type="{{ 'text/less' if css.endswith('.less') else 'text/css' }}"/>
