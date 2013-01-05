@@ -21,18 +21,17 @@ def page404(error):
 
 
 with app.app_context():
-  def render(template, css=[], js=[], status=200):
+  def render(template, css=None, js=None, status=200):
     ctx = flask.current_app
     root = ctx.root_path
     debug = ctx.debug
     if not template or not os.path.exists(os.path.join(root, ctx.template_folder, template)):
       flask.abort(404)
 
-    css = resolvePaths(root, css, debug)
-    js = resolvePaths(root, js, debug)
-    # TODO: debug/prod logic
-    # if debug:
-    js.append(staticUrl(root, 'less.js'))
+    css = resolvePath(root, css, debug)
+    js = resolvePath(root, js, debug)
+    if debug:
+      js.append(staticUrl(root, 'less.js'))
 
     settings = {}
     settings['debug'] = debug
@@ -63,17 +62,20 @@ def staticUrl(root, filename):
   return None
 
 
-def resolvePaths(root, files, debug):
-  """Return the list of paths for static files."""
-  # TODO: debug/prod paths
-  files = [files] if type(files) is str else files if type(files) is list else []
-  paths = []
-  for f in files:
-    filename = 'uncompiled/%s/%s' % (fileType(f), f)
-    path = staticUrl(root, filename)
+def resolvePath(root, fname, debug):
+  """Return a list containing the absolute path for a static file if found."""
+  pathList = []
+  if fname:
+    if debug:
+      fname = 'uncompiled/%s/%s' % (fileType(fname), fname)
+    else:
+      if fname.endswith('.less'):
+        fname = ''.join([fname[:-5], '.css'])
+      fname = 'compiled/%s' % fname
+    path = staticUrl(root, fname)
     if path:
-      paths.append(path)
-  return paths
+      pathList.append(path)
+  return pathList
 
 
 def loadSettings():
