@@ -1,7 +1,6 @@
 *.py[cod]
 *.swp
 *~
-static/compiled/*
 *.egg
 *.egg-info
 
