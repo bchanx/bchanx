@@ -1,0 +1,11 @@
+html {
+  height: 100%;
+  background-color: #ffffff;
+  overflow-y: scroll;
+}
+body,
+textarea,
+input {
+  font: 400 13px 'Oxygen', sans-serif;
+  color: #7ce69c;
+}
