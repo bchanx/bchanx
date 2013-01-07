@@ -1,4 +1,4 @@
 bchanx
 ======
 
-my thoughts.
+a place to collect my thoughts.
