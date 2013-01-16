@@ -15,7 +15,6 @@ def fantasy():
   with open('static/fantasy.txt') as f:
     lines = f.readlines()
     for l in lines:
-      print tuple(l.split(':'))
       name, pos = tuple(l.split(':'))
       players.append({'name':name.strip(), 'pos':pos.strip()})
   return render('fantasy.html', css='fantasy.less', js='fantasy.js', players=players, enumerate=enumerate)
