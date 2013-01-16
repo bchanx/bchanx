@@ -9,6 +9,17 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+@app.route('/fantasy')
+def fantasy():
+  players = []
+  with open('static/fantasy.txt') as f:
+    lines = f.readlines()
+    for l in lines:
+      print tuple(l.split(':'))
+      name, pos = tuple(l.split(':'))
+      players.append({'name':name.strip(), 'pos':pos.strip()})
+  return render('fantasy.html', css='fantasy.less', js='fantasy.js', players=players, enumerate=enumerate)
+
 
 @app.route('/')
 def index():
@@ -21,7 +32,7 @@ def page404(error):
 
 
 with app.app_context():
-  def render(template, css=None, js=None, status=200):
+  def render(template, css=None, js=None, status=200, **kwargs):
     ctx = flask.current_app
     root = ctx.root_path
     debug = ctx.debug
@@ -38,7 +49,7 @@ with app.app_context():
     settings['css'] = css
     settings['js'] = js
 
-    return render_template(template, settings=settings), status
+    return render_template(template, settings=settings, **kwargs), status
 
 
 def fileType(f):
