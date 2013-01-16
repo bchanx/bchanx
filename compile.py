@@ -8,6 +8,8 @@ HANDLER_PATH = './server.py'
 COMPILED_PATH = './static/compiled'
 LESS_PATH = './static/uncompiled/less'
 LESS_REGEX = re.compile(r"""css=('|")([\w]+)\.less('|")""")
+JS_PATH = './static/uncompiled/js'
+JS_REGEX = re.compile(r"""js=('|")([\w]+)\.js('|")""")
 
 
 def run(cmd):
@@ -30,10 +32,19 @@ def less(files):
     save(content, '%s.css' % f)
 
 
+def js(files):
+  """Compile js files."""
+  for f in files:
+    with open('%s/%s.js' % (JS_PATH, f)) as jsfile:
+      content = jsfile.readlines()
+      save(''.join(content), '%s.js' % f)
+
+
 def main():
   with open(HANDLER_PATH, 'r+b') as f:
     m = mmap.mmap(f.fileno(), 0, prot=mmap.PROT_READ)
     less([x for _, x, _ in LESS_REGEX.findall(m)])
+    js([x for _, x, _ in JS_REGEX.findall(m)])
     m.close()
     
 
