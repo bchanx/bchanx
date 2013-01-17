@@ -16,7 +16,6 @@ $(function() {
   });
 
   $('.player').bind('click', function() {
-    console.log(this);
     if ($(this).hasClass('selected')) {
       $(this).removeClass('selected');
     } else {
