@@ -14,6 +14,7 @@ $(function() {
     }
     $('#all').fadeIn();
   });
+
   $('.player').bind('click', function() {
     if ($(this).hasClass('selected')) {
       $(this).removeClass('selected');
