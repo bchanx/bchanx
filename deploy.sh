@@ -1,19 +1,35 @@
 #!/bin/bash
 # Deploy script for heroku
 
+function printStatus {
+  echo -e "\033[1;32m--- $1 ---\033[0m"
+}
+
+#####
+# Compile assets
+#####
+printStatus "Compiling Assets"
 python ./compile.py
+
+#####
+# Push changes to Git
+#####
 status=$(git status 2>&1)
 if [[ ! $status =~ "nothing to commit" ]]; then
-  commit_msg="update compiled resources"
-  if [ ! -z "$1" ]; then
-    commit_msg="$1"
-  fi
-  read -p "About to commit with message \"$commit_msg\". Proceed (y/n)? " CONFIRM
-  if [[ ! $CONFIRM =~ [Yy] ]]; then
+  printStatus "Pushing changes to Github"
+  read -e -p "Please enter a commit message (empty to abort): " COMMIT_MSG
+  if [[ -z "$COMMIT_MSG" ]]; then
+    echo "No commit message, aborting."
     exit 0
   fi
-  git commit -a -m "$commit_msg"
+  echo "$COMMIT_MSG"
+  git commit -a -m "$COMMIT_MSG"
   git push origin master
 fi
+
+#####
+# Deploy to heroku
+#####
+printStatus "Deplying to Heroku"
 git push heroku master
 
