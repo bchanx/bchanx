@@ -1,8 +1,14 @@
 #!/usr/bin/env python
-# Copyright 2013 Brian Chan (bchanx@gmail.com).  All Rights Reserved.
+
+'''
+Copyright 2013. All Rights Reserved.
+Author: Brian Chan
+Contact: bchanx@gmail.com
+'''
 
 from web import app
 import sys
+
 
 def loadSettings():
   """Loads argument settings for app server."""
