@@ -29,7 +29,7 @@ fi
 #####
 # Deploy to heroku
 #####
-printStatus "Deplying to Heroku"
+printStatus "Deploying to Heroku"
 git push heroku master
 
 #####
