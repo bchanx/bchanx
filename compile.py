@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+
+'''
+Copyright 2013. All Rights Reserved.
+Author: Brian Chan
+Contact: bchanx@gmail.com
+'''
+
 import re
 import os
 import sys
@@ -7,8 +15,9 @@ import subprocess
 HANDLER_PATH = './server.py'
 COMPILED_PATH = './static/compiled'
 LESS_PATH = './static/uncompiled/less'
-LESS_REGEX = re.compile(r"""css=('|")([\w]+)\.less('|")""")
 JS_PATH = './static/uncompiled/js'
+
+LESS_REGEX = re.compile(r"""css=('|")([\w]+)\.less('|")""")
 JS_REGEX = re.compile(r"""js=('|")([\w]+)\.js('|")""")
 
 
