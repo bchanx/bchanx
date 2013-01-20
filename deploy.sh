@@ -22,7 +22,6 @@ if [[ ! $status =~ "nothing to commit" ]]; then
     echo "No commit message, aborting."
     exit 0
   fi
-  echo "$COMMIT_MSG"
   git commit -a -m "$COMMIT_MSG"
   git push origin master
 fi
@@ -32,4 +31,11 @@ fi
 #####
 printStatus "Deplying to Heroku"
 git push heroku master
+
+#####
+# Finish
+#####
+echo
+sleep 0.5
+printStatus "Done"
 
