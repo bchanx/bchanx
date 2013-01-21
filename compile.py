@@ -19,8 +19,8 @@ COMPILED_PATH = '%s/static/compiled' % APP_PATH
 LESS_PATH = '%s/static/uncompiled/less' % APP_PATH
 JS_PATH = '%s/static/uncompiled/js' % APP_PATH
 
-LESS_REGEX = re.compile(r"""css=('|")([\w]+).less('|")""")
-JS_REGEX = re.compile(r"""js=('|")([\w]+).js('|")""")
+LESS_REGEX = re.compile(r"""css=('|")([\w]+)\.less('|")""")
+JS_REGEX = re.compile(r"""js=('|")([\w]+)\.js('|")""")
 
 JS_REQUIRE = re.compile(r"""b\.require\(('|")(.*)('|")\);""")
 JS_MAPPING = {}
