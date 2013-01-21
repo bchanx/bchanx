@@ -17,7 +17,7 @@ printStatus "Compiling Assets"
 python ./compile.py
 if [[ $? != 0 ]]; then
   printError "Compiled Failed"
-  exit 0
+  exit 1
 fi
 
 
@@ -30,7 +30,7 @@ if [[ ! $status =~ "nothing to commit" ]]; then
   read -e -p "Please enter a commit message (empty to abort): " COMMIT_MSG
   if [[ -z "$COMMIT_MSG" ]]; then
     echo "No commit message, aborting."
-    exit 0
+    exit 1
   fi
   git commit -a -m "$COMMIT_MSG"
   git push origin master
