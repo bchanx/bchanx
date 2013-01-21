@@ -5,11 +5,21 @@ function printStatus {
   echo -e "\033[1;32m--- $1 ---\033[0m"
 }
 
+function printError {
+  echo -e "\033[1;31m--- $1 ---\033[0m"
+}
+
+
 #####
 # Compile assets
 #####
 printStatus "Compiling Assets"
 python ./compile.py
+if [[ $? != 0 ]]; then
+  printError "Compiled Failed"
+  exit 0
+fi
+
 
 #####
 # Push changes to Git

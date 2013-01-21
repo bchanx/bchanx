@@ -1,4 +1,11 @@
+//
+// Copyright 2013. All Rights Reserved.
+// Author: Brian Chan
+// Contact: bchanx@gmail.com
+//
+
 @import 'reset.less';
+
 
 //////////////////// COLORSPACE
 @green: #7CE69C;
@@ -11,28 +18,9 @@
 @black: #222222;
 
 
-//////////////////// FORMAT
-html, button, input, select, textarea {
-  font: 400 13px 'Oxygen', sans-serif;
-  color: @black;
-}
-
-html {
-  height: 100%;
-  background-color: @white;
-  overflow-y: scroll;
-}
-
-body {
-  font-size: 1em;
-  line-height: 1.4;
-}
-
-
 //////////////////// CLEARFIX
 /*
  * Clearfix: contain floats
- *
  * For modern browsers
  * 1. The space content is one way to avoid an Opera bug when the `contenteditable` attribute is included anywhere else in the document.
  *    Otherwise it causes space to appear at the top and bottom of elements that receive the `clearfix` class.
@@ -52,5 +40,32 @@ body {
  */
 .clearfix {
   *zoom: 1;
+}
+
+
+//////////////////// BASE
+html, button, input, select, textarea {
+  font: 400 13px 'Oxygen', sans-serif;
+  color: @black;
+}
+
+html {
+  height: 100%;
+  background-color: @white;
+  overflow-y: scroll;
+}
+
+body {
+  font-size: 1em;
+  line-height: 1.4;
+  min-height: 480px;
+}
+
+
+//////////////////// FORMAT
+#body {
+  display: block;
+  width: 800px;
+  margin: 0 auto;
 }
 

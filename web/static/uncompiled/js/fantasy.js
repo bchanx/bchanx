@@ -1,3 +1,9 @@
+//
+// Copyright 2013. All Rights Reserved.
+// Author: Brian Chan
+// Contact: bchanx@gmail.com
+//
+
 $(function() {
   $('.tab').bind('click', function() {
     $('#all').hide();
@@ -23,3 +29,4 @@ $(function() {
     }
   });
 });
+

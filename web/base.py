@@ -21,12 +21,13 @@ def render(template, css=None, js=None, status=200, **kwargs):
     css = resolvePath(css, debug)
     js = resolvePath(js, debug)
     if debug:
+      js = resolvePath('debug.js') + js
       js.append(staticUrl('less.js'))
 
     settings = {}
     settings['debug'] = debug
-    settings['css'] = set(css)
-    settings['js'] = set(js)
+    settings['css'] = css
+    settings['js'] = js
 
     return flask.render_template(template, settings=settings, **kwargs), status
 
@@ -44,19 +45,19 @@ def staticUrl(filename, forFlask=True):
     return None
 
 
-def resolvePath(fname, debug):
+def resolvePath(assets, debug=True):
   """Return a list containing the absolute path for a static file if found."""
   pathList = []
-  if fname:
-    if debug:
-      fname = 'uncompiled/%s/%s' % (fileType(fname), fname)
-    else:
-      if fname.endswith('.less'):
-        fname = ''.join([fname[:-5], '.css'])
-      fname = 'compiled/%s' % fname
-    path = staticUrl(fname)
-    if path:
-      pathList.append(path)
+  if assets:
+    assets = [assets] if type(assets) == str else assets
+    for asset in assets:
+      if debug:
+        asset = 'uncompiled/%s/%s' % (fileType(asset), asset)
+      else:
+        asset = 'compiled/%s' % (''.join([asset[:-5], '.css']) if asset.endswith('.less') else asset)
+      path = staticUrl(asset)
+      if path:
+        pathList.append(path)
   return pathList
 
 
