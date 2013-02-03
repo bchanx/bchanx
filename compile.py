@@ -46,23 +46,30 @@ def less(files):
     save(content, ''.join([f[:-5], '.css']), 'css')
 
 
-def jsminify(f, jsDepTree):
-  """Simple js minification."""
+def jsminify(f):
+  """Gets a minified js file."""
+  return ''.join([JS_MAPPING[js]['content'] for js in jsmapping(f)])
+
+
+def jsmapping(f):
+  """For file f, maps js dependencies and content to JS_MAPPING. Returns the dependency order."""
   js = '%s/%s' % (JS_PATH, f)
   if not os.path.isfile(js):
     raise Exception('[JS] %s does not exist, aborting.' % f)
   if not os.stat(js).st_size:
     raise Exception('[JS] %s is empty, aborting.' %f)
-  if f in jsDepTree:
-    return ''
-  jsDepTree.add(f)
   if f not in JS_MAPPING:
+    JS_MAPPING[f] = {}
+    JS_MAPPING[f]['deps'] = None
     with open(js) as jsfile:
       m = mmap.mmap(jsfile.fileno(), 0, prot=mmap.PROT_READ)
-      content = []
+      deps = []
       requires = [x for _, x, _ in JS_REQUIRE.findall(m)]
       for r in requires:
-        content.append(jsminify(r, jsDepTree))
+        if r in JS_MAPPING and not JS_MAPPING[r]['deps']:
+          raise Exception('[JS] %s has a circular dependency to %s, aborting.' % (f, r))
+        deps.extend([js for js in (JS_MAPPING[r]['deps'] if r in JS_MAPPING else jsmapping(r)) if js not in deps])
+      content = []
       line = m.readline()
       while line:
         line = line.strip()
@@ -70,14 +77,16 @@ def jsminify(f, jsDepTree):
           content.append(line)
         line = m.readline()
       m.close()
-    JS_MAPPING[f] = ''.join([x for x in content])
-  return JS_MAPPING[f]
+    deps.append(f)
+    JS_MAPPING[f]['deps'] = deps
+    JS_MAPPING[f]['content'] = ''.join([x for x in content])
+  return JS_MAPPING[f]['deps']
 
 
 def js(files):
   """Compile js files."""
   for f in files:
-    content = jsminify(f, set())
+    content = jsminify(f)
     if not content:
       raise Exception('[JS] %s produced an empty js file, aborting.' % f)
     save(content, f, 'js')
