@@ -70,11 +70,63 @@ body {
   margin: 0 auto;
 }
 
-.logo {
-  font-size: 120px;
-  position: absolute;
-  left: 50%;
-  margin-left: -207px;
-  top: 50%;
-  margin-top: -76px;
+
+//////////////////// STYLING
+.user-select-none {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }
+
+.border-radius(@radius) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  -ms-border-radius: @radius;
+  -o-border-radius: @radius;
+  border-radius: @radius;
+}
+
+// inset? h-shadow v-shadow blur spread color
+.box-shadow(@style) {
+  -webkit-box-shadow: @style;
+  -moz-box-shadow: @style;
+  -ms-box-shadow: @style;
+  -o-box-shadow: @style;
+  box-shadow: @style;
+}
+
+
+//////////////////// CSS3 TRANSLATION/TRANSITIONS
+.transition(@rules) {
+  -webkit-transition: @rules;
+  -moz-transition: @rules;
+  -o-transition: @rules;
+  transition: @rules;
+}
+
+.transition(transform, @rules) {
+  -webkit-transition: -webkit-transform @rules;
+  -moz-transition: -moz-transform @rules;
+  -o-transition: -o-transform @rules;
+}
+
+.transform(@rules) {
+  -webkit-transform: @rules;
+  -moz-transform: @rules;
+  -o-transform: @rules;
+  transform: @rules;
+}
+
+.transform-style(@rules) {
+  -webkit-transform-style: @rules;
+  transform-style: @rules;
+}
+
+.backface-visibility(@type) {
+  -webkit-backface-visibility: @type;
+  -moz-backface-visibility: @type;
+  backface-visibility: @type;
+}
+

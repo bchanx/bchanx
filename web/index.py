@@ -10,5 +10,5 @@ from web.base import render
 
 @app.route('/')
 def index():
-  return render('index.html', css='index.less')
+  return render('index.html', css='index.less', js='index.js')
 
