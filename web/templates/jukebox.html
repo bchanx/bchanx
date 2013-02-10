@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block body %}
+  <h1>Jukebox</h1>
+  <div id="video-player">
+    <iframe id="video-src" width="560" height="315" frameborder="0" src="" allowfullscreen></iframe>
+    <div id="video-controls">
+      <div id="play">Play</div>
+      <div id="stop">Stop</div>
+      <div id="next">Next</div>
+      <div id="shuffle">Shuffle</div>
+    </div>
+  </div>
+{% endblock %}

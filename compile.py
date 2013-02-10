@@ -48,7 +48,7 @@ def less(files):
 
 def jsminify(f):
   """Gets a minified js file."""
-  return ''.join([JS_MAPPING[js]['content'] for js in jsmapping(f)])
+  return ''.join(['var bchanx = bchanx || {};'] + [JS_MAPPING[js]['content'] for js in jsmapping(f)])
 
 
 def jsmapping(f):

@@ -1,0 +1,46 @@
+//
+// Copyright 2013. All Rights Reserved.
+// Author: Brian Chan
+// Contact: bchanx@gmail.com
+//
+
+@import 'base.less';
+
+#video-player {
+  width: 560px;
+  height: 500px;
+  margin: 0 auto;
+  #video-src {
+    margin: 20px auto;
+    width: 560px;
+    height: 315px;
+  }
+  #video-controls {
+    display: none;
+    width: 100%;
+    height: 100px;
+    #play, #stop, #next, #shuffle {
+      cursor: pointer;
+      border: 1px black solid;
+      display: inline-block;
+      width: 100px;
+      height: 50px;
+      margin-right: 20px;
+    }
+    #shuffle {
+      &.on {
+        border: 1px green solid;
+        &:after {
+          content: " (on)";
+        }
+      }
+      &.off {
+        border: 1px red solid;
+        &:after {
+          content: " (off)";
+        }
+      }
+    }
+  }
+}
+

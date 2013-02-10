@@ -1,1 +1,1 @@
-$(function() {$('#bchanx').fadeIn();});
+var bchanx = bchanx || {};$(function() {$('#bchanx').fadeIn();});

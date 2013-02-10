@@ -10,7 +10,7 @@ import os
 import sys
 
 
-def render(template, css=None, js=None, status=200, **kwargs):
+def render(template, css=None, js=None, **kwargs):
   """Renders the page."""
   with app.app_context():
     ctx = flask.current_app
@@ -23,13 +23,15 @@ def render(template, css=None, js=None, status=200, **kwargs):
     if debug:
       js = resolvePath('debug.js') + js
       js.append(staticUrl('less.js'))
+    if kwargs.get('yt', False):
+      js.append('http://www.youtube.com/player_api')
 
     settings = {}
     settings['debug'] = debug
     settings['css'] = css
     settings['js'] = js
 
-    return flask.render_template(template, settings=settings, **kwargs), status
+    return flask.render_template(template, settings=settings, **kwargs), 200
 
 
 def staticUrl(filename, forFlask=True):

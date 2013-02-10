@@ -7,5 +7,5 @@ Contact: bchanx@gmail.com
 from flask import Flask
 app = Flask(import_name='web')
 
-from web import errors, index, fantasy
+from web import errors, index, fantasy, jukebox
 
