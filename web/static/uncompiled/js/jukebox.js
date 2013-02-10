@@ -14,7 +14,6 @@ function onYouTubePlayerAPIReady() {
       $('#next').click();
     }
   });
-  $('#video-controls').fadeIn();
 }
 
 $(function() {
@@ -42,8 +41,8 @@ $(function() {
   setShuffle();
   $('#shuffle').bind('click', function() {
     videoManager.toggleShuffle();
-    console.log("currently shuffle is: " + videoManager.isShuffled);
     setShuffle();
   });
+  $('#video-controls').fadeIn();
 });
 
