@@ -5,3 +5,4 @@
 *.egg-info
 !static/compiled/*
 .env
+db_repository/

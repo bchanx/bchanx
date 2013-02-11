@@ -31,3 +31,10 @@ class Properties(object):
   """Flask config properties to load."""
   SQLALCHEMY_DATABASE_URI = getProperty('DATABASE_URL')
 
+
+class LocalProperties(Properties):
+  """Local properties not used for Flask."""
+  basedir = os.path.abspath(os.path.dirname(__file__))
+
+  SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
+
