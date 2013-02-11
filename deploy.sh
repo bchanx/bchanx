@@ -40,6 +40,7 @@ fi
 # Deploy to heroku
 #####
 printStatus "Deploying to Heroku"
+heroku config:push
 git push heroku master
 
 #####
