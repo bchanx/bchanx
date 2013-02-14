@@ -41,9 +41,7 @@ def getVideoMetadata(videoid):
   r = requests.get('https://gdata.youtube.com/feeds/api/videos/%s?v=2' % videoid)
   if r.status_code == 200:
     dom = minidom.parseString(r.text)
-    entry = dom.getElementsByTagName('entry')[0]
-    title = entry.getElementsByTagName('title')[0].firstChild.nodeValue
-    media = entry.getElementsByTagName('media:group')[0]
+    title = dom.getElementsByTagName('title')[0].firstChild.nodeValue
     duration = dom.getElementsByTagName('yt:duration')[0].getAttribute('seconds')
   return title, duration
   
@@ -68,8 +66,8 @@ def addVideo():
       title, duration = getVideoMetadata(videoid)
       if title and duration:
         result.update({'title': title, 'duration': duration})
-        video = Video(videoid, title, duration)
-        db.session.add(video)
-        db.session.commit()
+#        video = Video(videoid, title, duration)
+#        db.session.add(video)
+#        db.session.commit()
   return json.dumps(result)
 
