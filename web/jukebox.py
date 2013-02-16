@@ -14,21 +14,6 @@ from flask import request
 
 
 
-class Video(db.Model):
-  """Video object."""
-  id = db.Column(db.Integer, primary_key=True)
-  videoid = db.Column(db.String(80), unique=True)
-  title = db.Column(db.String(120))
-  duration = db.Column(db.String(20))
-
-
-  def __init__(self, videoid, title, duration):
-    self.videoid = videoid
-    self.title = title
-    self.duration = duration
-
-
-
 @app.route('/jukebox')
 def jukebox():
   """Render the jukebox!"""

@@ -4,7 +4,7 @@
 // Contact; bchanx@gmail.com
 //
 
-var VideoManager = function(player, shuffled) {
+var Playlist = function(player, shuffled) {
   var self = this;
   self.player = '#' + player;
   self.videos = [

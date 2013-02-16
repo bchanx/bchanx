@@ -4,7 +4,7 @@
 // Contact: bchanx@gmail.com
 //
 
-bchanx.require('videomanager.js');
+bchanx.require('playlist.js');
 
 bchanx.player = {};
 function onYouTubePlayerAPIReady() {
@@ -17,8 +17,8 @@ function onYouTubePlayerAPIReady() {
 }
 
 $(function() {
-  var videoManager = new VideoManager('video-src', true);
-  videoManager.load();
+  var playlist = new Playlist('video-src', true);
+  playlist.load();
   $('#stop').bind('click', function() {
     if (bchanx.player.hasOwnProperty('pauseVideo')) {
       bchanx.player.pauseVideo();
@@ -31,16 +31,16 @@ $(function() {
   });
   $('#next').bind('click', function() {
     if (bchanx.player.hasOwnProperty('loadVideoById')) {
-      bchanx.player.loadVideoById(videoManager.next());
+      bchanx.player.loadVideoById(playlist.next());
     }
   });
   var setShuffle = function() {
-    var s = videoManager.isShuffled;
+    var s = playlist.isShuffled;
     $('#shuffle').removeClass((s) ? 'off' : 'on').addClass((s) ? 'on' : 'off');
   };
   setShuffle();
   $('#shuffle').bind('click', function() {
-    videoManager.toggleShuffle();
+    playlist.toggleShuffle();
     setShuffle();
   });
   $('#video-controls').fadeIn();
