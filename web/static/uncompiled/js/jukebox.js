@@ -63,9 +63,9 @@ $(function() {
     var setShuffle = function() {
       var s = playlist.isShuffled;
       $('#shuffle').removeClass((s) ? 'off' : 'on').addClass((s) ? 'on' : 'off');
-      $('#video-table').css('opacity', 0);
-      $('#video-table').html((s) ? shuffledPlaylist : normalPlaylist );
-      $('#video-table').animate({'opacity': 1}, 400);
+      $('#video-table').css('opacity', 0)
+        .html((s) ? shuffledPlaylist : normalPlaylist )
+        .animate({'opacity': 1}, 400);
     };
     setShuffle();
     $('#shuffle').bind('click', function() {
