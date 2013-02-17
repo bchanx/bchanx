@@ -16,9 +16,29 @@ function onYouTubePlayerAPIReady() {
   });
 }
 
+var formatTime = function(t) {
+  return Math.floor(t / 60) + ':' + ("0" + t % 60).slice(-2);
+}
+
 $(function() {
+  var createPlaylist = function(data) {
+    var table = $('#video-table').clone();
+    var playlist = $('<tbody></tbody>');
+    for (var d = 0; d < data.length; d++) {
+      var item = data[d];
+      var track = item['meta']['title'];
+      var length = formatTime(item['meta']['duration']);
+      playlist.append('<tr><td class="track" title="' + track + '">' + track + '</td>' + 
+        '<td class="length">' + length + '</td></tr>');
+    }
+    table.append(playlist.html());
+    return table.html();
+  };
+
   var onGetAllMedia = function(data) {
     var playlist = new Playlist('video-src', data, true);
+    var normalPlaylist = createPlaylist(playlist.videos);
+    var shuffledPlaylist = createPlaylist(playlist.shuffledVideos);
     if (playlist.isEmpty()) {
       $('#video-src-none').css('visibility', 'visible');
     } else {
@@ -43,6 +63,9 @@ $(function() {
     var setShuffle = function() {
       var s = playlist.isShuffled;
       $('#shuffle').removeClass((s) ? 'off' : 'on').addClass((s) ? 'on' : 'off');
+      $('#video-table').css('opacity', 0);
+      $('#video-table').html((s) ? shuffledPlaylist : normalPlaylist );
+      $('#video-table').animate({'opacity': 1}, 400);
     };
     setShuffle();
     $('#shuffle').bind('click', function() {
@@ -50,7 +73,9 @@ $(function() {
       setShuffle();
     });
     $('#video-player').fadeIn();
-    $('#video-add').fadeIn();
+    setTimeout(function() {
+      $('#video-settings').fadeIn();
+    }, 200);
   };
 
   $.ajax({
@@ -69,6 +94,7 @@ $(function() {
       'dataType': 'json',
       'success': function(data) {
         // Insert to playlist
+        $('form #url').val('');
         console.log(data);
       }
     });

@@ -7,17 +7,29 @@
   <div id="video-player">
     <iframe id="video-src" frameborder="0" src="" allowfullscreen></iframe>
     <div id="video-src-none">Playlist is empty.</div>
+  </div>
+  <div id="video-settings">
     <div id="video-controls">
       <div id="play">Play</div>
       <div id="stop">Stop</div>
       <div id="next">Next</div>
       <div id="shuffle">Shuffle</div>
     </div>
+    <div id="video-playlist">
+      <table id="video-table">
+        <thead>
+          <tr>
+            <th scope="col" class="track">Track</th>
+            <th scope="col" class="length">Length</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    {% if debug %}
+      <form id="video-add" action="{{ url_for('addMedia') }}" method="POST">
+        <input type="text" id="url" name="url"/>
+        <input type="submit" value="Add"/>
+      </form>
+    {% endif %}
   </div>
-  {% if debug %}
-    <form id="video-add" action="{{ url_for('addMedia') }}" method="POST">
-      <input type="text" id="url" name="url"/>
-      <input type="submit" value="Add"/>
-    </form>
-  {% endif %}
 {% endblock %}

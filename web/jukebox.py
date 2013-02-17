@@ -26,7 +26,8 @@ def jukebox():
 def getAllMedia():
   """Get all media items."""
   media = Media.query.all()
-  mediaList = [{'mediaId': m.mediaId, 'type': m.mediaType, 'title': m.title, 'duration': m.duration} for m in media]
+  mediaList = [{'mediaId': m.mediaId,
+                'meta': {'type': m.mediaType, 'title': m.title, 'duration': m.duration}} for m in media]
   return json.dumps(mediaList)
 
 
@@ -39,12 +40,13 @@ def addMedia():
     mediaId, mediaType = getMediaIdAndType(url)
     if mediaId:
       if mediaExistsInDb(mediaId):
-        result.update({'status': 'ALREADY_EXISTS'})
+        result['status'] = 'ALREADY_EXISTS'
       else:
-        result.update({'mediaId': mediaId})
+        result['media'] = {'mediaId': mediaId}
         title, duration = getMediaMetadata(mediaId, mediaType)
         if title and duration:
-          result.update({'title': title, 'duration': duration, 'status': 'OK'})
+          result['status'] = 'OK'
+          result['media'].update({'title': title, 'duration': duration})
           media = Media(mediaId, mediaType, title, duration)
           db.session.add(media)
           db.session.commit()
