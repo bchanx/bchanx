@@ -18,7 +18,12 @@ function onYouTubePlayerAPIReady() {
 
 $(function() {
   var playlist = new Playlist('video-src', true);
-  playlist.load();
+  if (playlist.isEmpty()) {
+    $('#video-src-none').show();
+  } else {
+    playlist.load();
+    $('#video-src').show();
+  }
   $('#stop').bind('click', function() {
     if (bchanx.player.hasOwnProperty('pauseVideo')) {
       bchanx.player.pauseVideo();

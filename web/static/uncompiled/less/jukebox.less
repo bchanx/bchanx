@@ -10,10 +10,18 @@
   width: 560px;
   height: 450px;
   margin: 0 auto;
-  #video-src {
+  #video-src,
+  #video-src-none {
+    display: none;
     margin: 20px auto;
     width: 560px;
     height: 315px;
+  }
+  #video-src-none {
+    line-height: 315px;
+    text-align: center;
+    border: 1px dotted @black;
+    background: rgba(0, 0, 0, 0.05);
   }
   #video-controls {
     display: none;

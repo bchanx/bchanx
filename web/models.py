@@ -8,16 +8,29 @@ from web import db
 
 
 
-class Video(db.Model):
-  """Video object."""
+class MediaType(object):
+  """Media types."""
+
+  YOUTUBE = 0
+
+
+
+class Media(db.Model):
+  """Media object."""
   id = db.Column(db.Integer, primary_key=True)
-  videoid = db.Column(db.String(80), index=True, unique=True)
+  mediaId = db.Column(db.String(80), index=True, unique=True)
+  mediaType = db.Column(db.String(20))
   title = db.Column(db.String(200))
   duration = db.Column(db.String(20))
 
 
-  def __init__(self, videoid, title, duration):
-    self.videoid = videoid
+  def __init__(self, mediaId, mediaType, title, duration):
+    self.mediaId = mediaId
+    self.mediaType = mediaType
     self.title = title
     self.duration = duration
+
+
+  def __repr__(self):
+    return '<Media - %s:%s>' % (self.mediaType, self.mediaId)
 

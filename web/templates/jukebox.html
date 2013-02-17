@@ -1,8 +1,12 @@
 {% extends "base.html" %}
+{% block header %}
+{% endblock %}
+
 {% block body %}
   <h1 style="text-align: center">Jukebox</h1>
   <div id="video-player">
-    <iframe id="video-src" width="560" height="315" frameborder="0" src="" allowfullscreen></iframe>
+    <iframe id="video-src" frameborder="0" src="" allowfullscreen></iframe>
+    <div id="video-src-none">Playlist is empty.</div>
     <div id="video-controls">
       <div id="play">Play</div>
       <div id="stop">Stop</div>
@@ -11,7 +15,7 @@
     </div>
   </div>
   <form action="/jukebox/add" method="POST" style="border: 1px black solid; width: 300px; padding: 10px; margin: 0 auto">
-    <input type="text" id="videourl" name="videourl"/>
+    <input type="text" id="url" name="url"/>
     <input type="submit" value="Add"/>
   </form>
 {% endblock %}

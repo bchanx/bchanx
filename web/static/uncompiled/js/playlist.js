@@ -7,18 +7,7 @@
 var Playlist = function(player, shuffled) {
   var self = this;
   self.player = '#' + player;
-  self.videos = [
-    {'vid': 'QQ8H35_Cqu8', 'tag': 'sax'},
-    {'vid': '21AU4qkSf1U', 'tag': 'Gordon Ramsay'},
-    {'vid': 'rSQxtrKz35k', 'tag': 'prank calling'},
-    {'vid': 'X14Oxm_NrVs', 'tag': 'Grubby'},
-    {'vid': '6ktYpaGVUe0', 'tag': 'XX'},
-    {'vid': 'Ws6AAhTw7RA', 'tag': 'quantum levitation'},
-    {'vid': '_cZC67wXUTs', 'tag': 'tubes'},
-    {'vid': 'UELAu70qXlI', 'tag': 'Jiro'},
-    {'vid': 'JSd8CqBEbcY', 'tag': 'hockey'},
-    {'vid': 'bek1y2uiQGA', 'tag': 'Avicii'}
-  ];
+  self.videos = [];
   self.getVideoOrder = function() {
     var order = [];
     if (self.videos.length) {
@@ -65,7 +54,12 @@ var Playlist = function(player, shuffled) {
     return self.current;
   };
   self.load = function() {
-    $(self.player).attr('src', self.getUrl(self.current));
+    if (!self.isEmpty()) {
+      $(self.player).attr('src', self.getUrl(self.current));
+    }
+  };
+  self.isEmpty = function() {
+    return !self.current;
   };
 };
 
