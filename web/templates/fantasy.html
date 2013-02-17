@@ -5,7 +5,7 @@
     <br/><div class="tab" pos="ALL">All</div><div class="tab" pos="C">Center</div><div class="tab" pos="L">LeftWing</div><div class="tab" pos="R">RightWing</div><div class="tab" pos="D">Defence</div><div class="tab" pos="G">Goalie</div>
     <br/><br/>
     <div id="all">
-      {% for index, p in enumerate(players) %}
+      {% for index, p in players | enumerate %}
         <div class="player" pos="{{p.get('pos')}}">{{index+1}} - {{p.get('name', 'unknown')}} ({{p.get('pos', 'N/A')}})</div>
       {% endfor %}
     </div>

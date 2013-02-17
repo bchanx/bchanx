@@ -11,5 +11,5 @@ app = Flask(import_name='web')
 app.config.from_object('config.Properties')
 db = SQLAlchemy(app)
 
-from web import errors, index, fantasy, jukebox, models
+from web import errors, index, fantasy, jukebox, models, filters
 

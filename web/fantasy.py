@@ -16,5 +16,5 @@ def fantasy():
     for l in lines:
       name, pos = tuple(l.split(':'))
       players.append({'name':name.strip(), 'pos':pos.strip()})
-  return render('fantasy.html', css='fantasy.less', js='fantasy.js', players=players, enumerate=enumerate)
+  return render('fantasy.html', css='fantasy.less', js='fantasy.js', players=players)
 
