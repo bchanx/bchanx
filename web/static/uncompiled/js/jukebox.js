@@ -18,7 +18,7 @@ function onYouTubePlayerAPIReady() {
 
 var formatTime = function(t) {
   return Math.floor(t / 60) + ':' + ("0" + t % 60).slice(-2);
-}
+};
 
 $(function() {
   var createPlaylist = function(data) {
