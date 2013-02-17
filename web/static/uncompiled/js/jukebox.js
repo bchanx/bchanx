@@ -69,6 +69,7 @@ $(function() {
       'dataType': 'json',
       'success': function(data) {
         // Insert to playlist
+        console.log(data);
       }
     });
   });

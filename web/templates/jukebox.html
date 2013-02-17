@@ -14,8 +14,10 @@
       <div id="shuffle">Shuffle</div>
     </div>
   </div>
-  <form id="video-add" action="/jukebox/add" method="POST">
-    <input type="text" id="url" name="url"/>
-    <input type="submit" value="Add"/>
-  </form>
+  {% if debug %}
+    <form id="video-add" action="{{ url_for('addMedia') }}" method="POST">
+      <input type="text" id="url" name="url"/>
+      <input type="submit" value="Add"/>
+    </form>
+  {% endif %}
 {% endblock %}

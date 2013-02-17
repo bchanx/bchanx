@@ -5,6 +5,7 @@
 #
 
 import json
+import flask
 import urlparse
 import requests
 import xml.dom.minidom as minidom
@@ -18,7 +19,7 @@ from flask import request
 @app.route('/jukebox')
 def jukebox():
   """Render the jukebox!"""
-  return render('jukebox.html', css='jukebox.less', js='jukebox.js', yt=True)
+  return render('jukebox.html', css='jukebox.less', js='jukebox.js', yt=True, debug=flask.current_app.debug)
 
 
 @app.route('/jukebox/getAll', methods=['GET'])

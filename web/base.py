@@ -12,39 +12,37 @@ import sys
 
 def render(template, css=None, js=None, **kwargs):
   """Renders the page."""
-  with app.app_context():
-    ctx = flask.current_app
-    debug = ctx.debug
-    if not template or not os.path.exists(os.path.join(ctx.root_path, ctx.template_folder, template)):
-      flask.abort(404)
+  ctx = flask.current_app
+  debug = ctx.debug
+  if not template or not os.path.exists(os.path.join(ctx.root_path, ctx.template_folder, template)):
+    flask.abort(404)
 
-    css = resolvePath(css, debug)
-    js = resolvePath(js, debug)
-    if debug:
-      js = resolvePath('debug.js') + js
-      js.append(staticUrl('less.js'))
-    if kwargs.get('yt', False):
-      js.append('http://www.youtube.com/player_api')
+  css = resolvePath(css, debug)
+  js = resolvePath(js, debug)
+  if debug:
+    js = resolvePath('debug.js') + js
+    js.append(staticUrl('less.js'))
+  if kwargs.get('yt', False):
+    js.append('http://www.youtube.com/player_api')
 
-    settings = {}
-    settings['debug'] = debug
-    settings['css'] = css
-    settings['js'] = js
+  settings = {}
+  settings['debug'] = debug
+  settings['css'] = css
+  settings['js'] = js
 
-    return flask.render_template(template, settings=settings, **kwargs), 200
+  return flask.render_template(template, settings=settings, **kwargs), 200
 
 
 def staticUrl(filename, forFlask=True):
   """Gets the static url for a file."""
-  with app.app_context():
-    try:
-      path = os.path.join(flask.current_app.root_path, 'static', filename)
-      if os.path.exists(path):
-        return flask.url_for('static', filename=filename) if forFlask else path
-    except Exception as e:
-      # log the error
-      pass
-    return None
+  try:
+    path = os.path.join(flask.current_app.root_path, 'static', filename)
+    if os.path.exists(path):
+      return flask.url_for('static', filename=filename) if forFlask else path
+  except Exception as e:
+    # log the error
+    pass
+  return None
 
 
 def resolvePath(assets, debug=True):
