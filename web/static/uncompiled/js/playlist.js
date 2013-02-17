@@ -1,18 +1,18 @@
 //
 // Copyright 2013. All Rights Reserved.
 // Author: Brian Chan
-// Contact; bchanx@gmail.com
+// Contact: bchanx@gmail.com
 //
 
-var Playlist = function(player, shuffled) {
+var Playlist = function(player, videos, shuffled) {
   var self = this;
   self.player = '#' + player;
-  self.videos = [];
+  self.videos = videos || [];
   self.getVideoOrder = function() {
     var order = [];
     if (self.videos.length) {
       for (var i = 0; i < self.videos.length; i++) {
-        order.push(self.videos[i]['vid']);
+        order.push(self.videos[i]['mediaId']);
       }
     }
     return order;
@@ -53,9 +53,10 @@ var Playlist = function(player, shuffled) {
     self.current = current[(index + 1) % current.length];
     return self.current;
   };
-  self.load = function() {
+  self.load = function(vid) {
+    vid = vid || self.current;
     if (!self.isEmpty()) {
-      $(self.player).attr('src', self.getUrl(self.current));
+      $(self.player).attr('src', self.getUrl(vid));
     }
   };
   self.isEmpty = function() {

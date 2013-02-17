@@ -11,6 +11,7 @@ from web import db
 class MediaType(object):
   """Media types."""
 
+  UNKNOWN = -1
   YOUTUBE = 0
 
 
@@ -18,8 +19,8 @@ class MediaType(object):
 class Media(db.Model):
   """Media object."""
   id = db.Column(db.Integer, primary_key=True)
-  mediaId = db.Column(db.String(80), index=True, unique=True)
-  mediaType = db.Column(db.String(20))
+  mediaId = db.Column(db.String(80))
+  mediaType = db.Column(db.Integer)
   title = db.Column(db.String(200))
   duration = db.Column(db.String(20))
 
