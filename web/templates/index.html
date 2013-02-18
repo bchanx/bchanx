@@ -1,13 +1,9 @@
 {% extends "base.html" %}
+{% import 'logo.html' as logo %}
 
 {% block body %}
   <div id="bchanx">
-    <div class="logo-large" style="padding-top: 5px">
-      <div class="logo-content">
-        <div class="logo-text"><div class="logo-b"></div></div>
-        <div class="logo-pic"><img src="/static/images/profile-medium.jpg"/></div>
-      </div>
-    </div>
+    {{ logo.render('medium') }}
     bchanx
   </div>
 {% endblock %}

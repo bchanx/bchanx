@@ -1,0 +1,8 @@
+{% import 'logo.html' as logo %}
+
+{% macro render(name, size='medium') -%}
+  <a href="/">{{ logo.render(size) }}</a>
+  <div id="header-content">
+    {{ name }}
+  </div>
+{%- endmacro %}

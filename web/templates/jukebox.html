@@ -1,9 +1,11 @@
 {% extends "base.html" %}
+{% import 'header.html' as header %}
+
 {% block header %}
+  {{ header.render('Jukebox', 'small') }}
 {% endblock %}
 
 {% block body %}
-  <h1 style="text-align: center">Jukebox</h1>
   <div id="video-player">
     <iframe id="video-src" type="text/html" frameborder="0" src="" mozallowfullscreen webkitallowfullscreen></iframe>
     <div id="video-src-none">Playlist is empty.</div>

@@ -18,31 +18,6 @@
 @black: #222222;
 
 
-//////////////////// CLEARFIX
-/*
- * Clearfix: contain floats
- * For modern browsers
- * 1. The space content is one way to avoid an Opera bug when the `contenteditable` attribute is included anywhere else in the document.
- *    Otherwise it causes space to appear at the top and bottom of elements that receive the `clearfix` class.
- * 2. The use of `table` rather than `block` is only necessary if using `:before` to contain the top-margins of child elements.
- */
-.clearfix:before, .clearfix:after {
-  content: ' '; /* 1 */
-  display: table; /* 2 */
-}
-
-.clearfix:after {
-  clear: both;
-}
-
-/*
- * For IE 6/7 only. Include this rule to trigger hasLayout and contain floats.
- */
-.clearfix {
-  *zoom: 1;
-}
-
-
 //////////////////// BASE
 html, button, input, select, textarea {
   font-family: 'Oxygen', sans-serif;
@@ -60,15 +35,33 @@ html {
 body {
   line-height: 1.4;
   min-height: 480px;
+  padding-bottom: 40px;
 }
 
 
 //////////////////// FORMAT
+#header {
+  height: 100px;
+  min-width: 800px;
+  padding: 20px 20px 0;
+  display: block;
+  #header-content {
+    pointer-events: none;
+    width: 100%;
+    margin-top: -85px;
+    text-align: center;
+    vertical-align: top;
+    display: inline-block;
+    font-weight: 300;
+    font-size: 80px;
+    line-height: 75px;
+  }
+}
+
 #body {
   display: block;
   width: 800px;
   margin: 0 auto;
-  padding: 40px 0;
 }
 
 
@@ -129,5 +122,30 @@ body {
   -webkit-backface-visibility: @type;
   -moz-backface-visibility: @type;
   backface-visibility: @type;
+}
+
+
+//////////////////// CLEARFIX
+/*
+ * Clearfix: contain floats
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements that receive the `clearfix` class.
+ * 2. The use of `table` rather than `block` is only necessary if using `:before` to contain the top-margins of child elements.
+ */
+.clearfix:before, .clearfix:after {
+  content: ' '; /* 1 */
+  display: table; /* 2 */
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+/*
+ * For IE 6/7 only. Include this rule to trigger hasLayout and contain floats.
+ */
+.clearfix {
+  *zoom: 1;
 }
 
