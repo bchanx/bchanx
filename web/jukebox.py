@@ -26,8 +26,15 @@ def jukebox():
 def getAllMedia():
   """Get all media items."""
   media = Media.query.all()
-  mediaList = [{'mediaId': m.mediaId,
-                'meta': {'type': m.mediaType, 'title': m.title, 'duration': m.duration}} for m in media]
+  mediaList = [{
+    'id': ':'.join([str(m.mediaType), m.mediaId]),
+    'meta': {
+      'mediaId': m.mediaId,
+      'mediaType': m.mediaType,
+      'title': m.title,
+      'duration': m.duration
+    }
+  } for m in media]
   return json.dumps(mediaList)
 
 

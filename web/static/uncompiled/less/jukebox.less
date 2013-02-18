@@ -65,20 +65,31 @@
     }
   }
   #video-playlist {
+    margin-top: 10px;
     width: @width;
-    border: 1px black solid;
     table {
       width: @width;
       border-collapse: collapse;
       border-spacing: 0;
+      tbody tr {
+        border-top: none;
+        cursor: pointer;
+        &:hover {
+          background-color: @lightgreen;
+        }
+        &.playing .track {
+          font-weight: 700;
+          color: @green;
+        }
+      }
       tr {
+        border: 1px solid @gray;
         th, td {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
           height: 35px;
           line-height: 35px;
-          border-bottom: 1px solid @gray;
           &.track {
             padding: 0 10px 0 20px;
             text-align: left;
@@ -92,13 +103,11 @@
             max-width: @width * 0.15;
           }
         }
-        &:last-child td {
-          border: 0;
-        }
       }
     }
   }
   #video-add {
+    margin-top: 10px;
     border: 1px @black solid;
     width: @width;
     padding: 10px;

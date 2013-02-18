@@ -31,6 +31,10 @@ var formatTime = function(t) {
   return Math.floor(t / 60) + ':' + ("0" + t % 60).slice(-2);
 };
 
+var jq = function(id) {
+  return '#' + id.replace(/(:|\.|\[|\])/g, '\\$1');
+};
+
 $(function() {
   var createPlaylist = function(data) {
     var table = $('#video-table').clone();
@@ -39,8 +43,8 @@ $(function() {
       var item = data[d];
       var track = item['meta']['title'];
       var length = formatTime(item['meta']['duration']);
-      playlist.append('<tr><td class="track" title="' + track + '">' + track + '</td>' + 
-        '<td class="length">' + length + '</td></tr>');
+      playlist.append('<tr id="' + item['id'] + '" class="mediaItem">' + 
+        '<td class="track" title="' + track + '">' + track + '</td><td class="length">' + length + '</td></tr>');
     }
     table.append(playlist.html());
     return table.html();
@@ -55,6 +59,10 @@ $(function() {
     } else {
       $('#video-src').attr('src', playlist.getUrl()).css('visibility', 'visible');
     }
+    var highlightNowPlaying = function() {
+      $('.playing').removeClass('playing');
+      $(jq(playlist.getId())).addClass('playing');
+    };
     $('#stop').bind('click', function() {
       if (bchanx.player.hasOwnProperty('pauseVideo')) {
         bchanx.player.pauseVideo();
@@ -69,6 +77,7 @@ $(function() {
       $('#stop').click();
       if (bchanx.player.hasOwnProperty('loadVideoById')) {
         bchanx.player.loadVideoById(playlist.next());
+        highlightNowPlaying();
       }
     });
     var setShuffle = function() {
@@ -76,7 +85,9 @@ $(function() {
       $('#shuffle').removeClass((s) ? 'off' : 'on').addClass((s) ? 'on' : 'off');
       $('#video-table').css('opacity', 0)
         .html((s) ? shuffledPlaylist : normalPlaylist )
-        .animate({'opacity': 1}, 400);
+        .animate({'opacity': 1}, 400, function() {
+          highlightNowPlaying();
+        });
     };
     setShuffle();
     $('#shuffle').bind('click', function() {
@@ -87,6 +98,13 @@ $(function() {
     setTimeout(function() {
       $('#video-settings').fadeIn();
     }, 200);
+    $(document).on('click', '.mediaItem', function() {
+      $('#stop').click();
+      if (playlist.setCurrent($(this).attr('id'))) {
+        bchanx.player.loadVideoById(playlist.getMediaId());
+        highlightNowPlaying();
+      }
+    });
   };
 
   $.ajax({
