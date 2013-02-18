@@ -23,7 +23,7 @@ def render(template, css=None, js=None, **kwargs):
     js = resolvePath('debug.js') + js
     js.append(staticUrl('less.js'))
   if kwargs.get('yt', False):
-    js.append('http://www.youtube.com/player_api')
+    js.append('https://www.youtube.com/iframe_api')
 
   settings = {}
   settings['debug'] = debug

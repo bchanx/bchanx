@@ -6,6 +6,7 @@
 
 var Playlist = function(player, videos, shuffled) {
   var self = this;
+  self.id = 'mediaId';
   self.player = '#' + player;
   self.videos = videos || [];
   self.getShuffleOrder = function() {
@@ -22,7 +23,8 @@ var Playlist = function(player, videos, shuffled) {
   self.isShuffled = !!shuffled;
   self.current = (self.isShuffled) ? self.shuffledVideos[0] : self.videos[0];
   self.getUrl = function(vid) {
-    return 'https://www.youtube.com/embed/' + vid + '?rel=0&enablejsapi=1';
+    vid = vid || self.current && self.id in self.current && self.current[self.id];
+    return (vid) ? 'https://www.youtube.com/embed/' + vid + '?rel=0&enablejsapi=1&iv_load_policy=3&showinfo=0&theme=light' : '';
   };
   self.toggleShuffle = function() {
     self.isShuffled = !self.isShuffled;
@@ -32,12 +34,6 @@ var Playlist = function(player, videos, shuffled) {
     var index = current.indexOf(self.current);
     self.current = current[(index + 1) % current.length];
     return self.current['mediaId'];
-  };
-  self.load = function(vid) {
-    vid = vid || self.current['mediaId'];
-    if (!self.isEmpty()) {
-      $(self.player).attr('src', self.getUrl(vid));
-    }
   };
   self.isEmpty = function() {
     return !self.current;

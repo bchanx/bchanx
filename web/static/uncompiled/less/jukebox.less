@@ -6,13 +6,14 @@
 
 @import 'base.less';
 
-@width: 560px;
+@width: 640px;
+@height: 360px;
 
 #video-player {
   display: none;
   position: relative;
   width: @width;
-  height: 315px;
+  height: @height;
   margin: 20px auto;
   #video-src,
   #video-src-none {
@@ -21,10 +22,10 @@
     visibility: hidden;
     margin: 0 auto;
     width: @width;
-    height: 315px;
+    height: @height;
   }
   #video-src-none {
-    line-height: 315px;
+    line-height: @height;
     text-align: center;
     border: 1px dotted @black;
     background: rgba(0, 0, 0, 0.05);

@@ -7,13 +7,24 @@
 bchanx.require('playlist.js');
 
 bchanx.player = {};
-function onYouTubePlayerAPIReady() {
-  bchanx.player = new YT.Player('video-src');
-  bchanx.player.addEventListener('onStateChange', function(res) {
-    if (res.data == YT.PlayerState.ENDED) {
-      $('#next').click();
+function onYouTubeIframeAPIReady() {
+  bchanx.player = new YT.Player('video-src', {
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
     }
   });
+}
+
+function onPlayerReady(e) {
+  e.target.setVolume(100);
+  e.target.playVideo();
+}
+
+function onPlayerStateChange(e) {
+  if (e.data == YT.PlayerState.ENDED) {
+    $('#next').click();
+  }
 }
 
 var formatTime = function(t) {
@@ -42,8 +53,7 @@ $(function() {
     if (playlist.isEmpty()) {
       $('#video-src-none').css('visibility', 'visible');
     } else {
-      playlist.load();
-      $('#video-src').css('visibility', 'visible');
+      $('#video-src').attr('src', playlist.getUrl()).css('visibility', 'visible');
     }
     $('#stop').bind('click', function() {
       if (bchanx.player.hasOwnProperty('pauseVideo')) {
@@ -56,6 +66,7 @@ $(function() {
       }
     });
     $('#next').bind('click', function() {
+      $('#stop').click();
       if (bchanx.player.hasOwnProperty('loadVideoById')) {
         bchanx.player.loadVideoById(playlist.next());
       }
