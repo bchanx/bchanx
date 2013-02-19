@@ -15,7 +15,7 @@
   position: relative;
   width: @width;
   height: @height;
-  margin: 20px auto;
+  margin: 20px auto 0 auto;
   #video-src,
   #video-src-none {
     position: absolute;
@@ -38,36 +38,84 @@
   margin: 0 auto;
   width: @width;
   #video-controls {
-    border: 1px black solid;
+    margin-top: 10px;
     width: @width;
-    height: 50px;
-    #play, #pause, #prev, #next, #shuffle {
+    height: 36px;
+    #play, #pause, #prev, #next, #shuffle, #playlist {
+      vertical-align: top;
       cursor: pointer;
       border: 1px black solid;
       display: inline-block;
       width: 100px;
-      height: 50px;
-      margin-right: 20px;
+      height: 36px;
+      margin-right: 31px;
     }
     #pause {
       display: none;
     }
     #shuffle {
       &.on {
-        border: 1px green solid;
         &:after {
+          font-size: 12px;
+          color: @green;
           content: " (on)";
         }
       }
       &.off {
-        border: 1px red solid;
         &:after {
+          font-size: 12px;
+          color: @red;
           content: " (off)";
         }
       }
     }
+    #playlist {
+      margin-right: 0;
+      &.show {
+        &:after {
+          font-size: 12px;
+          color: @red;
+          content: " (hide)";
+        }
+      }
+      &.hide {
+        &:after {
+          font-size: 12px;
+          color: @green;
+          content: " (show)";
+        }
+      }
+    }
+  }
+  #video-playing-info {
+    margin-top: 10px;
+    border: 1px solid @gray;
+    width: @width;
+    height: 36px;
+    #video-title, #video-length {
+      line-height: 36px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: inline-block;
+    }
+    #video-title {
+      font-weight: 700;
+      color: @green;
+      padding: 0 10px 0 20px;
+      text-align: left;
+      width: @width * 0.85 - 3;
+      max-width: @width * 0.85;
+    }
+    #video-length {
+      padding: 0 20px 0 10px;
+      text-align: right;
+      width: @width * 0.15 - 3;
+      max-width: @width * 0.15;
+    }
   }
   #video-playlist {
+    display: none;
     margin-top: 10px;
     width: @width;
     table {
