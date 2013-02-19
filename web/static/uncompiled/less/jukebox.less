@@ -41,13 +41,16 @@
     border: 1px black solid;
     width: @width;
     height: 50px;
-    #play, #stop, #next, #shuffle {
+    #play, #pause, #prev, #next, #shuffle {
       cursor: pointer;
       border: 1px black solid;
       display: inline-block;
       width: 100px;
       height: 50px;
       margin-right: 20px;
+    }
+    #pause {
+      display: none;
     }
     #shuffle {
       &.on {

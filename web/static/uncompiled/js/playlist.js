@@ -52,11 +52,19 @@ var Playlist = function(player, videos, shuffled) {
   self.toggleShuffle = function() {
     self.isShuffled = !self.isShuffled;
   };
+  self.prev = function() {
+    var cur = self.currentList();
+    if (cur.indexOf(self.current) >= 0) {
+      var index = (cur.indexOf(self.current) + cur.length - 1) % cur.length;
+      self.current = cur[index];
+    }
+    return self.getMediaId();
+  };
   self.next = function() {
     var cur = self.currentList();
     if (cur.indexOf(self.current) >= 0) {
-      var index = cur.indexOf(self.current);
-      self.current = cur[(index + 1) % cur.length];
+      var index = (cur.indexOf(self.current) + 1) % cur.length;
+      self.current = cur[index];
     }
     return self.getMediaId();
   };

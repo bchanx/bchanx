@@ -22,10 +22,24 @@ function onPlayerReady(e) {
 }
 
 function onPlayerStateChange(e) {
-  if (e.data == YT.PlayerState.ENDED) {
+  if (e.data == YT.PlayerState.PLAYING) {
+    showPause();
+  } else if (e.data == YT.PlayerState.PAUSED) {
+    showPlay();
+  } else if  (e.data == YT.PlayerState.ENDED) {
     $('#next').click();
   }
 }
+
+var showPlay = function() {
+  $('#pause').hide();
+  $('#play').css('display', 'inline-block');
+};
+
+var showPause = function() {
+  $('#play').hide();
+  $('#pause').css('display', 'inline-block');
+};
 
 var formatTime = function(t) {
   return Math.floor(t / 60) + ':' + ("0" + t % 60).slice(-2);
@@ -63,7 +77,7 @@ $(function() {
       $('.playing').removeClass('playing');
       $(jq(playlist.getId())).addClass('playing');
     };
-    $('#stop').bind('click', function() {
+    $('#pause').bind('click', function() {
       if (bchanx.player.hasOwnProperty('pauseVideo')) {
         bchanx.player.pauseVideo();
       }
@@ -73,8 +87,13 @@ $(function() {
         bchanx.player.playVideo();
       }
     });
+    $('#prev').bind('click', function() {
+      if (bchanx.player.hasOwnProperty('loadVideoById')) {
+        bchanx.player.loadVideoById(playlist.prev());
+        highlightNowPlaying();
+      }
+    });
     $('#next').bind('click', function() {
-      $('#stop').click();
       if (bchanx.player.hasOwnProperty('loadVideoById')) {
         bchanx.player.loadVideoById(playlist.next());
         highlightNowPlaying();
@@ -99,7 +118,6 @@ $(function() {
       $('#video-settings').fadeIn();
     }, 200);
     $(document).on('click', '.mediaItem', function() {
-      $('#stop').click();
       if (playlist.setCurrent($(this).attr('id'))) {
         bchanx.player.loadVideoById(playlist.getMediaId());
         highlightNowPlaying();
