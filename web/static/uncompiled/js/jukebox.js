@@ -76,8 +76,10 @@ $(function() {
     var updateNowPlaying = function() {
       $('.playing').removeClass('playing');
       $(jq(playlist.getId())).addClass('playing');
-      $('#video-title').html(playlist.current['meta']['title']);
-      $('#video-length').html(formatTime(playlist.current['meta']['duration']));
+      var title = playlist.current['meta']['title'];
+      var length = playlist.current['meta']['duration'];
+      $('#video-title').attr('title', title).text(title);
+      $('#video-length').text(formatTime(length));
     };
     $('#pause').bind('click', function() {
       if (bchanx.player.hasOwnProperty('pauseVideo')) {
