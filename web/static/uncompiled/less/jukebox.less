@@ -41,22 +41,27 @@
     margin-top: 10px;
     width: @width;
     height: 36px;
-    #play, #pause, #prev, #next, #shuffle, #playlist {
+    #play, #pause, #prev, #next {
+      width: 70px;
+    }
+    #repeat, #shuffle, #playlist {
+      width: 100px;
+    }
+    #play, #pause, #prev, #next, #repeat, #shuffle, #playlist {
       font-weight: 700;
       text-align: center;
       vertical-align: top;
       cursor: pointer;
       border: 1px black solid;
       display: inline-block;
-      width: 100px;
       height: 36px;
       line-height: 36px;
-      margin-right: 31px;
+      margin-right: 22px;
     }
     #pause {
       display: none;
     }
-    #shuffle {
+    #shuffle, #repeat {
       &.on {
         &:after {
           font-size: 12px;

@@ -28,6 +28,7 @@ var Playlist = function(player, videos, shuffled) {
   };
   self.shuffledVideos = self.getShuffleOrder();
   self.isShuffled = !!shuffled;
+  self.isRepeat = false;
   self.currentList = function() {
     return (self.isShuffled) ? self.shuffledVideos : self.videos;
   };
@@ -51,6 +52,9 @@ var Playlist = function(player, videos, shuffled) {
   };
   self.toggleShuffle = function() {
     self.isShuffled = !self.isShuffled;
+  };
+  self.toggleRepeat = function() {
+    self.isRepeat = !self.isRepeat;
   };
   self.prev = function() {
     var cur = self.currentList();

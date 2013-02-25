@@ -27,7 +27,7 @@ function onPlayerStateChange(e) {
   } else if (e.data == YT.PlayerState.PAUSED) {
     showPlay();
   } else if  (e.data == YT.PlayerState.ENDED) {
-    $('#next').click();
+    $('#next').trigger('click', [true]);
   }
 }
 
@@ -97,11 +97,18 @@ $(function() {
         updateNowPlaying();
       }
     });
-    $('#next').bind('click', function() {
-      if (bchanx.player.hasOwnProperty('loadVideoById')) {
+    $('#next').bind('click', function(event, mediaHasEnded) {
+      if (mediaHasEnded && playlist.isRepeat) {
+        bchanx.player.seekTo(0);
+      } else if (bchanx.player.hasOwnProperty('loadVideoById')) {
         bchanx.player.loadVideoById(playlist.next());
         updateNowPlaying();
       }
+    });
+    $('#repeat').bind('click', function() {
+      playlist.toggleRepeat();
+      var r = playlist.isRepeat;
+      $('#repeat').removeClass((r) ? 'off' : 'on').addClass((r) ? 'on' : 'off');
     });
     var setShuffle = function() {
       var s = playlist.isShuffled;
