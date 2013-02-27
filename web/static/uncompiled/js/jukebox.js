@@ -50,53 +50,58 @@ var jq = function(id) {
 };
 
 $(function() {
-  var createPlaylist = function(data) {
-    var table = $('#video-table').clone();
-    var playlist = $('<tbody></tbody>');
+  var createPlaylist = function(data, className) {
+    var playlist = $('<tbody class="' + className + '" style="display: none"></tbody>');
     for (var d = 0; d < data.length; d++) {
       var item = data[d];
       var track = item['meta']['title'];
       var length = formatTime(item['meta']['duration']);
-      playlist.append('<tr id="' + item['id'] + '" class="mediaItem">' + 
+      playlist.append('<tr mediaid="' + item['id'] + '" class="mediaItem themeable">' + 
         '<td class="track" title="' + track + '">' + track + '</td><td class="length">' + length + '</td></tr>');
     }
-    table.append(playlist.html());
-    return table.html();
+    return playlist;
   };
 
   var onGetAllMedia = function(data) {
     var playlist = new Playlist('video-src', data, true);
-    var normalPlaylist = createPlaylist(playlist.videos);
-    var shuffledPlaylist = createPlaylist(playlist.shuffledVideos);
+
     if (playlist.isEmpty()) {
       $('#video-src-none').css('visibility', 'visible');
     } else {
       $('#video-src').attr('src', playlist.getUrl()).css('visibility', 'visible');
+      var normalPlaylist = createPlaylist(playlist.videos, 'normal-playlist');
+      var shuffledPlaylist = createPlaylist(playlist.shuffledVideos, 'shuffled-playlist');
+      $('#video-table').append(normalPlaylist, shuffledPlaylist);
     }
+
     var updateNowPlaying = function() {
       $('.playing').removeClass('playing');
-      $(jq(playlist.getId())).addClass('playing');
+      $('tr[mediaid="' + playlist.getId() + '"]').addClass('playing');
       var title = playlist.current['meta']['title'];
       var length = playlist.current['meta']['duration'];
       $('#video-title').attr('title', title).text(title);
       $('#video-length').text(formatTime(length));
     };
+
     $('#pause').bind('click', function() {
       if (bchanx.player.hasOwnProperty('pauseVideo')) {
         bchanx.player.pauseVideo();
       }
     });
+
     $('#play').bind('click', function() {
       if (bchanx.player.hasOwnProperty('playVideo')) {
         bchanx.player.playVideo();
       }
     });
+
     $('#prev').bind('click', function() {
       if (bchanx.player.hasOwnProperty('loadVideoById')) {
         bchanx.player.loadVideoById(playlist.prev());
         updateNowPlaying();
       }
     });
+
     $('#next').bind('click', function(event, mediaHasEnded) {
       if (mediaHasEnded && playlist.isRepeat) {
         bchanx.player.seekTo(0);
@@ -105,25 +110,28 @@ $(function() {
         updateNowPlaying();
       }
     });
+
     $('#repeat').bind('click', function() {
       playlist.toggleRepeat();
       var r = playlist.isRepeat;
       $('#repeat').removeClass((r) ? 'off' : 'on').addClass((r) ? 'on' : 'off');
     });
+
     var setShuffle = function() {
       var s = playlist.isShuffled;
       $('#shuffle').removeClass((s) ? 'off' : 'on').addClass((s) ? 'on' : 'off');
-      $('#video-table').css('opacity', 0)
-        .html((s) ? shuffledPlaylist : normalPlaylist )
-        .animate({'opacity': 1}, 400, function() {
-          updateNowPlaying();
-        });
+      var oldPlaylist = 'tbody.' + ((s) ? 'normal' : 'shuffled') + '-playlist';
+      var switchingPlaylist = 'tbody.' + ((s) ? 'shuffled' : 'normal') + '-playlist';
+      $(oldPlaylist).css('opacity', 0).hide();
+      $(switchingPlaylist).show().animate({'opacity': 1}, 400, function() { updateNowPlaying(); });
     };
     setShuffle();
+
     $('#shuffle').bind('click', function() {
       playlist.toggleShuffle();
       setShuffle();
     });
+
     $('#playlist').bind('click', function() {
       if ($(this).hasClass('hide')) {
         $(this).removeClass('hide').addClass('show');
@@ -135,10 +143,12 @@ $(function() {
         $('#video-playing-info').fadeIn();
       }
     });
+
     $('#video-player').fadeIn();
     setTimeout(function() {
       $('#video-settings').fadeIn();
     }, 200);
+
     $(document).on('click', '.mediaItem', function() {
       if (playlist.setCurrent($(this).attr('id'))) {
         bchanx.player.loadVideoById(playlist.getMediaId());
@@ -168,5 +178,17 @@ $(function() {
       }
     });
   });
+
+  $('#theme span').bind('click', function() {
+    var currentTheme = $(this).parent().attr('current-theme');
+    var selectedTheme = $(this).attr('id');
+    $('.themeable').removeClass(currentTheme).addClass(selectedTheme);
+    $('#theme').attr('current-theme', selectedTheme);
+    $('#theme span').show();
+    $('#theme span#' + selectedTheme).hide();
+  });
+
+  $('.themeable').addClass($('#theme').attr('current-theme'));
+
 });
 

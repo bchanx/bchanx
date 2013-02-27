@@ -27,12 +27,17 @@
     .box-shadow(0 0 @radius * 0.05 0 rgba(0, 0, 0, 0.5));
     border: 1px rgba(0, 0, 0, 0.3) solid;
     position: relative;
+    &.dark-theme {
+      border: 1px rgba(255, 255, 255, 0.3) solid;
+      .box-shadow(0 0 @radius * 0.3 0 rgba(255, 255, 255, 1));
+    }
     .logo-text {
       width: @radius - 2;
       height: @radius - 2;
       .border-radius(50%);
       .transform(rotateY(180deg));
       .backface-visibility(hidden);
+      background-color: @white;
       position: absolute;
       .logo-b {
         position: relative;

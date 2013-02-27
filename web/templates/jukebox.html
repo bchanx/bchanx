@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% import 'header.html' as header %}
-
 {% block header %}
   {{ header.render('Jukebox', 'small') }}
 {% endblock %}
@@ -11,7 +10,7 @@
     <div id="video-src-none">Playlist is empty.</div>
   </div>
   <div id="video-settings">
-    <div id="video-controls">
+    <div id="video-controls" class="themeable">
       <div id="play">Play</div>
       <div id="pause">Pause</div>
       <div id="prev">Prev</div>
@@ -22,12 +21,12 @@
     </div>
     <div id="video-playing-info">
       <div id="video-title"></div>
-      <div id="video-length"></div>
+      <div id="video-length" class="themeable"></div>
     </div>
     <div id="video-playlist">
       <table id="video-table">
         <thead>
-          <tr>
+          <tr class="themeable">
             <th scope="col" class="track">Track</th>
             <th scope="col" class="length">Length</th>
           </tr>
@@ -40,5 +39,9 @@
         <input type="submit" value="Add"/>
       </form>
     {% endif %}
+    <div id="theme" current-theme="dark-theme">
+      <span id="light-theme">- light -</span>
+      <span id="dark-theme">- dark -</span>
+    </div>
   </div>
 {% endblock %}

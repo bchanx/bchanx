@@ -10,6 +10,29 @@
 @width: 640px;
 @height: 360px;
 
+html {
+  &.dark-theme {
+    background-color: @black;
+  }
+}
+
+#theme {
+  margin: 10px auto 0 auto;
+  font-weight: 300;
+  width: 50px;
+  height: 20px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 20px;
+  #light-theme {
+    color: @lightgray;
+  }
+  #dark-theme {
+    display: none;
+    color: @black;
+  }
+}
+
 #video-player {
   display: none;
   position: relative;
@@ -52,11 +75,17 @@
       text-align: center;
       vertical-align: top;
       cursor: pointer;
-      border: 1px black solid;
+      border: 1px @gray solid;
       display: inline-block;
       height: 36px;
       line-height: 36px;
       margin-right: 22px;
+    }
+    &.dark-theme {
+      #play, #pause, #prev, #next, #repeat, #shuffle, #playlist {
+        border-color: @gray;
+        color: @lightgray;
+      }
     }
     #pause {
       display: none;
@@ -120,6 +149,9 @@
       text-align: right;
       width: @width * 0.15 - 3;
       max-width: @width * 0.15;
+      &.dark-theme {
+        color: @white;
+      }
     }
   }
   #video-playlist {
@@ -136,13 +168,21 @@
         &:hover {
           background-color: @lightgreen;
         }
+        &.dark-theme {
+          &:hover {
+            background-color: @gray;
+          }
+        }
         &.playing .track {
           font-weight: 700;
-          color: @green;
+          color: @green !important;
         }
       }
       tr {
         border: 1px solid @gray;
+        &.dark-theme {
+          color: @lightgray;
+        }
         th, td {
           white-space: nowrap;
           overflow: hidden;
@@ -167,7 +207,7 @@
   }
   #video-add {
     margin-top: 10px;
-    border: 1px @black solid;
+    border: 1px @gray solid;
     width: @width;
     padding: 10px;
   }
