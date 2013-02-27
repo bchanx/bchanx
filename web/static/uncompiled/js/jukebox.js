@@ -72,6 +72,7 @@ $(function() {
       var normalPlaylist = createPlaylist(playlist.videos, 'normal-playlist');
       var shuffledPlaylist = createPlaylist(playlist.shuffledVideos, 'shuffled-playlist');
       $('#video-table').append(normalPlaylist, shuffledPlaylist);
+      $('tr.themeable').addClass($('#theme').attr('current-theme'));
     }
 
     var updateNowPlaying = function() {
@@ -156,6 +157,8 @@ $(function() {
       }
     });
   };
+  
+  $('.themeable').addClass($('#theme').attr('current-theme'));
 
   $.ajax({
     'url': '/jukebox/getAll',
@@ -187,8 +190,6 @@ $(function() {
     $('#theme span').show();
     $('#theme span#' + selectedTheme).hide();
   });
-
-  $('.themeable').addClass($('#theme').attr('current-theme'));
 
 });
 
