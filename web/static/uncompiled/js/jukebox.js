@@ -151,7 +151,7 @@ $(function() {
     }, 200);
 
     $(document).on('click', '.mediaItem', function() {
-      if (playlist.setCurrent($(this).attr('id'))) {
+      if (playlist.setCurrent($(this).attr('mediaid'))) {
         bchanx.player.loadVideoById(playlist.getMediaId());
         updateNowPlaying();
       }
