@@ -11,7 +11,7 @@ import requests
 import xml.dom.minidom as minidom
 from web import app, db
 from web.base import render, staticUrl
-from models import Media, MediaType
+from models import Media, MediaType, Playlist, PlaylistState
 from flask import request
 from sqlalchemy.exc import ProgrammingError
 
@@ -21,6 +21,21 @@ from sqlalchemy.exc import ProgrammingError
 def jukebox():
   """Render the jukebox!"""
   return render('jukebox.html', css='jukebox.less', js='jukebox.js', yt=True, debug=flask.current_app.debug)
+
+
+@app.route('/jukebox/getAllPlaylists', methods=['GET'])
+def getAllPlaylists():
+  playlists = []
+  try:
+    pl = Playlist.query.all()
+    playlists = [{
+      pid: p.id,
+      userid: p.userid,
+      title: p.title,
+    } for p in pl if p.state == PlaylistState.PUBLIC]
+  except ProgrammingError:
+    pass
+  return json.dumps(playlists)
 
 
 @app.route('/jukebox/getAll', methods=['GET'])
@@ -38,8 +53,7 @@ def getAllMedia():
         'duration': m.duration
       }
     } for m in media]
-  except ProgrammingError as e:
-    # Table doesn't exist
+  except ProgrammingError:
     pass
   return json.dumps(mediaList)
 
