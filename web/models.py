@@ -4,6 +4,8 @@
 # Contact: bchanx@gmail.com
 #
 
+import json
+from datetime import datetime
 from web import db
 
 
@@ -34,4 +36,39 @@ class Media(db.Model):
 
   def __repr__(self):
     return '<Media - %s:%s>' % (self.mediaType, self.mediaId)
+
+
+
+class PlaylistState(object):
+  """State of a playlist."""
+
+  DELETED = -1
+  PUBLIC = 0
+  PRIVATE = 1
+
+
+
+class Playlist(db.Model):
+  """Playlist object."""
+  id = db.Column(db.Integer, primary_key=True)
+  userid = db.Column(db.Integer)
+  title = db.Column(db.String(80))
+  state = db.Column(db.Integer)
+  mediaIdList = db.Column(db.Text)
+  created = db.Column(db.DateTime)
+  modified = db.Column(db.DateTime)
+
+  
+  def __init__(self, userid, title, state=PlaylistState.PUBLIC, mediaIdList=None):
+    self.userid = userid
+    self.title = title
+    self.state = state
+    self.mediaIdList = json.dumps(mediaIdList or [])
+    now = datetime.utcnow()
+    self.created = now
+    self.modified = now
+
+
+  def __repr__(self):
+    return '<Playlist - User: %s, Title: %s>' % (self.userid, self.title)
 
