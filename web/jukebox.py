@@ -13,6 +13,7 @@ from web import app, db
 from web.base import render, staticUrl
 from models import Media, MediaType
 from flask import request
+from sqlalchemy.exc import ProgrammingError
 
 
 
@@ -25,16 +26,21 @@ def jukebox():
 @app.route('/jukebox/getAll', methods=['GET'])
 def getAllMedia():
   """Get all media items."""
-  media = Media.query.all()
-  mediaList = [{
-    'id': ':'.join([str(m.mediaType), m.mediaId]),
-    'meta': {
-      'mediaId': m.mediaId,
-      'mediaType': m.mediaType,
-      'title': m.title,
-      'duration': m.duration
-    }
-  } for m in media]
+  mediaList = []
+  try:
+    media = Media.query.all()
+    mediaList = [{
+      'id': ':'.join([str(m.mediaType), m.mediaId]),
+      'meta': {
+        'mediaId': m.mediaId,
+        'mediaType': m.mediaType,
+        'title': m.title,
+        'duration': m.duration
+      }
+    } for m in media]
+  except ProgrammingError as e:
+    # Table doesn't exist
+    pass
   return json.dumps(mediaList)
 
 

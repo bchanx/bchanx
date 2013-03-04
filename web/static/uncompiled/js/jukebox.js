@@ -167,20 +167,22 @@ $(function() {
     'success': onGetAllMedia
   });
 
-  $('#video-add').bind('submit', function(e) {
-    e.preventDefault();
-    $.ajax({
-      'url': this.action,
-      'data': $(this).serialize(), 
-      'type': 'POST',
-      'dataType': 'json',
-      'success': function(data) {
-        // Insert to playlist
-        $('form #url').val('');
-        console.log(data);
-      }
+  if ($('#video-add').length) {
+    $('#video-add').bind('submit', function(e) {
+      e.preventDefault();
+      $.ajax({
+        'url': this.action,
+        'data': $(this).serialize(), 
+        'type': 'POST',
+        'dataType': 'json',
+        'success': function(data) {
+          // Insert to playlist
+          $('form #url').val('');
+          console.log(data);
+        }
+      });
     });
-  });
+  }
 
   $('#theme span').bind('click', function() {
     var currentTheme = $(this).parent().attr('current-theme');

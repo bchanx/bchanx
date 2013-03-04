@@ -51,8 +51,15 @@ html {
   #video-src-none {
     line-height: @height;
     text-align: center;
-    border: 1px dotted @black;
-    background: rgba(0, 0, 0, 0.05);
+    &.dark-theme {
+      color: @lightgray;
+      border: 1px dotted @lightgray;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    &.light-theme {
+      border: 1px dotted @black;
+      background: rgba(0, 0, 0, 0.2);
+    }
   }
 }
 
