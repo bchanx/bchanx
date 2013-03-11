@@ -25,6 +25,7 @@ class Media(db.Model):
   mediaType = db.Column(db.Integer)
   title = db.Column(db.String(200))
   duration = db.Column(db.String(20))
+  uniqueId = db.Column(db.String(100))
 
 
   def __init__(self, mediaId, mediaType, title, duration):
@@ -32,10 +33,11 @@ class Media(db.Model):
     self.mediaType = mediaType
     self.title = title
     self.duration = duration
+    self.uniqueId = '%s:%s' % (str(mediaType), mediaId)
 
 
   def __repr__(self):
-    return '<Media - %s:%s>' % (self.mediaType, self.mediaId)
+    return '<Media - %s>' % (self.uniqueId)
 
 
 

@@ -70,29 +70,12 @@ def playlistLoad():
   try:
     pid = int(request.form.get('pid', 1))
     if pid > 0:
-      return mediaGet()
+      playlist = Playlist.query.get(pid)
+      if playlist:
+        return mediaGet(json.loads(playlist.mediaIdList))
   except ValueError:
     pass
   return json.dumps([])
-    
-
-def mediaGet(mediaIdList=None):
-  """Get media items from db."""
-  mediaList = []
-  try:
-    media = Media.query.all()
-    mediaList = [{
-      'id': mediaGetUniqueId(m),
-      'meta': {
-        'mediaId': m.mediaId,
-        'mediaType': m.mediaType,
-        'title': m.title,
-        'duration': m.duration
-      }
-    } for m in media]
-  except ProgrammingError:
-    pass
-  return json.dumps(mediaList)
 
 
 @app.route('/jukebox/playlistAddMedia', methods=['POST'])
@@ -103,10 +86,9 @@ def playlistAddMedia():
   mediaUrl = request.form.get('media-url', '')
   media = mediaAdd(url)
   if media and pid > 0:
-    mediaUniqueId = mediaGetUniqueId(media)
     playlist = Playlist.query.filter_by(id=pid).first()
     mediaIdList = json.loads(playlist.mediaIdList)
-    if mediaUniqueId not in mediaIdList:
+    if media.uniqueId not in mediaIdList:
       mediaIdList.append(mediaUniqueId)
       playlist.mediaIdList = json.dumps(mediaIdList)
       db.session.add(playlist)
@@ -116,9 +98,26 @@ def playlistAddMedia():
   return json.dumps({'status': 'ERROR'})
 
 
-def mediaGetUniqueId(media):
-  """The unique representation of a media object."""
-  return media and '%s:%s' % (str(media.mediaType), media.mediaId)
+def mediaGet(mediaIdList=None):
+  """Get media items from db."""
+  mediaList = []
+  try:
+    if mediaIdList:
+      media = Media.query.filter(Media.uniqueId.in_(mediaIdList)).all()
+    else:
+      media = Media.query.all()
+    mediaList = [{
+      'id': m.uniqueId,
+      'meta': {
+        'mediaId': m.mediaId,
+        'mediaType': m.mediaType,
+        'title': m.title,
+        'duration': m.duration
+      }
+    } for m in media]
+  except ProgrammingError:
+    pass
+  return json.dumps(mediaList)
 
 
 def mediaAdd(url):
