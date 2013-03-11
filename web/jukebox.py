@@ -60,7 +60,7 @@ def playlistEdit():
     playlist.mediaIdList = json.dumps(mediaIdList)
     db.session.add(playlist)
     db.session.commit()
-  return json.dumps({'status': 'WAT')
+  return json.dumps({'status': 'WAT'})
 
 
 @app.route('/jukebox/playlistLoad', methods=['POST'])
