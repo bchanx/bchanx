@@ -62,7 +62,27 @@ $(function() {
     return playlist;
   };
 
-  var onGetAllMedia = function(data) {
+  var onPlaylistGetAll = function(data) {
+    if (data.length) {
+      var playlists = $('<ul></ul>');
+      for (var i = 0; i < data.length; i++) {
+        playlists.append('<li pid="' + data[i].pid + '">' + data[i].title + '</li>');
+      }
+      $('#playlists').append(playlists).fadeIn();
+      $.ajax({
+        'url': '/jukebox/playlistLoad',
+        'type': 'POST',
+        'data': {'pid': 1},
+        'dataType': 'json',
+        'success': onPlaylistFirstLoad
+      });
+    } else {
+      $('#video-src-none').css('visibility', 'visible');
+      $('#video-player').fadeIn();
+    }
+  };
+
+  var onPlaylistFirstLoad = function(data) {
     var playlist = new Playlist('video-src', data, true);
 
     if (playlist.isEmpty()) {
@@ -161,10 +181,10 @@ $(function() {
   $('.themeable').addClass($('#theme').attr('current-theme'));
 
   $.ajax({
-    'url': '/jukebox/getAll',
+    'url': '/jukebox/playlistGetAll',
     'type': 'GET',
     'dataType': 'json',
-    'success': onGetAllMedia
+    'success': onPlaylistGetAll
   });
 
   if ($('#video-add').length) {

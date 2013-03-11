@@ -212,11 +212,36 @@ html {
       }
     }
   }
-  #video-add {
+  #video-add, #playlist-create, #playlist-add {
     margin-top: 10px;
     border: 1px @gray solid;
     width: @width;
     padding: 10px;
+    &.dark-theme {
+      color: @lightgray;
+    }
+  }
+}
+
+#playlists {
+  display: none;
+  border: 1px @black solid;
+  margin: 10px auto 0 auto;
+  width: @width;
+  padding: 20px;
+  li {
+    cursor: pointer;
+  }
+  &.dark-theme {
+    border: 1px solid @gray;
+    &.dark-theme {
+      color: @lightgray;
+      border: 1px dotted @lightgray;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    li {
+      color: @lightgray;
+    }
   }
 }
 

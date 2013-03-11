@@ -34,9 +34,17 @@
       </table>
     </div>
     {% if debug %}
-      <form id="video-add" action="{{ url_for('addMedia') }}" method="POST">
-        <input type="text" id="url" name="url"/>
-        <input type="submit" value="Add"/>
+      <div id="playlists" class="themeable"></div>
+      <form id="playlist-create" class="themeable" action="{{ url_for('playlistCreate') }}" method="POST">
+        <input type="text" id="playlist-title" name="playlist-title" placeholder="title"/>
+        <input type="radio" name="playlist-state" value="0" checked/>Public
+        <input type="radio" name="playlist-state" value="-1"/>Private
+        <input type="submit" value="Create"/>
+      </form>
+      <form id="playlist-add" class="themeable" action="{{ url_for('playlistAddMedia') }}" method="POST">
+        <input type="text" id="media-url" name="media-url" placeholder="url"/>
+        <input type="text" id="pid" name="pid" placeholder="pid"/>
+        <input type="submit" value="Add To Playlist"/>
       </form>
     {% endif %}
     <div id="theme" current-theme="dark-theme">
