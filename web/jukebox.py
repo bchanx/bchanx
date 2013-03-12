@@ -82,14 +82,17 @@ def playlistLoad():
 def playlistAddMedia():
   """Adds a media item to a playlist."""
   # TODO: Default to my playlist for now
-  pid = request.form.get('pid', 1)
-  mediaUrl = request.form.get('media-url', '')
+  try:
+    pid = int(request.form.get('pid'))
+  except ValueError:
+    pid = 1
+  url = request.form.get('media-url', '')
   media = mediaAdd(url)
   if media and pid > 0:
     playlist = Playlist.query.filter_by(id=pid).first()
     mediaIdList = json.loads(playlist.mediaIdList)
     if media.uniqueId not in mediaIdList:
-      mediaIdList.append(mediaUniqueId)
+      mediaIdList.append(media.uniqueId)
       playlist.mediaIdList = json.dumps(mediaIdList)
       db.session.add(playlist)
       db.session.commit()

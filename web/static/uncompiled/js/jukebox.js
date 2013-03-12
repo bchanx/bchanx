@@ -187,8 +187,8 @@ $(function() {
     'success': onPlaylistGetAll
   });
 
-  if ($('#video-add').length) {
-    $('#video-add').bind('submit', function(e) {
+  if ($('#playlist-add').length) {
+    $('#playlist-add').bind('submit', function(e) {
       e.preventDefault();
       $.ajax({
         'url': this.action,
@@ -197,7 +197,7 @@ $(function() {
         'dataType': 'json',
         'success': function(data) {
           // Insert to playlist
-          $('form #url').val('');
+          $('form #media-url').val('');
           console.log(data);
         }
       });
