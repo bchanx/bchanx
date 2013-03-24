@@ -17,6 +17,7 @@ html {
 }
 
 #theme {
+  display: none;
   margin: 10px auto 0 auto;
   font-weight: 300;
   width: 50px;
@@ -43,12 +44,15 @@ html {
   #video-src-none {
     position: absolute;
     top: 0;
-    visibility: hidden;
     margin: 0 auto;
     width: @width;
     height: @height;
   }
+  #video-src {
+    display: none
+  }
   #video-src-none {
+    visibility: visible;
     line-height: @height;
     text-align: center;
     &.dark-theme {
@@ -58,7 +62,7 @@ html {
     }
     &.light-theme {
       border: 1px dotted @black;
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.03);
     }
   }
 }
@@ -118,15 +122,15 @@ html {
       &.show {
         &:after {
           font-size: 12px;
-          color: @red;
-          content: " (hide)";
+          color: @green;
+          content: " (show)";
         }
       }
       &.hide {
         &:after {
           font-size: 12px;
-          color: @green;
-          content: " (show)";
+          color: @red;
+          content: " (hide)";
         }
       }
     }
@@ -225,22 +229,33 @@ html {
 
 #playlists {
   display: none;
-  border: 1px @black solid;
+  border: 1px @black dotted;
+  background: rgba(0, 0, 0, 0.03);
   margin: 10px auto 0 auto;
   width: @width;
-  padding: 20px;
+  padding: 15px 0;
   li {
+    height: 25px;
+    line-height: 25px;
+    padding: 0 20px;
     cursor: pointer;
+    &:hover {
+      background-color: @lightgreen;
+    }
+    &.playlist-playing {
+      font-weight: 700;
+      color: @green !important;
+    }
   }
   &.dark-theme {
-    border: 1px solid @gray;
-    &.dark-theme {
-      color: @lightgray;
-      border: 1px dotted @lightgray;
-      background: rgba(255, 255, 255, 0.05);
-    }
+    color: @lightgray;
+    border: 1px dotted @lightgray;
+    background: rgba(255, 255, 255, 0.05);
     li {
       color: @lightgray;
+      &:hover {
+        background-color: @gray;
+      }
     }
   }
 }

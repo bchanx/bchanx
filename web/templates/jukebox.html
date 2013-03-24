@@ -9,6 +9,7 @@
     <iframe id="video-src" type="text/html" frameborder="0" src="" mozallowfullscreen webkitallowfullscreen></iframe>
     <div id="video-src-none" class="themeable">Playlist is empty.</div>
   </div>
+  <div id="playlists" class="themeable"></div>
   <div id="video-settings">
     <div id="video-controls" class="themeable">
       <div id="play">Play</div>
@@ -17,7 +18,7 @@
       <div id="next">Next</div>
       <div id="repeat" class="off">Repeat</div>
       <div id="shuffle">Shuffle</div>
-      <div id="playlist" class="hide">Playlist</div>
+      <div id="playlist" class="show">Playlist</div>
     </div>
     <div id="video-playing-info">
       <div id="video-title"></div>
@@ -34,7 +35,6 @@
       </table>
     </div>
     {% if debug %}
-      <div id="playlists" class="themeable"></div>
       <form id="playlist-create" class="themeable" action="{{ url_for('playlistCreate') }}" method="POST">
         <input type="text" id="playlist-title" name="playlist-title" placeholder="title"/>
         <input type="radio" name="playlist-state" value="0" checked/>Public
@@ -47,9 +47,9 @@
         <input type="submit" value="Add To Playlist"/>
       </form>
     {% endif %}
-    <div id="theme" current-theme="dark-theme">
-      <span id="light-theme">- light -</span>
-      <span id="dark-theme">- dark -</span>
-    </div>
+  </div>
+  <div id="theme" current-theme="dark-theme">
+    <span id="light-theme">- light -</span>
+    <span id="dark-theme">- dark -</span>
   </div>
 {% endblock %}

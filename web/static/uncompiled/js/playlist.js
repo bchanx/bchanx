@@ -16,7 +16,7 @@ var Playlist = function(player, videos, shuffled) {
   for (var i = 0; i < self.videos.length; i++) {
     self.idToVideo[self.videos[i]['id']] = self.videos[i];
   }
-  self.getShuffleOrder = function() {
+  var getShuffleOrder = function() {
     var order = self.videos.slice(0);
     for (var i = order.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
@@ -26,7 +26,7 @@ var Playlist = function(player, videos, shuffled) {
     }
     return order;
   };
-  self.shuffledVideos = self.getShuffleOrder();
+  self.shuffledVideos = getShuffleOrder();
   self.isShuffled = !!shuffled;
   self.isRepeat = false;
   self.currentList = function() {

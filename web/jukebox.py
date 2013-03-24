@@ -10,6 +10,7 @@ import urlparse
 import requests
 import xml.dom.minidom as minidom
 from web import app, db
+from datetime import datetime
 from web.base import render, staticUrl
 from models import Media, MediaType, Playlist, PlaylistState
 from flask import request
@@ -54,7 +55,7 @@ def playlistEdit():
   """Edits a playlist."""
   # TODO: actually edit the playlist.
   if flask.current_app.debug:
-    media = json.loads(mediaGet())
+    media = mediaGet()
     mediaIdList = [mediaItem['id'] for mediaItem in media]
     playlist = Playlist.query.get(1)
     playlist.mediaIdList = json.dumps(mediaIdList)
@@ -66,16 +67,16 @@ def playlistEdit():
 @app.route('/jukebox/playlistLoad', methods=['POST'])
 def playlistLoad():
   """Loads a playlist."""
-  result = {'status': 'OK'}
+  result = {'pid': request.form.get('pid'), 'data': []}
   try:
-    pid = int(request.form.get('pid', 1))
+    pid = int(request.form.get('pid'))
     if pid > 0:
       playlist = Playlist.query.get(pid)
       if playlist:
-        return mediaGet(json.loads(playlist.mediaIdList))
+        result['data'] = mediaGet(json.loads(playlist.mediaIdList))
   except ValueError:
     pass
-  return json.dumps([])
+  return json.dumps(result)
 
 
 @app.route('/jukebox/playlistAddMedia', methods=['POST'])
@@ -83,7 +84,7 @@ def playlistAddMedia():
   """Adds a media item to a playlist."""
   # TODO: Default to my playlist for now
   try:
-    pid = int(request.form.get('pid'))
+    pid = max(1, int(request.form.get('pid')))
   except ValueError:
     pid = 1
   url = request.form.get('media-url', '')
@@ -94,6 +95,7 @@ def playlistAddMedia():
     if media.uniqueId not in mediaIdList:
       mediaIdList.append(media.uniqueId)
       playlist.mediaIdList = json.dumps(mediaIdList)
+      playlist.modified = datetime.utcnow()
       db.session.add(playlist)
       db.session.commit()
       return json.dumps({'status': 'OK'})
@@ -120,7 +122,7 @@ def mediaGet(mediaIdList=None):
     } for m in media]
   except ProgrammingError:
     pass
-  return json.dumps(mediaList)
+  return mediaList
 
 
 def mediaAdd(url):
