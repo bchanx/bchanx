@@ -65,7 +65,7 @@ bchanx.Controls = function() {
     '#left': '#playlists-container',
     '#center': '#video-container',
     '#right': '#about-container'
-  }
+  };
 
   var clickAndRotate = function(id, frontback, sides) {
     if (!self.active) {
