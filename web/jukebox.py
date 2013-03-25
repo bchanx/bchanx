@@ -73,7 +73,9 @@ def playlistLoad():
     if pid > 0:
       playlist = Playlist.query.get(pid)
       if playlist:
-        result['data'] = mediaGet(json.loads(playlist.mediaIdList))
+        medialist = json.loads(playlist.mediaIdList)
+        if medialist:
+          result['data'] = mediaGet(medialist)
   except ValueError:
     pass
   return json.dumps(result)
