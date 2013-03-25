@@ -37,10 +37,72 @@ function onPlayerStateChange(e) {
   }
 }
 
-// Main jukebox object.
-bchanx.Jukebox = function() {
+// Jukebox controls.
+bchanx.Controls = function() {
   var self = this;
-  self.playlist= null;
+  self.active = false;
+
+  var transform = function(rules) {
+    return {
+      '-webkit-transform': rules,
+      '-moz-transform': rules,
+      '-o-transform': rules,
+      'transform': rules
+    }
+  };
+  
+  self.enable = function() {
+    self.active = false;
+  };
+
+  self.disable = function() {
+    self.active = true;
+  };
+
+  var clickAndRotate = function(id, frontback, sides) {
+    if (!self.active) {
+      self.active = true;
+      $('.control-active').removeClass('control-active');
+      $('#cube-frontback').css(transform("rotateY(" + frontback + "deg)"));
+      $('#cube-sides').css(transform("rotateY(" + sides + "deg)"));
+      $(id).addClass('control-active');
+      self.active = false;
+    }
+  };
+
+  self.init = function() {
+    $('#left').bind('click', function() {
+      clickAndRotate('#left', 90, 0);
+    });
+
+    $('#center').bind('click', function() {
+      clickAndRotate('#center', 0, -90);
+    });
+
+    $('#right').bind('click', function() {
+      clickAndRotate('#right', -90, -180);
+    });
+  };
+
+  self.left = function() {
+    $('#left').click();
+  };
+
+  self.center = function() {
+    $('#center').click();
+  };
+
+  self.right = function() {
+    $('#right').click();
+  };
+};
+
+
+// Main jukebox object.
+bchanx.Jukebox = function(controls) {
+  var self = this;
+  self.controls = controls;
+  self.playlist = null;
   self.playlistData = {};
 
   // Format a timestamp into (MM:SS).
@@ -135,42 +197,35 @@ bchanx.Jukebox = function() {
       }
       $('#playlists').append(playlists);
     }
-    $('#video-player').fadeIn();
-    $('#playlists').fadeIn();
-    $('#theme').fadeIn();
+    var show = ['#video-player', '#theme', '#playlists'];
+    for (var s in show) {
+      $(show[s]).show();
+    }
+    var fadeIn = ['#cube-frontback', '#cube-sides', '#controls'];
+    for (var f in fadeIn) {
+      $(fadeIn[f]).fadeIn();
+    }
   };
 
   // Loads a playlist.
   self.loadPlaylist = function(pid) {
-    if (self.playlistData[pid]) {
-      return self.onLoadPlaylist(pid, self.playlistData[pid]);
-    }
-    $.ajax({
-      'url': '/jukebox/playlistLoad',
-      'type': 'POST',
-      'data': {'pid': pid},
-      'dataType': 'json',
-      'success': function(result) {
-        self.playlistData[result.pid] = result.data;
-        self.onLoadPlaylist(result.pid, result.data);
+    self.controls.center();
+    self.controls.disable();
+    setTimeout(function() {
+      if (self.playlistData[pid]) {
+        return self.onLoadPlaylist(pid, self.playlistData[pid]);
       }
-    });
-  };
-
-  // Toggles video display.
-  self.toggleVideoDisplay = function(hide) {
-    if (hide) {
-      if (bchanx.player.hasOwnProperty('stopVideo')) {
-        bchanx.player.stopVideo();
-      }
-      $('.playlist-playing').removeClass('playlist-playing');
-      $('#video-src').hide();
-      $('#video-settings').hide();
-      $('#video-src-none').css('visibility', 'visible');
-    } else {
-      $('#video-src-none').css('visibility', 'hidden');
-      $('#video-src').show();
-    }
+      $.ajax({
+        'url': '/jukebox/playlistLoad',
+        'type': 'POST',
+        'data': {'pid': pid},
+        'dataType': 'json',
+        'success': function(result) {
+          self.playlistData[result.pid] = result.data;
+          self.onLoadPlaylist(result.pid, result.data);
+        }
+      });
+    }, 500);
   };
 
   // Callback after selecting a playlist.
@@ -194,6 +249,23 @@ bchanx.Jukebox = function() {
       self.toggleShuffle(true);
       self.updateNowPlaying(pid);
       $('#video-settings').fadeIn();
+    }
+    self.controls.enable();
+  };
+
+  // Toggles video display.
+  self.toggleVideoDisplay = function(hide) {
+    if (hide) {
+      if (bchanx.player.hasOwnProperty('stopVideo')) {
+        bchanx.player.stopVideo();
+      }
+      $('.playlist-playing').removeClass('playlist-playing');
+      $('#video-src').hide();
+      $('#video-settings').hide();
+      $('#video-src-none').css('visibility', 'visible');
+    } else {
+      $('#video-src-none').css('visibility', 'hidden');
+      $('#video-src').show();
     }
   };
 
@@ -267,7 +339,9 @@ $(function() {
     $('#theme span#' + selectedTheme).hide();
   });
 
-  var jukebox = new bchanx.Jukebox();
+  var controls = new bchanx.Controls();
+  controls.init();
+  var jukebox = new bchanx.Jukebox(controls);
   jukebox.init();
 
   var formIds = ['#playlist-add', '#playlist-create'];

@@ -41,6 +41,18 @@ body {
   padding-bottom: 40px;
 }
 
+a,
+a:hover,
+a:active,
+a:visited,
+a:focus {
+  color: @green;
+  font-weight: 400;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
 
 //////////////////// FORMAT
 #header {
@@ -122,7 +134,15 @@ body {
 
 .transform-style(@rules) {
   -webkit-transform-style: @rules;
+  -moz-transform-style: @rules;
   transform-style: @rules;
+}
+
+.transform-origin(@rules) {
+  -webkit-transform-origin: @rules;
+  -moz-transform-origin: @rules;
+  -o-transform-origin: @rules;
+  transform-origin: @rules;
 }
 
 .backface-visibility(@type) {

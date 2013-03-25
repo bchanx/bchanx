@@ -5,51 +5,72 @@
 {% endblock %}
 
 {% block body %}
-  <div id="video-player">
-    <iframe id="video-src" type="text/html" frameborder="0" src="" mozallowfullscreen webkitallowfullscreen></iframe>
-    <div id="video-src-none" class="themeable">Playlist is empty.</div>
+  <div id="controls" class="themeable">
+    <div id="left" class="control-active">Playlists</div>
+    <div id="center">Video</div>
+    <div id="right">About</div>
   </div>
-  <div id="playlists" class="themeable"></div>
-  <div id="video-settings">
-    <div id="video-controls" class="themeable">
-      <div id="play">Play</div>
-      <div id="pause">Pause</div>
-      <div id="prev">Prev</div>
-      <div id="next">Next</div>
-      <div id="repeat" class="off">Repeat</div>
-      <div id="shuffle">Shuffle</div>
-      <div id="playlist" class="show">Playlist</div>
+
+  <div id="cube-sides">
+    <div id="playlists-container">
+      <div id="playlists" class="themeable"></div>
     </div>
-    <div id="video-playing-info">
-      <div id="video-title"></div>
-      <div id="video-length" class="themeable"></div>
+    <div id="about-container">
+      <div id="about" class="themeable">
+        &copy; 2013.
+        <br/><a href="https://www.twitter.com/bchanx">@bchANx</a>
+      </div>
     </div>
-    <div id="video-playlist">
-      <table id="video-table">
-        <thead>
-          <tr class="themeable">
-            <th scope="col" class="track">Track</th>
-            <th scope="col" class="length">Length</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-    {% if debug %}
-      <form id="playlist-create" class="themeable" action="{{ url_for('playlistCreate') }}" method="POST">
-        <input type="text" id="playlist-title" name="playlist-title" placeholder="title"/>
-        <input type="radio" name="playlist-state" value="0" checked/>Public
-        <input type="radio" name="playlist-state" value="-1"/>Private
-        <input type="submit" value="Create"/>
-      </form>
-      <form id="playlist-add" class="themeable" action="{{ url_for('playlistAddMedia') }}" method="POST">
-        <input type="text" id="media-url" name="media-url" placeholder="url"/>
-        <input type="text" id="pid" name="pid" placeholder="pid"/>
-        <input type="submit" value="Add To Playlist"/>
-      </form>
-    {% endif %}
   </div>
-  <div id="theme" current-theme="dark-theme">
-    <span id="light-theme">- light -</span>
-    <span id="dark-theme">- dark -</span>
+
+  <div id="cube-frontback">
+    <div id="video-container">
+      <div id="video-player">
+        <iframe id="video-src" type="text/html" frameborder="0" src="" mozallowfullscreen webkitallowfullscreen></iframe>
+        <div id="video-src-none" class="themeable">Playlist is empty.</div>
+      </div>
+      <div id="video-settings">
+        <div id="video-controls" class="themeable">
+          <div id="play">Play</div>
+          <div id="pause">Pause</div>
+          <div id="prev">Prev</div>
+          <div id="next">Next</div>
+          <div id="repeat" class="off">Repeat</div>
+          <div id="shuffle">Shuffle</div>
+          <div id="playlist" class="show">Playlist</div>
+        </div>
+        <div id="video-playing-info">
+          <div id="video-title"></div>
+          <div id="video-length" class="themeable"></div>
+        </div>
+        <div id="video-playlist">
+          <table id="video-table">
+            <thead>
+              <tr class="themeable">
+                <th scope="col" class="track">Track</th>
+                <th scope="col" class="length">Length</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        {% if debug %}
+          <form id="playlist-create" class="themeable" action="{{ url_for('playlistCreate') }}" method="POST">
+            <input type="text" id="playlist-title" name="playlist-title" placeholder="title"/>
+            <input type="radio" name="playlist-state" value="0" checked/>Public
+            <input type="radio" name="playlist-state" value="-1"/>Private
+            <input type="submit" value="Create"/>
+          </form>
+          <form id="playlist-add" class="themeable" action="{{ url_for('playlistAddMedia') }}" method="POST">
+            <input type="text" id="media-url" name="media-url" placeholder="url"/>
+            <input type="text" id="pid" name="pid" placeholder="pid"/>
+            <input type="submit" value="Add To Playlist"/>
+          </form>
+        {% endif %}
+      </div>
+      <div id="theme" current-theme="dark-theme">
+        <span id="light-theme">- light -</span>
+        <span id="dark-theme">- dark -</span>
+      </div>
+    </div>
   </div>
 {% endblock %}
