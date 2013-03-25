@@ -262,9 +262,9 @@ bchanx.Jukebox = function(controls) {
       }
       self.toggleTracklist(true);
       self.toggleShuffle(true);
-      self.updateNowPlaying(pid);
       $('#video-settings').fadeIn();
     }
+    self.updateNowPlaying(pid);
     self.controls.enable();
   };
 
