@@ -59,13 +59,28 @@ bchanx.Controls = function() {
     self.active = true;
   };
 
+  var controllers = ['#playlists-container', '#video-container', '#about-container'];
+
+  var controlMap = {
+    '#left': '#playlists-container',
+    '#center': '#video-container',
+    '#right': '#about-container'
+  }
+
   var clickAndRotate = function(id, frontback, sides) {
     if (!self.active) {
       self.active = true;
+      var fadeIn = controlMap[id];
+      for (var c in controllers) {
+        if (controllers[c] != fadeIn) {
+          $(controllers[c]).fadeOut(800);
+        }
+      }
       $('.control-active').removeClass('control-active');
       $('#cube-frontback').css(transform("rotateY(" + frontback + "deg)"));
       $('#cube-sides').css(transform("rotateY(" + sides + "deg)"));
       $(id).addClass('control-active');
+      $(fadeIn).fadeIn(800);
       self.active = false;
     }
   };
@@ -225,7 +240,7 @@ bchanx.Jukebox = function(controls) {
           self.onLoadPlaylist(result.pid, result.data);
         }
       });
-    }, 500);
+    }, 600);
   };
 
   // Callback after selecting a playlist.
