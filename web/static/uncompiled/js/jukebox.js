@@ -5,6 +5,7 @@
 //
 
 bchanx.require('playlist.js');
+bchanx.require('controls.js');
 
 bchanx.player = {};
 
@@ -36,82 +37,6 @@ function onPlayerStateChange(e) {
     $('#next').trigger('click', [true]);
   }
 }
-
-// Jukebox controls.
-bchanx.Controls = function() {
-  var self = this;
-  self.active = false;
-
-  var transform = function(rules) {
-    return {
-      '-webkit-transform': rules,
-      '-moz-transform': rules,
-      '-o-transform': rules,
-      'transform': rules
-    }
-  };
-  
-  self.enable = function() {
-    self.active = false;
-  };
-
-  self.disable = function() {
-    self.active = true;
-  };
-
-  var controllers = ['#playlists-container', '#video-container', '#about-container'];
-
-  var controlMap = {
-    '#left': '#playlists-container',
-    '#center': '#video-container',
-    '#right': '#about-container'
-  };
-
-  var clickAndRotate = function(id, frontback, sides) {
-    if (!self.active) {
-      self.active = true;
-      var fadeIn = controlMap[id];
-      for (var c in controllers) {
-        if (controllers[c] != fadeIn) {
-          $(controllers[c]).fadeOut(800);
-        }
-      }
-      $('.control-active').removeClass('control-active');
-      $('#cube-frontback').css(transform("rotateY(" + frontback + "deg)"));
-      $('#cube-sides').css(transform("rotateY(" + sides + "deg)"));
-      $(id).addClass('control-active');
-      $(fadeIn).fadeIn(800);
-      self.active = false;
-    }
-  };
-
-  self.init = function() {
-    $('#left').bind('click', function() {
-      clickAndRotate('#left', 90, 0);
-    });
-
-    $('#center').bind('click', function() {
-      clickAndRotate('#center', 0, -90);
-    });
-
-    $('#right').bind('click', function() {
-      clickAndRotate('#right', -90, -180);
-    });
-  };
-
-  self.left = function() {
-    $('#left').click();
-  };
-
-  self.center = function() {
-    $('#center').click();
-  };
-
-  self.right = function() {
-    $('#right').click();
-  };
-};
-
 
 // Main jukebox object.
 bchanx.Jukebox = function(controls) {
@@ -216,7 +141,7 @@ bchanx.Jukebox = function(controls) {
     for (var s in show) {
       $(show[s]).show();
     }
-    var fadeIn = ['#cube-frontback', '#cube-sides', '#controls'];
+    var fadeIn = ['#cube-frontback', '#cube-sides', '#controls-container'];
     for (var f in fadeIn) {
       $(fadeIn[f]).fadeIn();
     }
@@ -224,7 +149,7 @@ bchanx.Jukebox = function(controls) {
 
   // Loads a playlist.
   self.loadPlaylist = function(pid) {
-    self.controls.center();
+    self.controls.select('video');
     self.controls.disable();
     setTimeout(function() {
       if (self.playlistData[pid]) {

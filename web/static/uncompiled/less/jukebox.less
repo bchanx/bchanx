@@ -35,35 +35,29 @@ html {
 }
 
 #controls {
-  display: none;
-  position: relative;
   width: @width;
-  margin: 10px auto 0 auto;
   height: 20px;
-  color: @black;
-  #left, #right, #center {
-    cursor: pointer;
-    &.control-active {
-      font-weight: 400;
-      color: @green;
+  margin: 10px auto 0 auto;
+  #controls-container {
+    display: none;
+    width: @width;
+    height: 20px;
+    position: relative;
+    color: @black;
+    #controls-prev, #controls-next {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
     }
-  }
-  #left {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  #center {
-    width: 40px;
-    margin: 0 auto;
-  }
-  #right {
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-  &.dark-theme {
-    color: @lightgray;
+    #controls-prev {
+      left: 0;
+    }
+    #controls-next {
+      right: 0;
+    }
+    &.dark-theme {
+      color: @lightgray;
+    }
   }
 }
 
