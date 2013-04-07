@@ -6,8 +6,6 @@
 
 bchanx.Controls = function() {
 
-  //var controllers = ['#playlists-container', '#video-container', '#about-container'];
-
   var controllers = {
     'playlists': {
       'id': '#playlists-container',
@@ -48,7 +46,10 @@ bchanx.Controls = function() {
   };
 
   var self = this;
+
   self.active = false;
+
+  self.current = 'playlists';
 
   self.enable = function() {
     self.active = false;
@@ -59,24 +60,26 @@ bchanx.Controls = function() {
   };
 
   var clickAndRotate = function(key) {
-    var current = key != 'none' && controllers[key];
-    if (!self.active && current) {
+    var show = key != 'none' && controllers[key];
+    if (!self.active && show) {
       self.active = true;
       $('#controls-container').hide();
-      var p = current['prev'];
-      var n = current['next'];
+      var p = show['prev'];
+      var n = show['next'];
       $('#controls-prev').attr('meta', p).html(controllers[p]['name']);
       $('#controls-next').attr('meta', n).html(controllers[n]['name']);
       for (var c in controllers) {
-        if (controllers[c]['id'] != current['id']) {
+        if (controllers[c]['id'] != show['id']) {
           $(controllers[c]['id']).fadeOut(800);
         }
       }
-      $('#cube-frontback').css(transform("rotateY(" + current['frontback'] + "deg)"));
-      $('#cube-sides').css(transform("rotateY(" + current['sides'] + "deg)"));
-      $(current['id']).fadeIn(800);
-      $('#controls-container').fadeIn(800);
-      self.active = false;
+      self.current = key;
+      $('#cube-frontback').css(transform("rotateY(" + show['frontback'] + "deg)"));
+      $('#cube-sides').css(transform("rotateY(" + show['sides'] + "deg)"));
+      $(show['id']).fadeIn(800, function() {
+        $('#controls-container').fadeIn(100);
+        self.active = false;
+      });
     }
   };
 
@@ -91,6 +94,18 @@ bchanx.Controls = function() {
 
   self.select = function(key) {
     clickAndRotate(key);
+  };
+
+  self.next = function() {
+    if (self.current) {
+      self.select(controllers[self.current]['next']);
+    } 
+  };
+
+  self.prev = function() {
+    if (self.current) {
+      self.select(controllers[self.current]['prev']);
+    } 
   };
 };
 

@@ -126,6 +126,26 @@ bchanx.Jukebox = function(controls) {
     $(document).on('click', 'li[pid]', function() {
       self.loadPlaylist($(this).attr('pid'));
     });
+
+    $(document).keydown(function(e) {
+      // Right arrow
+      if (e.which === 39) {
+        self.controls.next();
+      // Left arrow
+      } else if (e.which === 37) {
+        self.controls.prev();
+      // n
+      } else if (e.which === 78) {
+        $('#next').click();
+      // p
+      } else if (e.which === 80) {
+        $('#prev').click();
+      // s
+      } else if (e.which === 83) {
+        $('#shuffle').click();
+      }
+      // Up (38), Down (40)
+    });
   };
 
   // Callback for retrieving playlists.
