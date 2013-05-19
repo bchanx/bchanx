@@ -85,7 +85,7 @@
 
 // TWITTER
 #logo-twitter-actual {
-  background: @black url('/static/images/twitter-bird-dark-bgs.png') no-repeat;
+  background: @black url('/static/images/twitter.png') no-repeat;
   background-size: 300px 300px;
   .border-radius(100%);
   width: 300px;
@@ -128,74 +128,74 @@
     left: 15 * @ratio;
     width: 206 * @ratio;
     height: 206 * @ratio;
-    &.none {
-      top: 56 * @ratio;
-      left: -6 * @ratio;
-      width: 150 * @ratio;
-      height: 150 * @ratio;
-    }
+  }
+  .body.none {
+    top: 56 * @ratio;
+    left: -6 * @ratio;
+    width: 150 * @ratio;
+    height: 150 * @ratio;
   }
   .wing-top {
     top: 65 * @ratio;
     left: 68 * @ratio;
     width: 88 * @ratio;
     height: 77 * @ratio;
-    &.none {
-      top: -77 * @ratio;
-      left: 53 * @ratio;
-      width: 200 * @ratio;
-      height: 200 * @ratio;
-    }
+  }
+  .wing-top.none {
+    top: -77 * @ratio;
+    left: 53 * @ratio;
+    width: 200 * @ratio;
+    height: 200 * @ratio;
   }
   .wing-middle {
     top: 95 * @ratio;
     left: 68 * @ratio;
     width: 88 * @ratio;
     height: 73 * @ratio;
-    &.none {
-      top: -25 * @ratio;
-      left: 20 * @ratio;
-      width: 160 * @ratio;
-      height: 160 * @ratio;
-    }
+  }
+  .wing-middle.none {
+    top: -25 * @ratio;
+    left: 20 * @ratio;
+    width: 160 * @ratio;
+    height: 160 * @ratio;
   }
   .wing-bottom {
     top: 121 * @ratio;
     left: 80 * @ratio;
     width: 70 * @ratio;
     height: 70 * @ratio;
-    &.none {
-      top: 106 * @ratio;
-      left: 58 * @ratio;
-      width: 60 * @ratio;
-      height: 60 * @ratio;
-      background-color: @black;
-    }
+  }
+  .wing-bottom.none {
+    top: 106 * @ratio;
+    left: 58 * @ratio;
+    width: 60 * @ratio;
+    height: 60 * @ratio;
+    background-color: @black;
   }
   .beak-bottom {
     width: 100 * @ratio;
     height: 100 * @ratio;
     left: 145 * @ratio;
     top: 21 * @ratio;
-    &.none {
-      width: 115 * @ratio;
-      height: 115 * @ratio;
-      left: 155 * @ratio;
-      top: -14 * @ratio;
-    }
+  }
+  .beak-bottom.none {
+    width: 115 * @ratio;
+    height: 115 * @ratio;
+    left: 155 * @ratio;
+    top: -14 * @ratio;
   }
   .beak-top {
     width: 65 * @ratio;
     height: 65 * @ratio;
     left: 170 * @ratio;
     top: 39 * @ratio;
-    &.none {
-      width: 115 * @ratio;
-      height: 115 * @ratio;
-      left: 144 * @ratio;
-      top: -25 * @ratio;
-      background-color: @black;
-    }
+  }
+  .beak-top.none {
+    width: 115 * @ratio;
+    height: 115 * @ratio;
+    left: 144 * @ratio;
+    top: -25 * @ratio;
+    background-color: @black;
   }
   .head {
     width: 72 * @ratio;
@@ -205,4 +205,193 @@
   }
 }
 
+
+// GITHUB
+#logo-github-actual {
+  background: @white url('/static/images/github.png') no-repeat;
+  background-size: 300px 300px;
+  .border-radius(100%);
+  width: 300px;
+  height: 300px;
+}
+
+#logo-github-large {
+  .logo-github(150px);
+}
+
+#logo-github-small {
+  .logo-github(25px);
+}
+
+.logo-github(@radius) {
+  @ratio: (2 * @radius) / 300;
+  background-color: @black;
+  width: 2 * @radius;
+  height: 2 * @radius;
+  .border-radius(@radius);
+  .border-radius-fix();
+  position: relative;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  &:hover {
+    .tail-body-spots, .tail-end-spots {
+      border-color: @green;
+    }
+    background-color: @green;
+    div.none {
+      background-color: @green;
+    }
+  }
+  div {
+    position: absolute;
+    border-radius: 100%;
+    background-color: @white;
+    &.none {
+      background-color: @black;
+    }
+  }
+  .head {
+    width: 188 * @ratio;
+    height: 140 * @ratio;
+    left: 56 * @ratio;
+    top: 75 * @ratio;
+  }
+  .chin-left {
+    width: 125 * @ratio;
+    height: 136 * @ratio;
+    left: 54 * @ratio;
+    top: 82 * @ratio;
+  }
+  .chin-right {
+    width: 125 * @ratio;
+    height: 136 * @ratio;
+    left: 121 * @ratio;
+    top: 82 * @ratio;
+  }
+  .ear-one-left {
+    width: 70 * @ratio;
+    height: 90 * @ratio;
+    left: 67 * @ratio;
+    top: 42 * @ratio;
+  }
+  .ear-one-right {
+    width: 46 * @ratio;
+    height: 11 * @ratio;
+    left: 70 * @ratio;
+    top: 69 * @ratio;
+    .transform(rotateZ(23deg));
+  }
+  .ear-one.none {
+    width: 102 * @ratio;
+    height: 43 * @ratio;
+    left: 70 * @ratio;
+    top: 38 * @ratio;
+  }
+  .ear-two-left {
+    width: 46 * @ratio;
+    height: 11 * @ratio;
+    left: 185 * @ratio;
+    top: 69 * @ratio;
+    .transform(rotateZ(-23deg));
+  }
+  .ear-two-right {
+    width: 70 * @ratio;
+    height: 90 * @ratio;
+    left: 163 * @ratio;
+    top: 42 * @ratio;
+  }
+  .ear-two.none {
+    width: 102 * @ratio;
+    height: 43 * @ratio;
+    left: 128 * @ratio;
+    top: 38 * @ratio;
+  }
+  .body-left {
+    width: 56 * @ratio;
+    height: 88 * @ratio;
+    left: 112 * @ratio;
+    top: 209 * @ratio;
+  }
+  .body-left.none {
+    width: 8 * @ratio;
+    height: 40 * @ratio;
+    left: 104 * @ratio;
+    top: 254 * @ratio;
+    .border-radius(4 * @ratio, 0, 4 * @ratio, 0);
+  }
+  .body-right {
+    width: 56 * @ratio;
+    height: 88 * @ratio;
+    left: 132 * @ratio;
+    top: 209 * @ratio;
+  }
+  .body-right.none {
+    width: 8 * @ratio;
+    height: 40 * @ratio;
+    left: 188 * @ratio;
+    top: 254 * @ratio;
+    .border-radius(0, 4 * @ratio, 0, 4 * @ratio);
+  }
+  .body-bottom {
+    width: 88 * @ratio;
+    height: 109 * @ratio;
+    left: 106 * @ratio;
+    top: 233 * @ratio;
+  }
+  .tail-body {
+    width: 72 * @ratio;
+    height: 48 * @ratio;
+    left: 61 * @ratio;
+    top: 214 * @ratio;
+  }
+  .tail-body.none {
+    width: 61 * @ratio;
+    height: 50 * @ratio;
+    left: 67 * @ratio;
+    top: 192 * @ratio;
+  }
+  .tail-end {
+    width: 49 * @ratio;
+    height: 40 * @ratio;
+    left: 21 * @ratio;
+    top: 211 * @ratio;
+  }
+  .tail-end.none {
+    width: 64 * @ratio;
+    height: 80 * @ratio;
+    left: 0;
+    top: 217 * @ratio;
+  }
+  .tail-tip {
+    width: 19 * @ratio;
+    height: 9 * @ratio;
+    left: 39 * @ratio;
+    top: 211 * @ratio;
+  }
+  .tail-tip.none {
+    width: 20 * @ratio;
+    height: 15 * @ratio;
+    left: 26 * @ratio;
+    top: 209 * @ratio;
+  }
+  .tail-body-spots {
+    border-bottom: 5 * @ratio @black dotted;
+    background: transparent;
+    .border-radius(0, 0, 135 * @ratio, 155 * @ratio);
+    width: 69 * @ratio;
+    height: 59 * @ratio;
+    left: 61 * @ratio;
+    top: 192 * @ratio;
+  }
+  .tail-end-spots {
+    border-top: 2 * @ratio @black dotted;
+    background: transparent;
+    .border-radius(130 * @ratio, 180 * @ratio, 0, 0);
+    width: 23 * @ratio;
+    height: 59 * @ratio;
+    left: 41 * @ratio;
+    top: 216 * @ratio;
+  }
+}
 
