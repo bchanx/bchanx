@@ -3,16 +3,20 @@
 
 {% block body %}
   <div id="bchanx">
-    {{ logo.render('medium') }}
-    bchanx
-    <br/>
-    <div id="links">
+    <div id="banner">
+      {{ logo.bchanx('medium') }}
+      bchanx
+    </div>
+    <div id="projects">
       <a href="/jukebox">Jukebox</a>
-      </br>
+      <br/>
       <a href="https://www.github.com/bchanx">Github</a>
-      </br>
-      <a href="https://www.twitter.com/bchanx">Twitter</a>
+      <br/>
+    </div>
+    <div id="links">
+      <div class="icon">
+        <a href="https://www.twitter.com/bchanx">{{ logo.twitter('small') }}</a>
+      </div>
     </div>
   </div>
 {% endblock %}
-

@@ -1,8 +1,10 @@
 {% import 'logo.html' as logo %}
 
-{% macro render(name, size='medium') -%}
-  <a href="/">{{ logo.render(size) }}</a>
+{% macro render(name, size) -%}
+<div id="header-container">
+  <a href="/">{{ logo.bchanx(size) }}</a>
   <div id="header-content" class="themeable">
     {{ name }}
   </div>
+</div>
 {%- endmacro %}

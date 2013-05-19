@@ -56,23 +56,25 @@ a:hover {
 
 //////////////////// FORMAT
 #header {
-  height: 100px;
-  min-width: 800px;
-  padding: 20px 20px 0;
-  display: block;
-  #header-content {
-    pointer-events: none;
-    width: 100%;
-    margin-top: -85px;
-    text-align: center;
-    vertical-align: top;
-    display: inline-block;
-    font-weight: 300;
-    font-size: 60px;
-    line-height: 75px;
-    color: @black;
-    &.dark-theme {
-      color: @lightgray;
+  #header-container {
+    height: 100px;
+    min-width: 800px;
+    padding: 20px 20px 0;
+    display: block;
+    #header-content {
+      pointer-events: none;
+      width: 100%;
+      margin-top: -85px;
+      text-align: center;
+      vertical-align: top;
+      display: inline-block;
+      font-weight: 300;
+      font-size: 60px;
+      line-height: 75px;
+      color: @black;
+      &.dark-theme {
+        color: @lightgray;
+      }
     }
   }
 }
@@ -83,6 +85,9 @@ a:hover {
   margin: 0 auto;
 }
 
+#footer {
+
+}
 
 //////////////////// STYLING
 .user-select-none {
@@ -101,6 +106,16 @@ a:hover {
   border-radius: @radius;
 }
 
+/*
+ * This fixes an overflow:hidden issue in webkit.
+ * Webkit has issues properly cropping children elements when border-radius and positioning is set on a parent.
+ * The bug causes children elements to appear beyond the borders of the parent element.
+ * http://stackoverflow.com/questions/5736503/how-to-make-css3-rounded-corners-hide-overflow-in-chrome-opera
+ */
+.border-radius-fix() {
+  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+}
+
 // inset? h-shadow v-shadow blur spread color
 .box-shadow(@style) {
   -webkit-box-shadow: @style;
@@ -110,6 +125,15 @@ a:hover {
   box-shadow: @style;
 }
 
+.linear-gradient (top, @c1, @c2) {
+  background-color: @c1;
+  background-image: -webkit-gradient(linear, left top, left bottom, from (@c1), to(@c2));
+  background-image: -webkit-linear-gradient(top, @c1, @c2);
+  background-image: -moz-linear-gradient(top, @c1, @c2);
+  background-image: -ms-linear-gradient(top, @c1, @c2);
+  background-image: -o-linear-gradient(top, @c1, @c2);
+  background-image: linear-gradient(top, @c1, @c2);
+}
 
 //////////////////// CSS3 TRANSLATION/TRANSITIONS
 .transition(@rules) {

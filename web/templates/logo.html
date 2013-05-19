@@ -1,8 +1,27 @@
-{% macro render(size) -%}
-  <div class="logo-{{ size }}">
+{% macro bchanx(size) -%}
+  <div class="logo-bchanx-{{ size }}">
     <div class="logo-content themeable">
       <div class="logo-text"><div class="logo-b"></div></div>
       <div class="logo-pic"><img src="/static/images/profile-medium.jpg"/></div>
     </div>
+  </div>
+{%- endmacro %}
+
+
+{% macro twitter(size) -%}
+  <div id="logo-twitter-{{ size }}">
+    <div class="body"></div>
+    <div class="body none"></div>
+    <div class="beak-bottom"></div>
+    <div class="beak-bottom none"></div>
+    <div class="wing-bottom"></div>
+    <div class="wing-bottom none"></div>
+    <div class="wing-middle"></div>
+    <div class="wing-middle none"></div>
+    <div class="wing-top"></div>
+    <div class="wing-top none"></div>
+    <div class="beak-top"></div>
+    <div class="beak-top none"></div>
+    <div class="head"></div>
   </div>
 {%- endmacro %}
