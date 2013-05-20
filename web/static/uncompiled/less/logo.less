@@ -4,85 +4,6 @@
 // Contact: bchanx@gmail.com
 //
 
-// BCHANX
-.logo-bchanx-medium {
-  .logo-bchanx(100px);
-}
-
-.logo-bchanx-small {
-  .logo-bchanx(80px);
-}
-
-.logo-bchanx (@radius) {
-  width: @radius;
-  height: @radius;
-  display: inline-block;
-  .user-select-none();
-  .logo-content {
-    .transition(transform, ~"0.4s ease");
-    .transform-style(preserve-3d);
-    width: @radius;
-    height: @radius;
-    .border-radius(50%);
-    .box-shadow(0 0 @radius * 0.05 0 rgba(0, 0, 0, 0.5));
-    border: 1px rgba(0, 0, 0, 0.3) solid;
-    position: relative;
-    &.dark-theme {
-      border: 1px rgba(255, 255, 255, 0.3) solid;
-      .box-shadow(0 0 @radius * 0.3 0 rgba(255, 255, 255, 1));
-    }
-    .logo-text {
-      width: @radius - 2;
-      height: @radius - 2;
-      .border-radius(50%);
-      .transform(rotateY(180deg));
-      .backface-visibility(hidden);
-      background-color: @white;
-      position: absolute;
-      .logo-b {
-        position: relative;
-        &:before, &:after {
-          content: "";
-          position: absolute;
-          border-style: solid;
-          border-color: @black;
-        }
-        &:before {
-          left: @radius * 0.34;
-          top: @radius * 0.185;
-          height: @radius * 0.6;
-          border-width: 0 0 0 ceil(@radius * 0.07);
-        }
-        &:after {
-          top: @radius * 0.39;
-          left: @radius * 0.34;
-          width: @radius * 0.3;
-          border-width: ceil(@radius * 0.03) ceil(@radius * 0.05);
-          border-left: none;
-          height: @radius * 0.34;
-          border-radius: 0 @radius * 0.2 @radius * 0.2 0;
-        }
-      }
-    }
-    .logo-pic {
-      width: @radius;
-      height: @radius;
-      .backface-visibility(hidden);
-      z-index: 1;
-      position: absolute;
-      img {
-        position: absolute;
-        .border-radius(50%);
-        width: @radius - 2;
-        height: @radius - 2;
-      }
-    }
-  }
-  &:hover .logo-content {
-    .transform(rotateY(180deg));
-  }
-}
-
 // TWITTER
 #logo-twitter-actual {
   background: @black url('/static/images/twitter.png') no-repeat;
@@ -101,7 +22,7 @@
 }
 
 .logo-twitter(@radius) {
-  @ratio: (2 * @radius) / 290;
+  @ratio: (2 * @radius) / 300;
   background-color: @black;
   width: 2 * @radius;
   height: 2 * @radius;
@@ -109,17 +30,11 @@
   .border-radius-fix();
   position: relative;
   overflow: hidden;
-  &:hover {
-    background-color: @green;
-    div.none {
-      background-color: @green;
-    }
-  }
   div {
     position: absolute;
     border-radius: 100%;
     background-color: @white;
-    &.none {
+    &[class*=-none] {
       background-color: @black;
     }
   }
@@ -129,7 +44,7 @@
     width: 206 * @ratio;
     height: 206 * @ratio;
   }
-  .body.none {
+  .body-none {
     top: 56 * @ratio;
     left: -6 * @ratio;
     width: 150 * @ratio;
@@ -141,7 +56,7 @@
     width: 88 * @ratio;
     height: 77 * @ratio;
   }
-  .wing-top.none {
+  .wing-top-none {
     top: -77 * @ratio;
     left: 53 * @ratio;
     width: 200 * @ratio;
@@ -153,7 +68,7 @@
     width: 88 * @ratio;
     height: 73 * @ratio;
   }
-  .wing-middle.none {
+  .wing-middle-none {
     top: -25 * @ratio;
     left: 20 * @ratio;
     width: 160 * @ratio;
@@ -165,7 +80,7 @@
     width: 70 * @ratio;
     height: 70 * @ratio;
   }
-  .wing-bottom.none {
+  .wing-bottom-none {
     top: 106 * @ratio;
     left: 58 * @ratio;
     width: 60 * @ratio;
@@ -178,7 +93,7 @@
     left: 145 * @ratio;
     top: 21 * @ratio;
   }
-  .beak-bottom.none {
+  .beak-bottom-none {
     width: 115 * @ratio;
     height: 115 * @ratio;
     left: 155 * @ratio;
@@ -190,7 +105,7 @@
     left: 170 * @ratio;
     top: 39 * @ratio;
   }
-  .beak-top.none {
+  .beak-top-none {
     width: 115 * @ratio;
     height: 115 * @ratio;
     left: 144 * @ratio;
@@ -234,20 +149,11 @@
   left: 0;
   top: 0;
   overflow: hidden;
-  &:hover {
-    .tail-body-spots, .tail-end-spots {
-      border-color: @green;
-    }
-    background-color: @green;
-    div.none {
-      background-color: @green;
-    }
-  }
   div {
     position: absolute;
     border-radius: 100%;
     background-color: @white;
-    &.none {
+    &[class*=-none] {
       background-color: @black;
     }
   }
@@ -282,7 +188,7 @@
     top: 69 * @ratio;
     .transform(rotateZ(23deg));
   }
-  .ear-one.none {
+  .ear-one-none {
     width: 102 * @ratio;
     height: 43 * @ratio;
     left: 70 * @ratio;
@@ -301,7 +207,7 @@
     left: 163 * @ratio;
     top: 42 * @ratio;
   }
-  .ear-two.none {
+  .ear-two-none {
     width: 102 * @ratio;
     height: 43 * @ratio;
     left: 128 * @ratio;
@@ -313,7 +219,7 @@
     left: 112 * @ratio;
     top: 209 * @ratio;
   }
-  .body-left.none {
+  .body-left-none {
     width: 8 * @ratio;
     height: 40 * @ratio;
     left: 104 * @ratio;
@@ -326,7 +232,7 @@
     left: 132 * @ratio;
     top: 209 * @ratio;
   }
-  .body-right.none {
+  .body-right-none {
     width: 8 * @ratio;
     height: 40 * @ratio;
     left: 188 * @ratio;
@@ -345,7 +251,7 @@
     left: 61 * @ratio;
     top: 214 * @ratio;
   }
-  .tail-body.none {
+  .tail-body-none {
     width: 61 * @ratio;
     height: 50 * @ratio;
     left: 67 * @ratio;
@@ -357,7 +263,7 @@
     left: 21 * @ratio;
     top: 211 * @ratio;
   }
-  .tail-end.none {
+  .tail-end-none {
     width: 64 * @ratio;
     height: 80 * @ratio;
     left: 0;
@@ -369,7 +275,7 @@
     left: 39 * @ratio;
     top: 211 * @ratio;
   }
-  .tail-tip.none {
+  .tail-tip-none {
     width: 20 * @ratio;
     height: 15 * @ratio;
     left: 26 * @ratio;

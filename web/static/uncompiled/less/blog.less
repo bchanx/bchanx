@@ -1,0 +1,39 @@
+//
+// Copyright 2013. All Rights Reserved.
+// Author: Brian Chan
+// Contact: bchanx@gmail.com
+//
+
+@import 'base.less';
+
+#blog-container {
+  .preamble {
+    margin: 20px auto;
+    .date {
+      font-size: 16px;
+      text-align: center;
+      letter-spacing: 0.6em;
+    }
+  }
+  .line-break {
+    height: 1px;
+    width: 400px;
+    margin: 20px auto 40px auto;
+    border-bottom: 1px @black dotted;
+  }
+  .block {
+    margin: 20px 0;
+    font-size: 20px;
+    line-height: 1.5em;
+    .subtext {
+      font-size: 14px;
+    }
+    &.demo {
+      text-align: center;
+    }
+    &.text:before {
+      content: "\a0\a0";
+    }
+  }
+}
+

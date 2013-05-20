@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% import 'header.html' as header %}
+
+{% block header %}
+  {{ header.render('Logos In Pure CSS', 'small') }}
+{% endblock %}
+
+{% block body %}
+  <div id="blog-container" class="container clearfix">
+    <div class="preamble">
+      <div class="date">May 19, 2013</div>
+    </div>
+    <div class="line-break"></div>
+    <div class="block text">
+      As a weekend project, I recreated some well known logos in pure CSS. This was purely a for fun experiment, heavily inspired by the Twitter logo done <a href="http://labs.upperdog.se/twitter-logo-in-css/">here</a>.
+    </div>
+    <div class="block demo">
+      <strong>Demo:</strong> <a href="/logos-in-pure-css-demo">Logos in Pure CSS</a>
+    </div>
+    <div class="line-break"></div>
+    <div class="block text">
+      As CSS3 becomes more powerful with each browser release, people discover more ways to hack and create things that it wasn't intended for.
+      A whole slew of icons made entirely in CSS are abound; ranging from simple <a href="http://nicolasgallagher.com/pure-css-gui-icons/">GUI icons</a>,
+      to more sophisticated <a href="http://graphicpeel.com/cssiosicons">iOS icons</a>, <a href="http://one-div.com/">animated</a> ones, and even recreating the <a href="http://codepen.io/html5web/pen/puGal">Nintendo Gameboy</a>.
+    </div>
+    <div class="block text">
+      Rendering icons in pure CSS has its advantages. It allows programmers who aren't proficient in imaging programs like Photoshop to create high quality assets.
+      It maintains image quality as it resizes, so it's not lossy on high density displays or zooms.
+      It's readily available for modifications and tweaks, mitigating the bothersome back and forth with opening Photoshop and replacing an entire directory of assets.
+      There are performance gains in 'drawing' your image by letting your more-than-capable browser render a couple lines of code, as opposed to making additional roundtrips to fetch your images.
+    </div>
+    <div class="block text">
+      Of course, it also comes with some drawbacks.
+      There's no lasso or magic brush tools handy in CSS, so even creating small 16x16 icons will be significantly slower than traditional methods.
+      It <strong>will likely</strong> break on non-modern browsers.
+      And even on modern browsers, there are often <a href="http://stackoverflow.com/questions/5736503/how-to-make-css3-rounded-corners-hide-overflow-in-chrome-opera">
+      browser specific bugs</a> that cause some fancy CSS rule to malfunction.
+    </div>
+    <div class="block text">
+      However, as more browsers <a href="http://thenextweb.com/insider/2013/04/04/opera-confirms-it-will-follow-google-and-ditch-webkit-for-blink-as-part-of-its-commitment-to-chromium/">consolidate</a> and web standards continue to unify,
+      cross-browser performance will become more and more of an afterthought. Eventually, some of these CSS hacks will become parts of standard web development.
+    </div>
+  </div>
+{% endblock %}

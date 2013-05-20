@@ -1,0 +1,78 @@
+//
+// Copyright 2013. All Rights Reserved.
+// Author: Brian Chan
+// Contact: bchanx@gmail.com
+//
+
+@import 'blog.less';
+@import 'logo.less';
+
+#logos-in-pure-css {
+  margin-bottom: 40px;
+  width: 800px;
+  .logo-block {
+    .title {
+      font-size: 20px;
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+    .logos {
+      position: relative;
+      margin-bottom: 20px;
+      width: 100%;
+      height: 322px;
+      .css, .actual {
+        vertical-align: top;
+        display: inline-block;
+        width: 400px;
+        padding: 0 50px;
+      }
+      .css {
+        .transition(~"padding-left 1.0s ease");
+        z-index: 1;
+        left: 0;
+      }
+      .actual {
+        position: absolute;
+        top: 0;
+        left: 400px;
+        .transition(~"left 1.0s ease");
+        z-index: 2;
+        opacity: 0.75;
+        &:hover {
+          left: 200px;
+          width: 600px;
+          padding-right: 250px;
+          & + .css {
+            width: 600px;
+            padding-left: 250px;
+          }
+        }
+      }
+      .css:before {
+        content: "CSS";
+        position: relative;
+      }
+      .actual:before {
+        content: "Actual";
+        position: relative;
+      }
+    }
+  }
+}
+
+#logo-twitter-large,
+#logo-github-large {
+  &:hover {
+    overflow: visible;
+    -webkit-mask-image: none;
+    div {
+      opacity: 0.8;
+      border: 2px @green solid;
+    }
+    .tail-body-spots, .tail-end-spots {
+      border: 5px @green dotted;
+    }
+  }
+}
+
