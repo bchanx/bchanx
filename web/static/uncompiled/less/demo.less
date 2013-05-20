@@ -38,12 +38,22 @@
         left: 400px;
         .transition(~"left 1.0s ease");
         z-index: 2;
-        opacity: 0.75;
+        opacity: 0.6;
         &:hover {
           left: 200px;
           width: 600px;
           padding-right: 250px;
           & + .css {
+            #logo-twitter-large,
+            #logo-github-large {
+              background-color: @green;
+              div[class*=-none] {
+                background-color: @green;
+              }
+              div[class*=-spots] {
+                border-color: @green;
+              }
+            }
             width: 600px;
             padding-left: 250px;
           }
@@ -54,7 +64,7 @@
         position: relative;
       }
       .actual:before {
-        content: "Actual";
+        content: "Image";
         position: relative;
       }
     }
