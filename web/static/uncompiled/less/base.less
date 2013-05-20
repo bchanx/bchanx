@@ -12,7 +12,7 @@
 @palegreen: #F0FFF3;
 @lightgreen: #E3FFE9;
 @green: #7CE69C;
-@darkgreen: #64A377;
+@darkgreen: #6DBF86;
 @white: #ffffff;
 @palegray: #f8f8f8;
 @lightgray: #f0f0f0;
@@ -46,11 +46,12 @@ a:hover,
 a:active,
 a:visited,
 a:focus {
-  color: @green;
+  color: @darkgreen;
   font-weight: 400;
   text-decoration: none;
 }
 a:hover {
+  color: @green;
   text-decoration: underline;
 }
 
@@ -176,6 +177,7 @@ a:hover {
 .transform(@rules) {
   -webkit-transform: @rules;
   -moz-transform: @rules;
+  -ms-transform: @rules;
   -o-transform: @rules;
   transform: @rules;
 }
