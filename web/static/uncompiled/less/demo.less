@@ -44,16 +44,6 @@
           width: 600px;
           padding-right: 250px;
           & + .css {
-            #logo-twitter-large,
-            #logo-github-large {
-              background-color: @green;
-              div[class*=-none] {
-                background-color: @green;
-              }
-              div[class*=-spots] {
-                border-color: @green;
-              }
-            }
             width: 600px;
             padding-left: 250px;
           }
@@ -72,17 +62,31 @@
 }
 
 #logo-twitter-large,
-#logo-github-large {
+#logo-github-large,
+#logo-facebook-large {
   &:hover {
     overflow: visible;
     -webkit-mask-image: none;
     div {
       opacity: 0.8;
-      border: 2px @green solid;
-    }
-    .tail-body-spots, .tail-end-spots {
-      border: 5px @green dotted;
+      border: 2px solid;
     }
   }
 }
 
+#logo-twitter-large:hover div {
+  border-color: @black;
+}
+
+#logo-github-large:hover {
+  div {
+    border-color: @gray;
+  }
+  .tail-body-spots, .tail-end-spots {
+    border: 5px @gray dotted;
+  }
+}
+
+#logo-facebook-large:hover div {
+  border-color: @black;
+}

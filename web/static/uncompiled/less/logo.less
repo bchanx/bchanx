@@ -6,7 +6,7 @@
 
 // TWITTER
 #logo-twitter-actual {
-  background: @black url('/static/images/twitter.png') no-repeat;
+  background: url('/static/images/logo/twitter.png') no-repeat;
   background-size: 300px 300px;
   .border-radius(100%);
   width: 300px;
@@ -23,7 +23,7 @@
 
 .logo-twitter(@radius) {
   @ratio: (2 * @radius) / 300;
-  background-color: @black;
+  background-color: @twitter;
   width: 2 * @radius;
   height: 2 * @radius;
   .border-radius(100%);
@@ -35,7 +35,7 @@
     border-radius: 100%;
     background-color: @white;
     &[class*=-none] {
-      background-color: @black;
+      background-color: @twitter;
     }
   }
   .body {
@@ -85,7 +85,6 @@
     left: 58 * @ratio;
     width: 60 * @ratio;
     height: 60 * @ratio;
-    background-color: @black;
   }
   .beak-bottom {
     width: 100 * @ratio;
@@ -110,7 +109,6 @@
     height: 115 * @ratio;
     left: 144 * @ratio;
     top: -25 * @ratio;
-    background-color: @black;
   }
   .head {
     width: 72 * @ratio;
@@ -123,7 +121,7 @@
 
 // GITHUB
 #logo-github-actual {
-  background: @white url('/static/images/github.png') no-repeat;
+  background: url('/static/images/logo/github.png') no-repeat;
   background-size: 300px 300px;
   .border-radius(100%);
   width: 300px;
@@ -140,7 +138,7 @@
 
 .logo-github(@radius) {
   @ratio: (2 * @radius) / 300;
-  background-color: @black;
+  background-color: @github;
   width: 2 * @radius;
   height: 2 * @radius;
   .border-radius(@radius);
@@ -154,7 +152,7 @@
     border-radius: 100%;
     background-color: @white;
     &[class*=-none] {
-      background-color: @black;
+      background-color: @github;
     }
   }
   .head {
@@ -282,7 +280,7 @@
     top: 209 * @ratio;
   }
   .tail-body-spots {
-    border-bottom: 5 * @ratio @black dotted;
+    border-bottom: 5 * @ratio @github dotted;
     background: transparent;
     .border-radius(0, 0, 135 * @ratio, 155 * @ratio);
     width: 69 * @ratio;
@@ -291,7 +289,7 @@
     top: 192 * @ratio;
   }
   .tail-end-spots {
-    border-top: 2 * @ratio @black dotted;
+    border-top: 2 * @ratio @github dotted;
     background: transparent;
     .border-radius(130 * @ratio, 180 * @ratio, 0, 0);
     width: 23 * @ratio;
@@ -301,3 +299,66 @@
   }
 }
 
+// FACEBOOK
+#logo-facebook-actual {
+  background: url('/static/images/logo/facebook.png') no-repeat;
+  background-size: 300px 300px;
+  .border-radius(100%);
+  width: 300px;
+  height: 300px;
+}
+
+#logo-facebook-large {
+  .logo-facebook(150px);
+}
+
+#logo-facebook-small {
+  .logo-facebook(25px);
+}
+
+.logo-facebook(@radius) {
+  @ratio: (2 * @radius) / 300;
+  background-color: @facebook;
+  width: 2 * @radius;
+  height: 2 * @radius;
+  .border-radius(@radius);
+  .border-radius-fix();
+  position: relative;
+  overflow: hidden;
+  div {
+    position: absolute;
+    background-color: @white;
+    &[class*=-none] {
+      background-color: @facebook;
+    }
+  }
+  .longpiece {
+    width: 94px;
+    height: 260px;
+    border: 47px @white solid;
+    .border-radius(55px, 0, 0, 0);
+    left: 160px;
+    top: 45px;
+  }
+  .longpiece-none {
+    width: 55px;
+    height: 210px;
+    background-color: @black;
+    .border-radius(21px, 0, 0, 0);
+    left: 206px;
+    top: 87px;
+  }
+  .shortpiece {
+    width: 130px;
+    height: 43px;
+    left: 121px;
+    top: 140px;
+  }
+  .shortpiece-none {
+    width: 10px;
+    height: 50px;
+    left: 248px;
+    top: 138px;
+    .transform(rotate(8deg));
+  }
+}
