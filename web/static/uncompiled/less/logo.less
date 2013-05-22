@@ -430,3 +430,201 @@
     top: 148px;
   }
 }
+
+// EVERNOTE
+#logo-evernote-actual {
+  background: @evernote url('/static/images/logo/evernote.png') no-repeat 25px 25px;
+  background-size: 250px 250px;
+  .border-radius(100%);
+  width: 300px;
+  height: 300px;
+}
+
+#logo-evernote-large {
+  .logo-evernote(150px);
+}
+
+#logo-evernote-small {
+  .logo-evernote(25px);
+}
+
+.logo-evernote(@radius) {
+  @ratio: (2 * @radius) / 300;
+  background-color: @evernote;
+  width: 2 * @radius;
+  height: 2 * @radius;
+  .border-radius(@radius);
+  .border-radius-fix();
+  position: relative;
+  overflow: hidden;
+  div {
+    position: absolute;
+    background-color: @white;
+    &[class*=-none] {
+      background-color: @evernote;
+    }
+  }
+  .head {
+    .transform(rotate(2deg));
+    .border-radius(0 20% 0 10px);
+    width: 71px;
+    height: 103px;
+    left: 153px;
+    top: 75px;
+  }
+  .head-top {
+    .border-radius(100%);
+    .transform(rotate(5deg));
+    width: 65px;
+    height: 12px;
+    left: 154px;
+    top: 71px;
+  }
+  .head-right {
+    width: 11px;
+    height: 115px;
+    left: 217px;
+    top: 88px;
+    .border-radius(100%);
+  }
+  .head-bottom {
+    .border-radius(0 0 0 20px);
+    .transform(rotate(7deg));
+    width: 70px;
+    height: 16px;
+    top: 169px;
+    left: 151px;
+  }
+  .trunk-right {
+    .border-radius(0 40% 62% 26px);
+    width: 45px;
+    height: 110px;
+    left: 181px;
+    top: 133px;
+    .transform(rotate(4deg));
+  }
+  .trunk-bottom {
+    .border-radius(7px 0 26% 40%);
+    width: 56px;
+    height: 30px;
+    top: 214px;
+    left: 152px;
+  }
+  .trunk-left {
+    .border-radius(40% 0 0 39%);
+    width: 36px;
+    height: 46px;
+    top: 196px;
+    left: 150px;
+  }
+  .trunk-bottom-none {
+    .border-radius(22%, 0, 9px, 26%);
+    width: 32px;
+    height: 14px;
+    left: 166px;
+    top: 210px;
+  }
+  .trunk-right-none {
+    .border-radius(130%, 140%, 50%, 121%);
+    width: 19px;
+    height: 32px;
+    top: 187px;
+    left: 179px;
+  }
+  .trunk-left-none {
+    .border-radius(0 170% 0 0);
+    width: 18px;
+    height: 12px;
+    left: 178px;
+    top: 184px;
+  }
+  .head-none {
+    .border-radius(10px 10px 0 0);
+    .transform(rotate(5deg));
+    width: 19px;
+    height: 15px;
+    left: 182px;
+    top: 134px;
+  }
+  .eye {
+    .border-radius(100%, 150%, 0, 0);
+    .transform(rotate(5deg));
+    width: 22px;
+    height: 5px;
+    left: 180px;
+    top: 145px;
+  }
+}
+
+// DROPBOX
+#logo-dropbox-actual {
+  background: @dropbox url('/static/images/logo/dropbox.png') no-repeat 40px 45px;
+  background-size: 220px 220px;
+  .border-radius(100%);
+  width: 300px;
+  height: 300px;
+}
+
+#logo-dropbox-large {
+  .logo-dropbox(150px);
+}
+
+#logo-dropbox-small {
+  .logo-dropbox(25px);
+}
+
+.logo-dropbox(@radius) {
+  @ratio: (2 * @radius) / 300;
+  background-color: @dropbox;
+  width: 2 * @radius;
+  height: 2 * @radius;
+  .border-radius(@radius);
+  .border-radius-fix();
+  position: relative;
+  overflow: hidden;
+  div {
+    position: absolute;
+    background-color: @white;
+    &[class*=-none] {
+      background-color: @dropbox;
+    }
+  }
+}
+
+// APPLE
+#logo-apple-actual {
+  background: @apple url('/static/images/logo/apple.png') no-repeat 50px 40px;
+  background-size: 200px 200px;
+  border: 2px @gray dotted;
+  .border-radius(100%);
+  width: 300px;
+  height: 300px;
+}
+
+#logo-apple-large {
+  .logo-apple(150px);
+}
+
+#logo-apple-small {
+  .logo-apple(25px);
+}
+
+.logo-apple(@radius) {
+  @ratio: (2 * @radius) / 300;
+  background-color: @apple;
+  border: 2px @gray dotted;
+  width: 2 * @radius;
+  height: 2 * @radius;
+  .border-radius(@radius);
+  .border-radius-fix();
+  position: relative;
+  overflow: hidden;
+  div {
+    position: absolute;
+    background-color: @white;
+    &[class*=-none] {
+      background-color: @apple;
+    }
+  }
+}
+
