@@ -26,7 +26,6 @@
 @facebook: #3B579D;
 @linkedin: #007BB6;
 @amazon: #E47911;
-@apple: #FFFFFF;
 @dropbox: #2795EE;
 @evernote: #87C441;
 
@@ -169,6 +168,12 @@ a:hover {
   background-image: linear-gradient(top, @c1, @c2);
 }
 
+.radial-gradient (@rules) {
+  background-image: -moz-radial-gradient(@rules);
+  background-image: -o-radial-gradient(@rules);
+  background-image: -webkit-radial-gradient(@rules);
+  background-image: -radial-gradient(@rules);
+}
 //////////////////// CSS3 TRANSLATION/TRANSITIONS
 .transition(@rules) {
   -webkit-transition: @rules;
