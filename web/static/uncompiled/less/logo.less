@@ -181,8 +181,8 @@
   }
   .ear-one-right {
     width: 46 * @ratio;
-    height: 11 * @ratio;
-    left: 70 * @ratio;
+    height: 12 * @ratio;
+    left: 69 * @ratio;
     top: 69 * @ratio;
     .transform(rotate(23deg));
   }
@@ -194,7 +194,7 @@
   }
   .ear-two-left {
     width: 46 * @ratio;
-    height: 11 * @ratio;
+    height: 12 * @ratio;
     left: 185 * @ratio;
     top: 69 * @ratio;
     .transform(rotate(-23deg));
@@ -212,6 +212,7 @@
     top: 38 * @ratio;
   }
   .body-left {
+    .border-radius(100% 100% 0 0);
     width: 56 * @ratio;
     height: 88 * @ratio;
     left: 112 * @ratio;
@@ -225,6 +226,7 @@
     .border-radius(4 * @ratio, 0, 4 * @ratio, 0);
   }
   .body-right {
+    .border-radius(100% 100% 0 0);
     width: 56 * @ratio;
     height: 88 * @ratio;
     left: 132 * @ratio;
@@ -239,63 +241,56 @@
   }
   .body-bottom {
     width: 88 * @ratio;
-    height: 109 * @ratio;
+    height: 13 * @ratio;
     left: 106 * @ratio;
-    top: 233 * @ratio;
+    top: 287 * @ratio;
   }
   .tail-body {
-    width: 72 * @ratio;
+    width: 76 * @ratio;
     height: 48 * @ratio;
-    left: 61 * @ratio;
-    top: 214 * @ratio;
+    left: 62 * @ratio;
+    top: 213 * @ratio;
   }
   .tail-body-none {
-    width: 61 * @ratio;
-    height: 50 * @ratio;
-    left: 67 * @ratio;
+    width: 66 * @ratio;
+    height: 49 * @ratio;
+    left: 66 * @ratio;
     top: 192 * @ratio;
   }
   .tail-end {
-    width: 49 * @ratio;
-    height: 40 * @ratio;
-    left: 21 * @ratio;
-    top: 211 * @ratio;
+    .transform(rotate(-36deg));
+    width: 21 * @ratio;
+    height: 38 * @ratio;
+    left: 47 * @ratio;
+    top: 209 * @ratio;
   }
   .tail-end-none {
-    width: 64 * @ratio;
-    height: 80 * @ratio;
-    left: 0;
-    top: 217 * @ratio;
+    .transform(rotate(-29deg));
+    width: 19 * @ratio;
+    height: 48 * @ratio;
+    left: 42 * @ratio;
+    top: 216 * @ratio;
   }
   .tail-tip {
-    width: 19 * @ratio;
-    height: 9 * @ratio;
-    left: 39 * @ratio;
+    width: 15 * @ratio;
+    height: 8 * @ratio;
+    left: 40 * @ratio;
     top: 211 * @ratio;
   }
   .tail-tip-none {
-    width: 20 * @ratio;
+    width: 17 * @ratio;
     height: 15 * @ratio;
-    left: 26 * @ratio;
-    top: 209 * @ratio;
+    left: 29 * @ratio;
+    top: 207 * @ratio;
   }
   .tail-body-spots {
     border-bottom: 5 * @ratio @github dotted;
     background: transparent;
     .border-radius(0, 0, 135 * @ratio, 155 * @ratio);
-    width: 69 * @ratio;
+    width: 72 * @ratio;
     height: 59 * @ratio;
-    left: 61 * @ratio;
-    top: 192 * @ratio;
-  }
-  .tail-end-spots {
-    border-top: 2 * @ratio @github dotted;
-    background: transparent;
-    .border-radius(130 * @ratio, 180 * @ratio, 0, 0);
-    width: 23 * @ratio;
-    height: 59 * @ratio;
-    left: 41 * @ratio;
-    top: 216 * @ratio;
+    left: 60 * @ratio;
+    top: 190 * @ratio;
   }
 }
 
@@ -674,6 +669,69 @@
     &[class*=-none] {
       background-color: @dropbox;
     }
+  }
+  .base-left {
+    .transform(skew(0, 32deg));
+    width: 56px;
+    height: 79px;
+    left: 94px;
+    top: 149px;
+  }
+  .base-right {
+    .transform(skew(0, -32deg));
+    width: 56px;
+    height: 79px;
+    left: 150px;
+    top: 149px;
+  }
+  .cover-left-none {
+    .transform(skew(-49deg, 34deg));
+    width: 60px;
+    height: 40px;
+    left: 74px;
+    top: 149px;
+  }
+  .cover-right-none {
+    .transform(skew(49deg, -34deg));
+    width: 60px;
+    height: 40px;
+    left: 166px;
+    top: 149px;
+  }
+  .cover-top {
+    .transform(skew(49deg, -35deg));
+    width: 55px;
+    height: 37px;
+    left: 77px;
+    top: 80px;
+  }
+  .cover-bottom {
+    .transform(skew(49deg, -35deg));
+    width: 55px;
+    height: 37px;
+    left: 168px;
+    top: 146px;
+  }
+  .cover-right {
+    .transform(skew(-49deg, 35deg));
+    width: 55px;
+    height: 37px;
+    left: 168px;
+    top: 80px;
+  }
+  .cover-left {
+    .transform(skew(-49deg, 35deg));
+    width: 55px;
+    height: 37px;
+    left: 77px;
+    top: 146px;
+  }
+  .box-none {
+    .transform(skew(-57deg, 33deg));
+    width: 56px;
+    height: 36px;
+    left: 122px;
+    top: 114px;
   }
 }
 
