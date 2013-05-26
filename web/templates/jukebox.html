@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% import 'header.html' as header %}
+
+{% block title %}
+  Jukebox
+{% endblock %}
+
 {% block header %}
   {{ header.render('Jukebox', 'small') }}
 {% endblock %}

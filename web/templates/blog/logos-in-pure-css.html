@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% import 'header.html' as header %}
 
+{% block title %}
+  Logos In Pure CSS
+{% endblock %}
+
 {% block header %}
   {{ header.render('Logos In Pure CSS', 'small') }}
 {% endblock %}
@@ -27,7 +31,7 @@
       Rendering icons in pure CSS has its advantages. It allows programmers who aren't proficient in imaging programs like Photoshop to create high quality assets.
       It maintains image quality as it resizes, so it's not lossy on high density displays or zooms.
       It's readily available for modifications and tweaks, mitigating the bothersome back and forth with opening Photoshop and replacing an entire directory of assets.
-      There are performance gains in 'drawing' your image by letting your more-than-capable browser render a couple lines of code, as opposed to making additional roundtrips to fetch your images.
+      There are performance gains by letting your more than capable browser render a couple lines of code, mitigating additional network roundtrips for image fetching.
     </div>
     <div class="block text">
       Of course, it also comes with some drawbacks.
@@ -38,7 +42,9 @@
     </div>
     <div class="block text">
       However, as more browsers <a href="http://thenextweb.com/insider/2013/04/04/opera-confirms-it-will-follow-google-and-ditch-webkit-for-blink-as-part-of-its-commitment-to-chromium/">consolidate</a> and web standards continue to unify,
-      cross-browser performance will become more and more of an afterthought. Eventually, some of these CSS hacks will become parts of standard web development.
+      cross-browser performance will become more of an afterthought.
+      Using CSS to style, draw, and animate will see much heavier adoption and further techniques will arise.
+      Eventually, these hacks will find its place in parts of standard web development.
     </div>
   </div>
 {% endblock %}
