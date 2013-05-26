@@ -168,11 +168,11 @@ a:hover {
   background-image: linear-gradient(top, @c1, @c2);
 }
 
-.radial-gradient (@rules) {
-  background-image: -moz-radial-gradient(@rules);
-  background-image: -o-radial-gradient(@rules);
-  background-image: -webkit-radial-gradient(@rules);
-  background-image: radial-gradient(@rules);
+.radial-gradient (@prefixed-pos, @unprefixed-pos, @rules) {
+  background-image: -moz-radial-gradient(@prefixed-pos, @rules);
+  background-image: -o-radial-gradient(@prefixed-pos, @rules);
+  background-image: -webkit-radial-gradient(@prefixed-pos, @rules);
+  background-image: radial-gradient(@unprefixed-pos, @rules);
 }
 //////////////////// CSS3 TRANSLATION/TRANSITIONS
 .transition(@rules) {
