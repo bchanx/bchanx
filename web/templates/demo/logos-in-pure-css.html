@@ -3,12 +3,8 @@
 {% import 'footer.html' as footer %}
 {% import 'logo.html' as logo %}
 
-{% block title %}
-  Logos In Pure CSS
-{% endblock %}
-
-{% block canonical %}
-  <link rel="canonical" href="http://www.bchanx.com/logos-in-pure-css"/>
+{% block head %}
+  {{ header.meta("Logos In Pure CSS", "http://www.bchanx.com/logos-in-pure-css") }}
 {% endblock %}
 
 {% block header %}
