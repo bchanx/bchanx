@@ -14,11 +14,18 @@
       body {
         margin: 0;
       }
+      a {
+        color: #6dbf86;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+        color: #7ce69c;
+      }
       .header {
         position: absolute;
         top: 38px;
         left: 38px;
-        color: #7ce69c;
         font-weight: 400;
       }
       .container {
@@ -40,7 +47,7 @@
       #video-tag {
         font-size: 25px;
         font-weight: 400;
-        color: #7ce69c;
+        color: #6dbf86;
       }
       #shuffle {
         display: inline-block;
@@ -64,9 +71,9 @@
   </head>
 
   <body>
-    <a href="/" class="header">bchanx</a>
+    <a href="/" class="header">home</a>
     <div class="container">
-      <div class="error">404 not found.</div>
+      <div class="error">404 not found</div>
       Here, have some <span id="video-tag"></span> instead.
       <div id="video">
         <iframe id="video-player" width="560" height="315" frameborder="0" src="" allowfullscreen></iframe>

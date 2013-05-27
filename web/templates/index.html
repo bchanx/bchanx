@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% import 'logo.html' as logo %}
+{% import 'header.html' as header %}
 {% import 'footer.html' as footer %}
 
-{% block title %}
-  bchanx
+{% block head %}
+  {{ header.meta('bchanx') }}
 {% endblock %}
 
 {% block body %}
