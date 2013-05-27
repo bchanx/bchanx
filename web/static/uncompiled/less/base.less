@@ -5,7 +5,9 @@
 //
 
 @import 'reset.less';
+@import 'logo.less';
 @import 'header.less';
+@import 'footer.less';
 
 //////////////////// COLORSPACE
 @red: #F07365;
@@ -46,7 +48,7 @@ html {
 body {
   line-height: 1.4;
   min-height: 480px;
-  padding-bottom: 40px;
+  padding: 20px 0;
 }
 
 a,
@@ -68,7 +70,7 @@ a:hover {
   #header-container {
     height: 100px;
     min-width: 800px;
-    padding: 20px 20px 0;
+    padding: 0 20px;
     display: block;
     #header-content {
       pointer-events: none;
@@ -79,7 +81,7 @@ a:hover {
       display: inline-block;
       font-weight: 300;
       font-size: 60px;
-      line-height: 75px;
+      line-height: 85px;
       color: @black;
       &.dark-theme {
         color: @lightgray;
@@ -94,15 +96,44 @@ a:hover {
   margin: 0 auto;
 }
 
-#footer {
 
+#footer {
+  text-align: center;
+  #blog-footer-container {
+    width: 400px;
+    height: 100%;
+    margin: 0 auto;
+  }
+  #footer-links {
+    display: block;
+    width: 400px;
+    height: 50px;
+    margin: 0 auto;
+    .icon {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      margin: 0 2px;
+    }
+  }
+  #footer-copyright {
+    margin-top: 10px;
+    font-size: 14px;
+  }
 }
 
 .container {
-  margin: 40px auto;
-  width: 650px;
+  margin: 20px auto;
+  width: 600px;
   height: 100%;
 }
+
+.line-break {
+  height: 1px;
+  width: 400px;
+  margin: 20px auto;
+  border-bottom: 1px @black dotted;
+}    
 
 //////////////////// STYLING
 .user-select-none {

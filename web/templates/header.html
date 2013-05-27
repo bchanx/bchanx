@@ -1,5 +1,10 @@
 {% import 'logo.html' as logo %}
 
+{% macro meta(title="bchanx", url="") -%}
+  <title>{{ title }}</title>
+  {% if url %}<link rel="canonical" href="{{ url }}"/>{% endif %}
+{%- endmacro %}
+
 {% macro render(name, size) -%}
 <div id="header-container">
   <a href="/">{{ logo.bchanx(size) }}</a>

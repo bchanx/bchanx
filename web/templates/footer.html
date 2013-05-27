@@ -1,0 +1,30 @@
+{% import 'logo.html' as logo %}
+
+{% macro links() -%}
+<div id="footer-links">
+  <div class="icon">
+    <a href="https://www.twitter.com/bchanx">{{ logo.twitter('small') }}</a>
+  </div>
+  <div class="icon">
+    <a href="https://www.github.com/bchanx">{{ logo.github('small') }}</a>
+  </div>
+  <div class="icon">
+    <a href="https://www.linkedin.com/in/bchanx">{{ logo.linkedin('small') }}</a>
+  </div>
+</div>
+{%- endmacro %}
+
+{% macro blog() -%}
+<div id="blog-footer-container">
+  <div id="tweet-link">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-via="bchANx" data-size="large">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </div>
+  <div class="line-break"></div>
+  {{ links() }}
+  <div id="footer-copyright">
+    &copy; 2013 Brian Chan
+  </div>
+</div>
+{%- endmacro %}
+

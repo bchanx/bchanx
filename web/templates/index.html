@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% import 'logo.html' as logo %}
+{% import 'footer.html' as footer %}
 
 {% block title %}
   bchanx
@@ -16,16 +17,6 @@
 <!--      <br/>
       <a href="/logos-in-pure-css">Logos in Pure CSS</a>-->
     </div>
-    <div id="links">
-      <div class="icon">
-        <a href="https://www.twitter.com/bchanx">{{ logo.twitter('small') }}</a>
-      </div>
-      <div class="icon">
-        <a href="https://www.github.com/bchanx">{{ logo.github('small') }}</a>
-      </div>
-      <div class="icon">
-        <a href="https://www.linkedin.com/in/bchanx">{{ logo.linkedin('small') }}</a>
-      </div>
-    </div>
+    {{ footer.links() }}
   </div>
 {% endblock %}
