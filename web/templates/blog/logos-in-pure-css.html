@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% import 'header.html' as header %}
 {% import 'footer.html' as footer %}
+{% import 'logo.html' as logo %}
 
 {% block head %}
   {{ header.meta('Logos In Pure CSS', 'http://www.bchanx.com/logos-in-pure-css') }}
@@ -19,6 +20,15 @@
     <div class="block text">
       As a weekend project, I recreated some well known logos in pure CSS.
       This was a purely for fun experiment, heavily inspired by the Twitter logo done <a href="http://labs.upperdog.se/twitter-logo-in-css/">here</a>.
+    </div>
+    <div class="block demo">
+      <div class="logo">{{ logo.twitter('small') }}</div>
+      <div class="logo">{{ logo.github('small') }}</div>
+      <div class="logo">{{ logo.evernote('small') }}</div>
+      <div class="logo">{{ logo.dropbox('small') }}</div>
+      <div class="logo">{{ logo.apple('small') }}</div>
+      <div class="logo">{{ logo.facebook('small') }}</div>
+      <div class="logo">{{ logo.linkedin('small') }}</div>
     </div>
     <div class="block demo">
       <strong>Demo:</strong> <a href="/logos-in-pure-css-demo">Logos in Pure CSS</a>

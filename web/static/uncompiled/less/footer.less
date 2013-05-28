@@ -4,27 +4,52 @@
 // Contact: bchanx@gmail.com
 //
 
-#tweet-link {
+#footer {
   text-align: center;
+  #blog-footer-container {
+    width: 400px;
+    height: 100%;
+    margin: 0 auto;
+  }
+  #tweet-link {
+    text-align: center;
+  }
+  #footer-copyright {
+    margin-top: 10px;
+    font-size: 14px;
+  }
 }
 
-#logo-twitter-small,
-#logo-github-small,
-#logo-linkedin-small {
-  background-color: @black;
-  div[class*=-none] {
-    background-color: @black;
-  }
-  div[class*=-spots] {
-    border-color: @black;
-  }
-  &:hover {
-    background-color: @green;
-    div[class*=-none] {
-      background-color: @green;
-    }
-    div[class*=-spots] {
-      border-color: @green;
+#footer-links {
+  display: block;
+  width: 320px;
+  height: 52px;
+  margin: 0 auto;
+  text-align: center;
+  .icon {
+    display: inline-block;
+    width: 52px;
+    height: 52px;                                  
+    margin: 0 2px;
+    .logo-twitter-small,
+    .logo-github-small,
+    .logo-linkedin-small {
+      background-color: @black;
+      div[class*=-none] {
+        background-color: @black;
+      }
+      div[class*=-spots] {
+        border-color: @black;
+      }
+      &:hover {
+        background-color: @green;
+        div[class*=-none] {
+          background-color: @green;
+        }
+        div[class*=-spots] {
+          border-color: @green;
+        }
+      }
     }
   }
 }
