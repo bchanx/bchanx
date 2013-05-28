@@ -8,11 +8,10 @@
 
 #logos-in-pure-css {
   .user-select-none();
-  margin-bottom: 40px;
-  width: 800px;
+  margin: 0 auto 40px auto;
+  width: 640px;
   .logo-block {
     .title {
-      padding-left: 50px;
       font-size: 20px;
       font-weight: 300;
       margin-bottom: 10px;
@@ -25,8 +24,7 @@
       .css, .actual {
         vertical-align: top;
         display: inline-block;
-        width: 400px;
-        padding: 0 50px;
+        width: 320px;
       }
       .css {
         .transition(~"padding-left 1.0s ease");
@@ -36,17 +34,18 @@
       .actual {
         position: absolute;
         top: 0;
-        left: 400px;
+        left: 320px;
+        padding-left: 20px;
         .transition(~"left 1.0s ease");
         z-index: 2;
         opacity: 0.6;
         &:hover {
-          left: 200px;
-          width: 600px;
-          padding-right: 250px;
+          left: 150px;
+          width: 480px;
+          padding-right: 160px;
           & + .css {
-            width: 600px;
-            padding-left: 250px;
+            width: 480px;
+            padding-left: 170px;
           }
         }
       }

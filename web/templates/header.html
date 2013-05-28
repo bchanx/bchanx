@@ -1,8 +1,9 @@
 {% import 'logo.html' as logo %}
 
-{% macro meta(title="bchanx", url="") -%}
+{% macro meta(title="bchanx", url="", responsive="") -%}
   <title>{{ title }}</title>
   {% if url %}<link rel="canonical" href="{{ url }}"/>{% endif %}
+  {% if responsive %}<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">{% endif %}
 {%- endmacro %}
 
 {% macro render(name, size) -%}

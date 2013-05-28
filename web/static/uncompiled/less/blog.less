@@ -7,16 +7,12 @@
 @import 'base.less';
 
 #blog-container {
-  .preamble {
-    margin: 20px auto;
-    .date {
-      font-size: 16px;
-      text-align: center;
-      letter-spacing: 0.6em;
-    }
-  }
+  width: 640px;
+  height: 100%;
+  margin: 0 auto;
   .block {
     margin: 20px 0;
+    padding: 0 20px;
     font-size: 20px;
     line-height: 1.5em;
     .subtext {
@@ -30,8 +26,44 @@
         height: 52px;
       }
     }
+    &.date {
+      font-size: 16px;
+      text-align: center;
+      letter-spacing: 0.6em;
+    }
     &.text:before {
       content: "\a0\a0";
+    }
+  }
+}
+
+#blog-footer-container {
+  width: 640px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 640px) {
+  #blog-container,
+  #blog-footer-container {
+    width: 440px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  #blog-container,
+  #blog-footer-container {
+    width: 320px;
+  }
+  .line-break {
+    width: 280px;
+  }
+  #blog-container {
+    .block {
+      font-size: 16px;
+      .subtext {
+        font-size: 10px;
+      }
     }
   }
 }

@@ -1,19 +1,19 @@
 {% extends "base.html" %}
-{% import 'header.html' as header %}
-{% import 'footer.html' as footer %}
-{% import 'logo.html' as logo %}
+{% import "header.html" as header %}
+{% import "footer.html" as footer %}
+{% import "logo.html" as logo %}
 
 {% block head %}
-  {{ header.meta('Logos In Pure CSS', 'http://www.bchanx.com/logos-in-pure-css') }}
+  {{ header.meta("Logos In Pure CSS", "http://www.bchanx.com/logos-in-pure-css", "true") }}
 {% endblock %}
 
 {% block header %}
-  {{ header.render('Logos In Pure CSS', 'small') }}
+  {{ header.render("Logos In Pure CSS", "small") }}
 {% endblock %}
 
 {% block body %}
-  <div id="blog-container" class="container clearfix">
-    <div class="preamble">
+  <div id="blog-container" class="clearfix">
+    <div class="block date">
       <div class="date">May 26, 2013</div>
     </div>
     <div class="line-break"></div>
