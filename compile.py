@@ -19,8 +19,8 @@ COMPILED_PATH = '%s/static/compiled' % APP_PATH
 LESS_PATH = '%s/static/uncompiled/less' % APP_PATH
 JS_PATH = '%s/static/uncompiled/js' % APP_PATH
 
-LESS_REGEX = re.compile(r"""css=('|")([\w]+)\.less('|")""")
-JS_REGEX = re.compile(r"""js=('|")([\w]+)\.js('|")""")
+LESS_REGEX = re.compile(r"""css=('|")([\w/-]+)\.less('|")""")
+JS_REGEX = re.compile(r"""js=('|")([\w/-]+)\.js('|")""")
 
 JS_REQUIRE = re.compile(r"""bchanx\.require\(('|")(.*)('|")\);""")
 JS_MAPPING = {}
@@ -32,6 +32,7 @@ def run(cmd):
 
 def save(content, filename, extension):
   """Save compiled file."""
+  filename = filename.replace('/', '-')
   print '[%s] Saving file: %s' % (extension.upper(), filename)
   with open('%s/%s' % (COMPILED_PATH, filename), 'w') as f:
     f.write(content)

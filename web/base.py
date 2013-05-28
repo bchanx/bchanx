@@ -54,6 +54,7 @@ def resolvePath(assets, debug=True):
       if debug:
         asset = 'uncompiled/%s/%s' % (fileType(asset), asset)
       else:
+        asset = asset.replace('/', '-')
         asset = 'compiled/%s' % (''.join([asset[:-5], '.css']) if asset.endswith('.less') else asset)
       path = staticUrl(asset)
       if path:

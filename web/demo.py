@@ -10,5 +10,5 @@ from web.base import render, staticUrl
 
 @app.route('/logos-in-pure-css-demo')
 def logosInPureCSSDemo():
-  return render('demo/logos-in-pure-css.html', css='demo.less')
+  return render('demo/logos-in-pure-css.html', css='demo/logos-in-pure-css.less')
 
