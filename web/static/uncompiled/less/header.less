@@ -4,36 +4,43 @@
 // Contact: bchanx@gmail.com
 //
 
-#header {
-  #header-container {
-    min-width: 640px;
-    margin: 0 20px;
+#header-container {
+  margin: 0 auto;
+  #header-logo {
+    width: 80px;
+    height: 80px;
+    margin-left: 20px;
+    .logo-bchanx-small {
+      display: none;
+    }
+  }
+  display: block;
+  #header-content {
+    pointer-events: none;
+    width: 640px;
+    padding: 0 20px;
+    margin: -85px auto 0 auto;
+    text-align: center;
+    vertical-align: top;
     display: block;
-    #header-content {
-      pointer-events: none;
-      width: 640px;
-      margin: -85px auto 0 auto;
-      text-align: center;
-      vertical-align: top;
-      display: block;
-      font-weight: 300;
-      font-size: 60px;
-      line-height: 85px;
-      color: @black;
-      &.dark-theme {
-        color: @lightgray;
-      }
+    font-weight: 300;
+    font-size: 60px;
+    line-height: 85px;
+    word-wrap: break-word;
+    color: @black;
+    &.dark-theme {
+      color: @lightgray;
     }
   }
 }
 
 // BCHANX
 .logo-bchanx-medium {
-  .logo-bchanx(100px);
+  .logo-bchanx(80px);
 }
 
 .logo-bchanx-small {
-  .logo-bchanx(80px);
+  .logo-bchanx(50px);
 }
 
 .logo-bchanx (@radius) {

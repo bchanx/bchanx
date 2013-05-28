@@ -6,9 +6,14 @@
   {% if responsive %}<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">{% endif %}
 {%- endmacro %}
 
-{% macro render(name, size) -%}
+{% macro render(name) -%}
 <div id="header-container">
-  <a href="/">{{ logo.bchanx(size) }}</a>
+  <div id="header-logo">
+    <a href="/">
+      {{ logo.bchanx("medium") }}
+      {{ logo.bchanx("small") }}
+    </a>
+  </div>
   <div id="header-content" class="themeable">
     {{ name }}
   </div>
