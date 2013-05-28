@@ -8,20 +8,55 @@
 
 #bchanx {
   display: none;
+  padding: 20px 0;
   position: absolute;
   left: 50%;
-  margin-left: -269px;
+  margin-left: -244px;
   top: 50%;
-  margin-top: -150px;
+  margin-top: -179px;
+  .line-break {
+    margin-top: 10px;
+  }
   #banner {
-    font-size: 120px;
+    #bchanx-logo {
+      width: 80px;
+      height: 80px;
+      display: inline-block;
+      margin-right: 20px;
+    }
+    #bchanx-text {
+      display: inline-block;
+      font-size: 120px;
+      line-height: 120px;
+    }
   }
   #projects {
     display: block;
     margin: 20px 0;
-    padding-bottom: 20px;
     text-align: center;
-    font-size: 16px;
+    font-size: 18px;
   }
 }
 
+@media screen and (max-width: 640px) {
+  #bchanx {
+    margin-left: -160px;
+    margin-top: -181px;
+    .line-break {
+      width: 280px;
+    }
+    #banner {
+      #bchanx-text {
+        width: 287px;
+        font-size: 90px;
+        display: block;
+        margin: 0 auto;
+        line-height: 90px;
+      }
+      #bchanx-logo {
+        display: block;
+        margin: 0 auto;
+      }
+    }
+  }
+}

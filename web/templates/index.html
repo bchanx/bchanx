@@ -1,22 +1,23 @@
 {% extends "base.html" %}
 {% import 'logo.html' as logo %}
-{% import 'header.html' as header %}
-{% import 'footer.html' as footer %}
+{% import "header.html" as header %}
+{% import "footer.html" as footer %}
 
 {% block head %}
-  {{ header.meta('bchanx') }}
+  {{ header.meta("bchanx", responsive="true") }}
 {% endblock %}
 
 {% block body %}
   <div id="bchanx">
     <div id="banner">
-      {{ logo.bchanx('medium') }}
-      bchanx
+      <div id="bchanx-logo">{{ logo.bchanx("medium") }}</div>
+      <div id="bchanx-text">bchanx</div>
     </div>
+    <div class="line-break"></div>
     <div id="projects">
+      <!--<a href="/logos-in-pure-css">Logos in Pure CSS</a>
+      <br/>-->
       <a href="/jukebox">Jukebox</a>
-<!--      <br/>
-      <a href="/logos-in-pure-css">Logos in Pure CSS</a>-->
     </div>
     {{ footer.links() }}
   </div>
