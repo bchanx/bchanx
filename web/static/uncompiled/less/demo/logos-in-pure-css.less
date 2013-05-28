@@ -24,7 +24,7 @@
       .css, .actual {
         vertical-align: top;
         display: inline-block;
-        width: 320px;
+        width: 300px;
       }
       .css {
         .transition(~"padding-left 1.0s ease");
@@ -34,17 +34,16 @@
       .actual {
         position: absolute;
         top: 0;
-        left: 320px;
-        padding-left: 20px;
+        left: 340px;
         .transition(~"left 1.0s ease");
         z-index: 2;
         opacity: 0.6;
         &:hover {
-          left: 150px;
-          width: 480px;
-          padding-right: 160px;
+          left: 170px;
+          width: 470px;
+          padding-right: 170px;
           & + .css {
-            width: 480px;
+            width: 470px;
             padding-left: 170px;
           }
         }
@@ -85,3 +84,20 @@
   }
 }
 
+@media screen and (max-width: 640px) {
+  #logos-in-pure-css {
+    width: 300px;
+    .logos {
+      height: 300px !important;
+      .css {
+        margin: 0 auto;
+        &:before {
+          display: none;
+        }
+      }
+      .actual {
+        display: none !important;
+      }
+    }
+  }
+}
