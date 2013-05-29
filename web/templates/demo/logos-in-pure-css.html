@@ -28,31 +28,31 @@
     <div class="logo-block">
       <div class="title">Twitter</div>
       <div class="logos">
-        <div class="actual"><div class="logo-twitter-actual"></div></div><div class="css">{{ logo.twitter('large') }}</div>
+        <div id="twitter-actual" class="actual"></div><div class="css">{{ logo.twitter('large') }}</div>
       </div>
     </div>
     <div class="logo-block">
       <div class="title">Github</div>
       <div class="logos">
-        <div class="actual"><div class="logo-github-actual"></div></div><div class="css">{{ logo.github('large') }}</div>
+        <div id="github-actual" class="actual"></div><div class="css">{{ logo.github('large') }}</div>
       </div>
     </div>
     <div class="logo-block">
       <div class="title">Evernote</div>
       <div class="logos">
-        <div class="actual"><div class="logo-evernote-actual"></div></div><div class="css">{{ logo.evernote('large') }}</div>
+        <div id="evernote-actual" class="actual"></div><div class="css">{{ logo.evernote('large') }}</div>
       </div>
     </div>
     <div class="logo-block">
       <div class="title">Dropbox</div>
       <div class="logos">
-        <div class="actual"><div class="logo-dropbox-actual"></div></div><div class="css">{{ logo.dropbox('large') }}</div>
+        <div id="dropbox-actual" class="actual"></div><div class="css">{{ logo.dropbox('large') }}</div>
       </div>
     </div>
     <div class="logo-block">
       <div class="title">Apple</div>
       <div class="logos">
-        <div class="actual"><div class="logo-apple-actual"></div></div><div class="css">{{ logo.apple('large') }}</div>
+        <div id="apple-actual" class="actual"></div><div class="css">{{ logo.apple('large') }}</div>
       </div>
     </div>
   </div>
@@ -60,4 +60,27 @@
 
 {% block footer %}
   {{ footer.blog() }}
+{% endblock %}
+
+{% block script %}
+  <script type="text/javascript">
+    var fetchLogos = function() {
+      if (window.outerWidth >= 640) {
+        var logos = ["twitter", "github", "evernote", "dropbox", "apple"];
+        var current;
+        for (var i = 0; current = logos[i]; i++) {
+          var element = document.getElementById(current + "-actual");
+          if (element) {
+            element.innerHTML = '<div class="logo-' + current + '-actual"></div>';
+          }
+        }
+        window.onresize = null;
+        return true;
+      }
+      return false;
+    }
+    if (!fetchLogos()) {
+      window.onresize = fetchLogos;
+    }
+  </script>
 {% endblock %}
