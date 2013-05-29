@@ -26,6 +26,10 @@
         width: 52px;
         height: 52px;
       }
+      strong {
+        font-size: 24px;
+        letter-spacing: -1px;
+      }
     }
     &.date {
       margin-top: 10px;
@@ -59,6 +63,9 @@
       &.date {
         letter-spacing: 0.2em;
       }
+      &.demo strong {
+        font-size: 20px;
+      }
     }
   }
 }
@@ -68,9 +75,14 @@
   #blog-footer-container {
     width: 320px;
   }
-  #blog-container .block.date {
-    font-size: 14px;
-    letter-spacing: 0.1em;
+  #blog-container .block {
+    &.date {
+      font-size: 14px;
+      letter-spacing: 0.1em;
+    }
+    &.demo strong {
+      font-size: 18px;
+    }
   }
   .line-break {
     width: 280px;
