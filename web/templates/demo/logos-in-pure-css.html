@@ -65,7 +65,7 @@
 {% block script %}
   <script type="text/javascript">
     var fetchLogos = function() {
-      if (window.outerWidth >= 640) {
+      if (window.outerWidth >= 640 || window.outerWidth == 0) {
         var logos = ["twitter", "github", "evernote", "dropbox", "apple"];
         var current;
         for (var i = 0; current = logos[i]; i++) {
