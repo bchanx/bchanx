@@ -136,7 +136,7 @@ a:hover {
   background-image: linear-gradient(top, @c1, @c2);
 }
 
-.radial-gradient (@prefixed-pos, @unprefixed-pos, @rules) {
+.radial-gradient (@prefixed-pos, @unprefixed-pos, @rules...) {
   background-image: -moz-radial-gradient(@prefixed-pos, @rules);
   background-image: -o-radial-gradient(@prefixed-pos, @rules);
   background-image: -webkit-radial-gradient(@prefixed-pos, @rules);
