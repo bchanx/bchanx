@@ -7,7 +7,7 @@
 @import 'base.less';
 @import 'header-responsive.less';
 
-#blog-container {
+.blog-container {
   width: 640px;
   height: 100%;
   margin: 0 auto;
@@ -51,11 +51,11 @@
 }
 
 @media screen and (max-width: 640px) {
-  #blog-container,
+  .blog-container,
   #blog-footer-container {
     width: 440px;
   }
-  #blog-container {
+  .blog-container {
     .block {
       font-size: 16px;
       .subtext {
@@ -72,11 +72,11 @@
 }
 
 @media screen and (max-width: 440px) {
-  #blog-container,
+  .blog-container,
   #blog-footer-container {
     width: 320px;
   }
-  #blog-container .block {
+  .blog-container .block {
     &.demo strong {
       font-size: 30px;
     }

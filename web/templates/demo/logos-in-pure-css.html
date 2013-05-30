@@ -12,19 +12,13 @@
 {% endblock %}
 
 {% block body %}
-  <div id="blog-container" class="clearfix">
+  <div class="blog-container clearfix">
     <div class="block demo">
       Company logos created in pure CSS.
       <br/>
       Hover or tap over the icons for a behind-the-scenes reveal.
       <br/>
       <span class="subtext">(Tested on Chrome 26.0, Safari 5.1.7, Firefox 20.0, and IE 10.0)</span>
-      <br/><br/>
-      <a href="/logos-in-pure-css"><strong>Read blog</strong></a>
-      <br/>
-      or
-      <br/>
-      <a href="https://github.com/bchanx/logos-in-pure-css"><strong>Checkout the code</strong></a>
     </div>
     <div class="line-break"></div>
   </div>
@@ -58,6 +52,15 @@
       <div class="logos">
         <div id="apple-actual" class="actual"></div><div class="css">{{ logo.apple('large') }}</div>
       </div>
+    </div>
+  </div>
+  <div class="blog-container clearfix">
+    <div class="block demo">
+      <a href="/logos-in-pure-css"><strong>Read blog</strong></a>
+      <br/>
+      or
+      <br/>
+      <a href="https://github.com/bchanx/logos-in-pure-css"><strong>Checkout the code</strong></a>
     </div>
   </div>
 {% endblock %}
