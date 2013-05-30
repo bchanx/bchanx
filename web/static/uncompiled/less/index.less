@@ -8,14 +8,14 @@
 
 #bchanx {
   display: none;
-  padding: 20px 0;
   position: absolute;
   left: 50%;
-  margin-left: -244px;
+  margin-left: -212px;
   top: 50%;
-  margin-top: -179px;
+  margin-top: -175px;
   .line-break {
     margin-top: 10px;
+    width: 100%;
   }
   #banner {
     #bchanx-logo {
@@ -26,37 +26,43 @@
     }
     #bchanx-text {
       display: inline-block;
-      font-size: 120px;
-      line-height: 120px;
+      font-size: 100px;
+      line-height: 100px;
     }
   }
   #projects {
     display: block;
-    margin: 20px 0;
+    margin: 30px 0;
     text-align: center;
-    font-size: 18px;
+    font-size: 45px;
   }
 }
 
 @media screen and (max-width: 640px) {
   #bchanx {
+    width: 320px;
+    height: 301px;
     margin-left: -160px;
-    margin-top: -181px;
+    margin-top: -151px;
     .line-break {
-      width: 280px;
+      width: 283px;
     }
     #banner {
       #bchanx-text {
+        display: none;
+        text-align: center;
         width: 287px;
-        font-size: 90px;
-        display: block;
+        font-size: 80px;
         margin: 0 auto;
         line-height: 90px;
       }
       #bchanx-logo {
         display: block;
-        margin: 0 auto;
+        margin: 0 auto 20px auto;
       }
+    }
+    #projects {
+      font-size: 32px;
     }
   }
 }
