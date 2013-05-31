@@ -2,6 +2,7 @@
 {% import "header.html" as header %}
 {% import "footer.html" as footer %}
 {% import "logo.html" as logo %}
+{% import "social.html" as social %}
 
 {% block head %}
   {{ header.meta("Logos In Pure CSS", "http://www.bchanx.com/logos-in-pure-css-demo", "true") }}
@@ -57,11 +58,11 @@
   <div class="blog-container clearfix">
     <div class="block demo">
       <a href="/logos-in-pure-css"><strong>Read blog</strong></a>
-      <br/>
-      or
-      <br/>
+      <br/>or<br/>
       <a href="https://github.com/bchanx/logos-in-pure-css"><strong>Checkout the code</strong></a>
     </div>
+    <div class="block twitter">{{ social.twitter() }}</div>
+    <div class="block disqus">{{ social.disqus("logos-in-pure-css", "Logos in Pure CSS", "http://www.bchanx.com/logos-in-pure-css") }}</div>
   </div>
 {% endblock %}
 

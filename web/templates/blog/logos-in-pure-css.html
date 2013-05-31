@@ -2,6 +2,7 @@
 {% import "header.html" as header %}
 {% import "footer.html" as footer %}
 {% import "logo.html" as logo %}
+{% import "social.html" as social %}
 
 {% block head %}
   {{ header.meta("Logos In Pure CSS", "http://www.bchanx.com/logos-in-pure-css-demo", "true") }}
@@ -58,6 +59,8 @@
       Using CSS to style, draw, and animate will see much heavier adoption and further techniques will arise.
       These hacks will eventually have a chance to find its place in parts of standard web development.
     </div>
+    <div class="block twitter">{{ social.twitter() }}</div>
+    <div class="block disqus">{{ social.disqus("logos-in-pure-css", "Logos in Pure CSS", "http://www.bchanx.com/logos-in-pure-css") }}</div>
   </div>
 {% endblock %}
 
