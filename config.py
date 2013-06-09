@@ -30,4 +30,5 @@ def getProperty(key):
 class Properties(object):
   """Flask config properties to load."""
   SQLALCHEMY_DATABASE_URI = getProperty('DATABASE_URL')
+  JUKEBOX_KEY = getProperty('JUKEBOX_KEY')
 

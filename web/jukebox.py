@@ -4,6 +4,7 @@
 # Contact: bchanx@gmail.com
 #
 
+import hmac
 import json
 import flask
 import urlparse
@@ -13,7 +14,8 @@ from web import app, db
 from datetime import datetime
 from web.base import render, staticUrl
 from models import Media, MediaType, Playlist, PlaylistState
-from flask import request
+from utils import equals
+from flask import request, redirect
 from sqlalchemy.exc import ProgrammingError
 
 
@@ -81,28 +83,37 @@ def playlistLoad():
   return json.dumps(result)
 
 
-@app.route('/jukebox/playlistAddMedia', methods=['POST'])
+# Disable POST for now
+@app.route('/jukebox/playlistAddMedia', methods=['GET'])
 def playlistAddMedia():
   """Adds a media item to a playlist."""
+  params = request.args if request.method == 'GET' else request.form
   # TODO: Default to my playlist for now
   try:
-    pid = max(1, int(request.form.get('pid')))
-  except ValueError:
+    pid = max(1, int(params.get('pid')))
+  except (ValueError, TypeError):
     pid = 1
-  url = request.form.get('media-url', '')
-  media = mediaAdd(url)
-  if media and pid > 0:
-    playlist = Playlist.query.filter_by(id=pid).first()
-    mediaIdList = json.loads(playlist.mediaIdList)
-    if media.uniqueId not in mediaIdList:
-      mediaIdList.append(media.uniqueId)
-      playlist.mediaIdList = json.dumps(mediaIdList)
-      playlist.modified = datetime.utcnow()
-      db.session.add(playlist)
-      db.session.commit()
-      return json.dumps({'status': 'OK'})
-    return json.dumps({'status': 'ALREADY_EXISTS'})
-  return json.dumps({'status': 'ERROR'})
+  url = params.get('media-url', '').encode('utf-8')
+  key = params.get('key', '').encode('utf-8')
+  hmacHash = hmac.new(app.config.get('JUKEBOX_KEY'), url).hexdigest()
+
+  if equals(hmacHash, key):
+    media = mediaAdd(url)
+    if media and pid > 0:
+      playlist = Playlist.query.filter_by(id=pid).first()
+      mediaIdList = json.loads(playlist.mediaIdList)
+      if media.uniqueId not in mediaIdList:
+        mediaIdList.append(media.uniqueId)
+        playlist.mediaIdList = json.dumps(mediaIdList)
+        playlist.modified = datetime.utcnow()
+        db.session.add(playlist)
+        db.session.commit()
+        # return json.dumps({'status': 'OK'})
+        return redirect(url + '#ok')
+      # return json.dumps({'status': 'ALREADY_EXISTS'})
+      return redirect(url + '#exists')
+  # return json.dumps({'status': 'ERROR'})
+  return redirect(url + '#error')
 
 
 def mediaGet(mediaIdList=None):

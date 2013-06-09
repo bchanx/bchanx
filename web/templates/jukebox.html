@@ -66,11 +66,6 @@
             <input type="radio" name="playlist-state" value="-1"/>Private
             <input type="submit" value="Create"/>
           </form>
-          <form id="playlist-add" class="themeable" action="{{ url_for('playlistAddMedia') }}" method="POST">
-            <input type="text" id="media-url" name="media-url" placeholder="url"/>
-            <input type="text" id="pid" name="pid" placeholder="pid"/>
-            <input type="submit" value="Add To Playlist"/>
-          </form>
         {% endif %}
       </div>
       <div id="theme" current-theme="dark-theme">
@@ -80,3 +75,8 @@
     </div>
   </div>
 {% endblock %}
+
+{% block script %}
+  <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-md5.js"></script>
+{% endblock %}
+

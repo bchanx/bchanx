@@ -304,7 +304,7 @@ $(function() {
   var jukebox = new bchanx.Jukebox(controls);
   jukebox.init();
 
-  var formIds = ['#playlist-add', '#playlist-create'];
+  var formIds = ['#playlist-create'];
   for (var f in formIds) {
     if ($(formIds[f]).length) {
       $(formIds[f]).bind('submit', function(e) {
