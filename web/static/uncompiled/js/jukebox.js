@@ -55,34 +55,24 @@ bchanx.Jukebox = function(controls) {
     return '#' + id.replace(/(:|\.|\[|\])/g, '\\$1');
   };
 
-  // Fetch all playlists.
-  self.init = function() {
-    $.ajax({
-      'url': '/jukebox/playlistGetAll',
-      'type': 'GET',
-      'dataType': 'json',
-      'success': self.onPlaylistGetAll
-    });
-
+  // Static bindings for Jukebox.
+  var staticBindings = function() {
     $('#pause').bind('click', function() {
       if (self.playlist && !self.playlist.isEmpty() && bchanx.player.hasOwnProperty('pauseVideo')) {
         bchanx.player.pauseVideo();
       }
     });
-
     $('#play').bind('click', function() {
       if (self.playlist && !self.playlist.isEmpty() && bchanx.player.hasOwnProperty('playVideo')) {
         bchanx.player.playVideo();
       }
     });
-
     $('#prev').bind('click', function() {
       if (self.playlist && !self.playlist.isEmpty() && bchanx.player.hasOwnProperty('loadVideoById')) {
         bchanx.player.loadVideoById(self.playlist.prev());
         self.updateNowPlaying();
       }
     });
-
     $('#next').bind('click', function(event, mediaHasEnded) {
       if (self.playlist && !self.playlist.isEmpty()) {
         if (mediaHasEnded && self.playlist.isRepeat) {
@@ -93,7 +83,6 @@ bchanx.Jukebox = function(controls) {
         }
       }
     });
-
     $('#repeat').bind('click', function() {
       if (self.playlist && !self.playlist.isEmpty()) {
         self.playlist.toggleRepeat();
@@ -101,19 +90,20 @@ bchanx.Jukebox = function(controls) {
         $('#repeat').removeClass((r) ? 'off' : 'on').addClass((r) ? 'on' : 'off');
       }
     });
-
     $('#shuffle').bind('click', function() {
       if (self.playlist && !self.playlist.isEmpty()) {
         self.toggleShuffle();
       }
     });
-
     $('#playlist').bind('click', function() {
       if (self.playlist && !self.playlist.isEmpty()) {
         self.toggleTracklist();
       }
     });
+  };
 
+  // Dynamic bindings for Jukebox.
+  var dynamicBindings = function() {
     $(document).on('click', '.mediaItem', function() {
       if (self.playlist && !self.playlist.isEmpty()) {
         if (self.playlist.setCurrent($(this).attr('mediaid'))) {
@@ -122,11 +112,9 @@ bchanx.Jukebox = function(controls) {
         }
       }
     });
-
     $(document).on('click', 'li[pid]', function() {
       self.loadPlaylist($(this).attr('pid'));
     });
-
     $(document).keydown(function(e) {
       // Right arrow
       if (e.which === 39) {
@@ -148,22 +136,31 @@ bchanx.Jukebox = function(controls) {
     });
   };
 
+  // Initialize bindings and go!
+  self.init = function() {
+    staticBindings();
+    dynamicBindings();
+    $.ajax({
+      'url': '/jukebox/playlistGetAll',
+      'type': 'GET',
+      'dataType': 'json',
+      'success': self.onPlaylistGetAll
+    });
+  };
+
   // Callback for retrieving playlists.
   self.onPlaylistGetAll = function(data) {
     if (data.length) {
+      data = data.sort(function(a, b) {return a.pid - b.pid;});
       var playlists = $('<ul></ul>');
       for (var i = 0; i < data.length; i++) {
         playlists.append('<li pid="' + data[i].pid + '">' + data[i].title + '</li>');
       }
       $('#playlists').append(playlists);
     }
-    var show = ['#video-player', '#theme', '#playlists'];
-    for (var s in show) {
-      $(show[s]).show();
-    }
-    var fadeIn = ['#cube-frontback', '#cube-sides', '#controls-container'];
+    var fadeIn = ['#controls', '#playlists'];
     for (var f in fadeIn) {
-      $(fadeIn[f]).fadeIn();
+      $(fadeIn[f] + '-container').fadeIn();
     }
   };
 

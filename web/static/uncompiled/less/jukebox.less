@@ -16,7 +16,6 @@ html {
 }
 
 #theme {
-  display: none;
   margin: 10px auto 0 auto;
   font-weight: 300;
   width: 50px;
@@ -28,7 +27,6 @@ html {
     color: @lightgray;
   }
   #dark-theme {
-    display: none;
     color: @black;
   }
 }
@@ -61,18 +59,17 @@ html {
 }
 
 #cube-frontback {
-  display: none;
   position: relative;
   .transition(transform, ~"0.8s ease");
   .transform-style(preserve-3d);
   .transform(rotateY(90deg));
 
   #video-container {
+    display: none;
     margin: 0 auto;
     width: @width;
     .transform(translateZ(@width/2));
     #video-player {
-      display: none;
       position: relative;
       width: @width;
       height: @height;
@@ -84,9 +81,6 @@ html {
         margin: 0 auto;
         width: @width;
         height: @height;
-      }
-      #video-src {
-        display: none
       }
       #video-src-none {
         visibility: visible;
@@ -105,7 +99,6 @@ html {
     }
 
     #video-settings {
-      display: none;
       margin: 0 auto;
       width: @width;
       #video-controls {
@@ -203,7 +196,6 @@ html {
         }
       }
       #video-playlist {
-        display: none;
         margin-top: 10px;
         width: @width;
         table {
@@ -267,12 +259,12 @@ html {
 }
 
 #cube-sides {
-  display: none;
   position: relative;
   .transition(transform, ~"0.8s ease");
   .transform-style(preserve-3d);
 
   #about-container {
+    display: none;
     position: absolute;
     left: 50%;
     margin-left: -@width/2;
@@ -294,13 +286,13 @@ html {
   }
 
   #playlists-container {
+    display: none;
     position: absolute;
     left: 50%;
     margin-left: -@width/2;
     .transform(translateZ(@width/2));
     .backface-visibility(hidden);
     #playlists {
-      display: none;
       border: 1px @black dotted;
       background: rgba(0, 0, 0, 0.03);
       margin: 10px auto 0 auto;
