@@ -8,6 +8,7 @@ Contact: bchanx@gmail.com
 # TODO: (py/js) add linters.
 # TODO: (js) missing semicolons break compile.
 # TODO: (js) inline comments also break compile.
+# TODO: (js) js requires for http links (aka github).
 
 import re
 import os
