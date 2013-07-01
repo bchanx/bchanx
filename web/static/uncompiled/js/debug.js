@@ -13,9 +13,11 @@ bchanx.require = function(url) {
     async: false,
     success: function() {
       // Script loaded
+      console.log("[" + url + "] SUCCESS!");
     },
     error: function() {
       // Script failed
+      console.log("[" + url + "] FAILED!");
     }
   });
 };

@@ -5,7 +5,7 @@
 //
 
 bchanx.require('playlist.js');
-bchanx.require('controls.js');
+bchanx.require('slidr.js');
 
 bchanx.player = {};
 
@@ -39,9 +39,9 @@ function onPlayerStateChange(e) {
 }
 
 // Main jukebox object.
-bchanx.Jukebox = function(controls) {
+bchanx.Jukebox = function() {
   var self = this;
-  self.controls = controls;
+  self.slidr = null;
   self.playlist = null;
   self.playlistData = {};
 
@@ -116,23 +116,16 @@ bchanx.Jukebox = function(controls) {
       self.loadPlaylist($(this).attr('pid'));
     });
     $(document).keydown(function(e) {
-      // Right arrow
-      if (e.which === 39) {
-        self.controls.next();
-      // Left arrow
-      } else if (e.which === 37) {
-        self.controls.prev();
-      // n
-      } else if (e.which === 78) {
+      if (e.which === 78) {
+        // n
         $('#next').click();
-      // p
       } else if (e.which === 80) {
+        // p
         $('#prev').click();
-      // s
       } else if (e.which === 83) {
+        // s
         $('#shuffle').click();
       }
-      // Up (38), Down (40)
     });
   };
 
@@ -158,16 +151,20 @@ bchanx.Jukebox = function(controls) {
       }
       $('#playlists').append(playlists);
     }
-    var fadeIn = ['#controls', '#playlists'];
-    for (var f in fadeIn) {
-      $(fadeIn[f] + '-container').fadeIn();
-    }
+
+    // Go go gadget slidr.
+    self.slidr = new Slidr();
+    self.slidr.addHorizontal(['#playlists-container', '#video-container', '#about-container', '#playlists-container']);
+    self.slidr.addVertical(['#playlists-container', '#video-container', '#about-container', '#playlists-container']);
+    self.slidr.init();
+
+    // TODO: Clean up old controller logic.
+    // $('#controls-container').fadeIn();
   };
 
   // Loads a playlist.
   self.loadPlaylist = function(pid) {
-    self.controls.select('video');
-    self.controls.disable();
+    self.slidr.right();
     setTimeout(function() {
       if (self.playlistData[pid]) {
         return self.onLoadPlaylist(pid, self.playlistData[pid]);
@@ -207,7 +204,6 @@ bchanx.Jukebox = function(controls) {
       $('#video-settings').fadeIn();
     }
     self.updateNowPlaying(pid);
-    self.controls.enable();
   };
 
   // Toggles video display.
@@ -296,9 +292,7 @@ $(function() {
     $('#theme span#' + selectedTheme).hide();
   });
 
-  var controls = new bchanx.Controls();
-  controls.init();
-  var jukebox = new bchanx.Jukebox(controls);
+  var jukebox = new bchanx.Jukebox();
   jukebox.init();
 
   var formIds = ['#playlist-create'];

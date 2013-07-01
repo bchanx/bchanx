@@ -1,0 +1,1 @@
+/Users/brianchan/bchanx/github/slidr/slidr.js
