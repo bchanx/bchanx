@@ -17,11 +17,11 @@
     </div>
   </div>
 
-  <div id="slidr">
-    <div id="playlists-container">
+  <div id="jukebox">
+    <div id="playlists-container" data-slidr="playlists">
       <div id="playlists" class="themeable"></div>
     </div>
-    <div id="video-container">
+    <div id="video-container" data-slidr="video">
       <div id="video-player">
         <iframe id="video-src" type="text/html" frameborder="0" src="" mozallowfullscreen webkitallowfullscreen></iframe>
         <div id="video-src-none" class="themeable">Playlist is empty.</div>
@@ -64,7 +64,7 @@
         <span id="dark-theme">- dark -</span>
       </div>
     </div>
-    <div id="about-container">
+    <div id="about-container" data-slidr="about">
       <div id="about" class="themeable">
         &copy; 2013.
         <br/><a href="https://www.twitter.com/bchanx">@bchANx</a>
@@ -74,6 +74,7 @@
 {% endblock %}
 
 {% block script %}
-  <script src="https://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-md5.js"></script>
+  <script type="text/javascript" src="https://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-md5.js"></script>
+  <script type="text/javascript" src="/dist/slidr.min.js"></script>
 {% endblock %}
 

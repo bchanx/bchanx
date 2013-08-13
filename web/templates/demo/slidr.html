@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% import "header.html" as header %}
+{% import "footer.html" as footer %}
+{% import "logo.html" as logo %}
+{% import "social.html" as social %}
+
+{% block head %}
+  {{ header.meta("Slidr", "http://www.bchanx.com/slidr", "true") }}
+{% endblock %}
+
+{% block header %}
+  {{ header.render("Slidr") }}
+{% endblock %}
+
+{% block body %}
+  <div class="blog-container clearfix">
+    <div class="block demo">
+      Add some slide effects.
+    </div>
+    <div class="block">
+      <div id="slidr1">
+        <div class="demo-slide one" data-slidr="one">one</div>
+        <div class="demo-slide two" data-slidr="two">two</div>
+        <div class="demo-slide three" data-slidr="three">three</div>
+        <div class="demo-slide four" data-slidr="four">four</div>
+        <div class="demo-slide five" data-slidr="five">five</div>
+        <div class="demo-slide six" data-slidr="six">six</div>
+        <div class="demo-slide seven" data-slidr="seven">seven</div>
+        <div class="demo-slide eight" data-slidr="eight">eight</div>
+      </div>
+    </div>
+    <div class="block">
+      <div id="slidr2">
+        <div class="demo-slide one" data-slidr="one">one</div>
+        <div class="demo-slide two" data-slidr="two">two</div>
+        <div class="demo-slide three" data-slidr="three">three</div>
+        <div class="demo-slide four" data-slidr="four">four</div>
+        <div class="demo-slide five" data-slidr="five">five</div>
+        <div class="demo-slide six" data-slidr="six">six</div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}
+  {{ footer.blog() }}
+{% endblock %}
+
+{% block script %}
+  <script type="text/javascript" src="/dist/slidr.min.js"></script>
+{% endblock script %}

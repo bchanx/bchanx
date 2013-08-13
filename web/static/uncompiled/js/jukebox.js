@@ -5,7 +5,6 @@
 //
 
 bchanx.require('playlist.js');
-bchanx.require('slidr.js');
 
 bchanx.player = {};
 
@@ -116,16 +115,19 @@ bchanx.Jukebox = function() {
       self.loadPlaylist($(this).attr('pid'));
     });
     $(document).keydown(function(e) {
-      if (e.which === 78) {
-        // n
-        $('#next').click();
-      } else if (e.which === 80) {
-        // p
-        $('#prev').click();
-      } else if (e.which === 83) {
-        // s
-        $('#shuffle').click();
-      }
+      if (e.which === 40) { self.slidr.slide('down'); }
+      // Right arrow
+      else if (e.which === 39) { self.slidr.slide('right'); }
+      // Up arrow
+      else if (e.which === 38) { self.slidr.slide('up'); }
+      // Left arrow
+      else if (e.which === 37) { self.slidr.slide('left'); }
+      // n
+      else if (e.which === 78) { $('#next').click(); }
+      // p
+      else if (e.which === 80) { $('#prev').click(); }
+      // s
+      else if (e.which === 83) { $('#shuffle').click(); }
     });
   };
 
@@ -153,10 +155,10 @@ bchanx.Jukebox = function() {
     }
 
     // Go go gadget slidr.
-    self.slidr = new Slidr();
-    self.slidr.addHorizontal(['#playlists-container', '#video-container', '#about-container', '#playlists-container']);
-    self.slidr.addVertical(['#playlists-container', '#video-container', '#about-container', '#playlists-container']);
-    self.slidr.init();
+    self.slidr = slidr.create('jukebox', {'transition': 'cube'})
+      .add('h', ['playlists', 'video', 'about', 'playlists'])
+      .add('v', ['playlists', 'video', 'about', 'playlists'])
+      .start();
 
     // TODO: Clean up old controller logic.
     // $('#controls-container').fadeIn();
@@ -164,7 +166,7 @@ bchanx.Jukebox = function() {
 
   // Loads a playlist.
   self.loadPlaylist = function(pid) {
-    self.slidr.right();
+    self.slidr.slide('right');
     setTimeout(function() {
       if (self.playlistData[pid]) {
         return self.onLoadPlaylist(pid, self.playlistData[pid]);

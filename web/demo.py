@@ -12,3 +12,6 @@ from web.base import render, staticUrl
 def logosInPureCSSDemo():
   return render('demo/logos-in-pure-css.html', css='demo/logos-in-pure-css.less')
 
+@app.route('/slidr')
+def slidr():
+  return render('demo/slidr.html', css='demo/slidr.less', js='demo/slidr.js')
