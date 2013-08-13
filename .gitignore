@@ -4,5 +4,6 @@
 *.egg
 *.egg-info
 !static/compiled/*
+!static/dist/*
 .env
 versions
