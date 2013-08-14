@@ -19,5 +19,6 @@ def serve(filename):
   if filename and os.sep not in filename:
     filepath = os.path.join('dist', filename)
     if os.path.exists(os.path.join(current_app.static_folder, filepath)):
-      return app.send_static_file(filepath)
+      # Flask send_static_file does not like Window's os.sep. :(
+      return app.send_static_file('dist/' + filename)
   abort(404)
