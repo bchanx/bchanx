@@ -18,7 +18,7 @@ import inspect
 import subprocess
 
 ROOT_FILE = os.path.abspath(inspect.stack()[-1][1])
-APP_PATH = os.path.join(ROOT_FILE[:ROOT_FILE.rindex('/')], 'web')
+APP_PATH = os.path.join(ROOT_FILE[:ROOT_FILE.rindex(os.sep)], 'web')
 COMPILED_PATH = '%s/static/compiled' % APP_PATH
 LESS_PATH = '%s/static/uncompiled/less' % APP_PATH
 JS_PATH = '%s/static/uncompiled/js' % APP_PATH
@@ -67,7 +67,7 @@ def jsmapping(f):
     JS_MAPPING[f] = {}
     JS_MAPPING[f]['deps'] = None
     with open(js) as jsfile:
-      m = mmap.mmap(jsfile.fileno(), 0, prot=mmap.PROT_READ)
+      m = mmap.mmap(jsfile.fileno(), 0, access=mmap.ACCESS_READ)
       deps = []
       requires = [x for _, x, _ in JS_REQUIRE.findall(m)]
       for r in requires:
