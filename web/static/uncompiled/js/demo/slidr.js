@@ -4,6 +4,8 @@
 // Contact: bchanx@gmail.com
 //
 
+if (bchanx.type === 'devel') bchanx.require('slidr.js');
+
 $(function() {
   var s1 = slidr.create('slidr1', {'breadcrumbs': true, 'controls': 'border'})
     .add('h', ['one', 'two'], 'linear').add('h', ['two', 'three'], 'cube').add('h', ['three', 'four'], 'fade').add('h', ['four', 'one'], 'none')

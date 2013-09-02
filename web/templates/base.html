@@ -7,6 +7,12 @@
     {% for css in settings["css"] %}
       <link rel="stylesheet" href="{{ css }}" media="screen" charset="UTF-8" type="{{ 'text/less' if css.endswith('.less') else 'text/css' }}"/>
     {% endfor %}
+    <script type="text/javascript">
+      var bchanx = bchanx || {};
+      {% for e in env %}
+        bchanx["{{e}}"] = "{{env[e]}}";
+      {% endfor %}
+    </script>
     {% block head %}{% endblock %}
   </head>
 

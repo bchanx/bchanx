@@ -30,7 +30,10 @@ def render(template, css=None, js=None, **kwargs):
   settings['css'] = css
   settings['js'] = js
 
-  return flask.render_template(template, settings=settings, **kwargs), 200
+  env = {}
+  env['type'] = 'devel' if debug else 'prod'
+
+  return flask.render_template(template, settings=settings, env=env, **kwargs), 200
 
 
 def staticUrl(filename, forFlask=True):

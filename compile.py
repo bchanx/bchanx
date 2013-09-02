@@ -28,6 +28,7 @@ JS_REGEX = re.compile(r"""js=('|")([\w/-]+)\.js('|")""")
 
 JS_REQUIRE = re.compile(r"""bchanx\.require\(('|")(.*)('|")\);""")
 JS_MAPPING = {}
+JS_IGNORED = {'slidr.js'}
 
 def run(cmd):
   """Run a command."""
@@ -73,12 +74,13 @@ def jsmapping(f):
       for r in requires:
         if r in JS_MAPPING and not JS_MAPPING[r]['deps']:
           raise Exception('[JS] %s has a circular dependency to %s, aborting.' % (f, r))
-        deps.extend([js for js in (JS_MAPPING[r]['deps'] if r in JS_MAPPING else jsmapping(r)) if js not in deps])
+        if r not in JS_IGNORED:
+          deps.extend([js for js in (JS_MAPPING[r]['deps'] if r in JS_MAPPING else jsmapping(r)) if js not in deps])
       content = []
       line = m.readline()
       while line:
         line = line.strip()
-        if line and not line.startswith('//') and not JS_REQUIRE.match(line):
+        if line and not line.startswith('//') and not JS_REQUIRE.search(line):
           content.append(line)
         line = m.readline()
       m.close()
