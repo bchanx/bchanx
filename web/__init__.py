@@ -20,7 +20,6 @@ def validate():
     if '..' in request.path or \
     not request.path.startswith('/static/') or \
     not os.path.exists(os.path.join(current_app.static_folder, request.path.split('/static/')[1])) or \
-    request.environ.get('HTTP_HOST') not in ['localhost:5000', '127.0.0.1:5000', 'bchanx']:
-      sys.stderr.write('[INVALID HOST] - %s\n' % request.environ.get('HTTP_HOST'))
+    request.environ.get('HTTP_HOST') not in ['localhost:5000', '127.0.0.1:5000', 'bchanx.com']:
       abort(404)
 
