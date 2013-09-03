@@ -43,6 +43,12 @@ JS_FORMATS = {
 JS_RE = re.compile('(%s)' % '|'.join(JS_FORMATS), re.DOTALL)
 
 
+LESS_FORMATS = {
+  r"""/\*!(?:.*?) \*/[\s]*""",
+  r"""//(?:.*?)//\n[\s]*"""
+}
+LESS_RE = re.compile('(%s)' % '|'.join(LESS_FORMATS), re.DOTALL)
+
 def python(fname, opensource=None):
   """Add python copyright info."""
   c = """'''
@@ -68,6 +74,15 @@ def javascript(fname, opensource=None):
   add(fname, c, JS_RE)
 
 
+def less(fname, opensource=None):
+  """Add less copyright info."""
+  c = """//
+// %s
+// All Rights Reserved.
+//\n\n""" % COPYRIGHT
+  add(fname, c, LESS_RE)
+
+
 def add(fname, copyright, regex):
   """Add copyright info to fname."""
   with open(fname, 'r') as f:
@@ -79,7 +94,7 @@ def add(fname, copyright, regex):
     match = existing.groups()[0]
     if 'Copyright' in match and NAME in match and match != copyright and len(match) < 200:
       modified = ''.join(header).replace(match, copyright).lstrip() + ''.join(lines[min(8, len(lines)):])
-  elif not any(['Copyright' in x for x in lines[:min(8, len(lines))]]):
+  if not modified and not any(['Copyright' in x for x in lines[:min(8, len(lines))]]):
     modified = ''.join([copyright, ''.join(lines).lstrip()])
   if modified:
     sys.stderr.write('[%s]' % fname + '\n')
@@ -96,8 +111,10 @@ def copyright(fname):
       opensource = None if path.startswith(WEBPATH) else path.split(GITPATH)[1].strip('/').split('/')[0]
       if fname.endswith('.py'):
         python(fname, opensource)
-      elif fname.endswith('.js') or fname.endswith('.less'): # less files get parsed by js
+      elif fname.endswith('.js'):
         javascript(fname, opensource)
+      elif fname.endswith('.less'):
+        less(fname, opensource)
 
 
 def main():
