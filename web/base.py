@@ -20,7 +20,7 @@ def render(template, css=None, js=None, **kwargs):
   js = resolvePath(js, debug)
   if debug:
     js = resolvePath('debug.js') + js
-    js.append(staticUrl('less.js'))
+    js.append('/static/dist/less.min.js')
   if kwargs.get('yt', False):
     js.append('https://www.youtube.com/iframe_api')
 
@@ -38,7 +38,7 @@ def render(template, css=None, js=None, **kwargs):
 def staticUrl(filename, forFlask=True):
   """Gets the static url for a file."""
   try:
-    path = os.path.join(flask.current_app.root_path, 'static', filename)
+    path = os.path.join(flask.current_app.static_folder, filename)
     if os.path.exists(path):
       return flask.url_for('static', filename=filename) if forFlask else path
   except Exception as e:
