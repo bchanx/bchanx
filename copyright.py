@@ -45,8 +45,12 @@ JS_FORMATS = {
 }
 JS_RE = re.compile('(%s)' % '|'.join(JS_FORMATS), re.DOTALL)
 
+LESS_FORMATS = {
+  r"""//(?:.*?)//\n[\s]*"""
+}
+LESS_RE = re.compile('(%s)' % '|'.join(LESS_FORMATS), re.DOTALL)
 
-def python(fname, opensource=False):
+def python(fname, opensource=None):
   """Add python copyright info."""
   c = """'''
 %s
@@ -69,6 +73,15 @@ def javascript(fname, opensource=None):
  */\n""" % (opensource, GIT_PROJECTS[opensource].get('version', ''), 
   GIT_PROJECTS[opensource]['desc'], WEBSITE, opensource, COPYRIGHT)
   add(fname, c, JS_RE)
+
+
+def less(fname, opensource=None):
+  """Add less copyright info."""
+  c = """//
+// %s
+// All Rights Reserved.
+//\n\n""" % COPYRIGHT
+  add(fname, c, LESS_RE)
 
 
 def add(fname, copyright, regex):
@@ -101,6 +114,8 @@ def copyright(fname):
         python(fname, opensource)
       elif fname.endswith('.js'):
         javascript(fname, opensource)
+      elif fname.endswith('.less'):
+        less(fname, opensource)
 
 
 def main():
