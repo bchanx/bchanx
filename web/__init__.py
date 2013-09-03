@@ -1,7 +1,6 @@
 '''
-Copyright 2013. All Rights Reserved.
-Author: Brian Chan
-Contact: bchanx@gmail.com
+Copyright (c) 2013 Brian Chan (bchanx.com)
+All Rights Reserved.
 '''
 
 import os
