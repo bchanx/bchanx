@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 
+'''
+Copyright (c) 2013 Brian Chan (bchanx.com)
+All Rights Reserved.
+'''
+
 import os
 import re
 import sys
@@ -70,28 +75,26 @@ def add(fname, copyright, regex):
   """Add copyright info to fname."""
   with open(fname, 'r') as f:
     lines = f.readlines()
-    content = ''.join(lines)
-  modified = False
-  existing = regex.search(content)
+    header = lines[:min(8, len(lines))]
+  modified = None
+  existing = regex.search(''.join(header))
   if existing:
     match = existing.groups()[0]
     if 'Copyright' in match and NAME in match and match != copyright and len(match) < 200:
-      modified = True
-      content = content.replace(match, copyright).strip()
+      modified = ''.join(header).replace(match, copyright).lstrip() + ''.join(lines[min(8, len(lines)):])
   elif not any(['Copyright' in x for x in lines[:min(8, len(lines))]]):
-    modified = True
-    content = ''.join([copyright, content.lstrip()])
+    modified = ''.join([copyright, ''.join(lines).lstrip()])
   if modified:
     sys.stderr.write('[%s]' % fname + '\n')
     with open(fname, 'w') as f:
-      f.write(content)
+      f.write(modified)
 
 
 def copyright(fname):
   """Validate filetype."""
   path = os.path.realpath(fname)
   if '/.git/' not in path:
-    if path.startswith(WEBPATH) and '/dist/' not in path or \
+    if path.startswith(WEBPATH) and not any([x in path for x in ['/dist/', '/alembic/']]) or \
       (path.startswith(GITPATH) and any([x in path for x in GIT_PROJECTS])):
       opensource = None if path.startswith(WEBPATH) else path.split(GITPATH)[1].strip('/').split('/')[0]
       if fname.endswith('.py'):
