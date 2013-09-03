@@ -24,9 +24,6 @@ WEBPATH = os.path.join(BASEPATH, 'bchanx')
 GITPATH = os.path.join(BASEPATH, 'github')
 
 GIT_PROJECTS = {
-  'logos-in-pure-css': {
-    'desc': 'Company logos created in pure CSS',
-  },
   'slidr': {
     'desc': 'A Javascript library for adding slide effects.',
     'version': ' v0.1.0'
@@ -45,10 +42,6 @@ JS_FORMATS = {
 }
 JS_RE = re.compile('(%s)' % '|'.join(JS_FORMATS), re.DOTALL)
 
-LESS_FORMATS = {
-  r"""//(?:.*?)//\n[\s]*"""
-}
-LESS_RE = re.compile('(%s)' % '|'.join(LESS_FORMATS), re.DOTALL)
 
 def python(fname, opensource=None):
   """Add python copyright info."""
@@ -73,15 +66,6 @@ def javascript(fname, opensource=None):
  */\n""" % (opensource, GIT_PROJECTS[opensource].get('version', ''), 
   GIT_PROJECTS[opensource]['desc'], WEBSITE, opensource, COPYRIGHT)
   add(fname, c, JS_RE)
-
-
-def less(fname, opensource=None):
-  """Add less copyright info."""
-  c = """//
-// %s
-// All Rights Reserved.
-//\n\n""" % COPYRIGHT
-  add(fname, c, LESS_RE)
 
 
 def add(fname, copyright, regex):
@@ -112,10 +96,8 @@ def copyright(fname):
       opensource = None if path.startswith(WEBPATH) else path.split(GITPATH)[1].strip('/').split('/')[0]
       if fname.endswith('.py'):
         python(fname, opensource)
-      elif fname.endswith('.js'):
+      elif fname.endswith('.js') or fname.endswith('.less'): # less files get parsed by js
         javascript(fname, opensource)
-      elif fname.endswith('.less'):
-        less(fname, opensource)
 
 
 def main():
