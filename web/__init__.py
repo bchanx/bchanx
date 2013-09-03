@@ -4,6 +4,7 @@ All Rights Reserved.
 '''
 
 import os
+import sys
 from flask import Flask, current_app, abort, request
 from flask.ext.sqlalchemy import SQLAlchemy
 
@@ -17,6 +18,7 @@ from web import errors, index, fantasy, jukebox, models, filters, blog, demo
 @app.before_request
 def validate():
   if request.endpoint == 'static':
+    sys.stderr.write('-->> ENV: %s' % str(request.environ))
     if '..' in request.path or \
     not request.path.startswith('/static/') or \
     not os.path.exists(os.path.join(current_app.static_folder, request.path.split('/static/')[1])) or \
