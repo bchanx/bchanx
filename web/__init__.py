@@ -4,8 +4,7 @@ All Rights Reserved.
 '''
 
 import os
-import sys
-from flask import Flask, current_app, abort, request
+from flask import Flask, abort, request, send_from_directory
 from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(import_name='web')
@@ -15,13 +14,17 @@ db = SQLAlchemy(app)
 from web import errors, index, fantasy, jukebox, models, filters, blog, demo
 
 
+@app.route('/favicon.ico')
+def favicon():
+  """Serve /favicon.ico."""
+  return send_from_directory(app.static_folder, 'favicon.ico')
+
+
 @app.before_request
 def validate():
-  if request.endpoint == 'static':
-    sys.stderr.write('-->> ENV: %s' % str(request.environ))
-    if '..' in request.path or \
+  """Minor sanity checks for static files."""
+  if request.endpoint == 'static' and ('..' in request.path or \
     not request.path.startswith('/static/') or \
-    not os.path.exists(os.path.join(current_app.static_folder, request.path.split('/static/')[1])) or \
-    request.environ.get('HTTP_HOST') not in ['localhost:5000', '127.0.0.1:5000', 'bchanx.com', 'www.bchanx.com']:
+    not os.path.exists(os.path.join(app.static_folder, request.path.split('/static/')[1]))):
       abort(404)
 
