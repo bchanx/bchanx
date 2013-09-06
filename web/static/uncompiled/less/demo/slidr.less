@@ -45,3 +45,20 @@
   }
 }
 
+.button {
+  border: 1px @black solid;
+  padding: 0 10px;
+  height: 30px;
+  line-height: 30px;
+  .border-radius(3px);                                      
+  display: inline-block;
+  margin-right: 10px;
+  cursor: pointer;
+  font-weight: 400;
+  &.off {
+    opacity: 0.5;
+  }
+  &.active {
+    color: @green;
+  }
+}
