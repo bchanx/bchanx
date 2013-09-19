@@ -56,7 +56,7 @@ $(function() {
         var next = (meta === 'off') ? 'on' : 'off';
         (next === 'on') ? $(this).removeClass('off') : $(this).addClass('off');
         $(this).attr('data-meta', next);
-        s1.breadcrumbs()
+        s1.breadcrumbs();
       } else {
         if (meta === 'on') {
           $(this).addClass('off');
