@@ -33,6 +33,7 @@ if [[ ! $status =~ "nothing to commit, working directory clean" ]]; then
       exit 1
     fi
   fi
+  UNSTAGED=false
   if [[ $status =~ "Changes not staged for commit:" ]]; then
     read -e -p "Unstaged changes, add them? (y/n): " UNSTAGED
     if [[ -z "$UNSTAGED" ]] || [[ $UNSTAGED == "n" ]] || [[ $UNSTAGED == "N" ]]; then
