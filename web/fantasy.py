@@ -10,7 +10,7 @@ from web.base import render, staticUrl
 @app.route('/fantasy')
 def fantasy():
   players = []
-  with open(staticUrl('fantasy.txt', False)) as f:
+  with open(staticUrl('fantasy/2013.txt', False)) as f:
     lines = f.readlines()
     for l in lines:
       name, pos = tuple(l.split(':'))
