@@ -31,7 +31,7 @@ $(function() {
     updateEffect(s, effect);
   };
 
-  var s1 = slidr.create('slidr1', {'breadcrumbs': true, 'controls': 'border'});
+  var s1 = slidr.create('slidr-demo', {'breadcrumbs': true, 'controls': 'border', 'fade': true, 'overflow': true});
   addEffect(s1, 'random');
   window.s1 = s1;
 
@@ -65,9 +65,25 @@ $(function() {
         } else {
           $(this).removeClass('off');
           $(this).attr('data-meta', 'on');
-          s1.auto(null, 2000);
+          s1.auto(2000);
         }
       }
     });
   });
+
+  var master = slidr.create('slidr', {'transition': 'cube', 'overflow': true, 'fade': true}).start('slidr-index');
+
+  $('.slidr-nav').click(function() {
+    var nav = $(this).attr('nav');
+    if (nav === 'home') master.slide('left');
+    else if (nav === 'docs') master.slide('right');
+  });
+
+  $('.markdown').each(function() {
+    this.innerHTML = markdown.toHTML(this.innerHTML.trim());
+  });
+
+  slidr.create('slidr-div', {'controls': 'border', 'theme': '#222'}).start();
+  slidr.create('slidr-img', {'controls': 'border'}).start();
+  slidr.create('slidr-ul', {'controls': 'border', 'theme': '#222'}).start();
 });

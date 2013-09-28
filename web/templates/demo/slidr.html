@@ -5,40 +5,110 @@
 {% import "social.html" as social %}
 
 {% block head %}
-  {{ header.meta("Slidr", "http://www.bchanx.com/slidr", "true") }}
+  {{ header.meta("slidr.js", "http://www.bchanx.com/slidr", "true") }}
+  <link rel="stylesheet" type="text/css" href="/static/dist/markdown.css"/>
 {% endblock %}
 
 {% block header %}
-  {{ header.render("Slidr") }}
+  {{ header.render("slidr.js") }}
 {% endblock %}
 
 {% block body %}
+  <a href="https://github.com/bchanx/slidr">
+    <img style="position: absolute; top: 0; right: 0; border: 0;"
+         src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"
+         alt="Fork me on GitHub">
+  </a>
+
   <div class="blog-container clearfix">
-    <div class="block demo">
-      Add some slide effects.
+    <div id="slidr">
+      <div class="slidr-index" data-slidr="index">
+        <div class="block demo">
+          Add some slide effects.
+          <br><br>
+          <b>slidr.js</b> is a lightweight javascript library for adding slide transitions to your page. No dependencies required.
+          <br><br>
+          Check out the demo below, or read the <span class="slidr-nav" nav="docs" style="cursor: pointer; text-decoration: underline">documentation</span>.
+          <br>
+          <span class="subtext">(Tested on Chrome 26.0, Firefox 20.0, Safari 5.1.7, IE 10, Opera 16.0. Limited support for IE9.)</span>
+        </div>
+        <div class="block" style="text-align: center">
+          <div class="random effect button">random</div>
+          <div class="cube effect button">cube</div>
+          <div class="linear effect button">linear</div>
+          <div class="fade effect button">fade</div>
+          <div class="none effect button">none</div>
+        </div>
+        <div class="block" style="text-align: center">
+          <div class="controls settings button" data-meta="border">controls</div>
+          <div class="breadcrumbs settings button" data-meta="on">breadcrumbs</div>
+          <div class="auto settings button off" data-meta="off">auto</div>
+        </div>
+        <div class="block">
+          <div id="slidr-demo">
+            <div class="demo-slide one" data-slidr="one">one</div>
+            <div class="demo-slide two" data-slidr="two">two</div>
+            <div class="demo-slide three" data-slidr="three">three</div>
+            <div class="demo-slide four" data-slidr="four">four</div>
+            <div class="demo-slide five" data-slidr="five">five</div>
+            <div class="demo-slide six" data-slidr="six">six</div>
+            <div class="demo-slide seven" data-slidr="seven">seven</div>
+            <div class="demo-slide eight" data-slidr="eight">eight</div>
+          </div>
+        </div>
+      </div>
+      <div class="slidr-docs" data-slidr="docs">
+        <div class="block">
+          <span class="slidr-nav" nav="home" style="cursor: pointer; text-decoration: underline">BACK HOME</span>
+        </div>      
+        <div class="block">
+          <div class="markdown">
+# HTML
+**slidr.js** works on any `inline`, `inline-block` or `block` elements with an `id` defined.
+Valid slides include any first-level children elements with the `data-slidr` attribute set to some unique value within the parent scope. For example:
+
+    <ul id="slidr-ul" style="display: inline">
+      <li data-slidr="one">one</li>
+      <li data-slidr="two">two</li>
+      <li data-slidr="three">three</li>
+    </ul>
+
+    <div id="slidr-img" style="display: inline-block">
+      <img data-slidr="one" src="http://www.placehold.it/100x100"/>
+      <img data-slidr="two" src="http://www.placehold.it/100x100"/>
+      <img data-slidr="three" src="http://www.placehold.it/100x100"/>
     </div>
-    <div class="block" style="text-align: center">
-      <div class="random effect button">random</div>
-      <div class="cube effect button">cube</div>
-      <div class="linear effect button">linear</div>
-      <div class="fade effect button">fade</div>
-      <div class="none effect button">none</div>
+
+    <div id="slidr-div" style="dislay: block">
+      <div data-slidr="one">apple</div>
+      <div data-slidr="two">banana</div>
+      <div data-slidr="three">cat</div>
     </div>
-    <div class="block" style="text-align: center">
-      <div class="controls settings button" data-meta="border">controls</div>
-      <div class="breadcrumbs settings button" data-meta="on">breadcrumbs</div>
-      <div class="auto settings button off" data-meta="off">auto</div>
-    </div>
-    <div class="block">
-      <div id="slidr1">
-        <div class="demo-slide one" data-slidr="one">one</div>
-        <div class="demo-slide two" data-slidr="two">two</div>
-        <div class="demo-slide three" data-slidr="three">three</div>
-        <div class="demo-slide four" data-slidr="four">four</div>
-        <div class="demo-slide five" data-slidr="five">five</div>
-        <div class="demo-slide six" data-slidr="six">six</div>
-        <div class="demo-slide seven" data-slidr="seven">seven</div>
-        <div class="demo-slide eight" data-slidr="eight">eight</div>
+
+are all valid html markup for creating three different slidr's within the same page. (inline elements are transformed into inline-blocks in order to apply transitions).
+          </div>
+
+          <div class="example" style="position: relative; width: 100%; height: 100px">
+            <ul id="slidr-ul" style="display: inline; margin-right: 25px;">
+              <li data-slidr="one">one</li>
+              <li data-slidr="two">two</li>
+              <li data-slidr="three">three</li>
+            </ul>
+
+            <div id="slidr-img" style="display: inline-block;">
+              <img data-slidr="one" src="http://www.placehold.it/180x100"/>
+              <img data-slidr="two" src="http://www.placehold.it/180x100"/>
+              <img data-slidr="three" src="http://www.placehold.it/180x100"/>
+            </div>
+
+            <div id="slidr-div" style="display: block; position: absolute; right: 0; top: 0">
+              <div data-slidr="one">apple</div>
+              <div data-slidr="two">banana</div>
+              <div data-slidr="three">cat</div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
@@ -49,6 +119,7 @@
 {% endblock %}
 
 {% block script %}
+  <script type="text/javascript" src="/static/dist/markdown.js"></script>
   {% if env['type'] == 'prod' %}
     <script type="text/javascript" src="/static/dist/slidr.min.js"></script>
   {% endif %}
