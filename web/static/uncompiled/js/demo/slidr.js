@@ -31,7 +31,7 @@ $(function() {
     updateEffect(s, effect);
   };
 
-  var s1 = slidr.create('slidr-demo', {'breadcrumbs': true, 'controls': 'border', 'fade': true, 'overflow': true});
+  var s1 = slidr.create('slidr-demo', {'breadcrumbs': true, 'fade': true, 'overflow': true});
   addEffect(s1, 'random');
   window.s1 = s1;
 
@@ -41,7 +41,7 @@ $(function() {
     });
   });
 
-  var controls = ['', 'corner', 'border'];
+  var controls = ['border', 'corner', 'none'];
   $('.settings.button').each(function() {
     $(this).bind('click', function() {
       var type = $(this).text();
@@ -71,7 +71,26 @@ $(function() {
     });
   });
 
-  var master = slidr.create('slidr', {'transition': 'cube', 'overflow': true, 'fade': true}).start('slidr-index');
+  var anchors = ['#instructions', '#html', '#javascript'];
+  var pages = ['#home', '#docs'];
+
+  var checkHash = function() {
+    var hash = window.location.hash;
+    if (pages.indexOf(hash) >= 0) return hash.slice(1);
+    else if (anchors.indexOf(hash) >= 0) return 'docs';
+    return null;
+  };
+
+  var master = slidr.create('slidr', {
+    'controls': 'none',
+    'transition': 'cube',
+    'overflow': true,
+    'fade': true
+  }).start(checkHash());
+
+  $(window).bind('hashchange', function(e) {
+    master.slide(checkHash());
+  });
 
   $('.slidr-nav').click(function() {
     var nav = $(this).attr('nav');
@@ -83,7 +102,19 @@ $(function() {
     this.innerHTML = markdown.toHTML(this.innerHTML.trim());
   });
 
-  slidr.create('slidr-div', {'controls': 'border', 'theme': '#222'}).start();
-  slidr.create('slidr-img', {'controls': 'border'}).start();
-  slidr.create('slidr-ul', {'controls': 'border', 'theme': '#222'}).start();
+  var demos = [slidr.create('slidr-div', {'theme': '#222'}).start(),
+               slidr.create('slidr-img', {'theme': '#222'}).start(),
+               slidr.create('slidr-ul', {'theme': '#222'}).start()];
+  var demoNames = ['#slidr-div-control', '#slidr-img-control', '#slidr-ul-control'];
+  for (var i = 0, demo; demo = demoNames[i]; i++) {
+    $(demo + ' .slidr-control.left').bind('click', function(e) {
+      e.stopPropagation();
+      for (var d = 0, dd; dd = demos[d]; d++) dd.slide('left');
+    });
+    $(demo + ' .slidr-control.right').bind('click', function(e) {
+      e.stopPropagation();
+      for (var d = 0, dd; dd = demos[d]; d++) dd.slide('right');
+    });
+  }
+
 });

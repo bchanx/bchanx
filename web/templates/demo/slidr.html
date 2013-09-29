@@ -22,27 +22,13 @@
 
   <div class="blog-container clearfix">
     <div id="slidr">
-      <div class="slidr-index" data-slidr="index">
+      <div class="slidr-home" data-slidr="home">
         <div class="block demo">
           Add some slide effects.
           <br><br>
-          <b>slidr.js</b> is a lightweight javascript library for adding slide transitions to your page. No dependencies required.
+          <b>slidr.js</b> is a simple, lightweight javascript library for adding slide transitions to your page. No dependencies required.
           <br><br>
-          Check out the demo below, or read the <span class="slidr-nav" nav="docs" style="cursor: pointer; text-decoration: underline">documentation</span>.
-          <br>
-          <span class="subtext">(Tested on Chrome 26.0, Firefox 20.0, Safari 5.1.7, IE 10, Opera 16.0. Limited support for IE9.)</span>
-        </div>
-        <div class="block" style="text-align: center">
-          <div class="random effect button">random</div>
-          <div class="cube effect button">cube</div>
-          <div class="linear effect button">linear</div>
-          <div class="fade effect button">fade</div>
-          <div class="none effect button">none</div>
-        </div>
-        <div class="block" style="text-align: center">
-          <div class="controls settings button" data-meta="border">controls</div>
-          <div class="breadcrumbs settings button" data-meta="on">breadcrumbs</div>
-          <div class="auto settings button off" data-meta="off">auto</div>
+          Check out the demo below, or read the <a href="#docs">documentation</a>.
         </div>
         <div class="block">
           <div id="slidr-demo">
@@ -56,33 +42,65 @@
             <div class="demo-slide eight" data-slidr="eight">eight</div>
           </div>
         </div>
+        <div class="block" style="text-align: center">
+          <div class="random effect button">random</div>
+          <div class="cube effect button">cube</div>
+          <div class="linear effect button">linear</div>
+          <div class="fade effect button">fade</div>
+          <div class="none effect button">none</div>
+        </div>
+        <div class="block" style="text-align: center">
+          <div class="controls settings button" data-meta="border">controls</div>
+          <div class="breadcrumbs settings button" data-meta="on">breadcrumbs</div>
+          <div class="auto settings button off" data-meta="off">auto</div>
+        </div>
+        <div class="block demo">
+          <br>
+          Works on any inline, inline-block or block elements.
+          <br>
+          Slides can contain any html content, no restrictions.*
+          <br>
+          <span class="subtext">(Tested on Chrome 26.0, Firefox 20.0, Safari 5.1.7, IE 10, Opera 16.0. Limited support for IE9.)</span>
+          <br><br>
+          <span class="subtext2">*the goal, not a guarantee.</span>
+          <br><br>
+          Built with love.
+        </div>
       </div>
       <div class="slidr-docs" data-slidr="docs">
         <div class="block">
-          <span class="slidr-nav" nav="home" style="cursor: pointer; text-decoration: underline">BACK HOME</span>
+          <a href="#home">Home</a>
         </div>      
         <div class="block">
-          <div class="markdown">
-# HTML
-**slidr.js** works on any `inline`, `inline-block` or `block` elements with an `id` defined.
+          <div class="markdown" id="instructions">
+## Instructions
+Include either `slidr.js` or `slidr.min.js` somewhere at the bottom of your html page, after the body content.
+
+    <script type="text/javascript" src="/static/dist/slidr.min.js"></script>
+
+          </div>
+          <div class="markdown" id="html">
+--------
+## HTML
+slidr works on any `inline`, `inline-block` or `block` elements with an `id` defined.
 Valid slides include any first-level children elements with the `data-slidr` attribute set to some unique value within the parent scope. For example:
 
     <ul id="slidr-ul" style="display: inline">
-      <li data-slidr="one">one</li>
-      <li data-slidr="two">two</li>
-      <li data-slidr="three">three</li>
+      <li data-slidr="one">apple</li>
+      <li data-slidr="two">banana</li>
+      <li data-slidr="three">coconut</li>
     </ul>
 
     <div id="slidr-img" style="display: inline-block">
-      <img data-slidr="one" src="http://www.placehold.it/100x100"/>
-      <img data-slidr="two" src="http://www.placehold.it/100x100"/>
-      <img data-slidr="three" src="http://www.placehold.it/100x100"/>
+      <img data-slidr="one" src="/static/images/apple.png"/>
+      <img data-slidr="two" src="/static/images/banana.png"/>
+      <img data-slidr="three" src="/static/images/coconut.png"/>
     </div>
 
     <div id="slidr-div" style="dislay: block">
       <div data-slidr="one">apple</div>
       <div data-slidr="two">banana</div>
-      <div data-slidr="three">cat</div>
+      <div data-slidr="three">coconut</div>
     </div>
 
 are all valid html markup for creating three different slidr's within the same page. (inline elements are transformed into inline-blocks in order to apply transitions).
@@ -90,24 +108,39 @@ are all valid html markup for creating three different slidr's within the same p
 
           <div class="example" style="position: relative; width: 100%; height: 100px">
             <ul id="slidr-ul" style="display: inline; margin-right: 25px;">
-              <li data-slidr="one">one</li>
-              <li data-slidr="two">two</li>
-              <li data-slidr="three">three</li>
+              <li data-slidr="one" style="color: red">apple</li>
+              <li data-slidr="two" style="color: #d0ac38">banana</li>
+              <li data-slidr="three" style="color: #5e3b18">coconut</li>
             </ul>
 
-            <div id="slidr-img" style="display: inline-block;">
-              <img data-slidr="one" src="http://www.placehold.it/180x100"/>
-              <img data-slidr="two" src="http://www.placehold.it/180x100"/>
-              <img data-slidr="three" src="http://www.placehold.it/180x100"/>
+            <div id="slidr-img" style="display: inline-block">
+              <img data-slidr="one" src="/static/images/apple.png"/>
+              <img data-slidr="two" src="/static/images/banana.png"/>
+              <img data-slidr="three" src="/static/images/coconut.png"/>
             </div>
 
-            <div id="slidr-div" style="display: block; position: absolute; right: 0; top: 0">
-              <div data-slidr="one">apple</div>
-              <div data-slidr="two">banana</div>
-              <div data-slidr="three">cat</div>
+            <div id="slidr-div" style="display: block; position: absolute; right: 0; top: 0; color: white">
+              <div data-slidr="one" style="text-shadow: 0 0 5px red">apple</div>
+              <div data-slidr="two" style="text-shadow: 0 0 5px #d0ac38">banana</div>
+              <div data-slidr="three" style="text-shadow: 0 0 5px #5e3b18">coconut</div>
             </div>
           </div>
 
+          <div class="markdown" id="javascript">
+------------
+## Javascript
+A global `slidr` object is available for calling. Creating a slidr can be as basic as this:
+
+    slidr.create('slidr-img').start();
+
+What happened? slidr finds the element with `id="slidr-img"`, and applies a `linear` transition effect in the
+`horizontal` direction to any direct children with the `data-slidr` attribute set.
+
+The first data-slidr child found is assumed as the starting slide, and by default the controls are shown along the
+`border` with a white `#fff` theme.
+
+Finally, the call to `start()` completes initialization and fades the element into the document.
+          </div>
         </div>
       </div>
     </div>
