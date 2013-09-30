@@ -88,20 +88,25 @@ $(function() {
     'fade': true
   }).start(checkHash());
 
+  // Setup breadcrumbs and hash changes.
   $(window).bind('hashchange', function(e) {
     master.slide(checkHash());
   });
-
   $('.slidr-nav').click(function() {
     var nav = $(this).attr('nav');
     if (nav === 'home') master.slide('left');
     else if (nav === 'docs') master.slide('right');
   });
 
+  // Highlight markdown.
   $('.markdown').each(function() {
-    this.innerHTML = markdown.toHTML(this.innerHTML.trim());
+    this.innerHTML = marked(this.innerHTML.trim());
   });
 
+  // Highlight code blocks.
+  hljs.initHighlightingOnLoad();
+
+  // Set up demo slidr's.
   var demos = [slidr.create('slidr-div', {'theme': '#222'}).start(),
                slidr.create('slidr-img', {'theme': '#222'}).start(),
                slidr.create('slidr-ul', {'theme': '#222'}).start()];

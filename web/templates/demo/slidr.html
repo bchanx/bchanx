@@ -6,6 +6,7 @@
 
 {% block head %}
   {{ header.meta("slidr.js", "http://www.bchanx.com/slidr", "true") }}
+  <link rel="stylesheet" type="text/css" href="/static/dist/highlight.css"/>
   <link rel="stylesheet" type="text/css" href="/static/dist/markdown.css"/>
 {% endblock %}
 
@@ -76,8 +77,9 @@
 ## Instructions
 Include either `slidr.js` or `slidr.min.js` somewhere at the bottom of your html page, after the body content.
 
-    <script type="text/javascript" src="/static/dist/slidr.min.js"></script>
-
+```javascript
+<script type="text/javascript" src="/static/dist/slidr.min.js"></script>
+```
           </div>
           <div class="markdown" id="html">
 --------
@@ -85,23 +87,25 @@ Include either `slidr.js` or `slidr.min.js` somewhere at the bottom of your html
 slidr works on any `inline`, `inline-block` or `block` elements with an `id` defined.
 Valid slides include any first-level children elements with the `data-slidr` attribute set to some unique value within the parent scope. For example:
 
-    <ul id="slidr-ul" style="display: inline">
-      <li data-slidr="one">apple</li>
-      <li data-slidr="two">banana</li>
-      <li data-slidr="three">coconut</li>
-    </ul>
+```html
+<ul id="slidr-ul" style="display: inline">
+  <li data-slidr="one">apple</li>
+  <li data-slidr="two">banana</li>
+  <li data-slidr="three">coconut</li>
+</ul>
 
-    <div id="slidr-img" style="display: inline-block">
-      <img data-slidr="one" src="/static/images/apple.png"/>
-      <img data-slidr="two" src="/static/images/banana.png"/>
-      <img data-slidr="three" src="/static/images/coconut.png"/>
-    </div>
+<div id="slidr-img" style="display: inline-block">
+  <img data-slidr="one" src="/static/images/apple.png"/>
+  <img data-slidr="two" src="/static/images/banana.png"/>
+  <img data-slidr="three" src="/static/images/coconut.png"/>
+</div>
 
-    <div id="slidr-div" style="dislay: block">
-      <div data-slidr="one">apple</div>
-      <div data-slidr="two">banana</div>
-      <div data-slidr="three">coconut</div>
-    </div>
+<div id="slidr-div" style="dislay: block">
+  <div data-slidr="one">apple</div>
+  <div data-slidr="two">banana</div>
+  <div data-slidr="three">coconut</div>
+</div>
+```
 
 are all valid html markup for creating three different slidr's within the same page. (inline elements are transformed into inline-blocks in order to apply transitions).
           </div>
@@ -131,7 +135,9 @@ are all valid html markup for creating three different slidr's within the same p
 ## Javascript
 A global `slidr` object is available for calling. Creating a slidr can be as basic as this:
 
-    slidr.create('slidr-img').start();
+```javascript
+slidr.create('slidr-img').start();
+```
 
 What happened? slidr finds the element with `id="slidr-img"`, and applies a `linear` transition effect in the
 `horizontal` direction to any direct children with the `data-slidr` attribute set.
@@ -140,6 +146,13 @@ The first data-slidr child found is assumed as the starting slide, and by defaul
 `border` with a white `#fff` theme.
 
 Finally, the call to `start()` completes initialization and fades the element into the document.
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+
           </div>
         </div>
       </div>
@@ -152,7 +165,8 @@ Finally, the call to `start()` completes initialization and fades the element in
 {% endblock %}
 
 {% block script %}
-  <script type="text/javascript" src="/static/dist/markdown.js"></script>
+  <script type="text/javascript" src="/static/dist/highlight.min.js"></script>
+  <script type="text/javascript" src="/static/dist/marked.js"></script>
   {% if env['type'] == 'prod' %}
     <script type="text/javascript" src="/static/dist/slidr.min.js"></script>
   {% endif %}
