@@ -111,10 +111,10 @@ are all valid html markup for creating three different slidr's within the same p
           </div>
 
           <div class="example" style="position: relative; width: 100%; height: 100px">
-            <ul id="slidr-ul" style="display: inline; margin-right: 25px;">
-              <li data-slidr="one" style="color: red">apple</li>
-              <li data-slidr="two" style="color: #d0ac38">banana</li>
-              <li data-slidr="three" style="color: #5e3b18">coconut</li>
+            <ul id="slidr-ul" style="display: inline">
+              <li data-slidr="one">apple</li>
+              <li data-slidr="two">banana</li>
+              <li data-slidr="three">coconut</li>
             </ul>
 
             <div id="slidr-img" style="display: inline-block">
@@ -123,36 +123,58 @@ are all valid html markup for creating three different slidr's within the same p
               <img data-slidr="three" src="/static/images/coconut.png"/>
             </div>
 
-            <div id="slidr-div" style="display: block; position: absolute; right: 0; top: 0; color: white">
-              <div data-slidr="one" style="text-shadow: 0 0 5px red">apple</div>
-              <div data-slidr="two" style="text-shadow: 0 0 5px #d0ac38">banana</div>
-              <div data-slidr="three" style="text-shadow: 0 0 5px #5e3b18">coconut</div>
+            <div id="slidr-div" style="display: block">
+              <div data-slidr="one">apple</div>
+              <div data-slidr="two">banana</div>
+              <div data-slidr="three">coconut</div>
             </div>
           </div>
 
           <div class="markdown" id="javascript">
 ------------
 ## Javascript
-A global `slidr` object is available for calling. Creating a slidr can be as basic as this:
+A global `slidr` object is available for calling. The most minimal way of creating a slidr is this:
 
 ```javascript
-slidr.create('slidr-img').start();
+slidr.create('slidr-demo').start();
 ```
 
-What happened? slidr finds the element with `id="slidr-img"`, and applies a `linear` transition effect in the
-`horizontal` direction to any direct children with the `data-slidr` attribute set.
+The call to `create()` finds the element with `id="slidr-demo"`, applies the default settings, then returns a `Slidr` object.
+The call to `start()` converts all children elements with the `data-slidr` attribute set into slides.
+The first element found is assumed as the starting slide.
 
-The first data-slidr child found is assumed as the starting slide, and by default the controls are shown along the
-`border` with a white `#fff` theme.
+Default settings will apply a `linear` transition effect in the `horizontal` direction, with a `fade` between slides
+and the overflow `hidden`. Slide controls are shown along the `border` using a white `#fff` theme.
+Finally, the Slidr element is faded into the document.
 
-Finally, the call to `start()` completes initialization and fades the element into the document.
+`create()` accepts various settings in its second parameter. A call with all the settings toggled looks like so:
 
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+```javascript
+slidr.create('slidr-demo', {
+  'breadcrumbs': true,
+  'controls': 'corner',
+  'direction': 'vertical',
+  'fade': false,
+  'overflow': true,
+  'theme': '#222',
+  'transition': 'cube'
+}).start();
+```
+          </div>
+          <div class="markdown" id="settings">
+------------
+## Settings
+Full details on available settings listed below:
 
+| Parameter     | Type    | Default      | Description                                                                   |
+| ------------- |:-------:|:------------:| -----------------------------------------------------------------------------:|
+| `breadcrumbs` | bool    | `false`      | Show or hide breadcrumbs on start(). `true` or `false`.                       |
+| `controls`    | string  | `border`     | Show or hide control arrows on start(). `border`, `corner` or `none`.         |
+| `direction`   | string  | `horizontal` | The default direction for new slides. `horizontal` or `h`, `vertical` or `v`. |
+| `fade`        | bool    | `true`       | Whether slide transitions should fade in/out. `true` or `false`.              |
+| `overflow`    | bool    | `false`      | Whether to overflow transitions at slidr borders. `true` or `false`.          |
+| `theme`       | string  | `#fff`       | Sets color theme for breadcrumbs/controls. `#hexcode` or `rgba(value)`.       |
+| `transition`  | string  | `linear`     | The default transition to apply. `cube`, `linear`, `fade`, or `none`.         |
           </div>
         </div>
       </div>
