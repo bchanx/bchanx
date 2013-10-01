@@ -31,7 +31,10 @@ $(function() {
     updateEffect(s, effect);
   };
 
-  var s1 = slidr.create('slidr-demo', {'breadcrumbs': true, 'fade': true, 'overflow': true});
+  var s1 = slidr.create('slidr-demo', {
+    'breadcrumbs': true,
+    'overflow': true
+  });
   addEffect(s1, 'random');
   window.s1 = s1;
 
@@ -85,8 +88,7 @@ $(function() {
   var master = slidr.create('slidr', {
     'controls': 'none',
     'transition': 'cube',
-    'overflow': true,
-    'fade': true
+    'overflow': true
   }).start(checkHash());
 
   // Setup breadcrumbs and hash changes.

@@ -3,6 +3,7 @@
  * All Rights Reserved.
  */
 
+if (bchanx.type === 'devel') bchanx.require('slidr.js');
 bchanx.require('playlist.js');
 
 bchanx.player = {};
@@ -154,8 +155,11 @@ bchanx.Jukebox = function() {
     }
 
     // Go go gadget slidr.
-    self.slidr = slidr.create('jukebox', {'transition': 'cube'})
-      .add('h', ['playlists', 'video', 'about', 'playlists'])
+    self.slidr = slidr.create('jukebox', {
+      'transition': 'cube',
+      'overflow': true,
+      'controls': 'none'
+    }).add('h', ['playlists', 'video', 'about', 'playlists'])
       .add('v', ['playlists', 'video', 'about', 'playlists'])
       .start();
 
