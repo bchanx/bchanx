@@ -7,4 +7,3 @@
 !static/dist/*
 !web/static/dist/
 .env
-versions
