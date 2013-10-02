@@ -25,6 +25,8 @@ body {
 }
 
 .slidr-example {
+  font-size: 25px;
+  font-weight: 600;
   position: relative;
   width: 100%;
   min-height: 100px;
@@ -54,15 +56,15 @@ body {
   top: 0;
   color: white;
   div[data-slidr="one"] {
-    text-shadow: 0px 0px 5px @slidr-apple;
+    text-shadow: 0px 0px 10px @slidr-apple;
     filter: dropshadow(color=@slidr-apple, offx=0, offy=0);
   }
   div[data-slidr="two"] {
-    text-shadow: 0px 0px 5px @slidr-banana;
+    text-shadow: 0px 0px 10px @slidr-banana;
     filter: dropshadow(color=@slidr-banana, offx=0, offy=0);
   }
   div[data-slidr="three"] {
-    text-shadow: 0px 0px 5px @slidr-coconut;
+    text-shadow: 0px 0px 10px @slidr-coconut;
     filter: dropshadow(color=@slidr-coconut, offx=0, offy=0);
   }
 }
@@ -170,3 +172,46 @@ body {
   }
 }
 
+@media screen and (max-width: 640px) {
+  .hideOnSmall {
+    display: none;
+  }
+  .markdown pre {
+    font-size: 12px !important;
+    line-height: 16px !important;
+  }
+  #settings.markdown table {
+    thead tr th:nth-child(2) {
+      display: none;
+    }
+    tbody tr td:nth-child(2) {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .markdown pre {
+    font-size: 11px !important;
+    line-height: 13px !important;
+  }
+  #settings.markdown table {
+    thead tr th {
+      &:nth-child(3) {
+        display: none;
+      }
+    }
+    tbody tr td {
+      &:nth-child(3) {
+        display: none;
+      }
+      &:nth-child(1) code {
+        margin: 0;
+        padding: 0;
+        border: none;
+        background-color: transparent;
+        border-radius: 0;
+      }
+    }
+  }
+}

@@ -110,7 +110,7 @@ Valid slides include any first-level children elements with the `data-slidr` att
 are all valid html markup for creating three different slidr's within the same page. (inline elements are transformed into inline-blocks in order to apply transitions).
           </div>
 
-          <div class="slidr-example">
+          <div class="slidr-example hideOnSmall">
             <ul id="slidr-ul" style="display: inline">
               <li data-slidr="one">apple</li>
               <li data-slidr="two">banana</li>
@@ -158,31 +158,47 @@ slidr.create('slidr-demo', {
 ## Settings
 Full details on available settings listed below:
 
-| Parameter     | Type    | Default      | Description                                                                   |
-| ------------- |:-------:|:------------:| -----------------------------------------------------------------------------:|
-| `breadcrumbs` | bool    | `false`      | Show or hide breadcrumbs on start(). `true` or `false`.                       |
-| `controls`    | string  | `border`     | Show or hide control arrows on start(). `border`, `corner` or `none`.         |
-| `direction`   | string  | `horizontal` | The default direction for new slides. `horizontal` or `h`, `vertical` or `v`. |
-| `fade`        | bool    | `true`       | Whether slide transitions should fade in/out. `true` or `false`.              |
-| `overflow`    | bool    | `false`      | Whether to overflow transitions at slidr borders. `true` or `false`.          |
-| `theme`       | string  | `#fff`       | Sets color theme for breadcrumbs/controls. `#hexcode` or `rgba(value)`.       |
-| `transition`  | string  | `linear`     | The default transition to apply. `cube`, `linear`, `fade`, or `none`.         |
+| Parameter     | Type      | Default    | Description                                                                   |
+| ------------- |:---------:|:----------:| -----------------------------------------------------------------------------:|
+| `breadcrumbs` | _bool_    | false      | Show or hide breadcrumbs on start(). `true` or `false`.                       |
+| `controls`    | _string_  | border     | Show or hide control arrows on start(). `border`, `corner` or `none`.         |
+| `direction`   | _string_  | horizontal | The default direction for new slides. `horizontal` or `h`, `vertical` or `v`. |
+| `fade`        | _bool_    | true       | Whether slide transitions should fade in/out. `true` or `false`.              |
+| `overflow`    | _bool_    | false      | Whether to overflow transitions at slidr borders. `true` or `false`.          |
+| `theme`       | _string_  | #fff       | Sets color theme for breadcrumbs/controls. `#hexcode` or `rgba(value)`.       |
+| `transition`  | _string_  | linear     | The default transition to apply. `cube`, `linear`, `fade`, or `none`.         |
           </div>
           <div class="markdown" id="globalAPI">
 -------------
 ## Global API
 The global `slidr` namespace provides the following function calls:
 
-| Function                   | Description                                                                                                                                                                   |
-| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| `version()`                | Current slidr version. Returns major.minor.patch.                                                                                                                             |
-| `transitions()`            | Available transitions. Returns an array of transitions.                                                                                                                       |
-| `create(id, opt_settings)` | Creates a Slidr. `id` is the element id. `opt_settings` is additional settings to apply. Calling `create()` on the same element twice returns the already instantiated Slidr. |
+```javascript
+/**
+ * Current version.
+ * @return {string} major.minor.patch.
+ */
+ function version() {};
+
+/**
+ * Available transitions.
+ * @return {Array} of transitions.
+ */
+ function transitions() {};
+
+/**
+ * Creates and returns a Slidr.
+ * Calling create on the same element twice returns the already instantiated Slidr.
+ * @param {string} id The element id to turn into a Slidr.
+ * @param {Object=} opt_settings Settings to apply.
+ */
+ function create(id, opt_settings) {};
+```
           </div>
           <div class="markdown" id="slidrAPI">
 ------------
 ## Slidr API
-For javascript control, you can save a reference to the Slidr object as follows:
+For javascript control, you can save a reference to the `Slidr` object as follows:
 
 ```javascript
 // Initialize a Slidr. 
@@ -214,19 +230,78 @@ s.start();
             </div>
           </div>
           <div class="markdown">
-Slidr functions are fully chainable (wherever it makes sense to do so). The following is equivalent:
+`Slidr` functions are fully chainable (where it makes sense to do so). The following is equivalent:
 
 ```javascript
 var s = slidr.create('slidr-api-demo', {
-    breadcrumbs: true,
-    overflow: true,
-    transition: 'cube'
-  }).add('h', ["one", "two", "three", "one"], 'linear')
-    .add('v', ["five", "four", "three", "five"])
-    .start();
+  breadcrumbs: true,
+  overflow: true,
+  transition: 'cube'
+}).add('h', ["one", "two", "three", "one"], 'linear')
+  .add('v', ["five", "four", "three", "five"])
+  .start();
 ```
 
-The full list of available functions is listed below:
+The full list of available functions in a `Slidr` object is listed below:
+
+```javascript
+/**
+ * Start the Slidr!
+ * Automatically finds slides to create if nothing was added prior to calling start().
+ * @param {string} opt_start `data-slidr` id to start on.
+ * @return {this}
+ */
+ function start(opt_start) {};
+
+/**
+ * Check whether we can slide.
+ * @param {string} next a direction ('up', 'down', 'left', 'right') or a `data-slidr` id.
+ * @return {boolean}
+ */
+ function canSlide(next) {};
+
+/**
+ * Slide!
+ * @param {string} next a direction ('up', 'down', 'left', 'right') or a `data-slidr` id.
+ * @return {this}
+ */
+ function slide(next) {};
+
+/**
+ * Adds a set of slides.
+ * @param {string} direction `horizontal || h` or `vertical || v`.
+ * @param {Array} ids A list of `data-slidr` id's to add to Slidr. Slides must be direct children of the Slidr.
+ * @param {string=} opt_transition The transition to apply between the slides, or uses the default.
+ * @param {boolean=} opt_overwrite Whether to overwrite existing slide mappings/transitions if conflicts occur.
+ * @return {this}
+ */
+ function add(direction, ids, opt_transition, opt_overwrite) {};
+
+/**
+ * Automatically advance to the next slide after a certain timeout. Calls start() if not already called.
+ * @param {int=} opt_msec The number of millis between each slide transition. Defaults to 5000 (5 seconds).
+ * @param {string=} opt_direction 'up', 'down', 'left', or 'right'. Defaults to 'right'.
+ * @param {string=} opt_start The `data-slidr` id to start at (only works if auto is called to start the Slidr).
+ */
+ function auto(opt_msec, opt_direction, opt_start) {};
+
+/**
+ * Stop auto transition if it's turned on.
+ */
+ function stop() {};
+
+/**
+ * Toggle breadcrumbs.
+ */
+ function breadcrumbs() {};
+
+/**
+ * Toggle controls.
+ * @param {string=} opt_scheme Toggle on/off if not present, else change layout. 'border', `corner` or `none`.
+ */
+ function controls(opt_scheme) {};
+```
+
           </div>
         </div>
       </div>
