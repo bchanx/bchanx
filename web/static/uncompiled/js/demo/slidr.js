@@ -31,7 +31,7 @@ $(function() {
     updateEffect(s, effect);
   };
 
-  var s1 = slidr.create('slidr-demo', {
+  var s1 = slidr.create('slidr-main-demo', {
     'breadcrumbs': true,
     'overflow': true
   });
@@ -124,5 +124,14 @@ $(function() {
       for (var d = 0, dd; dd = demos[d]; d++) dd.slide('right');
     });
   }
+
+  // Set up Slidr API demo.
+  slidr.create('slidr-api-demo', {
+    breadcrumbs: true,
+    overflow: true,
+    transition: 'cube'
+  }).add('h', ['one', 'two', 'three', 'one'], 'linear')
+    .add('v', ['five', 'four', 'three', 'five'])
+    .start();
 
 });

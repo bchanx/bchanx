@@ -32,7 +32,7 @@
           Check out the demo below, or read the <a href="#docs">documentation</a>.
         </div>
         <div class="block">
-          <div id="slidr-demo">
+          <div id="slidr-main-demo">
             <div class="demo-slide one" data-slidr="one">one</div>
             <div class="demo-slide two" data-slidr="two">two</div>
             <div class="demo-slide three" data-slidr="three">three</div>
@@ -78,7 +78,7 @@
 Include either `slidr.js` or `slidr.min.js` somewhere at the bottom of your html page, after the body content.
 
 ```javascript
-<script type="text/javascript" src="/static/dist/slidr.min.js"></script>
+<script type="text/javascript" src="/path/to/slidr.min.js"></script>
 ```
           </div>
           <div class="markdown" id="html">
@@ -110,7 +110,7 @@ Valid slides include any first-level children elements with the `data-slidr` att
 are all valid html markup for creating three different slidr's within the same page. (inline elements are transformed into inline-blocks in order to apply transitions).
           </div>
 
-          <div class="example" style="position: relative; width: 100%; height: 100px">
+          <div class="slidr-example">
             <ul id="slidr-ul" style="display: inline">
               <li data-slidr="one">apple</li>
               <li data-slidr="two">banana</li>
@@ -139,15 +139,7 @@ A global `slidr` object is available for calling. The most minimal way of creati
 slidr.create('slidr-demo').start();
 ```
 
-The call to `create()` finds the element with `id="slidr-demo"`, applies the default settings, then returns a `Slidr` object.
-The call to `start()` converts all children elements with the `data-slidr` attribute set into slides.
-The first element found is assumed as the starting slide.
-
-Default settings will apply a `linear` transition effect in the `horizontal` direction, with a `fade` between slides
-and the overflow `hidden`. Slide controls are shown along the `border` using a white `#fff` theme.
-Finally, the Slidr element is faded into the document.
-
-`create()` accepts various settings in its second parameter. A call with all the settings toggled looks like so:
+`create()` accepts an optional settings parameter as its second argument. A call with all the settings toggled looks like so:
 
 ```javascript
 slidr.create('slidr-demo', {
@@ -162,7 +154,7 @@ slidr.create('slidr-demo', {
 ```
           </div>
           <div class="markdown" id="settings">
-------------
+-----------
 ## Settings
 Full details on available settings listed below:
 
@@ -175,6 +167,66 @@ Full details on available settings listed below:
 | `overflow`    | bool    | `false`      | Whether to overflow transitions at slidr borders. `true` or `false`.          |
 | `theme`       | string  | `#fff`       | Sets color theme for breadcrumbs/controls. `#hexcode` or `rgba(value)`.       |
 | `transition`  | string  | `linear`     | The default transition to apply. `cube`, `linear`, `fade`, or `none`.         |
+          </div>
+          <div class="markdown" id="globalAPI">
+-------------
+## Global API
+The global `slidr` namespace provides the following function calls:
+
+| Function                   | Description                                                                                                                                                                   |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| `version()`                | Current slidr version. Returns major.minor.patch.                                                                                                                             |
+| `transitions()`            | Available transitions. Returns an array of transitions.                                                                                                                       |
+| `create(id, opt_settings)` | Creates a Slidr. `id` is the element id. `opt_settings` is additional settings to apply. Calling `create()` on the same element twice returns the already instantiated Slidr. |
+          </div>
+          <div class="markdown" id="slidrAPI">
+------------
+## Slidr API
+For javascript control, you can save a reference to the Slidr object as follows:
+
+```javascript
+// Initialize a Slidr. 
+// Display breadcrumbs, overflow transitions, use cube transition.
+var s = slidr.create('slidr-api-demo', {
+  breadcrumbs: true,
+  overflow: true,
+  transition: 'cube'
+});
+
+// Add horizontal slides with a linear transition.
+// The extra "one" allows the slidr to circle back and loop infinitely.
+s.add('h', ["one", "two", "three", "one"], 'linear');
+
+// Add vertical slides using default cube transition.
+s.add('v', ["five", "four", "three", "five"]);
+
+// Now start.
+s.start();
+```
+          </div>
+          <div class="slidr-example">
+            <div id="slidr-api-demo">
+              <div data-slidr="one">one</div>
+              <div data-slidr="two">two</div>
+              <div data-slidr="three">three</div>
+              <div data-slidr="four">four</div>
+              <div data-slidr="five">five</div>
+            </div>
+          </div>
+          <div class="markdown">
+Slidr functions are fully chainable (wherever it makes sense to do so). The following is equivalent:
+
+```javascript
+var s = slidr.create('slidr-api-demo', {
+    breadcrumbs: true,
+    overflow: true,
+    transition: 'cube'
+  }).add('h', ["one", "two", "three", "one"], 'linear')
+    .add('v', ["five", "four", "three", "five"])
+    .start();
+```
+
+The full list of available functions is listed below:
           </div>
         </div>
       </div>
