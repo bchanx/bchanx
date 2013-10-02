@@ -12,12 +12,14 @@
   margin-bottom: 0 !important;
 }
 
+/**
 .markdown a {
   color: #4183C4;
 }
 .markdown a.absent {
   color: #cc0000;
 }
+
 .markdown a.anchor {
   display: block;
   padding-left: 30px;
@@ -28,7 +30,7 @@
   left: 0;
   bottom: 0;
 }
-
+*/
 .markdown h1,
 .markdown h2,
 .markdown h3,

@@ -134,4 +134,12 @@ $(function() {
     .add('v', ['five', 'four', 'three', 'five'])
     .start();
 
+  // Set up Slidr CSS demo.
+  slidr.create('slidr-css-demo', {
+    breadcrumbs: true,
+    overflow: true,
+    transition: 'cube'
+  }).add('h', ['one', 'two', 'three', 'one'], 'linear')
+    .add('v', ['five', 'four', 'three', 'five'])
+    .start();
 });

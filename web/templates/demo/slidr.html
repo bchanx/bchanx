@@ -143,19 +143,19 @@ slidr.create('slidr-demo').start();
 
 ```javascript
 slidr.create('slidr-demo', {
-  'breadcrumbs': true,
-  'controls': 'corner',
-  'direction': 'vertical',
-  'fade': false,
-  'overflow': true,
-  'theme': '#222',
-  'transition': 'cube'
+  breadcrumbs: true,
+  controls: 'corner',
+  direction: 'vertical',
+  fade: false,
+  overflow: true,
+  theme: '#222',
+  transition: 'cube'
 }).start();
 ```
           </div>
           <div class="markdown" id="settings">
 -----------
-## Settings
+### Settings
 Full details on available settings listed below:
 
 | Parameter     | Type      | Default    | Description                                                                   |
@@ -170,7 +170,7 @@ Full details on available settings listed below:
           </div>
           <div class="markdown" id="globalAPI">
 -------------
-## Global API
+### Global API
 The global `slidr` namespace provides the following function calls:
 
 ```javascript
@@ -197,7 +197,7 @@ The global `slidr` namespace provides the following function calls:
           </div>
           <div class="markdown" id="slidrAPI">
 ------------
-## Slidr API
+### Slidr API
 For javascript control, you can save a reference to the `Slidr` object as follows:
 
 ```javascript
@@ -211,14 +211,28 @@ var s = slidr.create('slidr-api-demo', {
 
 // Add horizontal slides with a linear transition.
 // The extra "one" allows the slidr to circle back and loop infinitely.
-s.add('h', ["one", "two", "three", "one"], 'linear');
+s.add('h', ['one', 'two', 'three', 'one'], 'linear');
 
 // Add vertical slides using default cube transition.
-s.add('v', ["five", "four", "three", "five"]);
+s.add('v', ['five', 'four', 'three', 'five']);
 
 // Now start.
 s.start();
 ```
+
+`Slidr` functions are fully chainable (where it makes sense to do so). The following is equivalent:
+
+```javascript
+var s = slidr.create('slidr-api-demo', {
+  breadcrumbs: true,
+  overflow: true,
+  transition: 'cube'
+}).add('h', ['one', 'two', 'three', 'one'], 'linear')
+  .add('v', ['five', 'four', 'three', 'five'])
+  .start();
+```
+
+which produces this:
           </div>
           <div class="slidr-example">
             <div id="slidr-api-demo">
@@ -230,18 +244,6 @@ s.start();
             </div>
           </div>
           <div class="markdown">
-`Slidr` functions are fully chainable (where it makes sense to do so). The following is equivalent:
-
-```javascript
-var s = slidr.create('slidr-api-demo', {
-  breadcrumbs: true,
-  overflow: true,
-  transition: 'cube'
-}).add('h', ["one", "two", "three", "one"], 'linear')
-  .add('v', ["five", "four", "three", "five"])
-  .start();
-```
-
 The full list of available functions in a `Slidr` object is listed below:
 
 ```javascript
@@ -282,26 +284,140 @@ The full list of available functions in a `Slidr` object is listed below:
  * @param {int=} opt_msec The number of millis between each slide transition. Defaults to 5000 (5 seconds).
  * @param {string=} opt_direction 'up', 'down', 'left', or 'right'. Defaults to 'right'.
  * @param {string=} opt_start The `data-slidr` id to start at (only works if auto is called to start the Slidr).
+ * @return {this}
  */
  function auto(opt_msec, opt_direction, opt_start) {};
 
 /**
  * Stop auto transition if it's turned on.
+ * @return {this}
  */
  function stop() {};
 
 /**
  * Toggle breadcrumbs.
+ * @return {this}
  */
  function breadcrumbs() {};
 
 /**
  * Toggle controls.
  * @param {string=} opt_scheme Toggle on/off if not present, else change layout. 'border', `corner` or `none`.
+ * @return {this}
  */
  function controls(opt_scheme) {};
 ```
+          </div>
+          <div class="markdown" id="css">
+------------
+## CSS
 
+### Slidr controllers
+`Slidr` controllers are marked up like so:
+
+```html
+<aside id="{slidr-id}-control">
+  <div class="slidr-control up"></div>
+  <div class="slidr-control down"></div>
+  <div class="slidr-control left"></div>
+  <div class="slidr-control right"></div>
+</aside>
+```
+
+You can customize the look of `Slidr` controls through CSS selectors like below:
+
+```css
+// Customizing a specific controller arrow.
+aside[id="{slidr-id}-control"] .slidr-control.right {
+  width: 50px !important;
+  height: 50px !important;
+  top: 50% !important;
+  margin-top: -25px !important;
+  right: -25px !important;
+  border-radius: 25px;
+  background: url('/static/images/arrow_right.png') 14px 13px no-repeat;
+  background-color: black;
+  opacity: 0.4;
+}
+
+aside[id="{slidr-id}-control"] .slidr-control.right:hover {
+  opacity: 1;
+}
+```
+
+Note: controller arrows make use of the `:after` psuedo element.
+To hide the default triangular arrow, use the following CSS:
+
+```css
+// Hide a single arrow within a single controller.
+aside[id="{slidr-id}-control"] .slidr-control.right:after {
+  border-color: transparent !important;
+}
+
+// Hide all arrows within a single controller.
+aside[id="{slidr-id}-control"] .slidr-control:after {
+  border-color: transparent !important;
+}
+
+// Hide all Slidr arrows.
+aside[id*="-control"] .slidr-control:after {
+  border-color: transparent !important;   
+}
+```
+
+### Slidr breadcrumbs
+
+`Slidr` breadcrumbs have a similar HTML markup.
+Each `ul` denotes an entire row, while each `li` denotes an individual breadcrumb:
+
+```html
+<aside id="{slidr-id}-breadcrumbs">
+  <ul class="slidr-breadcrumbs">
+    <li></li>
+    <li class="normal"></li>
+    <li class="normal active"></li>
+  </ul>
+  ...
+</aside>
+```
+
+Thus you can configure them like so.
+
+```css
+// Customize the position, size, border color and background color.
+aside[id="{slidr-id}-breadcrumbs"] {
+  right: 50% !important;
+  margin-right: -41px !important;
+}
+
+aside[id="{slidr-id}-breadcrumbs"] .slidr-breadcrumbs li {
+  width: 15px !important;
+  height: 15px important;
+  margin: 3px !important;
+}
+
+aside[id="{slidr-id}-breadcrumbs"] .slidr-breadcrumbs li.normal {
+  border-color: red !important;
+}
+
+aside[id="{slidr-id}-breadcrumbs"] .slidr-breadcrumbs li.active {
+  background-color: black !important;
+}
+```
+
+Which results in something like so:
+          </div>
+          <div class="slidr-example">
+            <div id="slidr-css-demo">
+              <div data-slidr="one">one</div>
+              <div data-slidr="two">two</div>
+              <div data-slidr="three">three</div>
+            </div>
+          </div>
+          <div class="markdown">
+In the worst case, feel free to create your own controllers and access via the Slidr API instead.  
+
+### For further questions or issues, visit [here](https://github.com/bchanx/slidr/issues).
           </div>
         </div>
       </div>
