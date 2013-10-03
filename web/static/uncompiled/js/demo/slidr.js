@@ -7,36 +7,32 @@ if (bchanx.type === 'devel') bchanx.require('slidr.js');
 
 $(function() {
 
-  var h1 = ['one', 'two', 'three', 'four', 'one'];
-  var v1 = ['three', 'six', 'five', 'three'];
-  var h2 = ['six', 'seven', 'eight'];
+  var h = ['one', 'two', 'three', 'four', 'one'];
+  var v = ['six', 'five', 'four', 'six'];
 
   var updateEffect = function(s, effect) {
     $('.effect.button').removeClass('active');
     $('.effect.button.' + effect).addClass('active');
-    $('.demo-slide').text(effect);
+    $('#slidr-home-demo > div').text(effect);
   };
 
   var addEffect = function(s, effect) {
-    effect = effect || 'random';
-    if (effect === 'random') {
-      s.add('h', ['one', 'two'], 'linear', true).add('h', ['two', 'three'], 'cube', true)
-       .add('h', ['three', 'four'], 'fade', true).add('h', ['four', 'one'], 'none', true)
-       .add('v', ['five', 'three'], 'linear', true).add('v', ['six', 'five'], 'cube', true)
-       .add('v', ['three', 'six'], 'cube', true).add('h', ['six', 'seven'], 'linear', true)
-       .add('h', ['seven', 'eight'], 'cube', true).start();
-    } else {
-      s.add('h', h1, effect, true).add('v', v1, effect, true).add('h', h2, effect, true).start();
-    }
+    effect = effect || 'linear';
+    s.add('h', h, effect, true).add('v', v, effect, true).start();
     updateEffect(s, effect);
   };
 
-  var s1 = slidr.create('slidr-main-demo', {
+  var s1 = slidr.create('slidr-home-demo', {
     'breadcrumbs': true,
     'overflow': true
   });
-  addEffect(s1, 'random');
+  addEffect(s1, 'linear');
+  s1.auto();
   window.s1 = s1;
+
+  $('aside[id="slidr-home-demo-control"]').one('click', function() {
+    s1.stop();
+  });
 
   $('.effect.button').each(function() {
     $(this).bind('click', function() {
@@ -60,16 +56,6 @@ $(function() {
         (next === 'on') ? $(this).removeClass('off') : $(this).addClass('off');
         $(this).attr('data-meta', next);
         s1.breadcrumbs();
-      } else {
-        if (meta === 'on') {
-          $(this).addClass('off');
-          $(this).attr('data-meta', 'off');
-          s1.stop();
-        } else {
-          $(this).removeClass('off');
-          $(this).attr('data-meta', 'on');
-          s1.auto(2000);
-        }
       }
     });
   });
@@ -128,10 +114,9 @@ $(function() {
   // Set up Slidr API demo.
   slidr.create('slidr-api-demo', {
     breadcrumbs: true,
-    overflow: true,
-    transition: 'cube'
-  }).add('h', ['one', 'two', 'three', 'one'], 'linear')
-    .add('v', ['five', 'four', 'three', 'five'])
+    overflow: true
+  }).add('h', ['one', 'two', 'three', 'one'])
+    .add('v', ['five', 'four', 'three', 'five'], 'cube')
     .start();
 
   // Set up Slidr CSS demo.
@@ -140,6 +125,15 @@ $(function() {
     overflow: true,
     transition: 'cube'
   }).add('h', ['one', 'two', 'three', 'one'], 'linear')
-    .add('v', ['five', 'four', 'three', 'five'])
     .start();
+
+  // Set up Slidr auto resize demo.
+  slidr.create('slidr-inline-dynamic', {
+    transition: 'cube',
+    controls: 'none'
+  }).add('v', ['one', 'three', 'two', 'one']).auto(3000, 'up');
+  slidr.create('slidr-inline-static', {
+    transition: 'cube',
+    controls: 'none'
+  }).add('v', ['one', 'three', 'two', 'one']).auto(3000, 'up');
 });
