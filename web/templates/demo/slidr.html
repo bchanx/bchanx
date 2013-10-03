@@ -145,6 +145,7 @@ slidr.create('slidr-ul', {
   fade: false,
   overflow: true,
   theme: '#222',
+  timing: { 'cube': '0.5s ease-in' },
   transition: 'cube'
 }).start();
 ```
@@ -162,6 +163,7 @@ Full details on available settings listed below:
 | `fade`        | _bool_    | true       | Whether slide transitions should fade in/out. `true` or `false`.              |
 | `overflow`    | _bool_    | false      | Whether to overflow transitions at slidr borders. `true` or `false`.          |
 | `theme`       | _string_  | #fff       | Sets color theme for breadcrumbs/controls. `#hexcode` or `rgba(value)`.       |
+| `timing`      | _object_  | {}         | Custom animation timings to apply. {'transition': 'timing'}.                  |
 | `transition`  | _string_  | linear     | The default transition to apply. `cube`, `linear`, `fade`, or `none`.         |
           </div>
           <div class="markdown" id="globalAPI">
@@ -287,6 +289,14 @@ The full list of available functions in a `Slidr` object is listed below:
  * @return {this}
  */
  function stop() {};
+
+/**
+ * Set custom animation timings.
+ * @param {string|Object} transition Either a transition name (i.e. 'cube'), or a {'transition': 'timing'} object.
+ * @param {string=} opt_timing The new animation timing (i.e "0.5s ease-in"). Not required if transition is an object.
+ * @return {this}
+ */
+ function timing(transition, opt_timing) {};
 
 /**
  * Toggle breadcrumbs.
