@@ -260,3 +260,28 @@ aside[id="slidr-css-demo-breadcrumbs"] {
   line-height: 24px;
 }
 
+.breadcrumb-link {
+  color: red;
+  top: 0;
+  left: 0;
+  font-size: 24px;
+  z-index: 1;
+	position: relative;
+}
+
+.breadcrumb-link .action {
+	position: absolute;
+	display: inline-block;
+	padding: 0;
+	cursor: pointer;
+	z-index: 1;
+	a {
+		font-weight: bold !important;
+		-webkit-font-smoothing: antialiased;
+		color: transparent;
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}
+

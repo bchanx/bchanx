@@ -60,27 +60,7 @@ $(function() {
     });
   });
 
-  var anchors = ['#instructions', '#html', '#javascript'];
-  var pages = ['#home', '#docs'];
-
-  var checkHash = function() {
-    var hash = window.location.hash;
-    if (hash === '') return 'home';
-    else if (pages.indexOf(hash) >= 0) return hash.slice(1);
-    else if (anchors.indexOf(hash) >= 0) return 'docs';
-    return null;
-  };
-
-  var master = slidr.create('slidr', {
-    'controls': 'none',
-    'transition': 'cube',
-    'overflow': true
-  }).start(checkHash());
-
-  // Setup breadcrumbs and hash changes.
-  $(window).bind('hashchange', function(e) {
-    master.slide(checkHash());
-  });
+	// Setup nav controls.
   $('.slidr-nav').click(function() {
     var nav = $(this).attr('nav');
     if (nav === 'home') master.slide('left');
@@ -136,4 +116,53 @@ $(function() {
     transition: 'cube',
     controls: 'none'
   }).add('v', ['one', 'three', 'two', 'one']).auto(3000, 'up');
+
+  // Add breadcrumb links.
+  $('.markdown[id]').each(function() {
+    var h2 = $(this).find('h2').get(0);
+		if (h2) {
+			var newNode = $(
+				'<div class="breadcrumb-link">' +
+					'<div class="action">' +
+						'<a href="#' + h2.innerHTML.toLowerCase() + '">' + h2.innerHTML + '</a>' +
+					'</div>' +
+					'<h2>' + h2.innerHTML + '</h2>' +
+				'</div>').get(0);
+			h2.parentNode.insertBefore(newNode, h2);
+			h2.remove();
+		}
+  });
+
+	// Setup master slidr, breadcrumbs and hash changes.
+  var anchors = ['#instructions', '#html', '#javascript', '#css'];
+  var pages = ['#home', '#docs'];
+
+  var checkHash = function() {
+    var hash = window.location.hash;
+    if (hash === '') return 'home';
+    else if (pages.indexOf(hash) >= 0) return hash.slice(1);
+    else if (anchors.indexOf(hash) >= 0) return 'docs';
+    return null;
+  };
+
+	var checkAnchor = function() {
+    master.slide(checkHash());
+		var hash = window.location.hash;
+		var href = $('a[href="' + hash + '"]');
+		if (anchors.indexOf(hash) >= 0 && href) {
+			href.get(0).click();
+		}
+	};
+
+  var master = slidr.create('slidr', {
+    'controls': 'none',
+    'transition': 'cube',
+    'overflow': true
+  }).start(checkHash());
+	checkAnchor();
+
+  $(window).bind('hashchange', function(e) {
+		checkAnchor();
+  });
+
 });
