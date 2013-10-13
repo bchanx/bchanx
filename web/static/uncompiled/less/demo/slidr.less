@@ -280,6 +280,49 @@ aside[id="slidr-css-demo-breadcrumbs"] {
   }
 }
 
+@demo-arrow-offset: 18px;
+
+.demo-resize(@button, @margin) {
+  aside[id="slidr-home-demo-control"] {
+    .slidr-control {
+      &.left, &.right, &.up, &.down {
+        width: @button !important;
+        height: @button !important;
+      }
+      &.up, &.down {
+        margin-left: -@button/2 !important;
+      }
+      &.up {
+        margin-top: -(1.5*@button)-@margin !important;
+        &:after {
+          top: (@button/2)-@demo-arrow-offset;
+        }
+      }
+      &.down {
+        margin-bottom: -(1.5*@button)-@margin !important;
+        &:after {
+          bottom: (@button/2)-@demo-arrow-offset;
+        }
+      }
+      &.left, &.right {
+        margin-top: -@button/2 !important;
+      }
+      &.left {
+        margin-left: -(1.5*@button)-@margin !important;
+        &:after {
+          left: (@button/2)-@demo-arrow-offset;
+        }
+      }
+      &.right {
+        margin-right: -(1.5*@button)-@margin !important;
+        &:after {
+          right: (@button/2)-@demo-arrow-offset;
+        }
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 640px) {
   .hideOnSmall {
     display: none;
@@ -304,6 +347,48 @@ aside[id="slidr-css-demo-breadcrumbs"] {
     .transform(scale(0.8));
     right: -15px;
     top: -15px;
+  }
+
+  #slidr-home-demo {
+    width: 75%;
+    height: 220px;
+    div[data-slidr] {
+      color: transparent;
+    }
+    aside[id="slidr-home-demo-breadcrumbs"] {
+      display: none;
+    }
+    aside[id="slidr-home-demo-control"] {
+      width: 100% !important;
+      height: 100% !important;
+      .slidr-control {
+        &.disabled {
+          opacity: 0.15 !important;
+        }
+        &.left, &.right, &.up, &.down {
+          background: rgba(0, 0, 0, 0.5);
+        }
+        &.up, &.down {
+          left: 50% !important;
+        }
+        &.up {
+          top: 50% !important;
+        }
+        &.down {
+          bottom: 50% !important;
+        }
+        &.left, &.right {
+          top: 50% !important;
+        }
+        &.left {
+          left: 50% !important;
+        }
+        &.right {
+          right: 50% !important;
+        }
+      }
+    }     
+    .demo-resize(60px, 2px);
   }
 }
 
@@ -332,70 +417,9 @@ aside[id="slidr-css-demo-breadcrumbs"] {
       }
     }
   }
-
-  @demo-button: 54px;
-  @demo-button-margin: 2px;
-  @demo-arrow-offset: 18px;
-
   #slidr-home-demo {
-    width: 80%;
     height: 250px;
-    div[data-slidr] {
-      color: transparent;
-    }
-    aside[id="slidr-home-demo-breadcrumbs"] {
-      display: none;
-    }
-    aside[id="slidr-home-demo-control"] {
-      width: 100% !important;
-      height: 100% !important;
-      .slidr-control {
-        &.disabled {
-          opacity: 0.15 !important;
-        }
-        &.left, &.right, &.up, &.down {
-          width: @demo-button !important;
-          height: @demo-button !important;
-          background: rgba(0, 0, 0, 0.5);
-        }
-        &.up, &.down {
-          left: 50% !important;
-          margin-left: -@demo-button/2 !important;
-        }
-        &.up {
-          top: 50% !important;
-          margin-top: -(1.5*@demo-button)-@demo-button-margin !important;
-          &:after {
-            top: (@demo-button/2)-@demo-arrow-offset;
-          }
-        }
-        &.down {
-          bottom: 50% !important;
-          margin-bottom: -(1.5*@demo-button)-@demo-button-margin !important;
-          &:after {
-            bottom: (@demo-button/2)-@demo-arrow-offset;
-          }
-        }
-        &.left, &.right {
-          top: 50% !important;
-          margin-top: -@demo-button/2 !important;
-        }
-        &.left {
-          left: 50% !important;
-          margin-left: -(1.5*@demo-button)-@demo-button-margin !important;
-          &:after {
-            left: (@demo-button/2)-@demo-arrow-offset;
-          }
-        }
-        &.right {
-          right: 50% !important;
-          margin-right: -(1.5*@demo-button)-@demo-button-margin !important;
-          &:after {
-            right: (@demo-button/2)-@demo-arrow-offset;
-          }
-        }
-      }
-    }     
+    .demo-resize(54px, 2px);
   }
   #slidr-home-demo-settings {
     display: none;
