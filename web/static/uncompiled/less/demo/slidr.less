@@ -43,6 +43,70 @@ body {
   display: none;
 }
 
+#slidr-home-demo {
+  width: 90%;
+  height: 300px;
+  margin: 0 auto;
+  > div {
+    line-height: 285px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 100px;
+    font-weight: 400;
+    letter-spacing: -3px;
+    display: none;
+    color: white;
+  }
+}
+
+#slidr-home-demo-effects {
+  margin-bottom: 10px;
+}
+
+#slidr-home-demo-settings {
+  margin-top: 10px;
+}
+
+#slidr-home-demo-effects,
+#slidr-home-demo-settings {
+  > div {
+    padding: 0 30px;
+    height: 45px;
+    line-height: 45px;
+    background-color: @lightgray;
+    color: @medgray;
+    display: inline-block;
+    margin: 0 5px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 20px;
+    &.active {
+      color: @darkgray;
+    }
+  }
+}
+
+@demo-green: #2aca76;
+@demo-orange: #ed956e;
+@demo-blue: #69bfe9;
+@demo-purple: #a685ca;
+@demo-red: #fa7979;
+@demo-yellow: #fee687;
+@demo-black: #2f2f2f;
+@demo-forest: #19b698;
+
+.demo-slides {
+  div[data-slidr="one"] { background-color: @demo-green; }
+  div[data-slidr="two"] { background-color: @demo-blue; }
+  div[data-slidr="three"] { background-color: @demo-red; }
+  div[data-slidr="four"] { background-color: @demo-purple; }
+  div[data-slidr="five"] { background-color: @demo-yellow; }
+  div[data-slidr="six"] { background-color: @demo-orange; }
+  div[data-slidr="seven"] { background-color: @demo-black; }
+  div[data-slidr="eight"] { background-color: @demo-forest; }
+}
+
 .slidr-example {
   font-size: 25px;
   font-weight: 600;
@@ -101,7 +165,6 @@ body {
   }
 }
 
-
 #slidr-api-demo,
 #slidr-css-demo {
   margin: 30px auto;
@@ -126,60 +189,6 @@ body {
 	.border-radius(100%);
 	left: 50%;
 	margin-left: -35%;
-}
-
-#slidr-home-demo {
-  width: 90%;
-  height: 300px;
-  margin: 0 auto;
-  > div {
-    line-height: 285px;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    font-size: 60px;
-    font-weight: 700;
-    display: none;
-    color: white;
-  }
-}
-
-@demo-green: #2aca76;
-@demo-orange: #ed956e;
-@demo-blue: #69bfe9;
-@demo-purple: #a685ca;
-@demo-red: #fa7979;
-@demo-yellow: #fee687;
-@demo-black: #2f2f2f;
-@demo-forest: #19b698;
-
-.demo-slides {
-  div[data-slidr="one"] { background-color: @demo-green; }
-  div[data-slidr="two"] { background-color: @demo-blue; }
-  div[data-slidr="three"] { background-color: @demo-red; }
-  div[data-slidr="four"] { background-color: @demo-purple; }
-  div[data-slidr="five"] { background-color: @demo-yellow; }
-  div[data-slidr="six"] { background-color: @demo-orange; }
-  div[data-slidr="seven"] { background-color: @demo-black; }
-  div[data-slidr="eight"] { background-color: @demo-forest; }
-}
-
-.button {
-  border: 1px @black solid;
-  padding: 0 10px;
-  height: 30px;
-  line-height: 30px;
-  .border-radius(3px);                                      
-  display: inline-block;
-  margin-right: 10px;
-  cursor: pointer;
-  font-weight: 400;
-  &.off {
-    opacity: 0.5;
-  }
-  &.active {
-    color: @green;
-  }
 }
 
 aside[id="slidr-css-demo-control"] .slidr-control:after {

@@ -11,8 +11,8 @@ $(function() {
   var v = ['six', 'five', 'four', 'six'];
 
   var updateEffect = function(s, effect) {
-    $('.effect.button').removeClass('active');
-    $('.effect.button.' + effect).addClass('active');
+    $('#slidr-home-demo-effects > div').removeClass('active');
+    $('#slidr-home-demo-effects > div.' + effect).addClass('active');
     $('#slidr-home-demo > div').text(effect);
   };
 
@@ -23,25 +23,23 @@ $(function() {
   };
 
   var s1 = slidr.create('slidr-home-demo', {
-    'breadcrumbs': true,
     'overflow': true
   });
   addEffect(s1, 'linear');
   s1.auto();
-  window.s1 = s1;
 
   $('aside[id="slidr-home-demo-control"]').one('click', function() {
     s1.stop();
   });
 
-  $('.effect.button').each(function() {
+  $('#slidr-home-demo-effects > div').each(function() {
     $(this).bind('click', function() {
       addEffect(s1, $(this).text());     
     });
   });
 
   var controls = ['border', 'corner', 'none'];
-  $('.settings.button').each(function() {
+  $('#slidr-home-demo-settings > div').each(function() {
     $(this).bind('click', function() {
       var type = $(this).text();
       var meta = $(this).attr('data-meta');
@@ -50,10 +48,10 @@ $(function() {
         var style = controls[newIndex];
         $(this).attr('data-meta', style);
         s1.controls(style);
-        (style === '') ? $(this).addClass('off') : $(this).removeClass('off');
+        (style === 'none') ? $(this).removeClass('active') : $(this).addClass('active');
       } else if (type === 'breadcrumbs') {
         var next = (meta === 'off') ? 'on' : 'off';
-        (next === 'on') ? $(this).removeClass('off') : $(this).addClass('off');
+        (next === 'on') ? $(this).addClass('active') : $(this).removeClass('active');
         $(this).attr('data-meta', next);
         s1.breadcrumbs();
       }
