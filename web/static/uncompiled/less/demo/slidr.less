@@ -5,12 +5,23 @@
 
 @import '../blog.less';
 
-#github-banner {
+#github-banner-image {
   position: fixed;
   top: 0;
   right: 0;
   border: 0;
   z-index: 999;
+  pointer-events: none;
+}
+
+#github-banner {
+  width: 200px;
+  height: 35px;
+  position: fixed;
+  top: 35px;
+  right: -40px;
+  z-index: 999;
+  .transform(rotateZ(45deg));
 }
 
 body {
@@ -286,6 +297,10 @@ aside[id="slidr-css-demo-breadcrumbs"] {
     }
   }
   #github-banner {
+    height: 28px;
+    right: -59px;
+  }
+  #github-banner-image {
     .transform(scale(0.8));
     right: -15px;
     top: -15px;
@@ -317,6 +332,74 @@ aside[id="slidr-css-demo-breadcrumbs"] {
       }
     }
   }
+
+  @demo-button: 54px;
+  @demo-button-margin: 2px;
+  @demo-arrow-offset: 18px;
+
+  #slidr-home-demo {
+    width: 80%;
+    height: 250px;
+    div[data-slidr] {
+      color: transparent;
+    }
+    aside[id="slidr-home-demo-breadcrumbs"] {
+      display: none;
+    }
+    aside[id="slidr-home-demo-control"] {
+      width: 100% !important;
+      height: 100% !important;
+      .slidr-control {
+        &.disabled {
+          opacity: 0.15 !important;
+        }
+        &.left, &.right, &.up, &.down {
+          width: @demo-button !important;
+          height: @demo-button !important;
+          background: rgba(0, 0, 0, 0.5);
+        }
+        &.up, &.down {
+          left: 50% !important;
+          margin-left: -@demo-button/2 !important;
+        }
+        &.up {
+          top: 50% !important;
+          margin-top: -(1.5*@demo-button)-@demo-button-margin !important;
+          &:after {
+            top: (@demo-button/2)-@demo-arrow-offset;
+          }
+        }
+        &.down {
+          bottom: 50% !important;
+          margin-bottom: -(1.5*@demo-button)-@demo-button-margin !important;
+          &:after {
+            bottom: (@demo-button/2)-@demo-arrow-offset;
+          }
+        }
+        &.left, &.right {
+          top: 50% !important;
+          margin-top: -@demo-button/2 !important;
+        }
+        &.left {
+          left: 50% !important;
+          margin-left: -(1.5*@demo-button)-@demo-button-margin !important;
+          &:after {
+            left: (@demo-button/2)-@demo-arrow-offset;
+          }
+        }
+        &.right {
+          right: 50% !important;
+          margin-right: -(1.5*@demo-button)-@demo-button-margin !important;
+          &:after {
+            right: (@demo-button/2)-@demo-arrow-offset;
+          }
+        }
+      }
+    }     
+  }
+  #slidr-home-demo-settings {
+    display: none;
+  }
   .slidr-example {
     font-size: 18px;
   }
@@ -326,6 +409,10 @@ aside[id="slidr-css-demo-breadcrumbs"] {
     line-height: 22px !important;
   }
   #github-banner {
+    height: 20px;
+    right: -78px;
+  }
+  #github-banner-image {
     .transform(scale(0.6));
     right: -30px;
     top: -30px;

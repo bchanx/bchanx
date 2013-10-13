@@ -119,7 +119,7 @@ $(function() {
           '<div class="action">' +
             '<a href="#' + h2.innerHTML.toLowerCase() + '">' + h2.innerHTML + '</a>' +
           '</div>' +
-          '<div class="top"><a href="#docs">Top</a></div>' +
+          '<div class="top"><a href="#">Top</a></div>' +
           '<h2>' + h2.innerHTML + '</h2>' +
         '</div>').get(0);
       h2.parentNode.insertBefore(newNode, h2);
@@ -133,8 +133,7 @@ $(function() {
 
   var checkPage = function() {
     var hash = window.location.hash;
-    if (hash === '') return 'home';
-    else if (pages.indexOf(hash) >= 0) return hash.slice(1);
+    if (pages.indexOf(hash) >= 0) return hash.slice(1);
     else if (anchors.indexOf(hash) >= 0) return 'docs';
     return null;
   };
@@ -144,8 +143,6 @@ $(function() {
     var href = $('a[href="' + hash + '"]');
     if (anchors.indexOf(hash) >= 0 && href) {
       href.get(0).click();
-    } else if (pages.indexOf(hash) >= 0) {
-      $(window).scrollTop(0);
     }
   };
 
@@ -163,10 +160,6 @@ $(function() {
       master.slide(newPage);
       checkAnchor();
     }
-  });
-
-  $('.breadcrumb-link .top').bind('click', function() {
-    $(window).scrollTop(0);
   });
 
 });
