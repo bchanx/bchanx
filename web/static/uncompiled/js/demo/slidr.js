@@ -113,17 +113,18 @@ $(function() {
   // Add breadcrumb links.
   $('.markdown[id]').each(function() {
     var h2 = $(this).find('h2').get(0);
-		if (h2) {
-			var newNode = $(
-				'<div class="breadcrumb-link">' +
-					'<div class="action">' +
-						'<a href="#' + h2.innerHTML.toLowerCase() + '">' + h2.innerHTML + '</a>' +
-					'</div>' +
-					'<h2>' + h2.innerHTML + '</h2>' +
-				'</div>').get(0);
-			h2.parentNode.insertBefore(newNode, h2);
-			h2.remove();
-		}
+    if (h2) {
+      var newNode = $(
+        '<div class="breadcrumb-link">' +
+          '<div class="action">' +
+            '<a href="#' + h2.innerHTML.toLowerCase() + '">' + h2.innerHTML + '</a>' +
+          '</div>' +
+          '<div class="top"><a href="#docs">Top</a></div>' +
+          '<h2>' + h2.innerHTML + '</h2>' +
+        '</div>').get(0);
+      h2.parentNode.insertBefore(newNode, h2);
+      h2.remove();
+    }
   });
 
 	// Setup master slidr, breadcrumbs and hash changes.
@@ -162,6 +163,10 @@ $(function() {
       master.slide(newPage);
       checkAnchor();
     }
+  });
+
+  $('.breadcrumb-link .top').bind('click', function() {
+    $(window).scrollTop(0);
   });
 
 });

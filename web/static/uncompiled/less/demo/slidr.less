@@ -232,22 +232,41 @@ aside[id="slidr-css-demo-breadcrumbs"] {
   font-size: 24px;
   z-index: 1;
 	position: relative;
-}
-
-.breadcrumb-link .action {
-	position: absolute;
-	display: inline-block;
-	padding: 0;
-	cursor: pointer;
-	z-index: 1;
-	a {
-		font-weight: bold !important;
-		-webkit-font-smoothing: antialiased;
-		color: transparent;
-		&:hover {
-			text-decoration: none;
-		}
-	}
+  .action {
+    position: absolute;
+    display: inline-block;
+    padding: 0;
+    cursor: pointer;
+    z-index: 1;
+    a {
+      font-weight: bold !important;
+      -webkit-font-smoothing: antialiased;
+      color: transparent;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    &:hover {
+      &:before {
+        color: @black;
+      }
+    }
+    &:before {
+      content: "§";
+      color: @medgray;
+      position: absolute;
+      left: -16px;
+      top: 0;
+    }
+  }
+  .top {
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    font-size: 14px;
+    line-height: 10px;
+    bottom: 10px;
+  }
 }
 
 @media screen and (max-width: 640px) {
