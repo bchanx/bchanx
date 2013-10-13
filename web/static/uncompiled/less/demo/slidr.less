@@ -5,6 +5,14 @@
 
 @import '../blog.less';
 
+#github-banner {
+  position: fixed;
+  top: 0;
+  right: 0;
+  border: 0;
+  z-index: 999;
+}
+
 body {
   overflow: hidden;
 }
@@ -163,59 +171,6 @@ body {
   }
 }
 
-@media screen and (max-width: 640px) {
-  .hideOnSmall {
-    display: none;
-  }
-  .markdown pre {
-    font-size: 12px !important;
-    line-height: 16px !important;
-  }
-  #javascript.markdown table {
-    thead tr th:nth-child(2) {
-      display: none;
-    }
-    tbody tr td:nth-child(2) {
-      display: none;
-    }
-  }
-}
-
-@media screen and (max-width: 440px) {
-  .markdown pre {
-    font-size: 11px !important;
-    line-height: 13px !important;
-  }
-  #javascript.markdown table {
-    thead tr th {
-      &:nth-child(3) {
-        display: none;
-      }
-    }
-    tbody tr td {
-      &:nth-child(3) {
-        display: none;
-      }
-      &:nth-child(1) code {
-        margin: 0;
-        padding: 0;
-        border: none;
-        background-color: transparent;
-        border-radius: 0;
-        font-family: 'Oxygen', Helvetica, arial, sans-serif;
-      }
-    }
-  }
-  .slidr-example {
-    font-size: 18px;
-  }
-  #slidr-inline-static {
-    width: 110px !important;
-    height: 24px !important;
-    line-height: 22px !important;
-  }
-}
-
 aside[id="slidr-css-demo-control"] .slidr-control:after {
   border-color: transparent !important;
 }
@@ -293,5 +248,68 @@ aside[id="slidr-css-demo-breadcrumbs"] {
 			text-decoration: none;
 		}
 	}
+}
+
+@media screen and (max-width: 640px) {
+  .hideOnSmall {
+    display: none;
+  }
+  .markdown pre {
+    font-size: 12px !important;
+    line-height: 16px !important;
+  }
+  #javascript.markdown table {
+    thead tr th:nth-child(2) {
+      display: none;
+    }
+    tbody tr td:nth-child(2) {
+      display: none;
+    }
+  }
+  #github-banner {
+    .transform(scale(0.8));
+    right: -15px;
+    top: -15px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .markdown pre {
+    font-size: 11px !important;
+    line-height: 13px !important;
+  }
+  #javascript.markdown table {
+    thead tr th {
+      &:nth-child(3) {
+        display: none;
+      }
+    }
+    tbody tr td {
+      &:nth-child(3) {
+        display: none;
+      }
+      &:nth-child(1) code {
+        margin: 0;
+        padding: 0;
+        border: none;
+        background-color: transparent;
+        border-radius: 0;
+        font-family: 'Oxygen', Helvetica, arial, sans-serif;
+      }
+    }
+  }
+  .slidr-example {
+    font-size: 18px;
+  }
+  #slidr-inline-static {
+    width: 110px !important;
+    height: 24px !important;
+    line-height: 22px !important;
+  }
+  #github-banner {
+    .transform(scale(0.6));
+    right: -30px;
+    top: -30px;
+  }
 }
 
