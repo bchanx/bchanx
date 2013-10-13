@@ -60,13 +60,6 @@ $(function() {
     });
   });
 
-	// Setup nav controls.
-  $('.slidr-nav').click(function() {
-    var nav = $(this).attr('nav');
-    if (nav === 'home') master.slide('left');
-    else if (nav === 'docs') master.slide('right');
-  });
-
   // Highlight markdown.
   $('.markdown').each(function() {
     this.innerHTML = marked(this.innerHTML.trim());
@@ -137,7 +130,7 @@ $(function() {
   var anchors = ['#instructions', '#html', '#javascript', '#css'];
   var pages = ['#home', '#docs'];
 
-  var checkHash = function() {
+  var checkPage = function() {
     var hash = window.location.hash;
     if (hash === '') return 'home';
     else if (pages.indexOf(hash) >= 0) return hash.slice(1);
@@ -145,24 +138,30 @@ $(function() {
     return null;
   };
 
-	var checkAnchor = function() {
-    master.slide(checkHash());
-		var hash = window.location.hash;
-		var href = $('a[href="' + hash + '"]');
-		if (anchors.indexOf(hash) >= 0 && href) {
-			href.get(0).click();
-		}
-	};
+  var checkAnchor = function() {
+    var hash = window.location.hash;
+    var href = $('a[href="' + hash + '"]');
+    if (anchors.indexOf(hash) >= 0 && href) {
+      href.get(0).click();
+    } else if (pages.indexOf(hash) >= 0) {
+      $(window).scrollTop(0);
+    }
+  };
 
+  var page = checkPage();
   var master = slidr.create('slidr', {
     'controls': 'none',
     'transition': 'cube',
     'overflow': true
-  }).start(checkHash());
-	checkAnchor();
+  }).start(page);
+  if (page === 'docs') checkAnchor();
 
   $(window).bind('hashchange', function(e) {
-		checkAnchor();
+    var newPage = checkPage();
+    if (newPage) {
+      master.slide(newPage);
+      checkAnchor();
+    }
   });
 
 });
