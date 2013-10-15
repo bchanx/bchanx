@@ -133,6 +133,7 @@ $(function() {
     var hash = window.location.hash;
     if (pages.indexOf(hash) >= 0) return hash.slice(1);
     else if (anchors.indexOf(hash) >= 0) return 'docs';
+    else if (hash === '' && window.location.href.indexOf('#') < 0) return 'home';
     return null;
   };
 
