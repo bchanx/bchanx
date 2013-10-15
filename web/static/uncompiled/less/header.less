@@ -7,6 +7,7 @@
   padding-top: 20px;
   #header-container {
     margin: 0 auto;
+    display: block;
     #header-logo {
       width: 80px;
       height: 80px;
@@ -15,22 +16,42 @@
         display: none;
       }
     }
-    display: block;
     #header-content {
-      pointer-events: none;
-      width: 640px;
-      padding: 0 20px;
-      margin: -85px auto 0 auto;
-      text-align: center;
-      vertical-align: top;
-      display: block;
-      font-weight: 300;
-      font-size: 60px;
-      line-height: 85px;
-      word-wrap: break-word;
-      color: @black;
+      width: 600px;
+      margin: 0 auto;
+      position: relative;
+      &.logo {
+        margin-top: -85px;
+      }
       &.dark-theme {
         color: @lightgray;
+      }
+      #header-title {
+        text-align: center;
+        vertical-align: top;
+        display: block;
+        font-weight: 300;
+        font-size: 60px;
+        line-height: 85px;
+        word-wrap: break-word;
+        color: @black;
+      }
+      #header-subtitle {
+        display: block;
+        padding-bottom: 10px;
+        text-align: center;
+        color: @medgray;
+        font-size: 16px;
+        line-height: 16px;
+      }
+      #header-social {
+        position: absolute;
+        right: 0;
+        top: 20px;
+        width: 107px;
+        .social-button {
+          display: block;
+        }
       }
     }
   }

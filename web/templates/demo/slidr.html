@@ -5,28 +5,21 @@
 {% import "social.html" as social %}
 
 {% block head %}
-  {{ header.meta("slidr.js", "http://www.bchanx.com/slidr", "true") }}
+  {{ header.meta("slidr.js - add some slide effects.", "http://www.bchanx.com/slidr", "true") }}
   <link rel="stylesheet" type="text/css" href="/static/dist/highlight.css"/>
   <link rel="stylesheet" type="text/css" href="/static/dist/markdown.css"/>
 {% endblock %}
 
 {% block header %}
-  {{ header.render("slidr.js") }}
+  {{ header.github("slidr.js", "..add some slide effects.") }}
 {% endblock %}
 
 {% block body %}
-  <img id ="github-banner-image"
-       alt="Fork me on GitHub"
-       src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
-  <a href="https://github.com/bchanx/slidr"><div id="github-banner"></div></a>
-
   <div class="blog-container clearfix">
     <div id="slidr">
       <div class="slidr-home" data-slidr="home">
         <div class="block demo">
-          Add some slide effects.
-          <br><br>
-          <b>slidr.js</b> is a simple, lightweight javascript library for adding slide transitions to your page. No dependencies required.
+          A simple, lightweight javascript library for adding slide transitions to your page. No dependencies required.
           <br><br>
           Check out the demo below, or read the <a href="#docs">documentation</a>.
         </div>

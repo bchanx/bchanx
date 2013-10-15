@@ -1,9 +1,16 @@
 {% import 'logo.html' as logo %}
 
-{% macro twitter() -%}
-<div id="tweet-link">
-  <a href="https://twitter.com/share" class="twitter-share-button" data-via="bchANx" data-size="large">Tweet</a>
+{% macro twitter(size="large") -%}
+<div class="social-button">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-via="bchANx" data-size="{{ size }}">Tweet</a>
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</div>
+{%- endmacro %}
+
+{% macro github(user, repo, type, size="") -%}
+<div class="social-button">
+  <iframe src="http://ghbtns.com/github-btn.html?user={{ user }}&repo={{ repo }}&type={{ type }}&count=true{% if size %}&size=large{% endif %}"
+    allowtransparency="true" frameborder="0" scrolling="0" width="{% if size %}170{% else %}107{% endif %}" height="{% if size %}30{% else %}20{% endif %}"></iframe>
 </div>
 {%- endmacro %}
 
