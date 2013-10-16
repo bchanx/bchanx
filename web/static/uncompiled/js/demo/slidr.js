@@ -121,7 +121,7 @@ $(function() {
           '<h2>' + h2.innerHTML + '</h2>' +
         '</div>').get(0);
       h2.parentNode.insertBefore(newNode, h2);
-      h2.remove();
+      h2.parentNode.removeChild(h2);
     }
   });
 
