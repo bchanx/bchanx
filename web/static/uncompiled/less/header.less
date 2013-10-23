@@ -12,9 +12,8 @@
       width: 80px;
       height: 80px;
       margin-left: 20px;
-      .logo-bchanx-small {
-        display: none;
-      }
+      position: relative;
+      z-index: 10;
     }
     #header-content {
       width: 600px;
@@ -58,19 +57,9 @@
 }
 
 // BCHANX
-.logo-bchanx-large {
-  .logo-bchanx(100px);
-}
+@radius: 80px;
 
-.logo-bchanx-medium {
-  .logo-bchanx(80px);
-}
-
-.logo-bchanx-small {
-  .logo-bchanx(50px);
-}
-
-.logo-bchanx (@radius) {
+.logo-bchanx {
   width: @radius;
   height: @radius;
   display: inline-block;

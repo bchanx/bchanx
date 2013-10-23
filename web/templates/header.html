@@ -10,10 +10,7 @@
 {% macro render(name) -%}
 <div id="header-container">
   <div id="header-logo">
-    <a href="/">
-      {{ logo.bchanx("medium") }}
-      {{ logo.bchanx("small") }}
-    </a>
+    <a href="/">{{ logo.bchanx() }}</a>
   </div>
   <div id="header-content" class="logo themeable">
     <div id="header-title">{{ name }}</div>
