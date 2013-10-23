@@ -158,7 +158,7 @@ bchanx.Jukebox = function() {
     self.slidr = slidr.create('jukebox', {
       'transition': 'cube',
       'overflow': true,
-      'controls': 'none'
+      'controls': 'border'
     }).add('h', ['playlists', 'video', 'about', 'playlists'])
       .add('v', ['playlists', 'video', 'about', 'playlists'])
       .start();
