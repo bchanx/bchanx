@@ -109,6 +109,7 @@ $(function() {
   }).add('v', ['one', 'three', 'two', 'one']).auto(3000, 'up');
 
   // Add breadcrumb links.
+  var anchors = [];
   $('.markdown[id]').each(function() {
     var h2 = $(this).find('h2').get(0);
     if (h2) {
@@ -122,13 +123,12 @@ $(function() {
         '</div>').get(0);
       h2.parentNode.insertBefore(newNode, h2);
       h2.parentNode.removeChild(h2);
+      anchors.push('#' + h2.innerHTML.toLowerCase());
     }
   });
 
 	// Setup master slidr, breadcrumbs and hash changes.
-  var anchors = ['#instructions', '#html', '#javascript', '#css'];
   var pages = ['#home', '#docs'];
-
   var checkPage = function() {
     var hash = window.location.hash;
     if (pages.indexOf(hash) >= 0) return hash.slice(1);
