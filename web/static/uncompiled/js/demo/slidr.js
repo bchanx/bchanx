@@ -7,6 +7,12 @@ if (bchanx.type === 'devel') bchanx.require('slidr.js');
 
 $(function() {
 
+  var indexOf = function(list, val) {
+    if (Array.prototype.indexOf) return list.indexOf(val);
+    for (var i = 0, len = list.length; i < len; i++) if (list[i] == val) return i;
+    return -1;
+  };
+
   var h = ['one', 'two', 'three', 'four', 'one'];
   var v = ['six', 'five', 'four', 'six'];
 
@@ -48,7 +54,7 @@ $(function() {
       var type = $(this).text();
       var meta = $(this).attr('data-meta');
       if (type === 'controls') {
-        var newIndex = (controls.indexOf(meta) + 1) % controls.length;
+        var newIndex = (indexOf(controls, meta) + 1) % controls.length;
         var style = controls[newIndex];
         $(this).attr('data-meta', style);
         s1.controls(style);
@@ -135,16 +141,16 @@ $(function() {
   var pages = ['#home', '#docs'];
   var checkPage = function() {
     var hash = window.location.hash;
-    if (pages.indexOf(hash) >= 0) return hash.slice(1);
-    else if (anchors.indexOf(hash) >= 0) return 'docs';
-    else if (hash === '' && window.location.href.indexOf('#') < 0) return 'home';
+    if (indexOf(pages, hash) >= 0) return hash.slice(1);
+    else if (indexOf(anchors, hash) >= 0) return 'docs';
+    else if (hash === '' && indexOf(window.location.href, '#') < 0) return 'home';
     return null;
   };
 
   var checkAnchor = function() {
     var hash = window.location.hash;
     var href = $('a[href="' + hash + '"]');
-    if (anchors.indexOf(hash) >= 0 && href) {
+    if (indexOf(anchors, hash) >= 0 && href) {
       href.get(0).click();
     }
   };
