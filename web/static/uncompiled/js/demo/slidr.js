@@ -32,6 +32,10 @@ $(function() {
     s1.stop();
   });
 
+  $('aside[id="slidr-home-demo-breadcrumbs"]').one('click', function() {
+    s1.stop();
+  });
+
   $('#slidr-home-demo-effects > div').each(function() {
     $(this).bind('click', function() {
       addEffect(s1, $(this).text());     
@@ -60,7 +64,7 @@ $(function() {
 
   // Highlight markdown.
   $('.markdown').each(function() {
-    this.innerHTML = marked(this.innerHTML.trim());
+    this.innerHTML = marked(("".trim) ? this.innerHTML.trim() : this.innerHTML.replace(/^\s+|\s+$/g, ''));
   });
 
   // Highlight code blocks.
