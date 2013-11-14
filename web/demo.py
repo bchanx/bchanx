@@ -12,6 +12,10 @@ from flask import redirect, url_for
 def logosInPureCSSDemo():
   return render('demo/logos-in-pure-css.html', css='demo/logos-in-pure-css.less')
 
+@app.route('/logos-in-pure-css-demo/')
+def logosInPureCSSDemo2():
+  return redirect(url_for('logosInPureCSSDemo'))
+
 @app.route('/slidr')
 def slidr():
   return render('demo/slidr.html', css='demo/slidr.less', js='demo/slidr.js')
