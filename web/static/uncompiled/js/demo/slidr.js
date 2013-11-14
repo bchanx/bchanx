@@ -68,74 +68,80 @@ $(function() {
     });
   });
 
-  // Highlight markdown.
-  $('.markdown').each(function() {
-    this.innerHTML = marked(("".trim) ? this.innerHTML.trim() : this.innerHTML.replace(/^\s+|\s+$/g, ''));
-  });
-
-  // Highlight code blocks.
-  hljs.initHighlightingOnLoad();
-
-  // Set up demo slidr's.
-  var demos = [slidr.create('slidr-div', {'theme': '#222'}).start(),
-               slidr.create('slidr-img', {'theme': '#222'}).start(),
-               slidr.create('slidr-ul', {'theme': '#222'}).start()];
-  var demoNames = ['#slidr-div-control', '#slidr-img-control', '#slidr-ul-control'];
-  for (var i = 0, demo; demo = demoNames[i]; i++) {
-    $(demo + ' .slidr-control.left').bind('click', function(e) {
-      e.stopPropagation();
-      for (var d = 0, dd; dd = demos[d]; d++) dd.slide('left');
+  // IF <= IE8, abort.
+  if (bchanx.isIE) {
+    $('.slidr-docs').remove();
+    $('a[href="#docs"]').attr('href', 'https://github.com/bchanx/slidr');
+  } else {
+    // Highlight markdown.
+    $('.markdown').each(function() {
+      this.innerHTML = marked(("".trim) ? this.innerHTML.trim() : this.innerHTML.replace(/^\s+|\s+$/g, ''));
     });
-    $(demo + ' .slidr-control.right').bind('click', function(e) {
-      e.stopPropagation();
-      for (var d = 0, dd; dd = demos[d]; d++) dd.slide('right');
+
+    // Highlight code blocks.
+    hljs.initHighlightingOnLoad();
+
+    // Set up demo slidr's.
+    var demos = [slidr.create('slidr-div', {'theme': '#222'}).start(),
+                 slidr.create('slidr-img', {'theme': '#222'}).start(),
+                 slidr.create('slidr-ul', {'theme': '#222'}).start()];
+    var demoNames = ['#slidr-div-control', '#slidr-img-control', '#slidr-ul-control'];
+    for (var i = 0, demo; demo = demoNames[i]; i++) {
+      $(demo + ' .slidr-control.left').bind('click', function(e) {
+        e.stopPropagation();
+        for (var d = 0, dd; dd = demos[d]; d++) dd.slide('left');
+      });
+      $(demo + ' .slidr-control.right').bind('click', function(e) {
+        e.stopPropagation();
+        for (var d = 0, dd; dd = demos[d]; d++) dd.slide('right');
+      });
+    }
+
+    // Set up Slidr API demo.
+    slidr.create('slidr-api-demo', {
+      breadcrumbs: true,
+      overflow: true
+    }).add('h', ['one', 'two', 'three', 'one'])
+      .add('v', ['five', 'four', 'three', 'five'], 'cube')
+      .start();
+
+    // Set up Slidr CSS demo.
+    slidr.create('slidr-css-demo', {
+      breadcrumbs: true,
+      overflow: true,
+      transition: 'cube'
+    }).add('h', ['one', 'two', 'three', 'one'], 'linear')
+      .start();
+
+    // Set up Slidr auto resize demo.
+    slidr.create('slidr-inline-dynamic', {
+      transition: 'cube',
+      controls: 'none'
+    }).add('v', ['one', 'three', 'two', 'one']).auto(3000, 'up');
+    slidr.create('slidr-inline-static', {
+      transition: 'cube',
+      controls: 'none'
+    }).add('v', ['one', 'three', 'two', 'one']).auto(3000, 'up');
+
+    // Add breadcrumb links.
+    var anchors = [];
+    $('.markdown[id]').each(function() {
+      var h2 = $(this).find('h2').get(0);
+      if (h2) {
+        var newNode = $(
+          '<div class="breadcrumb-link">' +
+            '<div class="action">' +
+              '<a href="#' + h2.innerHTML.toLowerCase() + '">' + h2.innerHTML + '</a>' +
+            '</div>' +
+            '<div class="top"><a href="#">Top</a></div>' +
+            '<h2>' + h2.innerHTML + '</h2>' +
+          '</div>').get(0);
+        h2.parentNode.insertBefore(newNode, h2);
+        h2.parentNode.removeChild(h2);
+        anchors.push('#' + h2.innerHTML.toLowerCase());
+      }
     });
   }
-
-  // Set up Slidr API demo.
-  slidr.create('slidr-api-demo', {
-    breadcrumbs: true,
-    overflow: true
-  }).add('h', ['one', 'two', 'three', 'one'])
-    .add('v', ['five', 'four', 'three', 'five'], 'cube')
-    .start();
-
-  // Set up Slidr CSS demo.
-  slidr.create('slidr-css-demo', {
-    breadcrumbs: true,
-    overflow: true,
-    transition: 'cube'
-  }).add('h', ['one', 'two', 'three', 'one'], 'linear')
-    .start();
-
-  // Set up Slidr auto resize demo.
-  slidr.create('slidr-inline-dynamic', {
-    transition: 'cube',
-    controls: 'none'
-  }).add('v', ['one', 'three', 'two', 'one']).auto(3000, 'up');
-  slidr.create('slidr-inline-static', {
-    transition: 'cube',
-    controls: 'none'
-  }).add('v', ['one', 'three', 'two', 'one']).auto(3000, 'up');
-
-  // Add breadcrumb links.
-  var anchors = [];
-  $('.markdown[id]').each(function() {
-    var h2 = $(this).find('h2').get(0);
-    if (h2) {
-      var newNode = $(
-        '<div class="breadcrumb-link">' +
-          '<div class="action">' +
-            '<a href="#' + h2.innerHTML.toLowerCase() + '">' + h2.innerHTML + '</a>' +
-          '</div>' +
-          '<div class="top"><a href="#">Top</a></div>' +
-          '<h2>' + h2.innerHTML + '</h2>' +
-        '</div>').get(0);
-      h2.parentNode.insertBefore(newNode, h2);
-      h2.parentNode.removeChild(h2);
-      anchors.push('#' + h2.innerHTML.toLowerCase());
-    }
-  });
 
 	// Setup master slidr, breadcrumbs and hash changes.
   var pages = ['#home', '#docs'];
