@@ -9,7 +9,7 @@ $(function() {
 
   var indexOf = function(list, val) {
     if (Array.prototype.indexOf) return list.indexOf(val);
-    for (var i = 0, len = list.length; i < len; i++) if (list[i] == val) return i;
+    if (list && list.length) for (var i = 0, len = list.length; i < len; i++) if (list[i] == val) return i;
     return -1;
   };
 
