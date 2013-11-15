@@ -11,6 +11,17 @@
   right: 0;
   border: 0;
   z-index: 999;
+  pointer-events: none;
+}
+
+#github-banner {
+  width: 200px;
+  height: 35px;
+  position: fixed;
+  top: 35px;
+  right: -40px;
+  z-index: 999;
+  .transform(rotateZ(45deg));
 }
 
 body {
@@ -349,6 +360,7 @@ aside[id="slidr-css-demo-breadcrumbs"] {
       display: none;
     }
   }
+  #github-banner,
   #github-banner-image {
     display: none;
   }
