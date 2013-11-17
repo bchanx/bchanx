@@ -88,10 +88,12 @@ $(function() {
     var demoNames = ['#slidr-div-control', '#slidr-img-control', '#slidr-ul-control'];
     for (var i = 0, demo; demo = demoNames[i]; i++) {
       $(demo + ' .slidr-control.left').bind('click', function(e) {
+        (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
         e.stopPropagation();
         for (var d = 0, dd; dd = demos[d]; d++) dd.slide('left');
       });
       $(demo + ' .slidr-control.right').bind('click', function(e) {
+        (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
         e.stopPropagation();
         for (var d = 0, dd; dd = demos[d]; d++) dd.slide('right');
       });
