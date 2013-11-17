@@ -34,23 +34,22 @@ $(function() {
   addEffect(s1, 'linear');
   s1.auto();
 
-  $('aside[id="slidr-home-demo-control"]').one('click', function() {
+  var eventType = ('ontouchstart' in window) ? 'touchend' : 'click';
+  $('aside[id="slidr-home-demo-control"]').one(eventType, function() {
     s1.stop();
   });
 
-  $('aside[id="slidr-home-demo-breadcrumbs"]').one('click', function() {
+  $('aside[id="slidr-home-demo-breadcrumbs"]').one(eventType, function() {
     s1.stop();
   });
 
   $('#slidr-home-demo-effects > div').each(function() {
-    $(this).bind('click', function() {
-      addEffect(s1, $(this).text());     
-    });
+    $(this).bind(eventType, function() { addEffect(s1, $(this).text()); });
   });
 
   var controls = ['border', 'corner', 'none'];
   $('#slidr-home-demo-settings > div').each(function() {
-    $(this).bind('click', function() {
+    $(this).bind(eventType, function() {
       var type = $(this).text();
       var meta = $(this).attr('data-meta');
       if (type === 'controls') {
@@ -87,12 +86,12 @@ $(function() {
                  slidr.create('slidr-ul', {'theme': '#222'}).start()];
     var demoNames = ['#slidr-div-control', '#slidr-img-control', '#slidr-ul-control'];
     for (var i = 0, demo; demo = demoNames[i]; i++) {
-      $(demo + ' .slidr-control.left').bind('click', function(e) {
+      $(demo + ' .slidr-control.left').bind(eventType, function(e) {
         (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
         e.stopPropagation();
         for (var d = 0, dd; dd = demos[d]; d++) dd.slide('left');
       });
-      $(demo + ' .slidr-control.right').bind('click', function(e) {
+      $(demo + ' .slidr-control.right').bind(eventType, function(e) {
         (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
         e.stopPropagation();
         for (var d = 0, dd; dd = demos[d]; d++) dd.slide('right');
