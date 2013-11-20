@@ -11,6 +11,7 @@ $(function() {
   var width = $('#touch').width();
 
   $('#touch').bind('touchstart', function(e) {
+    $('#touch').css('border-color', 'green').text('touchstart');
     var touches = e.touches[0];
     start = {
       x: touches.pageX,
@@ -25,6 +26,7 @@ $(function() {
     isScrolling = undefined;
 
     $('#touch').bind('touchmove', function(e) {
+      $('#touch').text('touchmove');
       if (e.touches.length > 1 || e.scale && e.scale !== 1) return;
       var touches = e.touches[0];
       delta = {
@@ -45,6 +47,7 @@ $(function() {
     });
 
     $('#touch').bind('touchend', function(e) {
+      $('#touch').text('touchend');
        var duration = +new Date - start.time;
        var isValidSlide = Number(duration) < 250 && Math.abs(delta.x) > 20 || Math.abs(delta.x) > width/2;
        var right = delta.x < 0;
@@ -59,6 +62,7 @@ $(function() {
        }
        $('#touch').unbind('touchmove');
        $('#touch').unbind('touchend');
+       $('#touch').css('border-color', 'black');
     });
 
   });
