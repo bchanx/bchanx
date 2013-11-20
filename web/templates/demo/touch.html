@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% import 'logo.html' as logo %}
+{% import "header.html" as header %}
+{% import "footer.html" as footer %}
+
+{% block head %}
+  {{ header.meta("bchanx", responsive="true") }}
+{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <div id="touchstart">
+      [Touchstart]<br>
+      x: <div id="x"></div>
+      y: <div id="y"></div>
+      time: <div id="time"></div>
+    </div>
+    <div id="touchmove">
+      [Touchmove]<br>
+      delta x: <div id="deltax"></div>
+      delta y: <div id="deltay"></div>
+      scrolling: <div id="scrolling"></div>
+    </div>
+    <div id="touchend">
+      [Touchend]<br>
+      right: <div id="right"></div>
+      left: <div id="left"></div>
+    </div>
+    <div id="touch">
+    Canvas
+    </div>
+  </div>
+{% endblock %}
+

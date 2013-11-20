@@ -115,15 +115,8 @@ bchanx.Jukebox = function() {
       self.loadPlaylist($(this).attr('pid'));
     });
     $(document).keydown(function(e) {
-      if (e.which === 40) { self.slidr.slide('down'); }
-      // Right arrow
-      else if (e.which === 39) { self.slidr.slide('right'); }
-      // Up arrow
-      else if (e.which === 38) { self.slidr.slide('up'); }
-      // Left arrow
-      else if (e.which === 37) { self.slidr.slide('left'); }
       // n
-      else if (e.which === 78) { $('#next').click(); }
+      if (e.which === 78) { $('#next').click(); }
       // p
       else if (e.which === 80) { $('#prev').click(); }
       // s
@@ -158,7 +151,8 @@ bchanx.Jukebox = function() {
     self.slidr = slidr.create('jukebox', {
       'transition': 'cube',
       'overflow': true,
-      'controls': 'none'
+      'controls': 'none',
+      'keyboard': true
     }).add('h', ['playlists', 'video', 'about', 'playlists'])
       .add('v', ['playlists', 'video', 'about', 'playlists'])
       .start();

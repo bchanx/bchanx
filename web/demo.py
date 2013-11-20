@@ -24,3 +24,6 @@ def slidr():
 def slidr2():
   return redirect(url_for('slidr'))
 
+@app.route('/touch')
+def touch():
+  return render('demo/touch.html', css='demo/touch.less', js='demo/touch.js')
