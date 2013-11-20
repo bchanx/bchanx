@@ -15,7 +15,7 @@ $(function() {
     start = {
       x: touches.pageX,
       y: touches.pageY,
-      time: +new Date;
+      time: +new Date
     };
     $('#x').text(start.x);
     $('#y').text(start.y);
