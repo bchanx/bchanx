@@ -24,22 +24,24 @@ $(function() {
     $('#deltax').text(delta.x);
     $('#deltay').text(delta.y);
 
-    if (Number(+new Date - start.time) >= 250) {
+    if (Math.abs(delta.x) + Math.abs(delta.y) < 40 && Number(+new Date - start.time) >= 150)
       $('#touch').css('border-color', 'black');
       return;
+    } else {
+      e.preventDefault();
     }
-    e.preventDefault();
   };
 
   var endListener = function(e) {
     console.log("-->> END LISTENER!");
     $('#touch').text('touchend');
-    if (Number(+new Date - start.time) < 250) {
+    var duration = Number(+new Date - start.time);
+    if (duration < 250) {
       $('#duration').text(duration);
       var dx = Math.abs(delta.x);
       var dy = Math.abs(delta.y);
-      var validH = dx > 20;
-      var validV = dy > 20;
+      var validH = duration < 250 && dx > 20 || dx > width/2;
+      var validV = duration < 250 && dy > 20 || dy > height/2;
       var dirH = delta.x < 0 ? 'right': 'left';
       var dirV = delta.y < 0 ? 'down' : 'up';
       $('#valid').text(validH || validV);
