@@ -82,12 +82,12 @@ $(function() {
 
     // Set up Slidr nav demo.
     slidr.create('slidr-nav-demo', {
-      'controls': 'border',
+      'controls': 'none',
       'overflow': true,
       'keyboard': true,
       'touch': true
-    }).add('h', ['one', 'two', 'three', 'one'])
-      .add('v', ['one', 'two', 'three', 'one'], 'cube')
+    }).add('h', ['one', 'two', 'three', 'one'], 'cube')
+      .add('v', ['one', 'two', 'three', 'one'], 'linear')
       .start();
 
     // Set up demo slidr's.
