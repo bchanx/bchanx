@@ -3,6 +3,7 @@
   font-size: 14px;
   line-height: 1.6;
   background-color: white;
+  margin-bottom: 20px;
 }
 
 .markdown > *:first-child {
@@ -102,6 +103,7 @@
   font-size: 14px;
 }
 
+/
 .markdown p,
 .markdown blockquote,
 .markdown ul,
@@ -110,8 +112,9 @@
 .markdown li,
 .markdown table,
 .markdown pre {
-  margin: 15px 0;
+  margin: 5px 0;
 }
+
 
 .markdown hr {
   border: 0 none;
@@ -147,6 +150,10 @@
 .markdown h5 p,
 .markdown h6 p {
   margin-top: 0;
+}
+
+.markdown li {
+  list-style: disc;
 }
 
 .markdown li p.first {

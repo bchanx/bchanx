@@ -80,6 +80,16 @@ $(function() {
     // Highlight code blocks.
     hljs.initHighlightingOnLoad();
 
+    // Set up Slidr nav demo.
+    slidr.create('slidr-nav-demo', {
+      'controls': 'border',
+      'overflow': true,
+      'keyboard': true,
+      'touch': true
+    }).add('h', ['one', 'two', 'three', 'one'])
+      .add('v', ['one', 'two', 'three', 'one'], 'cube')
+      .start();
+
     // Set up demo slidr's.
     var demos = [slidr.create('slidr-div', {'theme': '#222'}).start(),
                  slidr.create('slidr-img', {'theme': '#222'}).start(),
