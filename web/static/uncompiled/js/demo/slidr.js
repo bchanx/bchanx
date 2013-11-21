@@ -29,7 +29,7 @@ $(function() {
   };
 
   var s1 = slidr.create('slidr-home-demo', {
-    'overflow': true, 'keyboard': true
+    'overflow': true, 'keyboard': true, 'touch': true
   });
   addEffect(s1, 'linear');
   s1.auto();
