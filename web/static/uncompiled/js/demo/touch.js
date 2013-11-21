@@ -24,14 +24,16 @@ $(function() {
     $('#deltax').text(delta.x);
     $('#deltay').text(delta.y);
 
-    e.preventDefault();
-
     var duration = +new Date - start.time;
     if (Number(duration) >= 250) {
       touch.removeEventListener('touchmove', moveListener);
       touch.removeEventListener('touchend', endListener);
       $('#touch').css('border-color', 'black');
+      return true;
     }
+
+    e.preventDefault();
+
   };
 
   var endListener = function(e) {
