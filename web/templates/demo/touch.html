@@ -28,8 +28,18 @@
       dir: <div id="dir"></div>
     </div>
     <div id="touch">
-    Canvas
+      Canvas
+    </div>
+    <div id="slidr-demo">
+      <div data-slidr="1">1</div>
+      <div data-slidr="2">2</div>
+      <div data-slidr="3">3</div>
     </div>
   </div>
 {% endblock %}
 
+{% block script %}
+  {% if env['type'] == 'prod' %}
+    <script type="text/javascript" src="/static/dist/slidr.min.js"></script>
+  {% endif %}
+{% endblock %}

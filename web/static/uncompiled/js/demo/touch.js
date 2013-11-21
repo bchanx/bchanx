@@ -3,6 +3,9 @@
  * All Rights Reserved.
  */
 
+if (bchanx.type === 'devel') bchanx.require('slidr.js');
+
+
 $(function() {
  
   var start = {};
@@ -30,7 +33,6 @@ $(function() {
         console.log("-->> prob not swiping, abort!");
         $('#scrolling').text('YES');
         return;
-        isScrolling = true;
       }
     }
     $('#scrolling').text('NO');
@@ -78,4 +80,5 @@ $(function() {
     touch.addEventListener('touchend', endListener);
   });
 
+  slidr.create('slidr-demo', {'keyboard': true, 'touch': true}).add('h', ['1', '2', '3', '1']).start();
 });
