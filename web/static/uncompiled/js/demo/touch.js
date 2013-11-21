@@ -10,7 +10,6 @@ $(function() {
   var width = $('#touch').width();
   var height = $('#touch').height();
   var touch = document.getElementById('touch');
-  var isScrolling = false;
 
   console.log("-->> OK");
 
@@ -24,20 +23,18 @@ $(function() {
     $('#deltay').text(delta.y);
     var duration = Number(+new Date - start.time);
     var total = Math.abs(delta.x) + Math.abs(delta.y);
-    if (duration > 150) {
+    if (duration > 100) {
       console.log("-->> DURATION: " + duration + ", total: " + total);
       console.log("-->> RATE: " + total/duration);
       if (total/duration < 0.25) {
         console.log("-->> prob not swiping, abort!");
+        $('#scrolling').text('YES');
+        return;
         isScrolling = true;
       }
     }
-    if (!isScrolling) {
-      $('#scrolling').text('NO');
-      e.preventDefault();
-    } else {
-      $('#scrolling').text('YES');
-    }
+    $('#scrolling').text('NO');
+    e.preventDefault();
   };
 
   var endListener = function(e) {
