@@ -13,6 +13,11 @@ $(function() {
 
   console.log("-->> OK");
 
+  var yes = function(e) {
+    console.log("-->> LOL YEAH");
+    return true;
+  };
+
   var moveListener = function(e) {
     $('#touch').text('touchmove');
     if (e.touches.length > 1 || e.scale && e.scale !== 1) return;
@@ -21,11 +26,19 @@ $(function() {
     delta.y = touches.pageY - start.y;
     $('#deltax').text(delta.x);
     $('#deltay').text(delta.y);
-    if (Number(+new Date - start.time) < 100 && (delta.x + delta.y < 20)) {
-      e.preventDefault();
-    } else {
-      return;
+    var duration = Number(+new Date - start.time);
+    var total = Math.abs(delta.x) + Math.abs(delta.y);
+    if (duration > 150) {
+      console.log("-->> DURATION: " + duration + ", total: " + total);
+      console.log("-->> RATE: " + total/duration);
+      if (total/duration < 0.25) {
+        console.log("-->> prob not swiping, abort!");
+        touch.removeEventListener('touchmove', moveListener);
+        touch.addEventListener('touchmove', yes); 
+        return;
+      }
     }
+    e.preventDefault();
   };
 
   var endListener = function(e) {
@@ -64,6 +77,7 @@ $(function() {
     delta.x = 0;
     delta.y = 0;
 
+    touch.removeEventListener('touchmove', yes);
     touch.addEventListener('touchmove', moveListener);
     touch.addEventListener('touchend', endListener);
   });
