@@ -10,13 +10,9 @@ $(function() {
   var width = $('#touch').width();
   var height = $('#touch').height();
   var touch = document.getElementById('touch');
+  var isScrolling = false;
 
   console.log("-->> OK");
-
-  var yes = function(e) {
-    console.log("-->> LOL YEAH");
-    return true;
-  };
 
   var moveListener = function(e) {
     $('#touch').text('touchmove');
@@ -33,12 +29,15 @@ $(function() {
       console.log("-->> RATE: " + total/duration);
       if (total/duration < 0.25) {
         console.log("-->> prob not swiping, abort!");
-        touch.removeEventListener('touchmove', moveListener);
-        touch.addEventListener('touchmove', yes); 
-        return;
+        isScrolling = true;
       }
     }
-    e.preventDefault();
+    if (!isScrolling) {
+      $('#scrolling').text('NO');
+      e.preventDefault();
+    } else {
+      $('#scrolling').text('YES');
+    }
   };
 
   var endListener = function(e) {
@@ -64,7 +63,9 @@ $(function() {
     console.log("-->> START LISTENER!");
     $('#dir').text('');
     $('#valid').text('');
+    $('#scrolling').text('');
     $('#touch').css('border-color', 'green').text('touchstart');
+    isScrolling = false;
     var touches = e.touches[0];
     start = {
       x: touches.pageX,
@@ -76,8 +77,6 @@ $(function() {
     $('#time').text(start.time);
     delta.x = 0;
     delta.y = 0;
-
-    touch.removeEventListener('touchmove', yes);
     touch.addEventListener('touchmove', moveListener);
     touch.addEventListener('touchend', endListener);
   });
