@@ -21,10 +21,9 @@ $(function() {
     delta.y = touches.pageY - start.y;
     $('#deltax').text(delta.x);
     $('#deltay').text(delta.y);
-    if (Number(+new Date - start.time) < 250) {
+    if (Number(+new Date - start.time) < 100 && (delta.x + delta.y < 20)) {
       e.preventDefault();
     } else {
-      $('#touch').css('border-color', 'black');
       return;
     }
   };
@@ -34,15 +33,17 @@ $(function() {
     $('#touch').text('touchend');
     var duration = Number(+new Date - start.time);
     $('#duration').text(duration);
-    var dx = Math.abs(delta.x);
-    var dy = Math.abs(delta.y);
-    var validH = duration < 250 && dx > 20 || dx > width/2;
-    var validV = duration < 250 && dy > 20 || dy > height/2;
-    var dirH = delta.x < 0 ? 'right': 'left';
-    var dirV = delta.y < 0 ? 'down' : 'up';
-    $('#valid').text(validH || validV);
-    var dir = (validH && validV ? (dx > dy ? dirH : dirV) : (validH ? dirH : (validV ? dirV : null))); 
-    if (dir) $('#dir').text(dir);
+    if (duration < 250) {
+      var dx = Math.abs(delta.x);
+      var dy = Math.abs(delta.y);
+      var validH = dx > 20;
+      var validV = dy > 20;
+      var dirH = delta.x < 0 ? 'right': 'left';
+      var dirV = delta.y < 0 ? 'down' : 'up';
+      $('#valid').text(validH || validV);
+      var dir = (validH && validV ? (dx > dy ? dirH : dirV) : (validH ? dirH : (validV ? dirV : null))); 
+      if (dir) $('#dir').text(dir);
+    }
     $('#touch').css('border-color', 'black');
   };
 
