@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% import 'logo.html' as logo %}
+{% import "header.html" as header %}
+{% import "footer.html" as footer %}
+
+{% block head %}
+  {{ header.meta("bchanx", responsive="true") }}
+{% endblock %}
+
+{% block body %}
+  <div id="slidr">
+    <div data-slidr="1">one</div>
+    <div data-slidr="2">two</div>
+    <div data-slidr="3">three</div>
+  </div>
+  <div id="breadcrumbs">breadcrumbs</div>
+  <div id="controls">controls</div>
+{% endblock %}
+
+{% block script %}
+  {% if env['type'] == 'prod' %}
+    <script type="text/javascript" src="/static/dist/slidr.min.js"></script>
+  {% endif %}
+{% endblock %}

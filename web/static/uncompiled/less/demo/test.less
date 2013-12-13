@@ -1,0 +1,63 @@
+//
+// Copyright (c) 2013 Brian Chan (bchanx.com)
+// All Rights Reserved.
+//
+
+@import '../base.less';
+
+#body {
+  width: 500px; 
+  height: 500px;
+}
+
+#slidr {
+//  margin: 20px;
+  width: 100%;
+  height: 100%;
+//  padding: 20px;
+  border: 20px black solid;
+  box-sizing: border-box !important;
+//  box-sizing: content-box !important;
+  div[data-slidr] {
+    box-sizing: border-box !important;
+//    box-sizing: content-box !important;
+    padding: 50px;
+//    margin: 50px;
+//    border: 50px red solid;
+    font-size: 60px;
+    line-height: 300px;
+    text-align: center;
+    width: 90% !important;
+    height: 90% !important;
+    top: 5%;
+    left: 5%;
+  }
+}
+
+div[data-slidr="1"] {
+//  background-color: @red;
+//  width: 100%;
+//  height: 300px;
+  background: url('http://www.hdwallpapersinn.com/wp-content/uploads/2013/04/Colorful-Abstract-Background-500x500.jpg') 50% 50% no-repeat;
+}
+div[data-slidr="2"] {
+//  background-color: @green;
+//  width: 100%;
+//  height: 300px;
+  background: url('http://www.desktop4ipad.com/wp-content/uploads/2011/08/frosty-bird-flight-Captured-in-motion-Misty-background-500x500.jpg') 50% 50% no-repeat;
+}
+div[data-slidr="3"] {
+//  background-color: @gray;
+//  width: 100%;
+//  height: 200px;
+  background: url('http://gregpike.ca/wp-content/uploads/2012/06/Background-500x500.png') 50% 50% no-repeat;
+}
+
+#controls,
+#breadcrumbs {
+  border: 1px black solid;
+  width: 100px;
+  cursor: pointer;
+  height: 20px;
+  margin-top:20px;
+}
