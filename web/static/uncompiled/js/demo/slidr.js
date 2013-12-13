@@ -29,13 +29,18 @@ $(function() {
   };
 
   var s1 = slidr.create('slidr-home-demo', {
-    'overflow': true
+    'overflow': true,
+    'keyboard': true
   });
   addEffect(s1, 'linear');
   s1.auto();
 
   var eventType = ('ontouchstart' in window) ? 'touchend' : 'click';
   $('aside[id="slidr-home-demo-control"]').one(eventType, function() {
+    s1.stop();
+  });
+
+  $(document).one('keydown', function() {
     s1.stop();
   });
 

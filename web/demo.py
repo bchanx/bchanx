@@ -5,7 +5,7 @@ All Rights Reserved.
 
 from web import app
 from web.base import render, staticUrl
-from flask import redirect, url_for
+from flask import redirect, url_for, current_app, abort
 
 
 @app.route('/logos-in-pure-css-demo')
@@ -27,3 +27,7 @@ def slidr2():
 @app.route('/touch')
 def touch():
   return render('demo/touch.html', css='demo/touch.less', js='demo/touch.js')
+
+@app.route('/test')
+def test():
+  return render('demo/test.html', css='demo/test.less', js='demo/test.js')
