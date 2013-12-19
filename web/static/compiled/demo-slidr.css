@@ -3625,6 +3625,11 @@ aside[id="slidr-css-demo-breadcrumbs"] .slidr-breadcrumbs li.active {
   left: 0;
   font-size: 24px;
   z-index: 1;
+  -webkit-transform: translateZ(1px);
+  -moz-transform: translateZ(1px);
+  -ms-transform: translateZ(1px);
+  -o-transform: translateZ(1px);
+  transform: translateZ(1px);
   position: relative;
 }
 .breadcrumb-link .action {
