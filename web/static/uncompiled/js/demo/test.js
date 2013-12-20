@@ -7,7 +7,11 @@ if (bchanx.type === 'devel') bchanx.require('slidr.js');
 
 
 $(function() {
-  var s = slidr.create('slidr', {'theme': '#222', 'before': function() { console.log('before'); }, 'after': function() { console.log('after'); }}).add('h', ['1', '2', '3', '1']).add('v', ['1', '2', '3', '1']).start();
+  var s = slidr.create('slidr', {
+    'theme': '#222',
+      'before': function(e) { $(e.out.el).css('border', 'none'); },
+      'after': function(e) { $(e.in.el).css('border', '5px red solid'); }
+  }).add('h', ['1', '2', '3', '1']).add('v', ['1', '2', '3', '1']).start();
   $('#breadcrumbs').bind('click', function() {
     s.breadcrumbs();
   });
