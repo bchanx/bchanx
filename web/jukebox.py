@@ -21,7 +21,8 @@ from sqlalchemy.exc import ProgrammingError
 @app.route('/jukebox')
 def jukebox():
   """Render the jukebox!"""
-  return render('jukebox.html', css='jukebox.less', js='jukebox.js', yt=True, debug=flask.current_app.debug)
+  return render('jukebox.html', css='jukebox.less', js='jukebox.js', yt=True,
+      googleApiKey=app.config.get('GOOGLE_API_PUBLIC_KEY'))
 
 
 @app.route('/jukebox/playlistGetAll', methods=['GET'])

@@ -9,9 +9,13 @@
 @height: 360px;
 
 html {
-  &.dark-theme {
-    background-color: @black;
-  }
+  color: @white;
+  background-color: @black;
+}
+
+#body {
+  margin-top: 100px;
+  position: relative;
 }
 
 #jukebox {
@@ -19,79 +23,92 @@ html {
   width: 640px;
 }
 
-#theme {
-  margin: 10px auto 0 auto;
-  font-weight: 300;
-  width: 50px;
-  height: 20px;
-  cursor: pointer;
-  text-align: center;
-  line-height: 20px;
-  #light-theme {
-    color: @lightgray;
+#search {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: 1px red solid;
+  width: 300px;
+  #searchBox {
+    width: 100%;
+    height: 40px;
+    padding-left: 40px;
+    background: transparent;
+    outline: 0;
+    border: 1px @white dotted;
+    color: @white;
   }
-  #dark-theme {
-    color: @black;
+  .searchResult {
+    width: 100%;
+    border: 1px red solid;
+    .thumbnail {
+      border: 1px @green solid;
+      width: 120px;
+      height: 90px;
+      float: left;
+    }
+    .title,
+    .length {
+      width: 175px;
+      border: 1px @red solid;
+      display: inline-block;
+      line-height: 20px;
+    }
+    .title {
+      height: 60px;
+    }
+    .length {
+      height: 20px;
+    }
+  }
+  .searchNav {
+    width: 100%;
+    height: 25px;
+    margin-top: 10px;
+    border: 1px red solid;
+    position: relative;
+    .searchButton {
+      width: 30px;
+      height: 100%;
+      font-weight: 600;
+      cursor: pointer;
+      position: absolute;
+      &.prev {
+        left: 10px;
+      }
+      &.next {
+        right: 10px;
+      }
+    }
   }
 }
 
-#controls {
-  width: @width;
-  height: 20px;
-  margin: 10px auto;
-  #controls-container {
-    display: none;
-    width: @width;
-    height: 20px;
-    position: relative;
-    color: @black;
-    #controls-prev, #controls-next {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-    }
-    #controls-prev {
-      left: 0;
-    }
-    #controls-next {
-      right: 0;
-    }
-    &.dark-theme {
-      color: @lightgray;
-    }
-  }
+.logo-bchanx .logo-content {
+  border: 1px rgba(255, 255, 255, 0.3) solid;
+  .box-shadow(0 0 24px 0 rgba(255, 255, 255, 1));
 }
 
 #playlists-container {
   display: none;
   width: @width;
   #playlists {
-    border: 1px @black dotted;
-    background: rgba(0, 0, 0, 0.03);
+    border: 1px @lightgray dotted;
+    background: rgba(255, 255, 255, 0.05);
     width: @width;
     padding: 15px 0;
+    color: @lightgray;
     li {
       height: 25px;
       line-height: 25px;
       padding: 0 20px;
       cursor: pointer;
+      color: @lightgray;
       &:hover {
-        background-color: @lightgreen;
+        background-color: @gray;
       }
       &.playlist-playing {
         font-weight: 700;
         color: @green !important;
-      }
-    }
-    &.dark-theme {
-      color: @lightgray;
-      border: 1px dotted @lightgray;
-      background: rgba(255, 255, 255, 0.05);
-      li {
-        color: @lightgray;
-        &:hover {
-          background-color: @gray;
-        }
       }
     }
   }
@@ -102,15 +119,11 @@ html {
   width: @width;
   #about {
     text-align: center;
-    border: 1px @black dotted;
-    background: rgba(0, 0, 0, 0.03);
+    border: 1px @lightgray dotted;
+    background: rgba(255, 255, 255, 0.05);
     width: @width;
     padding: 15px 0;
-    &.dark-theme {
-      color: @lightgray;
-      border: 1px dotted @lightgray;
-      background: rgba(255, 255, 255, 0.05);
-    }
+    color: @white;
   }
 }
 
@@ -133,15 +146,9 @@ html {
       visibility: visible;
       line-height: @height;
       text-align: center;
-      &.dark-theme {
-        color: @lightgray;
-        border: 1px dotted @lightgray;
-        background: rgba(255, 255, 255, 0.05);
-      }
-      &.light-theme {
-        border: 1px dotted @black;
-        background: rgba(0, 0, 0, 0.03);
-      }
+      color: @lightgray;
+      border: 1px dotted @lightgray;
+      background: rgba(255, 255, 255, 0.05);
     }
   }
 
@@ -165,16 +172,11 @@ html {
         vertical-align: top;
         cursor: pointer;
         border: 1px @gray solid;
+        color: @lightgray;
         display: inline-block;
         height: 36px;
         line-height: 36px;
         margin-right: 22px;
-      }
-      &.dark-theme {
-        #play, #pause, #prev, #next, #repeat, #shuffle, #playlist {
-          border-color: @gray;
-          color: @lightgray;
-        }
       }
       #pause {
         display: none;
@@ -238,9 +240,7 @@ html {
         text-align: right;
         width: @width * 0.15 - 3;
         max-width: @width * 0.15;
-        &.dark-theme {
-          color: @white;
-        }
+        color: @white;
       }
     }
     #video-playlist {
@@ -254,12 +254,7 @@ html {
           border-top: none;
           cursor: pointer;
           &:hover {
-            background-color: @lightgreen;
-          }
-          &.dark-theme {
-            &:hover {
-              background-color: @gray;
-            }
+            background-color: @gray;
           }
           &.playing .track {
             font-weight: 700;
@@ -268,9 +263,7 @@ html {
         }
         tr {
           border: 1px solid @gray;
-          &.dark-theme {
-            color: @lightgray;
-          }
+          color: @lightgray;
           th, td {
             white-space: nowrap;
             overflow: hidden;
@@ -298,9 +291,7 @@ html {
       border: 1px @gray solid;
       width: @width;
       padding: 10px;
-      &.dark-theme {
-        color: @lightgray;
-      }
+      color: @lightgray;
     }
   }
 }

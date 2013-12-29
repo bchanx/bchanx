@@ -9,7 +9,7 @@ import os
 import sys
 
 
-def render(template, css=None, js=None, **kwargs):
+def render(template, css=None, js=None, yt=False, **kwargs):
   """Renders the page."""
   ctx = flask.current_app
   debug = ctx.debug
@@ -21,8 +21,9 @@ def render(template, css=None, js=None, **kwargs):
   if debug:
     js = resolvePath('debug.js') + js
     js.append('/static/dist/less.min.js')
-  if kwargs.get('yt', False):
+  if yt:
     js.append('https://www.youtube.com/iframe_api')
+    js.append('https://apis.google.com/js/client.js?onload=googleApiClientReady')
 
   settings = {}
   settings['debug'] = debug

@@ -38,7 +38,7 @@ function onPlayerStateChange(e) {
 }
 
 // Main jukebox object.
-bchanx.Jukebox = function() {
+var Jukebox = function() {
   var self = this;
   self.slidr = null;
   self.playlist = null;
@@ -134,6 +134,7 @@ bchanx.Jukebox = function() {
       'dataType': 'json',
       'success': self.onPlaylistGetAll
     });
+    return self;
   };
 
   // Callback for retrieving playlists.
@@ -156,9 +157,6 @@ bchanx.Jukebox = function() {
     }).add('h', ['playlists', 'video', 'about', 'playlists'])
       .add('v', ['playlists', 'video', 'about', 'playlists'])
       .start();
-
-    // TODO: Clean up old controller logic.
-    // $('#controls-container').fadeIn();
   };
 
   // Loads a playlist.
@@ -192,7 +190,6 @@ bchanx.Jukebox = function() {
       var normalTracklist = self.createTracklist(self.playlist.videos, 'normal-tracklist');
       var shuffledTracklist = self.createTracklist(self.playlist.shuffledVideos, 'shuffled-tracklist');
       $('#video-table').append(normalTracklist, shuffledTracklist);
-      $('tr.themeable').addClass($('#theme').attr('current-theme'));
       if (!$('#video-src').attr('src') || !bchanx.player.hasOwnProperty('playVideo')) {
         $('#video-src').attr('src', self.playlist.getUrl()).css('visibility', 'visible');
       } else {
@@ -272,27 +269,133 @@ bchanx.Jukebox = function() {
       var item = data[d];
       var track = item['meta']['title'];
       var length = formatTime(item['meta']['duration']);
-      tracklist.append('<tr mediaid="' + item['id'] + '" class="mediaItem themeable">' + 
+      tracklist.append('<tr mediaid="' + item['id'] + '" class="mediaItem">' + 
         '<td class="track" title="' + track + '">' + track + '</td><td class="length">' + length + '</td></tr>');
     }
     return tracklist;
   };
+
+  return self;
 };
 
 
+var Search = function() {
+
+  var _ = {
+    query: null,
+    prev: null,
+    next: null,
+    cache: {}
+  };
+
+  var util = {
+    update: function(query, prev, next) {
+      _.query = query;
+      _.prev = prev;
+      _.next = next;
+    },
+    escape: function(str) {
+      return $('<div>').text(str).html();
+    },
+    resultTemplate: function(item) {
+      return '<div class="searchResult clearfix" data-id="' + util.escape(item.id.videoId) + '">' +
+               '<div class="thumbnail"><img src="' + item.snippet.thumbnails.default.url + '"/></div>' +
+               '<div class="title">' + util.escape(item.snippet.title) + '</div>' + 
+               '<div class="length">1:23</div>' + 
+             '</div>';
+    },
+    navTemplate: function() {
+      var prev = (_.prev) ? '<div class="searchButton prev" data-token="' + util.escape(_.prev) + '">prev</div>' : '';
+      var next = (_.next) ? '<div class="searchButton next" data-token="' + util.escape(_.next) + '">next</div>' : '';
+      return '<div class="searchNav">' + prev + next + '</div>';
+    }
+  };
+
+  var api = {
+    search: function(query, token, cb) {
+      if (_.cache[query] && _.cache[query][token]) {
+        console.log("-->> QUERY");
+        util.update(query, _.cache[query][token].prev, _.cache[query][token].next);
+        cb(_.cache[query][token].results);
+        return;
+      }
+
+      if (query.length && gapi.client.youtube) {
+        console.log("-->> NEW REQUEST! token: " + token);
+        var request = gapi.client.youtube.search.list({
+          maxResults: 5,
+          pageToken: token,
+          part: 'snippet',
+          q: query,
+          type: 'video'
+        });
+
+        request.execute(function(response) {
+          var results = [];
+          if (response.items && response.items.length) {
+            console.dir(response.items);
+            util.update(query, response.prevPageToken, response.nextPageToken);
+            for (var i in response.items) results.push(util.resultTemplate(response.items[i]));
+            if (response.items.length) results.push(util.navTemplate());
+          } else {
+            util.update(query);
+          }
+          if (!_.cache[query]) _.cache[query] = {};
+          _.cache[query][token] = {};
+          _.cache[query][token].prev = _.prev;
+          _.cache[query][token].next = _.next;
+          _.cache[query][token].results = results;
+          console.log(_.cache);
+          cb(results);
+        });
+      } else {
+        util.update();
+        console.log(_.cache);
+        cb([]);
+      }
+    }
+  };
+
+  return {
+    search: api.search,
+  };
+};
+
+googleApiClientReady = function() {
+  gapi.client.setApiKey(bchanx.googleApiKey);
+  gapi.client.load('youtube', 'v3');
+};
+
+var LINECLAMP = function(element, lines) {
+  var clone = $(element).clone();
+  var text = $(element).text().split(' ');
+  var lineHeight = $(element).css('color', 'transparent').text('.').height();
+};
+
 $(function() {
-  $('.themeable').addClass($('#theme').attr('current-theme'));
-  $('#theme span').bind('click', function() {
-    var currentTheme = $(this).parent().attr('current-theme');
-    var selectedTheme = $(this).attr('id');
-    $('.themeable').removeClass(currentTheme).addClass(selectedTheme);
-    $('#theme').attr('current-theme', selectedTheme);
-    $('#theme span').show();
-    $('#theme span#' + selectedTheme).hide();
+//  LINECLAMP(".searchResult .title", 2);
+  var jukebox = new Jukebox().init();
+  var search = new Search();
+
+  var searchTimer;
+  var searchFn = function(query, token) {
+    search.search(query, token, function(results) {
+      $('.searchResults').children().remove();
+      if (results.length) for (var r in results) $('.searchResults').append($(results[r]));
+    });
+  };
+
+  $('#searchBox').bind('paste keyup', function() {
+    var searchTerm = $(this).val();
+    clearInterval(searchTimer);
+    searchTimer = setTimeout(function() { searchFn(searchTerm, ''); }, 300);
   });
 
-  var jukebox = new bchanx.Jukebox();
-  jukebox.init();
+  $(document).on('click', '.searchButton', function() {
+    var query = $('#searchBox').val();
+    var token = $(this).attr('data-token');
+    if (query, token) searchFn(query, token);
+  });
 
   var formIds = ['#playlist-create'];
   for (var f in formIds) {

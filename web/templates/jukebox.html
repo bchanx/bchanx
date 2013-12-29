@@ -2,32 +2,26 @@
 {% import "header.html" as header %}
 
 {% block head %}
+  <script type="text/javascript">bchanx.googleApiKey = "{{ googleApiKey }}";</script>
   {{ header.meta("Jukebox") }}
 {% endblock %}
 
 {% block header %}
-  {{ header.render("Jukebox") }}
+  {{ header.render("") }}
 {% endblock %}
 
 {% block body %}
-  <div id="controls">
-    <div id="controls-container" class="themeable">
-      <div id="controls-prev" meta="none"></div>
-      <div id="controls-next" meta="video">Video</div>
-    </div>
-  </div>
-
   <div id="jukebox">
     <div id="playlists-container" data-slidr="playlists">
-      <div id="playlists" class="themeable"></div>
+      <div id="playlists"></div>
     </div>
     <div id="video-container" data-slidr="video">
       <div id="video-player">
         <iframe id="video-src" type="text/html" frameborder="0" src="" mozallowfullscreen webkitallowfullscreen></iframe>
-        <div id="video-src-none" class="themeable">Playlist is empty.</div>
+        <div id="video-src-none">Playlist is empty.</div>
       </div>
       <div id="video-settings">
-        <div id="video-controls" class="themeable">
+        <div id="video-controls">
           <div id="play">Play</div>
           <div id="pause">Pause</div>
           <div id="prev">Prev</div>
@@ -38,20 +32,20 @@
         </div>
         <div id="video-playing-info">
           <div id="video-title"></div>
-          <div id="video-length" class="themeable"></div>
+          <div id="video-length"></div>
         </div>
         <div id="video-playlist">
           <table id="video-table">
             <thead>
-              <tr class="themeable">
+              <tr>
                 <th scope="col" class="track">Track</th>
                 <th scope="col" class="length">Length</th>
               </tr>
             </thead>
           </table>
         </div>
-        {% if debug %}
-          <form id="playlist-create" class="themeable" action="{{ url_for('playlistCreate') }}" method="POST">
+        {% if settings["debug"] %}
+          <form id="playlist-create" action="{{ url_for('playlistCreate') }}" method="POST">
             <input type="text" id="playlist-title" name="playlist-title" placeholder="title"/>
             <input type="radio" name="playlist-state" value="0" checked/>Public
             <input type="radio" name="playlist-state" value="-1"/>Private
@@ -59,17 +53,18 @@
           </form>
         {% endif %}
       </div>
-      <div id="theme" current-theme="dark-theme">
-        <span id="light-theme">- light -</span>
-        <span id="dark-theme">- dark -</span>
-      </div>
     </div>
     <div id="about-container" data-slidr="about">
-      <div id="about" class="themeable">
+      <div id="about">
         &copy; 2013.
         <br/><a href="https://www.twitter.com/bchanx">@bchANx</a>
       </div>
     </div>
+  </div>
+  <div id="search">
+    <div style="width: 40px; height: 40px; border: 1px red solid; position: absolute; top: 0; left: 0;"></div>
+    <input id="searchBox" type="text" placeholder="Search..."/>
+    <div class="searchResults"></div>
   </div>
 {% endblock %}
 
