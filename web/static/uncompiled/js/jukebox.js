@@ -115,12 +115,9 @@ var Jukebox = function() {
       self.loadPlaylist($(this).attr('pid'));
     });
     $(document).keydown(function(e) {
-      // n
-      if (e.which === 78) { $('#next').click(); }
-      // p
-      else if (e.which === 80) { $('#prev').click(); }
-      // s
-      else if (e.which === 83) { $('#shuffle').click(); }
+      if (e.which === 78) { $('#next').click(); } // n
+      else if (e.which === 80) { $('#prev').click(); } // p
+      else if (e.which === 83) { $('#shuffle').click(); } // s
     });
   };
 
@@ -314,14 +311,12 @@ var Search = function() {
   var api = {
     search: function(query, token, cb) {
       if (_.cache[query] && _.cache[query][token]) {
-        console.log("-->> QUERY");
         util.update(query, _.cache[query][token].prev, _.cache[query][token].next);
         cb(_.cache[query][token].results);
         return;
       }
 
       if (query.length && gapi.client.youtube) {
-        console.log("-->> NEW REQUEST! token: " + token);
         var request = gapi.client.youtube.search.list({
           maxResults: 5,
           pageToken: token,
@@ -333,7 +328,6 @@ var Search = function() {
         request.execute(function(response) {
           var results = [];
           if (response.items && response.items.length) {
-            console.dir(response.items);
             util.update(query, response.prevPageToken, response.nextPageToken);
             for (var i in response.items) results.push(util.resultTemplate(response.items[i]));
             if (response.items.length) results.push(util.navTemplate());
@@ -345,12 +339,10 @@ var Search = function() {
           _.cache[query][token].prev = _.prev;
           _.cache[query][token].next = _.next;
           _.cache[query][token].results = results;
-          console.log(_.cache);
           cb(results);
         });
       } else {
         util.update();
-        console.log(_.cache);
         cb([]);
       }
     }
@@ -366,14 +358,36 @@ googleApiClientReady = function() {
   gapi.client.load('youtube', 'v3');
 };
 
+var GETPX = function(str) {
+  return parseInt(str.slice(0, str.length - 2), 10);
+};
+
 var LINECLAMP = function(element, lines) {
-  var clone = $(element).clone();
-  var text = $(element).text().split(' ');
-  var lineHeight = $(element).css('color', 'transparent').text('.').height();
+  var lineHeight = GETPX($(element).css('line-height'));
+  var limit = lineHeight * lines;
+  var color = $(element).css('color');
+  var orig = $(element).text();
+  var text = orig.split(' ');
+  if (GETPX($(element).css('height')) > limit) {
+    $(element).attr('title', orig);
+    text.push('...');
+    $(element).css('color', 'transparent');
+    while (GETPX($(element).css('height')) > limit) {
+      if (text.length <= 2) break;
+      text = text.splice(0, text.length - 2);
+      text.push('...');
+      $(element).text(text.join(' '));
+    }
+  }
+  if (text.length <= 2) {
+    $(element).attr('title', orig);
+    $(element).text(text.join(' '))
+      .css({'text-overflow': 'ellipsis', 'overflow': 'hidden', 'white-space': 'nowrap'});
+  }
+  $(element).css({ 'height': limit, 'color': color });
 };
 
 $(function() {
-//  LINECLAMP(".searchResult .title", 2);
   var jukebox = new Jukebox().init();
   var search = new Search();
 
@@ -381,7 +395,10 @@ $(function() {
   var searchFn = function(query, token) {
     search.search(query, token, function(results) {
       $('.searchResults').children().remove();
-      if (results.length) for (var r in results) $('.searchResults').append($(results[r]));
+      if (results.length) {
+        for (var r in results) $('.searchResults').append($(results[r]));
+        $.each($('.searchResult .title'), function() { LINECLAMP($(this), 3); });
+      }
     });
   };
 
@@ -410,7 +427,6 @@ $(function() {
           'success': function(data) {
             // Add to playlist
             $('input[type="text"]').val('');
-            console.log(data);
           }
         });
       });

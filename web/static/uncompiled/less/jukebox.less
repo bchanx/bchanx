@@ -41,6 +41,7 @@ html {
   .searchResult {
     width: 100%;
     border: 1px red solid;
+    position: relative;
     .thumbnail {
       border: 1px @green solid;
       width: 120px;
@@ -54,11 +55,11 @@ html {
       display: inline-block;
       line-height: 20px;
     }
-    .title {
-      height: 60px;
-    }
     .length {
       height: 20px;
+      position: absolute;
+      right: 0;
+      bottom: 0;
     }
   }
   .searchNav {
