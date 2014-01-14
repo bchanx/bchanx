@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2013 Brian Chan (bchanx.com)
+ * Copyright (c) 2014 Brian Chan (bchanx.com)
  * All Rights Reserved.
  */
 
@@ -154,6 +154,17 @@ var Jukebox = function() {
     }).add('h', ['playlists', 'video', 'about', 'playlists'])
       .add('v', ['playlists', 'video', 'about', 'playlists'])
       .start();
+
+    // Show search.
+    $('#search-container').fadeIn(400);
+
+    // Start resize watching.
+    setInterval(function() {
+      var searchActive = $('#jukebox-container').hasClass('search-active');
+      var jukeboxHeight = $('#jukebox-container').outerHeight();
+      var searchHeight = (searchActive) ? $('#search-container').outerHeight() : 0;
+      $('#body').css('height', Math.max(jukeboxHeight, searchHeight));
+    }, 200);
   };
 
   // Loads a playlist.
@@ -279,44 +290,68 @@ var Jukebox = function() {
 var Search = function() {
 
   var _ = {
-    query: null,
-    prev: null,
-    next: null,
-    cache: {}
+    cache: {},
+    timeRe: /^PT(\d+H)?(\d+M)?(\d+S)?$/i
   };
 
   var util = {
-    update: function(query, prev, next) {
-      _.query = query;
-      _.prev = prev;
-      _.next = next;
-    },
     escape: function(str) {
       return $('<div>').text(str).html();
     },
+    formatDigit: function(str) {
+      str = str || 0;
+      str = String(parseInt(str, 10));
+      return (str.length == 1) ? '0' + str : str;
+    },
+    formatTime: function(str) {
+      var t = _.timeRe.exec(str);
+      var formatted = [];
+      for (var i = 1; i != 4; i++) formatted.push(util.formatDigit(t[i]));
+      return formatted.join(':');
+    },
     resultTemplate: function(item) {
-      return '<div class="searchResult clearfix" data-id="' + util.escape(item.id.videoId) + '">' +
-               '<div class="thumbnail"><img src="' + item.snippet.thumbnails.default.url + '"/></div>' +
+      return '<div class="search-result" data-id="' + util.escape(item.id) + '">' +
+               '<div class="actions"><div class="addto">+</div></div>' +
                '<div class="title">' + util.escape(item.snippet.title) + '</div>' + 
-               '<div class="length">1:23</div>' + 
+               '<div class="thumbnail">' +
+                 '<img src="' + item.snippet.thumbnails.default.url + '"/>' +
+                 '<div class="length">' + util.escape(util.formatTime(item.contentDetails.duration)) + '</div>' + 
+               '</div>' +
              '</div>';
     },
-    navTemplate: function() {
-      var prev = (_.prev) ? '<div class="searchButton prev" data-token="' + util.escape(_.prev) + '">prev</div>' : '';
-      var next = (_.next) ? '<div class="searchButton next" data-token="' + util.escape(_.next) + '">next</div>' : '';
-      return '<div class="searchNav">' + prev + next + '</div>';
+    navTemplate: function(prev, next, current) {
+      var prev = (prev != undefined) ?
+        '<div class="search-button prev" data-token="' + util.escape(prev) + '">prev</div>' : '';
+      var next = (next !== undefined) ?
+        '<div class="search-button next" data-token="' + util.escape(next) + '">next</div>' : '';
+      return '<div class="search-nav" data-token="' + current + '">' + prev + next + '</div>';
+    }
+  };
+
+  var cache = {
+    hit: function(query, token) {
+      return query && _.cache[query] && _.cache[query][token];
+    },
+    get: function(query, token) {
+      return _.cache[query][token];     
+    },
+    set: function(query, token, results) {
+      if (!_.cache[query]) _.cache[query] = {};
+      _.cache[query][token] = results;
+      return results;
     }
   };
 
   var api = {
     search: function(query, token, cb) {
-      if (_.cache[query] && _.cache[query][token]) {
-        util.update(query, _.cache[query][token].prev, _.cache[query][token].next);
-        cb(_.cache[query][token].results);
+      // Cache hit, return results.
+      if (cache.hit(query, token)) {
+        cb(cache.get(query, token));
         return;
       }
 
-      if (query.length && gapi.client.youtube) {
+      // Make a search request.
+      if (query && query.length && gapi.client.youtube) {
         var request = gapi.client.youtube.search.list({
           maxResults: 5,
           pageToken: token,
@@ -325,24 +360,31 @@ var Search = function() {
           type: 'video'
         });
 
-        request.execute(function(response) {
-          var results = [];
-          if (response.items && response.items.length) {
-            util.update(query, response.prevPageToken, response.nextPageToken);
-            for (var i in response.items) results.push(util.resultTemplate(response.items[i]));
-            if (response.items.length) results.push(util.navTemplate());
+        request.execute(function(r) {
+          if (r.items && r.items.length) {
+            var ids = [];
+            var prev = $('.search-nav').length ? $('.search-nav').attr('data-token') : undefined;
+            var next = r.nextPageToken;
+            for (var i in r.items) ids.push(r.items[i].id.videoId);
+
+            // Get video details.
+            request = gapi.client.youtube.videos.list({
+              part: 'contentDetails, snippet',
+              id: ids.join(', ')
+            });
+
+            request.execute(function(resp) {
+              var results = [];
+              for (var i in resp.items) results.push(util.resultTemplate(resp.items[i]));
+              results.push(util.navTemplate(prev, next, token));
+              cb(cache.set(query, token, results));
+            });
           } else {
-            util.update(query);
+            cb(cache.set(query, token, []));
           }
-          if (!_.cache[query]) _.cache[query] = {};
-          _.cache[query][token] = {};
-          _.cache[query][token].prev = _.prev;
-          _.cache[query][token].next = _.next;
-          _.cache[query][token].results = results;
-          cb(results);
+         // api.details(response, query, token, cb);
         });
       } else {
-        util.update();
         cb([]);
       }
     }
@@ -394,24 +436,38 @@ $(function() {
   var searchTimer;
   var searchFn = function(query, token) {
     search.search(query, token, function(results) {
-      $('.searchResults').children().remove();
+      $('.search-results').children().remove();
       if (results.length) {
-        for (var r in results) $('.searchResults').append($(results[r]));
-        $.each($('.searchResult .title'), function() { LINECLAMP($(this), 3); });
+        for (var r in results) $('.search-results').append($(results[r]));
+        $.each($('.search-result .title'), function() { LINECLAMP($(this), 3); });
       }
     });
   };
 
-  $('#searchBox').bind('paste keyup', function() {
+  $('#search-box').bind('paste keyup', function() {
     var searchTerm = $(this).val();
     clearInterval(searchTimer);
     searchTimer = setTimeout(function() { searchFn(searchTerm, ''); }, 300);
   });
 
-  $(document).on('click', '.searchButton', function() {
-    var query = $('#searchBox').val();
+  $(document).on('click', '.search-button', function() {
+    var query = $('#search-box').val();
     var token = $(this).attr('data-token');
-    if (query, token) searchFn(query, token);
+    if (query) searchFn(query, token);
+  });
+
+  $('#search-icon').bind('click', function() {
+    var searchActive = $('#jukebox-container').hasClass('search-active');
+    if (searchActive) {
+      $('#jukebox-container').removeClass('search-active');
+    } else {
+      $('#jukebox-container').addClass('search-active');
+    }
+  });
+
+  $(document).on('click', '.search-result', function() {
+    var videoId = $(this).attr('data-id');
+    console.log(videoId);
   });
 
   var formIds = ['#playlist-create'];

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 '''
-Copyright (c) 2013 Brian Chan (bchanx.com)
+Copyright (c) 2014 Brian Chan (bchanx.com)
 All Rights Reserved.
 '''
 

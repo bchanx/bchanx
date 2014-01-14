@@ -11,60 +11,64 @@
 {% endblock %}
 
 {% block body %}
-  <div id="jukebox">
-    <div id="playlists-container" data-slidr="playlists">
-      <div id="playlists"></div>
-    </div>
-    <div id="video-container" data-slidr="video">
-      <div id="video-player">
-        <iframe id="video-src" type="text/html" frameborder="0" src="" mozallowfullscreen webkitallowfullscreen></iframe>
-        <div id="video-src-none">Playlist is empty.</div>
+  <div id="jukebox-container">
+    <div id="jukebox">
+      <div id="playlists-container" data-slidr="playlists">
+        <div id="playlists"></div>
       </div>
-      <div id="video-settings">
-        <div id="video-controls">
-          <div id="play">Play</div>
-          <div id="pause">Pause</div>
-          <div id="prev">Prev</div>
-          <div id="next">Next</div>
-          <div id="repeat" class="off">Repeat</div>
-          <div id="shuffle">Shuffle</div>
-          <div id="playlist" class="show">Playlist</div>
+      <div id="video-container" data-slidr="video">
+        <div id="video-player">
+          <iframe id="video-src" type="text/html" frameborder="0" src="" mozallowfullscreen webkitallowfullscreen></iframe>
+          <div id="video-src-none">Playlist is empty.</div>
         </div>
-        <div id="video-playing-info">
-          <div id="video-title"></div>
-          <div id="video-length"></div>
+        <div id="video-settings">
+          <div id="video-controls">
+            <div id="play">Play</div>
+            <div id="pause">Pause</div>
+            <div id="prev">Prev</div>
+            <div id="next">Next</div>
+            <div id="repeat" class="off">Repeat</div>
+            <div id="shuffle">Shuffle</div>
+            <div id="playlist" class="show">Playlist</div>
+          </div>
+          <div id="video-playing-info">
+            <div id="video-title"></div>
+            <div id="video-length"></div>
+          </div>
+          <div id="video-playlist">
+            <table id="video-table">
+              <thead>
+                <tr>
+                  <th scope="col" class="track">Track</th>
+                  <th scope="col" class="length">Length</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          {% if settings["debug"] %}
+            <form id="playlist-create" action="{{ url_for('playlistCreate') }}" method="POST">
+              <input type="text" id="playlist-title" name="playlist-title" placeholder="title"/>
+              <input type="radio" name="playlist-state" value="0" checked/>Public
+              <input type="radio" name="playlist-state" value="-1"/>Private
+              <input type="submit" value="Create"/>
+            </form>
+          {% endif %}
         </div>
-        <div id="video-playlist">
-          <table id="video-table">
-            <thead>
-              <tr>
-                <th scope="col" class="track">Track</th>
-                <th scope="col" class="length">Length</th>
-              </tr>
-            </thead>
-          </table>
-        </div>
-        {% if settings["debug"] %}
-          <form id="playlist-create" action="{{ url_for('playlistCreate') }}" method="POST">
-            <input type="text" id="playlist-title" name="playlist-title" placeholder="title"/>
-            <input type="radio" name="playlist-state" value="0" checked/>Public
-            <input type="radio" name="playlist-state" value="-1"/>Private
-            <input type="submit" value="Create"/>
-          </form>
-        {% endif %}
       </div>
-    </div>
-    <div id="about-container" data-slidr="about">
-      <div id="about">
-        &copy; 2013.
-        <br/><a href="https://www.twitter.com/bchanx">@bchANx</a>
+      <div id="about-container" data-slidr="about">
+        <div id="about">
+          &copy; 2013-2014
+          <br/><a href="https://www.twitter.com/bchanx">@bchANx</a>
+        </div>
       </div>
     </div>
   </div>
-  <div id="search">
-    <div style="width: 40px; height: 40px; border: 1px red solid; position: absolute; top: 0; left: 0;"></div>
-    <input id="searchBox" type="text" placeholder="Search..."/>
-    <div class="searchResults"></div>
+  <div id="search-container">
+    <div id="search-icon">o</div>
+    <div id="search">
+      <input id="search-box" type="text" placeholder="Search..."/>
+      <div class="search-results"></div>
+    </div>
   </div>
 {% endblock %}
 

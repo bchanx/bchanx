@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Brian Chan (bchanx.com)
+// Copyright (c) 2014 Brian Chan (bchanx.com)
 // All Rights Reserved.
 //
 
@@ -7,6 +7,7 @@
 
 @width: 640px;
 @height: 360px;
+@background: rgba(255, 255, 255, 0.05);
 
 html {
   color: @white;
@@ -14,8 +15,24 @@ html {
 }
 
 #body {
-  margin-top: 100px;
+  margin: 90px 0 20px 0;
   position: relative;
+  min-width: 1200px;
+}
+
+#jukebox-container {
+  width: 100%;
+  min-width: 940px;
+  display: inline-block;
+  vertical-align: top;
+  padding-right: 0;
+  .transition(padding-right 0.1s linear);
+  &.search-active {
+    padding-right: 300px;
+    ~ #search-container {
+      width: 350px;
+    }
+  }
 }
 
 #jukebox {
@@ -23,66 +40,135 @@ html {
   width: 640px;
 }
 
-#search {
+#search-container {
+  .transition(width 0.1s linear);
+  vertical-align: top;
+  width: 50px;
+  display: inline-block;
   position: absolute;
   right: 0;
   top: 0;
-  border: 1px red solid;
-  width: 300px;
-  #searchBox {
-    width: 100%;
+  display: none;
+  overflow: hidden;
+  #search-icon {
+    cursor: pointer;
+    z-index: 1;
+    width: 40px;
     height: 40px;
-    padding-left: 40px;
-    background: transparent;
-    outline: 0;
-    border: 1px @white dotted;
-    color: @white;
-  }
-  .searchResult {
-    width: 100%;
     border: 1px red solid;
-    position: relative;
-    .thumbnail {
-      border: 1px @green solid;
-      width: 120px;
-      height: 90px;
-      float: left;
-    }
-    .title,
-    .length {
-      width: 175px;
-      border: 1px @red solid;
-      display: inline-block;
-      line-height: 20px;
-    }
-    .length {
-      height: 20px;
-      position: absolute;
-      right: 0;
-      bottom: 0;
-    }
+    position: absolute;
+    top: 0;
+    left: 0;
   }
-  .searchNav {
-    width: 100%;
-    height: 25px;
-    margin-top: 10px;
-    border: 1px red solid;
+  #search {
     position: relative;
-    .searchButton {
-      width: 30px;
-      height: 100%;
-      font-weight: 600;
-      cursor: pointer;
-      position: absolute;
-      &.prev {
-        left: 10px;
+    width: 300px;
+    left: 50px;
+    padding-right: 10px;
+    #search-box {
+      width: 100%;
+      height: 40px;
+      padding: 5px;
+      background: @background;
+      outline: 0;
+      border: 1px @white dotted;
+      color: @white;
+    }
+    .search-result {
+      &:hover {
+        border: 1px @white dotted;
+        background: @background;
+        .thumbnail {
+          top: 4px;
+          right: 4px;
+        }
+        .title {
+          top: 11px;
+          right: 114px;
+        }
+        .actions {
+          display: block;
+          left: 9px;
+          top: 11px;
+        }
       }
-      &.next {
-        right: 10px;
+      cursor: pointer;
+      width: 100%;
+      height: 85px;
+      position: relative;
+      margin-top: 5px;
+      .actions {
+        display: none;
+        position: absolute;
+        width: 20px;
+        height: 60px;
+        left: 10px;
+        top: 12px;
+        > div {
+          width: 20px;
+          height: 20px;
+          line-height: 20px;
+          text-align: center;
+        }
+        .addto:hover {
+          background: @gray;
+        }
+      }
+      .title {
+        .user-select-none();
+        width: 140px;
+        position: absolute;
+        text-align: right;
+        right: 115px;
+        top: 12px;
+        line-height: 20px;
+      }
+      .thumbnail {
+        .user-select-none();
+        width: 100px;
+        height: 75px;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+        .length {
+          width: 100%;
+          background: rgba(0, 0, 0, 0.6);
+          height: 22px;
+          line-height: 22px;
+          text-align: center;
+          padding: 0 5px;
+          position: absolute;
+          right: 0;
+          bottom: 0;
+        }
+      }
+    }
+    .search-nav {
+      width: 100%;
+      height: 25px;
+      margin-top: 10px;
+      position: relative;
+      .search-button {
+        width: 30px;
+        height: 100%;
+        font-weight: 600;
+        cursor: pointer;
+        position: absolute;
+        &.prev {
+          left: 10px;
+        }
+        &.next {
+          right: 10px;
+        }
       }
     }
   }
 }
+
 
 .logo-bchanx .logo-content {
   border: 1px rgba(255, 255, 255, 0.3) solid;
@@ -94,7 +180,7 @@ html {
   width: @width;
   #playlists {
     border: 1px @lightgray dotted;
-    background: rgba(255, 255, 255, 0.05);
+    background: @background;
     width: @width;
     padding: 15px 0;
     color: @lightgray;
@@ -121,7 +207,7 @@ html {
   #about {
     text-align: center;
     border: 1px @lightgray dotted;
-    background: rgba(255, 255, 255, 0.05);
+    background: @background;
     width: @width;
     padding: 15px 0;
     color: @white;
@@ -149,7 +235,7 @@ html {
       text-align: center;
       color: @lightgray;
       border: 1px dotted @lightgray;
-      background: rgba(255, 255, 255, 0.05);
+      background: @background;
     }
   }
 
