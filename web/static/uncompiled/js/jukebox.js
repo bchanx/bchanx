@@ -391,7 +391,7 @@ var Search = function() {
   };
 
   return {
-    search: api.search,
+    search: api.search
   };
 };
 

@@ -54,7 +54,11 @@ def less(files):
 
 def jsminify(f):
   """Gets a minified js file."""
-  return ''.join(['var bchanx = bchanx || {};'] + [JS_MAPPING[js]['content'] for js in jsmapping(f)])
+  tmp = '/tmp/%s' % f.replace('/', '-')
+  with open(tmp, 'w') as minify:
+    minify.write('\n'.join(['var bchanx = bchanx || {};'] + [JS_MAPPING[js]['content'] for js in jsmapping(f)]))
+  return subprocess.check_output(['java', '-jar', os.path.expanduser('~/bchanx/misc/closure-compiler.jar'), '--js', tmp])
+  os.remove(tmp)
 
 
 def jsmapping(f):
@@ -79,8 +83,7 @@ def jsmapping(f):
       content = []
       line = m.readline()
       while line:
-        line = line.strip()
-        if line and not line.startswith('//') and not JS_REQUIRE.search(line):
+        if line and not JS_REQUIRE.search(line):
           content.append(line)
         line = m.readline()
       m.close()

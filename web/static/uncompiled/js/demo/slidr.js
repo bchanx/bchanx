@@ -159,7 +159,7 @@ $(function() {
     });
   }
 
-	// Setup master slidr, breadcrumbs and hash changes.
+  // Setup master slidr, breadcrumbs and hash changes.
   var pages = ['#home', '#docs'];
   var checkPage = function() {
     var hash = window.location.hash;

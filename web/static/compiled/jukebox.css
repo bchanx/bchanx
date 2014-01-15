@@ -2967,9 +2967,6 @@ hr {
 #header #header-container #header-content.logo {
   margin-top: -85px;
 }
-#header #header-container #header-content.dark-theme {
-  color: #f0f0f0;
-}
 #header #header-container #header-content #header-title {
   text-align: center;
   vertical-align: top;
@@ -3031,14 +3028,6 @@ hr {
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
   border: 1px rgba(0, 0, 0, 0.3) solid;
   position: relative;
-}
-.logo-bchanx .logo-content.dark-theme {
-  border: 1px rgba(255, 255, 255, 0.3) solid;
-  -webkit-box-shadow: 0 0 24px 0 #ffffff;
-  -moz-box-shadow: 0 0 24px 0 #ffffff;
-  -ms-box-shadow: 0 0 24px 0 #ffffff;
-  -o-box-shadow: 0 0 24px 0 #ffffff;
-  box-shadow: 0 0 24px 0 #ffffff;
 }
 .logo-bchanx .logo-content .logo-text {
   width: 78px;
@@ -3238,88 +3227,211 @@ a:hover {
 .clearfix {
   *zoom: 1;
 }
-html.dark-theme {
+html {
+  color: #ffffff;
   background-color: #222222;
+}
+#body {
+  margin: 90px 0 20px 0;
+  position: relative;
+  min-width: 1200px;
+}
+#jukebox-container {
+  width: 100%;
+  min-width: 940px;
+  display: inline-block;
+  vertical-align: top;
+  padding-right: 0;
+  -webkit-transition: padding-right 0.1s linear;
+  -moz-transition: padding-right 0.1s linear;
+  -o-transition: padding-right 0.1s linear;
+  transition: padding-right 0.1s linear;
+}
+#jukebox-container.search-active {
+  padding-right: 300px;
+}
+#jukebox-container.search-active ~ #search-container {
+  width: 350px;
 }
 #jukebox {
   margin: 0 auto;
   width: 640px;
 }
-#theme {
-  margin: 10px auto 0 auto;
-  font-weight: 300;
+#search-container {
+  -webkit-transition: width 0.1s linear;
+  -moz-transition: width 0.1s linear;
+  -o-transition: width 0.1s linear;
+  transition: width 0.1s linear;
+  vertical-align: top;
   width: 50px;
-  height: 20px;
-  cursor: pointer;
-  text-align: center;
-  line-height: 20px;
-}
-#theme #light-theme {
-  color: #f0f0f0;
-}
-#theme #dark-theme {
-  color: #222222;
-}
-#controls {
-  width: 640px;
-  height: 20px;
-  margin: 10px auto;
-}
-#controls #controls-container {
-  display: none;
-  width: 640px;
-  height: 20px;
-  position: relative;
-  color: #222222;
-}
-#controls #controls-container #controls-prev,
-#controls #controls-container #controls-next {
+  display: inline-block;
   position: absolute;
-  cursor: pointer;
+  right: 0;
   top: 0;
+  display: none;
+  overflow: hidden;
 }
-#controls #controls-container #controls-prev {
+#search-container #search-icon {
+  cursor: pointer;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  border: 1px red solid;
+  position: absolute;
+  top: 0;
   left: 0;
 }
-#controls #controls-container #controls-next {
-  right: 0;
+#search-container #search {
+  position: relative;
+  width: 300px;
+  left: 50px;
+  padding-right: 10px;
 }
-#controls #controls-container.dark-theme {
-  color: #f0f0f0;
+#search-container #search #search-box {
+  width: 100%;
+  height: 40px;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.05);
+  outline: 0;
+  border: 1px #ffffff dotted;
+  color: #ffffff;
+}
+#search-container #search .search-result {
+  cursor: pointer;
+  width: 100%;
+  height: 85px;
+  position: relative;
+  margin-top: 5px;
+}
+#search-container #search .search-result:hover {
+  border: 1px #ffffff dotted;
+  background: rgba(255, 255, 255, 0.05);
+}
+#search-container #search .search-result:hover .thumbnail {
+  top: 4px;
+  right: 4px;
+}
+#search-container #search .search-result:hover .title {
+  top: 11px;
+  right: 114px;
+}
+#search-container #search .search-result:hover .actions {
+  display: block;
+  left: 9px;
+  top: 11px;
+}
+#search-container #search .search-result .actions {
+  display: none;
+  position: absolute;
+  width: 20px;
+  height: 60px;
+  left: 10px;
+  top: 12px;
+}
+#search-container #search .search-result .actions > div {
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+}
+#search-container #search .search-result .actions .addto:hover {
+  background: #808080;
+}
+#search-container #search .search-result .title {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  width: 140px;
+  position: absolute;
+  text-align: right;
+  right: 115px;
+  top: 12px;
+  line-height: 20px;
+}
+#search-container #search .search-result .thumbnail {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  width: 100px;
+  height: 75px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+#search-container #search .search-result .thumbnail img {
+  width: 100%;
+  height: 100%;
+}
+#search-container #search .search-result .thumbnail .length {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  height: 22px;
+  line-height: 22px;
+  text-align: center;
+  padding: 0 5px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+#search-container #search .search-nav {
+  width: 100%;
+  height: 25px;
+  margin-top: 10px;
+  position: relative;
+}
+#search-container #search .search-nav .search-button {
+  width: 30px;
+  height: 100%;
+  font-weight: 600;
+  cursor: pointer;
+  position: absolute;
+}
+#search-container #search .search-nav .search-button.prev {
+  left: 10px;
+}
+#search-container #search .search-nav .search-button.next {
+  right: 10px;
+}
+.logo-bchanx .logo-content {
+  border: 1px rgba(255, 255, 255, 0.3) solid;
+  -webkit-box-shadow: 0 0 24px 0 #ffffff;
+  -moz-box-shadow: 0 0 24px 0 #ffffff;
+  -ms-box-shadow: 0 0 24px 0 #ffffff;
+  -o-box-shadow: 0 0 24px 0 #ffffff;
+  box-shadow: 0 0 24px 0 #ffffff;
 }
 #playlists-container {
   display: none;
   width: 640px;
 }
 #playlists-container #playlists {
-  border: 1px #222222 dotted;
-  background: rgba(0, 0, 0, 0.03);
+  border: 1px #f0f0f0 dotted;
+  background: rgba(255, 255, 255, 0.05);
   width: 640px;
   padding: 15px 0;
+  color: #f0f0f0;
 }
 #playlists-container #playlists li {
   height: 25px;
   line-height: 25px;
   padding: 0 20px;
   cursor: pointer;
+  color: #f0f0f0;
 }
 #playlists-container #playlists li:hover {
-  background-color: #e3ffe9;
+  background-color: #808080;
 }
 #playlists-container #playlists li.playlist-playing {
   font-weight: 700;
   color: #7ce69c !important;
-}
-#playlists-container #playlists.dark-theme {
-  color: #f0f0f0;
-  border: 1px dotted #f0f0f0;
-  background: rgba(255, 255, 255, 0.05);
-}
-#playlists-container #playlists.dark-theme li {
-  color: #f0f0f0;
-}
-#playlists-container #playlists.dark-theme li:hover {
-  background-color: #808080;
 }
 #about-container {
   display: none;
@@ -3327,15 +3439,11 @@ html.dark-theme {
 }
 #about-container #about {
   text-align: center;
-  border: 1px #222222 dotted;
-  background: rgba(0, 0, 0, 0.03);
+  border: 1px #f0f0f0 dotted;
+  background: rgba(255, 255, 255, 0.05);
   width: 640px;
   padding: 15px 0;
-}
-#about-container #about.dark-theme {
-  color: #f0f0f0;
-  border: 1px dotted #f0f0f0;
-  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
 }
 #video-container {
   display: none;
@@ -3358,15 +3466,9 @@ html.dark-theme {
   visibility: visible;
   line-height: 360px;
   text-align: center;
-}
-#video-container #video-player #video-src-none.dark-theme {
   color: #f0f0f0;
   border: 1px dotted #f0f0f0;
   background: rgba(255, 255, 255, 0.05);
-}
-#video-container #video-player #video-src-none.light-theme {
-  border: 1px dotted #222222;
-  background: rgba(0, 0, 0, 0.03);
 }
 #video-container #video-settings {
   display: none;
@@ -3401,20 +3503,11 @@ html.dark-theme {
   vertical-align: top;
   cursor: pointer;
   border: 1px #808080 solid;
+  color: #f0f0f0;
   display: inline-block;
   height: 36px;
   line-height: 36px;
   margin-right: 22px;
-}
-#video-container #video-settings #video-controls.dark-theme #play,
-#video-container #video-settings #video-controls.dark-theme #pause,
-#video-container #video-settings #video-controls.dark-theme #prev,
-#video-container #video-settings #video-controls.dark-theme #next,
-#video-container #video-settings #video-controls.dark-theme #repeat,
-#video-container #video-settings #video-controls.dark-theme #shuffle,
-#video-container #video-settings #video-controls.dark-theme #playlist {
-  border-color: #808080;
-  color: #f0f0f0;
 }
 #video-container #video-settings #video-controls #pause {
   display: none;
@@ -3471,8 +3564,6 @@ html.dark-theme {
   text-align: right;
   width: 93px;
   max-width: 96px;
-}
-#video-container #video-settings #video-playing-info #video-length.dark-theme {
   color: #ffffff;
 }
 #video-container #video-settings #video-playlist {
@@ -3489,9 +3580,6 @@ html.dark-theme {
   cursor: pointer;
 }
 #video-container #video-settings #video-playlist table tbody tr:hover {
-  background-color: #e3ffe9;
-}
-#video-container #video-settings #video-playlist table tbody tr.dark-theme:hover {
   background-color: #808080;
 }
 #video-container #video-settings #video-playlist table tbody tr.playing .track {
@@ -3500,8 +3588,6 @@ html.dark-theme {
 }
 #video-container #video-settings #video-playlist table tr {
   border: 1px solid #808080;
-}
-#video-container #video-settings #video-playlist table tr.dark-theme {
   color: #f0f0f0;
 }
 #video-container #video-settings #video-playlist table tr th,
@@ -3533,9 +3619,5 @@ html.dark-theme {
   border: 1px #808080 solid;
   width: 640px;
   padding: 10px;
-}
-#video-container #video-settings #video-add.dark-theme,
-#video-container #video-settings #playlist-create.dark-theme,
-#video-container #video-settings #playlist-add.dark-theme {
   color: #f0f0f0;
 }

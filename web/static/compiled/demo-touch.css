@@ -2967,9 +2967,6 @@ hr {
 #header #header-container #header-content.logo {
   margin-top: -85px;
 }
-#header #header-container #header-content.dark-theme {
-  color: #f0f0f0;
-}
 #header #header-container #header-content #header-title {
   text-align: center;
   vertical-align: top;
@@ -3031,14 +3028,6 @@ hr {
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
   border: 1px rgba(0, 0, 0, 0.3) solid;
   position: relative;
-}
-.logo-bchanx .logo-content.dark-theme {
-  border: 1px rgba(255, 255, 255, 0.3) solid;
-  -webkit-box-shadow: 0 0 24px 0 #ffffff;
-  -moz-box-shadow: 0 0 24px 0 #ffffff;
-  -ms-box-shadow: 0 0 24px 0 #ffffff;
-  -o-box-shadow: 0 0 24px 0 #ffffff;
-  box-shadow: 0 0 24px 0 #ffffff;
 }
 .logo-bchanx .logo-content .logo-text {
   width: 78px;
