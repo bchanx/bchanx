@@ -3236,6 +3236,40 @@ html {
   position: relative;
   min-width: 1200px;
 }
+.css-icons {
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+.css-icons .search {
+  width: 24px;
+  height: 24px;
+  border: 2px #ffffff solid;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+  border-radius: 12px;
+  top: 8px;
+  right: 4px;
+  position: absolute;
+}
+.css-icons .search:after {
+  content: "";
+  display: block;
+  -webkit-transform: rotateZ(45deg);
+  -moz-transform: rotateZ(45deg);
+  -ms-transform: rotateZ(45deg);
+  -o-transform: rotateZ(45deg);
+  transform: rotateZ(45deg);
+  border: 1px #ffffff solid;
+  background: #ffffff;
+  width: 1px;
+  height: 10px;
+  position: absolute;
+  left: -3px;
+  bottom: -8px;
+}
 #jukebox-container {
   width: 100%;
   min-width: 940px;
@@ -3272,14 +3306,15 @@ html {
   overflow: hidden;
 }
 #search-container #search-icon {
+  opacity: 0.4;
   cursor: pointer;
   z-index: 1;
-  width: 40px;
-  height: 40px;
-  border: 1px red solid;
   position: absolute;
   top: 0;
   left: 0;
+}
+#search-container #search-icon:hover {
+  opacity: 0.8;
 }
 #search-container #search {
   position: relative;
@@ -3406,17 +3441,17 @@ html {
   margin-top: 10px;
   position: relative;
 }
-#search-container #search .search-nav .search-button {
+#search-container #search .search-nav .search-nav-button {
   width: 30px;
   height: 100%;
   font-weight: 600;
   cursor: pointer;
   position: absolute;
 }
-#search-container #search .search-nav .search-button.prev {
-  left: 10px;
+#search-container #search .search-nav .search-nav-button.prev {
+  right: 75px;
 }
-#search-container #search .search-nav .search-button.next {
+#search-container #search .search-nav .search-nav-button.next {
   right: 10px;
 }
 .logo-bchanx .logo-content {
@@ -3575,14 +3610,14 @@ html {
   color: #7ce69c;
   padding: 0 10px 0 20px;
   text-align: left;
-  width: 541px;
-  max-width: 544px;
+  width: 534.6px;
+  max-width: 537.6px;
 }
 #video-container #video-settings #video-playing-info #video-length {
   padding: 0 20px 0 10px;
   text-align: right;
-  width: 93px;
-  max-width: 96px;
+  width: 99.4px;
+  max-width: 102.4px;
   color: #ffffff;
 }
 #video-container #video-settings #video-playlist {

@@ -1,3 +1,8 @@
+/*!
+ * Copyright (c) 2014 Brian Chan (bchanx.com)
+ * All Rights Reserved.
+ */
+
 var bchanx=bchanx||{};
 $(function(){var e=function(a,b){if(Array.prototype.indexOf)return a.indexOf(b);if(a&&a.length)for(var c=0,d=a.length;c<d;c++)if(a[c]==b)return c;return-1},r=["one","two","three","four","one"],s=["six","five","four","six"],l=function(a,b){b=b||"linear";a.add("h",r,b,!0).add("v",s,b,!0).start();var c=b;$("#slidr-home-demo-effects > div").removeClass("active");$("#slidr-home-demo-effects > div."+c).addClass("active");$("#slidr-home-demo > div").text(c)},c=slidr.create("slidr-home-demo",{overflow:!0,
 keyboard:!0});l(c,"linear");c.auto();var d="ontouchstart"in window?"touchend":"click";$('aside[id="slidr-home-demo-control"]').one(d,function(){c.stop()});$(document).one("keydown",function(){c.stop()});$('aside[id="slidr-home-demo-breadcrumbs"]').one(d,function(){c.stop()});$("#slidr-home-demo-effects > div").each(function(){$(this).bind(d,function(){l(c,$(this).text())})});var g=["border","corner","none"];$("#slidr-home-demo-settings > div").each(function(){$(this).bind(d,function(){var a=$(this).text(),
