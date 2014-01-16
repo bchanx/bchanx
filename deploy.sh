@@ -9,7 +9,6 @@ function printError {
   echo -e "\033[1;31m--- $1 ---\033[0m"
 }
 
-
 #####
 # Compile assets
 #####
@@ -20,6 +19,11 @@ if [[ $? != 0 ]]; then
   exit 1
 fi
 
+#####
+# Checking copyright
+#####
+printStatus "Checking Copyright"
+copyright ./
 
 #####
 # Push changes to Git
