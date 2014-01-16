@@ -20,6 +20,33 @@ html {
   min-width: 1200px;
 }
 
+.css-icons {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  .search {
+    width: 24px;
+    height: 24px;
+    border: 2px @white solid;
+    .border-radius(12px);
+    top: 8px;
+    right: 4px;
+    position: absolute;
+    &:after {
+      content: "";
+      display: block;
+      .transform(rotateZ(45deg));
+      border: 1px @white solid;
+      background: @white;
+      width: 1px;
+      height: 10px;
+      position: absolute;
+      left: -3px;
+      bottom: -8px;
+    }
+  }
+}
+
 #jukebox-container {
   width: 100%;
   min-width: 940px;
@@ -51,14 +78,15 @@ html {
   display: none;
   overflow: hidden;
   #search-icon {
+    opacity: 0.4;
     cursor: pointer;
     z-index: 1;
-    width: 40px;
-    height: 40px;
-    border: 1px red solid;
     position: absolute;
     top: 0;
     left: 0;
+    &:hover {
+      opacity: 0.8;
+    }
   }
   #search {
     position: relative;
@@ -326,14 +354,14 @@ html {
         color: @green;
         padding: 0 10px 0 20px;
         text-align: left;
-        width: @width * 0.85 - 3;
-        max-width: @width * 0.85;
+        width: @width * 0.84 - 3;
+        max-width: @width * 0.84;
       }
       #video-length {
         padding: 0 20px 0 10px;
         text-align: right;
-        width: @width * 0.15 - 3;
-        max-width: @width * 0.15;
+        width: @width * 0.16 - 3;
+        max-width: @width * 0.16;
         color: @white;
       }
     }

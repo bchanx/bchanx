@@ -3,6 +3,30 @@
  * All Rights Reserved.
  */
 
+// TODO: rewrite me pls.
+
+(function(root, factory) {
+  root['playlist'] = factory();
+}(this, function() {
+  var TYPE = {
+    'UNKNOWN': -1,
+    'YOUTUBE': 0
+  };
+
+  return {
+    TYPE: TYPE,
+    getResource: function(id, type) {
+      if (id) {
+        if (type == TYPE.YOUTUBE) {
+          return 'https://www.youtube.com/embed/' + id + '?rel=0&enablejsapi=1&iv_load_policy=3&showinfo=0&theme=light';
+        }
+      }
+      return '';
+    }
+  }
+}));
+
+
 var Playlist = function(player, videos, shuffled) {
   var self = this;
   self.TYPE = {
