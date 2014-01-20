@@ -3145,17 +3145,17 @@ hr {
 #footer-links .icon .logo-twitter-small:hover,
 #footer-links .icon .logo-github-small:hover,
 #footer-links .icon .logo-linkedin-small:hover {
-  background-color: #7ce69c;
+  background-color: #5cd17d;
 }
 #footer-links .icon .logo-twitter-small:hover div[class*=-none],
 #footer-links .icon .logo-github-small:hover div[class*=-none],
 #footer-links .icon .logo-linkedin-small:hover div[class*=-none] {
-  background-color: #7ce69c;
+  background-color: #5cd17d;
 }
 #footer-links .icon .logo-twitter-small:hover div[class*=-spots],
 #footer-links .icon .logo-github-small:hover div[class*=-spots],
 #footer-links .icon .logo-linkedin-small:hover div[class*=-spots] {
-  border-color: #7ce69c;
+  border-color: #5cd17d;
 }
 html,
 button,
@@ -3181,13 +3181,12 @@ a:visited,
 a:hover,
 a:active,
 a:focus {
-  color: #369152;
+  color: #5cd17d;
   font-weight: 400;
   text-decoration: none;
 }
 a:hover {
-  color: #7ce69c;
-  text-decoration: underline;
+  color: #369152;
 }
 .line-break {
   height: 1px;

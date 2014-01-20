@@ -3145,17 +3145,17 @@ hr {
 #footer-links .icon .logo-twitter-small:hover,
 #footer-links .icon .logo-github-small:hover,
 #footer-links .icon .logo-linkedin-small:hover {
-  background-color: #7ce69c;
+  background-color: #5cd17d;
 }
 #footer-links .icon .logo-twitter-small:hover div[class*=-none],
 #footer-links .icon .logo-github-small:hover div[class*=-none],
 #footer-links .icon .logo-linkedin-small:hover div[class*=-none] {
-  background-color: #7ce69c;
+  background-color: #5cd17d;
 }
 #footer-links .icon .logo-twitter-small:hover div[class*=-spots],
 #footer-links .icon .logo-github-small:hover div[class*=-spots],
 #footer-links .icon .logo-linkedin-small:hover div[class*=-spots] {
-  border-color: #7ce69c;
+  border-color: #5cd17d;
 }
 html,
 button,
@@ -3181,13 +3181,12 @@ a:visited,
 a:hover,
 a:active,
 a:focus {
-  color: #369152;
+  color: #5cd17d;
   font-weight: 400;
   text-decoration: none;
 }
 a:hover {
-  color: #7ce69c;
-  text-decoration: underline;
+  color: #369152;
 }
 .line-break {
   height: 1px;
@@ -3485,7 +3484,7 @@ html {
 }
 #playlists-container #playlists li.playlist-playing {
   font-weight: 700;
-  color: #7ce69c !important;
+  color: #5cd17d !important;
 }
 #about-container {
   display: none;
@@ -3569,7 +3568,7 @@ html {
 #video-container #video-settings #video-controls #shuffle.on:after,
 #video-container #video-settings #video-controls #repeat.on:after {
   font-size: 12px;
-  color: #7ce69c;
+  color: #5cd17d;
   content: " (on)";
 }
 #video-container #video-settings #video-controls #shuffle.off:after,
@@ -3583,7 +3582,7 @@ html {
 }
 #video-container #video-settings #video-controls #playlist.show:after {
   font-size: 12px;
-  color: #7ce69c;
+  color: #5cd17d;
   content: " (show)";
 }
 #video-container #video-settings #video-controls #playlist.hide:after {
@@ -3607,7 +3606,7 @@ html {
 }
 #video-container #video-settings #video-playing-info #video-title {
   font-weight: 700;
-  color: #7ce69c;
+  color: #5cd17d;
   padding: 0 10px 0 20px;
   text-align: left;
   width: 534.6px;
@@ -3638,7 +3637,7 @@ html {
 }
 #video-container #video-settings #video-playlist table tbody tr.playing .track {
   font-weight: 700;
-  color: #7ce69c !important;
+  color: #5cd17d !important;
 }
 #video-container #video-settings #video-playlist table tr {
   border: 1px solid #808080;

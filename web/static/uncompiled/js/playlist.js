@@ -3,107 +3,167 @@
  * All Rights Reserved.
  */
 
-// TODO: rewrite me pls.
-
 (function(root, factory) {
+
   root['playlist'] = factory();
+
 }(this, function() {
+
   var TYPE = {
     'UNKNOWN': -1,
     'YOUTUBE': 0
   };
 
-  return {
-    TYPE: TYPE,
-    getResource: function(id, type) {
-      if (id) {
-        if (type == TYPE.YOUTUBE) {
-          return 'https://www.youtube.com/embed/' + id + '?rel=0&enablejsapi=1&iv_load_policy=3&showinfo=0&theme=light';
+  var resources = {
+    getUrl: function(mediaId, mediaType) {
+      if (mediaId) {
+        switch (mediaType) {
+          case TYPE.YOUTUBE:
+            return 'https://www.youtube.com/embed/' + mediaId + '?rel=0&enablejsapi=1&iv_load_policy=3&showinfo=0&theme=light';
+            break;
+          default:
+            return null;
         }
       }
-      return '';
+      return null;
+    },
+    id: function(_) {
+      return _.current ? _.current['id'] : '';
+    },
+    mediaId: function(_) {
+      return _.current ? _.current['meta']['mediaId'] : '';
+    },
+    type: function(_) {
+      return _.current ? _.current['meta']['mediaType'] : '';
+    },
+    url: function(_) {
+      return _.current && resources.getUrl(resources.mediaId(_), resources.type(_)) || '';
+    },
+    title: function(_) {
+      return _.current && _.current['meta']['title'] || 'UNKNOWN';
+    },
+    duration: function(_) {
+      return _.current && _.current['meta']['duration'] || '0';
+    }
+  };
+
+  var actions = {
+    toggleShuffle: function(_) {
+      _.isShuffled = !_.isShuffled;
+    },
+    toggleRepeat: function(_) {
+      _.isRepeat = !_.isRepeat;
+    },
+    prev: function(_) {
+      var cur = _.currentList();
+      if (cur.indexOf(_.current) >= 0) {
+        var index = (cur.indexOf(_.current) + cur.length - 1) % cur.length;
+        _.current = cur[index];
+      }
+      return resources.mediaId(_);
+    },
+    next: function(_) {
+      var cur = _.currentList();
+      if (cur.indexOf(_.current) >= 0) {
+        var index = (cur.indexOf(_.current) + 1) % cur.length;
+        _.current = cur[index];
+      }
+      return resources.mediaId(_);
+    },
+    isEmpty: function(_) {
+      return !_.current;
+    },
+    setCurrent: function(_, id) {
+      if (id in _.idToVideo) {
+        _.current = _.idToVideo[id];
+        return true;
+      }
+      return false;
+    }
+  };
+
+  var Playlist = function(data) {
+
+    var _ = {
+      videos: data || [],
+      idToVideo: (function(videos) {
+        for (var i = 0, map = {}; i < videos.length; i++) map[videos[i]['id']] = videos[i];
+        return map;
+      })(data || []),
+      shuffledVideos: (function(videos) {
+        var order = videos.slice(0);
+        for (var i = order.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var tmp = order[i];
+          order[i] = order[j];
+          order[j] = tmp;
+        }
+        return order;
+      })(data),
+      isShuffled: true,
+      isRepeat: false,
+      currentList: function() { return (_.isShuffled) ? _.shuffledVideos : _.videos; },
+      current: null
+    };
+    _.current = _.currentList()[0];
+
+    return {
+      'videos': function() {
+        return _.videos;
+      },
+      'shuffledVideos': function() {
+        return _.shuffledVideos;
+      },
+      'prev': function() {
+        return actions.prev(_);
+      },
+      'next': function() {
+        return actions.next(_);
+      },
+      'toggleShuffle': function() {
+        actions.toggleShuffle(_);
+        return this;
+      },
+      'toggleRepeat': function() {
+        actions.toggleRepeat(_);
+        return this;
+      },
+      'setCurrent': function(id) {
+        return actions.setCurrent(_, id);
+      },
+      'isEmpty': function() {
+        return actions.isEmpty(_);
+      },
+      'isShuffled': function() {
+        return _.isShuffled;
+      },
+      'isRepeat': function() {
+        return _.isRepeat;
+      },
+      'getMediaId': function() {
+        return resources.mediaId(_);
+      },
+      'getUrl': function() {
+        return resources.url(_);
+      },
+      'getId': function() {
+        return resources.id(_);
+      },
+      'getTitle': function() {
+        return resources.title(_);
+      },
+      'getDuration': function() {
+        return resources.duration(_);
+      }
+    }
+  };
+
+  return {
+    'type': TYPE,
+    'getUrl': resources.getUrl,
+    'create': function(data) {
+      return new Playlist(data); 
     }
   }
 }));
-
-
-var Playlist = function(player, videos, shuffled) {
-  var self = this;
-  self.TYPE = {
-    'UNKNOWN': -1,
-    'YOUTUBE': 0
-  };
-  self.player = '#' + player;
-  self.videos = videos || [];
-  self.idToVideo = {};
-  for (var i = 0; i < self.videos.length; i++) {
-    self.idToVideo[self.videos[i]['id']] = self.videos[i];
-  }
-  var getShuffleOrder = function() {
-    var order = self.videos.slice(0);
-    for (var i = order.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = order[i];
-      order[i] = order[j];
-      order[j] = tmp;
-    }
-    return order;
-  };
-  self.shuffledVideos = getShuffleOrder();
-  self.isShuffled = !!shuffled;
-  self.isRepeat = false;
-  self.currentList = function() {
-    return (self.isShuffled) ? self.shuffledVideos : self.videos;
-  };
-  self.current = self.currentList()[0];
-  self.getResource = function(id, type) {
-    if (id) {
-      if (type == self.TYPE.YOUTUBE) {
-        return 'https://www.youtube.com/embed/' + id + '?rel=0&enablejsapi=1&iv_load_policy=3&showinfo=0&theme=light';
-      }
-    }
-    return '';
-  };
-  self.getUrl = function() {
-    return (self.current) ? self.getResource(self.current['meta']['mediaId'], self.current['meta']['mediaType']) : '';
-  };
-  self.getId = function() {
-    return (self.current) ? self.current['id'] : '';
-  };
-  self.getMediaId = function() {
-    return (self.current) ? self.current['meta']['mediaId'] : '';
-  };
-  self.toggleShuffle = function() {
-    self.isShuffled = !self.isShuffled;
-  };
-  self.toggleRepeat = function() {
-    self.isRepeat = !self.isRepeat;
-  };
-  self.prev = function() {
-    var cur = self.currentList();
-    if (cur.indexOf(self.current) >= 0) {
-      var index = (cur.indexOf(self.current) + cur.length - 1) % cur.length;
-      self.current = cur[index];
-    }
-    return self.getMediaId();
-  };
-  self.next = function() {
-    var cur = self.currentList();
-    if (cur.indexOf(self.current) >= 0) {
-      var index = (cur.indexOf(self.current) + 1) % cur.length;
-      self.current = cur[index];
-    }
-    return self.getMediaId();
-  };
-  self.isEmpty = function() {
-    return !self.current;
-  };
-  self.setCurrent = function(id) {
-    if (id in self.idToVideo) {
-      self.current = self.idToVideo[id];
-      return true;
-    }
-    return false;
-  };
-};
 

@@ -11,6 +11,9 @@
 {% endblock %}
 
 {% block body %}
+  {% if settings["debug"] %}
+    <div id="jukebox-key" style="display:none">{{ jukeboxKey }}</div>
+  {% endif %}
   <div id="jukebox-container">
     <div id="jukebox">
       <div id="playlists-container" data-slidr="playlists">

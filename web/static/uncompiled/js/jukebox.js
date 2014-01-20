@@ -99,7 +99,7 @@ var Jukebox = function() {
       });
       $('#next').bind('click', function(event, mediaHasEnded) {
         if (_.playlist && !_.playlist.isEmpty()) {
-          if (mediaHasEnded && _.playlist.isRepeat) {
+          if (mediaHasEnded && _.playlist.isRepeat()) {
             bchanx.player.seekTo(0);
           } else if (bchanx.player.hasOwnProperty('loadVideoById')) {
             bchanx.player.loadVideoById(_.playlist.next());
@@ -110,7 +110,7 @@ var Jukebox = function() {
       $('#repeat').bind('click', function() {
         if (_.playlist && !_.playlist.isEmpty()) {
           _.playlist.toggleRepeat();
-          var r = _.playlist.isRepeat;
+          var r = _.playlist.isRepeat();
           $('#repeat').removeClass((r) ? 'off' : 'on').addClass((r) ? 'on' : 'off');
         }
       });
@@ -177,15 +177,15 @@ var Jukebox = function() {
       }, 200);
     },
     // Callback after selecting a playlist.
-    onLoadPlaylist: function(pid, data) {
-      _.playlist = new Playlist('video-src', data, true);
+    onLoadPlaylist: function(pid, videos) {
+      _.playlist = playlist.create(videos);
       if (_.playlist.isEmpty()) {
         actions.toggleVideoDisplay(true);
       } else {
         actions.toggleVideoDisplay();
         $('tbody').remove();
-        var normalTracklist = template.createTracklist(_.playlist.videos, 'normal-tracklist');
-        var shuffledTracklist = template.createTracklist(_.playlist.shuffledVideos, 'shuffled-tracklist');
+        var normalTracklist = template.createTracklist(_.playlist.videos(), 'normal-tracklist');
+        var shuffledTracklist = template.createTracklist(_.playlist.shuffledVideos(), 'shuffled-tracklist');
         $('#video-table').append(normalTracklist, shuffledTracklist);
         actions.loadVideo();
         actions.toggleTracklist(true);
@@ -199,7 +199,8 @@ var Jukebox = function() {
   var actions = {
     loadVideo: function(mediaId, mediaType) {
       if (!$('#video-src').attr('src') || !bchanx.player.hasOwnProperty('playVideo')) {
-        var src = (mediaId != undefined && mediaType != undefined) ? playlist.getResource(mediaId, mediaType) : _.playlist.getUrl();
+        var src = playlist.getUrl(mediaId, mediaType) || _.playlist.getUrl();
+        console.log("-->> SRC: " + src);
         $('#video-src').attr('src', src).css('visibility', 'visible');
       } else {
         bchanx.player.loadVideoById(mediaId || _.playlist.getMediaId());
@@ -244,8 +245,8 @@ var Jukebox = function() {
       if (_.playlist && !_.playlist.isEmpty()) {
         $('.playing').removeClass('playing');
         $('tr[mediaid="' + _.playlist.getId() + '"]').addClass('playing');
-        var title = title || _.playlist.current['meta']['title'];
-        var length = length || _.playlist.current['meta']['duration'];
+        var title = title || _.playlist.getTitle();
+        var length = length || _.playlist.getDuration();
         $('#video-title').attr('title', title).text(title);
         $('#video-length').text(util.formatTime(length));
       }
@@ -260,7 +261,7 @@ var Jukebox = function() {
         if (!opt_reset) {
           _.playlist.toggleShuffle();
         }
-        var s = _.playlist.isShuffled;
+        var s = _.playlist.isShuffled();
         $('#shuffle').removeClass((s) ? 'off' : 'on').addClass((s) ? 'on' : 'off');
         var oldPlaylist = 'tbody.' + ((s) ? 'normal' : 'shuffled') + '-tracklist';
         var switchingPlaylist = 'tbody.' + ((s) ? 'shuffled' : 'normal') + '-tracklist';
@@ -295,7 +296,7 @@ var Jukebox = function() {
   return {
     play: function(videoId, title, length) {
       actions.toggleVideoDisplay();
-      actions.loadVideo(videoId, playlist.TYPE.YOUTUBE);
+      actions.loadVideo(videoId, playlist.type.YOUTUBE);
       _.slidr.slide('video');
       actions.updateNowPlaying(null, title, length);
     }
@@ -418,10 +419,25 @@ var Search = function(j) {
         var videoId = $(this).attr('data-id');
         var title = $(this).children('.title').text();
         var length = $(this).children('.thumbnail').children('.length').text();
-        // TODO: load video in player.
-        console.log(videoId);
         _.jukebox.play(videoId, title, length);
       });
+      // TODO: make this work in prod.
+      if (bchanx.type === 'devel') {
+        $(document).on('click', '.actions .addto', function(e) {
+          e.stopPropagation();
+          var videoId = $(this).parents('.search-result').attr('data-id');
+          var pid = $('li[pid].playlist-playing').attr('pid') || 2; // Relax
+          var jukeboxKey = $('#jukebox-key').text();
+          $.ajax({
+            'url': '/jukebox/playlistAddMedia?pid=' + pid + '&media-url=' + encodeURIComponent('http://www.youtube.com/watch?v=' + videoId) + '&key=' + jukeboxKey,
+            'type': 'GET',
+            'success': function(data) {
+              // Added to playlist!
+              console.log(data);
+            }
+          });
+        });
+      }
     }
   };
 

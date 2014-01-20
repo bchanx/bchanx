@@ -52,6 +52,13 @@ def less(files):
     save(content, ''.join([f[:-5], '.css']), 'css')
 
 
+def copyright():
+  """Add copyright information."""
+  path = os.path.expanduser('~/bchanx/misc/copyright.py')
+  if os.path.exists(path):
+    run('python %s %s/' % (path, COMPILED_PATH))
+
+
 def jsminify(f):
   """Gets a minified js file."""
   tmp = '/tmp/%s' % f.replace('/', '-')
@@ -109,6 +116,7 @@ def main():
       less([''.join([x, '.less']) for _, x, _ in LESS_REGEX.findall(m)])
       js([''.join([x, '.js']) for _, x, _ in JS_REGEX.findall(m)])
       m.close()
+  copyright()
     
 
 if __name__ == '__main__':

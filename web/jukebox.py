@@ -22,7 +22,8 @@ from sqlalchemy.exc import ProgrammingError
 def jukebox():
   """Render the jukebox!"""
   return render('jukebox.html', css='jukebox.less', js='jukebox.js', yt=True,
-      googleApiKey=app.config.get('GOOGLE_API_PUBLIC_KEY'))
+      googleApiKey=app.config.get('GOOGLE_API_PUBLIC_KEY'),
+      jukeboxKey=app.config.get('JUKEBOX_KEY'))
 
 
 @app.route('/jukebox/playlistGetAll', methods=['GET'])
@@ -95,9 +96,11 @@ def playlistAddMedia():
     pid = 1
   url = params.get('media-url', '').encode('utf-8')
   key = params.get('key', '').encode('utf-8')
-  hmacHash = hmac.new(app.config.get('JUKEBOX_KEY'), url).hexdigest()
+  masterKey = app.config.get('JUKEBOX_KEY');
+  hmacHash = hmac.new(masterKey, url).hexdigest()
 
-  if equals(hmacHash, key):
+  debug = flask.current_app.debug
+  if equals(hmacHash, key) or (equals(masterKey, key) and debug):
     media = mediaAdd(url)
     if media and pid > 0:
       playlist = Playlist.query.filter_by(id=pid).first()
@@ -108,12 +111,9 @@ def playlistAddMedia():
         playlist.modified = datetime.utcnow()
         db.session.add(playlist)
         db.session.commit()
-        # return json.dumps({'status': 'OK'})
-        return redirect(url + '#ok')
-      # return json.dumps({'status': 'ALREADY_EXISTS'})
-      return redirect(url + '#exists')
-  # return json.dumps({'status': 'ERROR'})
-  return redirect(url + '#error')
+        return json.dumps({'status': 'OK'}) if debug else redirect(url + '#ok')
+      return json.dumps({'status': 'ALREADY_EXISTS'}) if debug else redirect(url + '#exists')
+  return json.dumps({'status': 'ERROR'}) if debug else redirect(url + '#error')
 
 
 def mediaGet(mediaIdList=None):
