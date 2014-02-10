@@ -30,7 +30,8 @@ $(function() {
 
   var s1 = slidr.create('slidr-home-demo', {
     'overflow': true,
-    'keyboard': true
+    'keyboard': true,
+    'pause': true
   });
   addEffect(s1, 'linear');
   s1.auto();
