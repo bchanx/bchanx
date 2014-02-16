@@ -45,8 +45,8 @@
           <div class="none">none</div>
         </div>
         <div id="slidr-home-demo-settings" class="block" style="text-align: center">
-          <div class="controls active" data-meta="border">controls</div>
-          <div class="breadcrumbs" data-meta="off">breadcrumbs</div>
+          <div class="controls active">controls</div>
+          <div class="breadcrumbs">breadcrumbs</div>
         </div>
         <div class="block demo">
           <br>
@@ -158,6 +158,7 @@ slidr.create('slidr-id', {
   fade: false,
   keyboard: true,
   overflow: true,
+  pause: false,
   theme: '#222',
   timing: { 'cube': '0.5s ease-in' },
   touch: true,
@@ -178,6 +179,7 @@ Full details on available settings listed below:
 | `fade`        | _bool_    | true       | Whether slide transitions should fade in/out. `true` or `false`.              |
 | `keyboard`    | _bool_    | false      | Whether to enable keyboard navigation upon mouseover. `true` or `false`.      |
 | `overflow`    | _bool_    | false      | Whether to overflow transitions at slidr borders. `true` or `false`.          |
+| `pause`       | _bool_    | false      | Whether to pause on mouseover when running in auto(). `true` or `false`.      |
 | `theme`       | _string_  | #fff       | Sets color theme for breadcrumbs/controls. `#hexcode` or `rgba(value)`.       |
 | `timing`      | _object_  | {}         | Custom animation timings to apply. `{'transition': 'timing'}`.                |
 | `touch`       | _bool_    | false      | Whether to enable touch navigation for mobile devices. `true` or `false`.     |

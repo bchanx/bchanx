@@ -30,8 +30,7 @@ $(function() {
 
   var s1 = slidr.create('slidr-home-demo', {
     'overflow': true,
-    'keyboard': true,
-    'pause': true
+    'keyboard': true
   });
   addEffect(s1, 'linear');
   s1.auto();
@@ -53,21 +52,18 @@ $(function() {
     $(this).bind(eventType, function() { addEffect(s1, $(this).text()); });
   });
 
+  var currentStyle = 'border';
   var controls = ['border', 'corner', 'none'];
   $('#slidr-home-demo-settings > div').each(function() {
     $(this).bind(eventType, function() {
       var type = $(this).text();
-      var meta = $(this).attr('data-meta');
       if (type === 'controls') {
-        var newIndex = (indexOf(controls, meta) + 1) % controls.length;
-        var style = controls[newIndex];
-        $(this).attr('data-meta', style);
-        s1.controls(style);
-        (style === 'none') ? $(this).removeClass('active') : $(this).addClass('active');
+        currentStyle = controls[(indexOf(controls, currentStyle) + 1) % controls.length];
+        s1.controls(currentStyle);
+        (currentStyle === 'none') ? $(this).removeClass('active') : $(this).addClass('active');
       } else if (type === 'breadcrumbs') {
-        var next = (meta === 'off') ? 'on' : 'off';
-        (next === 'on') ? $(this).addClass('active') : $(this).removeClass('active');
-        $(this).attr('data-meta', next);
+        ($('#slidr-home-demo-breadcrumbs').css('visibility') === 'hidden') ?
+          $(this).addClass('active') : $(this).removeClass('active');
         s1.breadcrumbs();
       }
     });
