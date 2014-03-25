@@ -116,6 +116,35 @@ def playlistAddMedia():
   return json.dumps({'status': 'ERROR'}) if debug else redirect(url + '#error')
 
 
+# Disable POST for now
+@app.route('/jukebox/playlistRemoveMedia', methods=['GET'])
+def playlistRemoveMedia():
+  """Removes a media item from a playlist."""
+  params = request.args if request.method == 'GET' else request.form
+  debug = flask.current_app.debug
+  if debug:
+    pid = mediaId = None
+    try:
+      pid = int(params.get('pid'))
+      mediaId = params.get('mediaId')
+      if mediaId and pid > 0:
+        playlist = Playlist.query.filter_by(id=pid).first()
+        mediaIdList = json.loads(playlist.mediaIdList)
+        if (mediaId in mediaIdList):
+          mediaIdList.remove(mediaId)
+          playlist.mediaIdList = json.dumps(mediaIdList)
+          playlist.modified = datetime.utcnow()
+          db.session.add(playlist)
+          db.session.commit()
+          return json.dumps({'status': 'REMOVED: pid: %s: mediaId: %s' % (pid, mediaId)})
+        else:
+          return json.dumps({'status': 'No mediaId %s in pid %s' % (mediaId, pid)})
+    except(ValueError, TypeError):
+      pass
+    return json.dumps({'status': 'ERROR: pid: %s, mediaId: %s' % (pid, mediaId)})
+  flask.abort(404)
+
+
 def mediaGet(mediaIdList=None):
   """Get media items from db."""
   mediaList = []
