@@ -31,3 +31,11 @@ def touch():
 @app.route('/test')
 def test():
   return render('demo/test.html', css='demo/test.less', js='demo/test.js')
+
+@app.route('/gameboy-css')
+def gameboyCSS():
+  return render('demo/gameboy-css.html', css='demo/gameboy-css.less', js='demo/gameboy-css.js')
+
+@app.route('/gameboy-css/')
+def gameboyCSS2():
+  return redirect(url_for('gameboyCSS'))

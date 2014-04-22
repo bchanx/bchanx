@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% import 'logo.html' as logo %}
+{% import "header.html" as header %}
+{% import "footer.html" as footer %}
+
+{% block head %}
+  {{ header.meta("bchanx", responsive="true") }}
+{% endblock %}
+
+{% block body %}
+<div id="gameboy-image" class="disable"></div>
+<div id="button" style="border: 1px black solid; cursor: pointer;width: 50px; height: 20px; margin: 0 auto">click</div>
+  <div id="gameboy">
+    <div id="canvas"></div>
+    <div id="border"></div>
+    <div id="border-top"></div>
+    <div id="border-left"></div>
+    <div id="border-bottom"></div>
+    <div id="border-right"></div>
+    <div id="screw1" class="screw"></div>
+    <div id="screw2" class="screw"></div>
+    <div id="screw3" class="screw"></div>
+    <div id="screw4" class="screw"></div>
+  </div>
+  <div id="gameboy-gif"></div>
+{% endblock %}
+
