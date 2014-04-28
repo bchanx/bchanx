@@ -34,7 +34,7 @@
   top: 0;
 }
 
-@gameboy-width: 344px;
+@gameboy-width: 340px;
 @gameboy-height: 600px;
 #gameboy {
   position: relative;
@@ -44,7 +44,7 @@
   .transform(translateZ(1));
   z-index: 5;
 
-  @canvas-width: 330px;
+  @canvas-width: 340px;
   @canvas-height: 570px;
   @canvas-color: #b3b3b3;
   #canvas {
@@ -61,13 +61,14 @@
 
   @-webkit-keyframes canvas {
     0% { width: 0; height: 120px; .border-radius(15px 15px 0 0); }
-    3% { width: 330px; height: 120px; }
-    7.5% { .border-radius(15px 15px 0 0); }
-    8.5% { height: 570px; .border-radius(15px, 15px, 170px, 170px ~"/" 15px, 15px, 35px, 35px); }
+    3% { width: @canvas-width; height: 120px; }
+    5.5% { height: @canvas-height - 50px; }
+    6.0% { .border-radius(15px 15px 0 0); }
+    7.0% { height: @canvas-height; .border-radius(15px, 15px, 170px, 170px ~"/" 15px, 15px, 35px, 35px); }
   }
 
-  @border-width: 310px;
-  @border-height: 520px;
+  @border-width: 318px;
+  @border-height: 525px;
   @border-thickness: 4px;
   @border-color: @gray;
   @border-top: 30px;
@@ -85,15 +86,16 @@
     -webkit-animation: border @gameboy-duration linear;
   }
   @-webkit-keyframes border {
-    0% { border-color: transparent; border-bottom-color: transparent; width: 0; height: 10px; .border-radius(15px 15px 0 0); }
-    1% { border-top-color: @border-color; width: 0; height: 10px; .border-radius(15px 15px 0 0); }
+    0% { border-color: transparent; width: 0; height: 0; }
+    1% { border-top-color: @border-color; width: 0; height: 10px; }
     3% { width: @border-width; border-left-color: transparent; height: 10px; }
-    3.1% { border-left-color: @border-color; }
-    8.0% { .border-radius(15px 15px 0 0); }
-    8.9% { border-bottom-color: transparent; }
-    9.0% { height: @border-height; .border-radius(15px 15px 170px 170px ~"/" 15px 15px 35px 35px); border-bottom-color: @border-color; }
-    10% { border-right-color: transparent; }
-    10.1% { border-right-color: @border-color; }
+    3.3% { width: @border-width; border-left-color: @border-color; height: 10px; }
+    7.0% { .border-radius(15px 15px 0 0); }
+    7.3% { height: @border-height; .border-radius(15px 15px 170px 170px ~"/" 15px 15px 35px 35px); }
+    7.4% { border-bottom-color: transparent; }
+    7.5% { border-bottom-color: @border-color; }
+    8.9% { border-right-color: transparent; }
+    9% { border-right-color: @border-color; }
   }
 
   #border-top,
@@ -109,7 +111,6 @@
   #border-right {
     position: absolute;
     background-color: @canvas-color;
-    width: @border-thickness * 5;
     height: 0;
     z-index: 3;
   }
@@ -121,20 +122,22 @@
   }
   @-webkit-keyframes border-top {
     0.5% { width: 0; }
-    3% { width: @border-width; right: @border-right; }
-    4.5% { width: 0; right: @border-width + @border-right; }
+    3.0% { width: @border-width; right: @border-right; }
+    3.5% { width: @border-width; right: @border-right; }
+    5% { width: 0; right: @border-width + @border-right - @border-thickness * 5 ; }
   }
 
   #border-left {
     left: @border-right;
     top: @border-top;
+    width: @border-thickness * 5;
     -webkit-animation: border-left @gameboy-duration linear;
   }
   @-webkit-keyframes border-left {
     0% { height: 0; }
     3% { height: 0; }
-    4.5% { height: @border-height - 300px; top: @border-top; }
-    9.2% { height: 0; top: @border-height + @border-top; }
+    5% { height: @border-height - 200px; top: @border-top; }
+    7.5% { height: 0; top: @border-height + @border-top; }
   }
 
   #border-bottom {
@@ -145,36 +148,121 @@
   }
   @-webkit-keyframes border-bottom {
     0% { width: 0; }
-    8.5% { width: 0; }
-    9.0% { width: @border-width; left: @border-right; }
-    10.5% { width: 0; left: @border-width + @border-right; }
+    6.5% { width: 0; }
+    7.4% { width: @border-width; left: @border-right; }
+    9.0% { width: 0; left: @border-width + @border-right; }
   }
 
   #border-right {
     right: @border-right;
     top: @border-top + 6px;
+    width: @border-thickness * 2;
     -webkit-animation: border-right @gameboy-duration linear;
   }
   @-webkit-keyframes border-right {
     0% { height: 0; }
-    9% { height: 0; }
-    9.5% { height: @border-height - 10; top: @border-top + 6px; }
-    10.5% { height: @border-height - 10; top: @border-top + 6px; }
-    12% { height: 0; bottom: 50px + @border-height; }
+    8% { height: 0; }
+    8.5% { height: @border-height - 30px; top: @border-top + 6px; }
+    9% { height: @border-height - 30px; top: @border-top + 6px; }
+    11.5% { height: 0; bottom: 50px + @border-height; }
   }
 
   .screw {
-    width: 20px;
-    height: 20px;
     border-radius: 100%;
     background-color: @black;
     z-index: 4;
     position: absolute;
   }
-  #screw1 { right: 30px; top: 45px; -webkit-animation: screw1 @gameboy-duration linear; }
-  #screw2 { left: 30px; top: 45px; -webkit-animation: screw2 @gameboy-duration linear; }
-  #screw3 { left: 10px; top: 230px; -webkit-animation: screw3 @gameboy-duration linear; }
-  #screw4 { right: 10px; top: 230px; -webkit-animation: screw4 @gameboy-duration linear; }
+  #screw1 { width: 18px; height: 18px; right: 25px; top: 44px; -webkit-animation: screw1 @gameboy-duration linear; }
+  #screw2 { width: 18px; height: 18px; left: 25px; top: 44px; -webkit-animation: screw2 @gameboy-duration linear; }
+  #screw3 { width: 20px; height: 20px; right: 3px; top: 245px; -webkit-animation: screw3 @gameboy-duration linear; }
+  #screw4 { width: 20px; height: 20px; left: 3px; top: 245px; -webkit-animation: screw4 @gameboy-duration linear; }
+  @-webkit-keyframes screw1 {
+    0% { width: 0; height: 0; right: 34px; top: 53px; }
+    2.5% { width: 0; height: 0; right: 34px; top: 53px; }
+    5.5% { width: 18px; height: 18px; right: 25px; top: 44px; }
+  }
+  @-webkit-keyframes screw2 {
+    0% { width: 0; height: 0; left: 34px; top: 53px; }
+    3% { width: 0; height: 0; left: 34px; top: 53px; }
+    6% { width: 18px; height: 18px; left: 25px; top: 44px; }
+  }
+  @-webkit-keyframes screw3 {
+    0% { width: 0; height: 0; right: 13px; top: 255px; }
+    5.5% { width: 0; height: 0; right: 13px; top: 255px; }
+    8.5% { width: 20px; height: 20px; right: 3px; top: 245px; }
+  }
+  @-webkit-keyframes screw4 {
+    0% { width: 0; height: 0; left: 13px; top: 255px; }
+    6.5% { width: 0; height: 0; left: 13px; top: 255px; }
+    9.5% { width: 20px; height: 20px; left: 3px; top: 245px; }
+  }
 
+  @backboard-width: 220px;
+  @backboard-mid-height: 36px;
+  @backboard-height: 75px;
+  @backboard-left: (@gameboy-width - @backboard-width) / 2;
+  @backboard-bottom: 370px;
+  #backboard {
+    z-index: 5;
+    width: @backboard-width;
+    height: @backboard-height;
+    position: absolute;
+    left: @backboard-left;
+    bottom: @backboard-bottom;
+    background-color: @black;
+    -webkit-animation: backboard @gameboy-duration linear;
+  }
+  @-webkit-keyframes backboard {
+    0% { width: 0; height: 0; left: @gameboy-width/2; bottom: @backboard-bottom; }
+    4.5% { width: 0; height: 0; left: @gameboy-width/2; }
+    6.5% { width: @backboard-mid-height; height: @backboard-mid-height; left: (@gameboy-width - @backboard-mid-height)/2; }
+    10% { width: @backboard-width; left: @backboard-left; }
+    10.5% { height: @backboard-mid-height; }
+    14% { height: @backboard-height; }
+  }
+
+  @motherboard-width: 270px;
+  @motherboard-height: 400px;
+  @motherboard-left: (@gameboy-width - @motherboard-width) / 2;
+  @motherboard-top: 85px;
+  @motherboard-square: 56px;
+  @motherboard-square-top: 265px;
+  #motherboard {
+    z-index: 5;
+    position: absolute;
+    width: @motherboard-width;
+    height: @motherboard-height;
+    left: @motherboard-left;
+    top: @motherboard-top;
+    background-color: #4ca879;
+    -webkit-animation: motherboard @gameboy-duration linear;
+  }
+  @-webkit-keyframes motherboard {
+    0% { width: 0; height: 0; left: @gameboy-width/2; top: @motherboard-square-top + @motherboard-square/2; }
+    6% { width: 0; height: 0; left: @gameboy-width/2; top: @motherboard-square-top + @motherboard-square/2; }
+    8% { width: @motherboard-square; height: @motherboard-square; left: (@gameboy-width - @motherboard-square)/2; top: @motherboard-square-top; }
+    8.5% { height: @motherboard-square; top: @motherboard-square-top; }
+    10.5% { width: @motherboard-square; height: @motherboard-height; top: @motherboard-top; }
+    11% { width: @motherboard-square; left: (@gameboy-width - @motherboard-square)/2; }
+    16% { width: @motherboard-width; left: (@gameboy-width - @motherboard-width)/2; }
+  }
+
+  @chip1-width: 35px;
+  #chip1 {
+    z-index: 6;
+    width: @chip1-width;
+    height: @motherboard-height;
+    background-color: #308d58;
+    position: absolute;
+    right: 35px;
+    top: @motherboard-top;
+    -webkit-animation: chip1 @gameboy-duration linear;
+  }
+  @-webkit-keyframes chip1 {
+    0% { width: 0; height: @motherboard-height; right: 35px;}
+    6.5% { width: 0;}
+    8.5% { width: @chip1-width; }
+  }
 }
 
