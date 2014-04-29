@@ -47,6 +47,7 @@
   @canvas-width: 340px;
   @canvas-height: 570px;
   @canvas-color: #b3b3b3;
+  @canvas-z: 1;
   #canvas {
     position: absolute;
     width: @canvas-width;
@@ -56,7 +57,7 @@
     .border-radius(15px 15px 170px 170px ~"/" 15px 15px 35px 35px);
     background-color: @canvas-color;
     -webkit-animation: canvas @gameboy-duration linear;
-    z-index: 1;
+    z-index: @canvas-z;
   }
 
   @-webkit-keyframes canvas {
@@ -68,12 +69,12 @@
   }
 
   @border-width: 318px;
-  @border-height: 525px;
+  @border-height: 526px;
   @border-thickness: 4px;
   @border-color: @gray;
   @border-top: 30px;
   @border-right: (@gameboy-width - @border-width) / 2;
-
+  @border-z: @canvas-z + 1;
   #border {
     position: absolute;
     width: @border-width;
@@ -82,7 +83,7 @@
     top: @border-top;
     border: @border-thickness @border-color solid;
     .border-radius(15px 15px 170px 170px ~"/" 15px 15px 35px 35px);
-    z-index: 2;
+    z-index: @border-z;
     -webkit-animation: border @gameboy-duration linear;
   }
   @-webkit-keyframes border {
@@ -98,13 +99,14 @@
     9% { border-right-color: @border-color; }
   }
 
+  @border-hide-z: @border-z + 1;
   #border-top,
   #border-bottom {
     position: absolute;
     background-color: @canvas-color;
     width: 0;
     height: @border-thickness * 2;
-    z-index: 3;
+    z-index: @border-hide-z;
   }
 
   #border-left,
@@ -112,7 +114,7 @@
     position: absolute;
     background-color: @canvas-color;
     height: 0;
-    z-index: 3;
+    z-index: @border-hide-z;
   }
 
   #border-top {
@@ -167,10 +169,11 @@
     11.5% { height: 0; bottom: 50px + @border-height; }
   }
 
+  @screw-z: @border-hide-z + 1;
   .screw {
     border-radius: 100%;
     background-color: @black;
-    z-index: 4;
+    z-index: @screw-z;
     position: absolute;
   }
   #screw1 { width: 18px; height: 18px; right: 25px; top: 44px; -webkit-animation: screw1 @gameboy-duration linear; }
@@ -203,8 +206,9 @@
   @backboard-height: 75px;
   @backboard-left: (@gameboy-width - @backboard-width) / 2;
   @backboard-bottom: 370px;
+  @backboard-z: @canvas-z + 1;
   #backboard {
-    z-index: 5;
+    z-index: @backboard-z;
     width: @backboard-width;
     height: @backboard-height;
     position: absolute;
@@ -228,8 +232,9 @@
   @motherboard-top: 85px;
   @motherboard-square: 56px;
   @motherboard-square-top: 265px;
+  @motherboard-z: @backboard-z + 1;
   #motherboard {
-    z-index: 5;
+    z-index: @motherboard-z;
     position: absolute;
     width: @motherboard-width;
     height: @motherboard-height;
@@ -248,21 +253,229 @@
     16% { width: @motherboard-width; left: (@gameboy-width - @motherboard-width)/2; }
   }
 
-  @chip1-width: 35px;
-  #chip1 {
-    z-index: 6;
-    width: @chip1-width;
-    height: @motherboard-height;
-    background-color: #308d58;
+  @chip-z: @motherboard-z + 1;
+  .chip {
+    z-index: @chip-z;
+    background-color: @chip-background;
     position: absolute;
     right: 35px;
+  }
+
+  @chip1-width: 30px;
+  @chip-background: #308d58;
+  #chip1 {
+    width: @chip1-width;
+    height: @motherboard-height;
     top: @motherboard-top;
     -webkit-animation: chip1 @gameboy-duration linear;
   }
   @-webkit-keyframes chip1 {
     0% { width: 0; height: @motherboard-height; right: 35px;}
-    6.5% { width: 0;}
+    6.5% { width: 0; }
     8.5% { width: @chip1-width; }
+  }
+
+  @chip2-width: 80px;
+  @chip2-height: 200px;
+  @chip2-height-final: 140px;
+  #chip2 {
+    width: @chip2-width;
+    height: @chip2-height-final;
+    top: @motherboard-top;
+    -webkit-animation: chip2 @gameboy-duration linear;
+  }
+  @-webkit-keyframes chip2 {
+    0% { width: 0; height: @chip2-height; right: 35px; }
+    6.5% { width: 0; }
+    8.5% { width: @chip1-width; height: @chip2-height; }
+    10.5% { width: @chip2-width; height: @chip2-height-final; }
+  }
+
+  #chip3 {
+    width: 0;
+    height: 0;
+    top: @motherboard-top + @chip2-height-final;
+    background-color: transparent;
+    border-top: 96px @chip-background solid;
+    border-left: 80px transparent solid;
+    -webkit-animation: chip3 @gameboy-duration linear;
+  }
+  @-webkit-keyframes chip3 {
+    0% { border-top-width: 0; border-left-width: 0px; top: @motherboard-top + @chip2-height; }
+    6.5% { border-top-width: 0; border-left-width: 0px; top: @motherboard-top + @chip2-height; }
+    8.5% { border-top-width: 36px; border-left-width: 30px; top: @motherboard-top + @chip2-height; }
+    10.5% { border-top-width: 96px; border-left-width: 80px; top: @motherboard-top + @chip2-height-final; }
+  }
+  
+  @processor-square: 56px;
+  @processor-left: (@gameboy-width - @processor-square) / 2;
+  @processor-top: 295px;
+  @processor-z: @motherboard-z + 1;
+  #processor {
+    position: absolute;
+    width: @processor-square;
+    height: @processor-square;
+    top: @processor-top;
+    left: @processor-left;
+    z-index: @processor-z;
+    background-color: @black;
+    -webkit-animation: processor @gameboy-duration linear;
+  }
+  @-webkit-keyframes processor {
+    0% { width: 0; height: 0; left: @gameboy-width / 2; top: @processor-top + @processor-square/2; }
+    12% { width: 0; height: 0; left: @gameboy-width / 2; top: @processor-top + @processor-square/2; }
+    14% { width: @processor-square; height: @processor-square; left: (@gameboy-width - @processor-square) / 2; top: @processor-top; }
+  }
+
+  @controller-z: @motherboard-z + 1;
+  @controller-width: 204px;
+  @controller-height: 110px;
+  @controller-top: 400px;
+  @controller-left: (@gameboy-width - @controller-width) / 2;
+  #controller {
+    position: absolute;
+    z-index: @controller-z;
+    width: @controller-width;
+    height: @controller-height;
+    top: @controller-top;
+    left: @controller-left;
+    background-color: #9d9d9d;
+    -webkit-animation: controller @gameboy-duration linear;
+  }
+  @-webkit-keyframes controller {
+    0% { width: 0; height: @controller-height; left: @gameboy-width/2; top: @controller-top; }
+    12% { width: 0; left: @gameboy-width/2; }
+    16% { width: @controller-width; left: (@gameboy-width - @controller-width)/2; }
+  }
+
+  @speaker-circle: 80px;
+  @speaker-right: 20px;
+  @speaker-bottom: 70px;
+  @speaker-bottom-final: 44px;
+  @speaker-z: @controller-z + 1;
+  #speaker {
+    position: absolute;
+    z-index: @speaker-z;
+    width: @speaker-circle;
+    height: @speaker-circle;
+    right: @speaker-right;
+    bottom: @speaker-bottom-final;
+    border-radius: 100%;
+    background-color: @black;
+    -webkit-animation: speaker @gameboy-duration linear;
+  }
+  @-webkit-keyframes speaker {
+    0% { width: 0; height: 0; bottom: @speaker-bottom + @speaker-circle/2; right: @speaker-right + @speaker-circle/2; }
+    12% { width: 0; height: 0; bottom: @speaker-bottom + @speaker-circle/2; right: @speaker-right + @speaker-circle/2; }
+    15.5% { width: @speaker-circle; height: @speaker-circle; bottom: @speaker-bottom; right: @speaker-right; }
+    19.5% { bottom: @speaker-bottom; }
+    26% { bottom: @speaker-bottom-final; }
+  }
+
+  @speaker-inner-z: @speaker-z + 1;
+  @speaker-inner-circle: 35px;
+  @speaker-inner-right: @speaker-right + (@speaker-circle - @speaker-inner-circle)/2;
+  @speaker-inner-bottom: @speaker-bottom + (@speaker-circle - @speaker-inner-circle)/2;
+  @speaker-inner-bottom-final: @speaker-bottom-final + (@speaker-circle - @speaker-inner-circle)/2;
+  #speaker-inner {
+    position: absolute;
+    z-index: @speaker-inner-z;
+    width: @speaker-inner-circle;
+    height: @speaker-inner-circle;
+    right: @speaker-inner-right;
+    bottom: @speaker-inner-bottom-final;
+    border-radius: 100%;
+    background-color: @gray;
+    -webkit-animation: speaker-inner @gameboy-duration linear;
+  }
+  @-webkit-keyframes speaker-inner {
+    0% { width: 0; height: 0; right: @speaker-inner-right + @speaker-inner-circle/2; bottom: @speaker-inner-bottom + @speaker-inner-circle/2; }
+    15% { width: 0; height: 0; right: @speaker-inner-right + @speaker-inner-circle/2; bottom: @speaker-inner-bottom + @speaker-inner-circle/2; }
+    17.5% { width: @speaker-inner-circle; height: @speaker-inner-circle; right: @speaker-inner-right; bottom: @speaker-inner-bottom; }
+    19.5% { bottom: @speaker-inner-bottom; }
+    26% { bottom: @speaker-inner-bottom-final; }
+  }
+
+  @whitescreen-z: @motherboard-z + 1;
+  @whitescreen-width: 188px;
+  @whitescreen-height: 170px;
+  @whitescreen-top: 65px;
+  @whitescreen-left: (@gameboy-width - @whitescreen-width)/2;
+  @whitescreen-border-width: 5px;
+  #whitescreen {
+    position: absolute;
+    z-index: @whitescreen-z;
+    width: @whitescreen-width;
+    height: @whitescreen-height;
+    top: @whitescreen-top;
+    left: @whitescreen-left;
+    background-color: @white;
+    border: @whitescreen-border-width @gray solid;
+    -webkit-animation: whitescreen @gameboy-duration linear;
+  }
+  @-webkit-keyframes whitescreen {
+    0% { width: 0; height: 0; left: @gameboy-width/2; top: @whitescreen-top + 50px; border: 0px; }
+    22% { width: 0; height: 0; left: @gameboy-width/2; top: @whitescreen-top + 50px; }
+    26% { width: @whitescreen-width - @whitescreen-border-width*2; height: @whitescreen-height - @whitescreen-border-width*2; left: @whitescreen-left + @whitescreen-border-width; top: @whitescreen-top + @whitescreen-border-width; border: 0px; }
+    28% { width: @whitescreen-width; height: @whitescreen-height; border: 5px @gray solid; left: @whitescreen-left; top: @whitescreen-top; }
+  }
+
+  @screen-width: @border-width - 24px;
+  @screen-height: @border-height/2;
+  @screen-z: @whitescreen-z + 1;
+  @screen-left: (@gameboy-width - @screen-width)/2;
+  @screen-bottom: 298px;
+  @screen-bottom-square: 372px;
+  @screen-height-square: 34px;
+  @screen-width-square: 36px;
+  #screen {
+    position: absolute;
+    z-index: @screen-z;
+    width: @screen-width;
+    height: @screen-height;
+    left: @screen-left;
+    bottom: @screen-bottom;
+    border-radius: 10px 10px 50% 50% ~"/" 10px 10px 20px 20px;
+    background-color: @black;
+    -webkit-animation: screen @gameboy-duration linear;
+  }
+  @-webkit-keyframes screen {
+    0% { width: 0; height: 0; bottom: @screen-bottom-square + @screen-height-square/2; left: @gameboy-width/2; border-radius: 0; }
+    16% { width: 0; height: 0; bottom: @screen-bottom-square + @screen-height-square/2 ; left: @gameboy-width/2; border-radius: 0; }
+    19.5% { width: @screen-width-square; height: @screen-height-square; left: (@gameboy-width - @screen-width-square)/2; bottom: @screen-bottom-square; border-radius: 0; }
+    23.5% { bottom: @screen-bottom; height: @screen-height-square; border-radius: 0 0 25% 25% ~"/" 0 0 10px 10px; }
+    27.5% { height: @screen-height; width: @screen-width-square; left: (@gameboy-width - @screen-width-square)/2; border-radius: 0 0 50% 50% ~"/" 0 0 20px 20px; }
+    32.5% { width: @screen-width; left: (@gameboy-width - @screen-width)/2; border-radius: 10px 10px 50% 50% ~"/" 10px 10px 20px 20px; }
+  }
+
+  @glass-width: 180px;
+  @glass-height: 165px;
+  @glass-width-square: 36px;
+  @glass-height-square: 32px;
+  @glass-top: 70px;
+  @glass-left: (@gameboy-width - @glass-width)/2;
+  @glass-left-square: (@gameboy-width - @glass-width-square)/2;
+  @glass-top-square: @glass-top + 10px;
+  @glass-left-square: (@gameboy-width - @glass-width-square)/2;
+  @glass-top-rectangle: @glass-top-square + 60px;
+  @glass-z: @screen-z + 1;
+  #glass {
+    position: absolute;
+    z-index: @glass-z;
+    width: @glass-width;
+    height: @glass-height;
+    left: (@gameboy-width - @glass-width)/2;
+    top: @glass-top;
+    background-color: @lightgray;
+    -webkit-animation: glass @gameboy-duration linear;
+  }
+  @-webkit-keyframes glass {
+    0% { width: 0; height: 0; top: @glass-top-square + @glass-height-square/2; left: @gameboy-width/2; }
+    28% { width: 0; height: 0; top: @glass-top-square + @glass-height-square/2; left: @gameboy-width/2; }
+    29.5% { width: @glass-width-square; height: @glass-height-square; top: @glass-top-square; left: @glass-left-square; }
+    33% { top: @glass-top-rectangle; width: @glass-width-square; left: @glass-left-square; }
+    36% { width: @glass-width; left: @glass-left; height: @glass-height-square; top: @glass-top-rectangle; }
+    39% { height: @glass-height; top: @glass-top; }
   }
 }
 
