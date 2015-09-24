@@ -1,5 +1,5 @@
 *.py[cod]
-*.swp
+*.sw?
 *~
 *.egg
 *.egg-info
@@ -7,3 +7,4 @@
 !static/dist/*
 !web/static/dist/
 .env
+.DS_Store

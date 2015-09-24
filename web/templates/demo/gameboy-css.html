@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block body %}
-<div id="gameboy-image" class="disable"></div>
+<div id="gameboy-image"></div>
 <div id="button" style="border: 1px black solid; cursor: pointer;width: 50px; height: 20px; margin: 0 auto">click</div>
   <div id="gameboy">
     <div id="canvas"></div>
@@ -38,8 +38,15 @@
     <div id="joystick-top" class="joystick"></div>
     <div id="joystick-bottom" class="joystick"></div>
     <div id="control"></div>
-    <div id="control-a"></div>
-    <div id="control-b"></div>
+    <div id="control-b" class="control-button"></div>
+    <div id="control-a" class="control-button"></div>
+    <div id="start-select"></div>
+    <div id="start" class="start-select-button"></div>
+    <div id="start-inner" class="start-select-button-inner"></div>
+    <div id="select" class="start-select-button"></div>
+    <div id="select-inner" class="start-select-button-inner"></div>
+    <div id="controller-bottom"></div>
+    <!--<div id="cover1"></div>-->
   </div>
   <div id="gameboy-gif"></div>
 {% endblock %}
