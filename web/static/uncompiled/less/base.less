@@ -129,10 +129,10 @@ a:hover {
 }
 //////////////////// CSS3 TRANSLATION/TRANSITIONS
 .transition(@rules) {
-  -webkit-transition: @rules;
-  -moz-transition: @rules;
-  -o-transition: @rules;
-  transition: @rules;
+  -webkit-transition+: @rules;
+  -moz-transition+: @rules;
+  -o-transition+: @rules;
+  transition+: @rules;
 }
 
 .transition(transform, @rules) {
@@ -169,6 +169,16 @@ a:hover {
   backface-visibility: @type;
 }
 
+.animation(@rules) {
+  -webkit-animation+: @rules;
+  animation+: @rules;
+}
+
+.keyframes(@name; @arguments) {
+  @-moz-keyframes @name { @arguments(); }
+  @-webkit-keyframes @name { @arguments(); }
+  @keyframes @name { @arguments(); }
+}
 
 //////////////////// CLEARFIX
 /*
