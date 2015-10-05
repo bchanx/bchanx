@@ -4,10 +4,18 @@
 //
 
 @import '../base.less';
+@import url(https://fonts.googleapis.com/css?family=Asap:700italic);
 
 @gameboy-duration: 6s;
 @gameboy-width: 340px;
 @gameboy-height: 570px;
+
+@gameboy-yellow: #f9e52e;
+@gameboy-red: #ff0151;
+@gameboy-purple: #7942ba;
+@gameboy-green: #aedf19;
+@gameboy-lightblue: #01b4dd;
+@gameboy-blue: #2549a1;
 
 .disabled {
   display: none;
@@ -25,11 +33,10 @@
     @hover-transition: 0.05s linear;
     div {
       opacity: 0.7;
-      overflow: visible;
   //    .transition(opacity @hover-transition);
   //    .transition(outline @hover-transition);
     }
-    div:not([id="speaker-holes"]):not([id^="cover-"]) {
+    div:not([id="speaker-holes"]):not([id^="cover-"]):not([id="power"]) {
       box-shadow: 0 0 0 2px @black;
     }
     div[id^="cover-"] {
@@ -513,55 +520,21 @@
 
 /////
 
-@screen-width: @border-width - 24px;
-@screen-height: @border-height/2;
-@screen-z: @cover-z + 1;
-@screen-left: (@gameboy-width - @screen-width)/2;
-@screen-bottom: 278px;
-@screen-bottom-square: 372px;
-@screen-height-square: 34px;
-@screen-width-square: 36px;
-.keyframes(screen, {
-  0% { width: 0; height: 0; bottom: @screen-bottom-square + @screen-height-square/2; left: @gameboy-width/2; border-radius: 0; }
-  16% { width: 0; height: 0; bottom: @screen-bottom-square + @screen-height-square/2 ; left: @gameboy-width/2; border-radius: 0; }
-  19.5% { width: @screen-width-square; height: @screen-height-square; left: (@gameboy-width - @screen-width-square)/2; bottom: @screen-bottom-square; border-radius: 0; }
-  23.5% { bottom: @screen-bottom; height: @screen-height-square; border-radius: 0 0 25% 25% ~"/" 0 0 10px 10px; }
-  27.5% { height: @screen-height; width: @screen-width-square; left: (@gameboy-width - @screen-width-square)/2; border-radius: 0 0 50% 50% ~"/" 0 0 20px 20px; }
-  32.5% { width: @screen-width; left: (@gameboy-width - @screen-width)/2; border-radius: 10px 10px 50% 50% ~"/" 10px 10px 20px 20px; }
-});
-
-#screen {
-  position: absolute;
-  z-index: @screen-z;
-  width: @screen-width;
-  height: @screen-height;
-  left: @screen-left;
-  bottom: @screen-bottom;
-  border-radius: 10px 10px 50% 50% ~"/" 10px 10px 20px 20px;
-  background-color: @black;
-  .animation(screen @gameboy-duration linear);
-}
-
-/////
-
-@glass-width: 180px;
-@glass-height: 160px;
-@glass-width-square: 36px;
-@glass-height-square: 32px;
-@glass-top: @border-top + 40px;
+@glass-width: @border-width - 24px;
+@glass-height: @border-height/2;
+@glass-z: @cover-z + 1;
 @glass-left: (@gameboy-width - @glass-width)/2;
-@glass-left-square: (@gameboy-width - @glass-width-square)/2;
-@glass-top-square: @glass-top + 10px;
-@glass-left-square: (@gameboy-width - @glass-width-square)/2;
-@glass-top-rectangle: @glass-top-square + 60px;
-@glass-z: @screen-z + 1;
-.keyframes(glass, {
-  0% { width: 0; height: 0; top: @glass-top-square + @glass-height-square/2; left: @gameboy-width/2; }
-  28% { width: 0; height: 0; top: @glass-top-square + @glass-height-square/2; left: @gameboy-width/2; }
-  30% { width: @glass-width-square; height: @glass-height-square; top: @glass-top-square; left: @glass-left-square; }
-  34% { top: @glass-top-rectangle; width: @glass-width-square; left: @glass-left-square; }
-  37% { width: @glass-width; left: @glass-left; height: @glass-height-square; top: @glass-top-rectangle; }
-  40% { height: @glass-height; top: @glass-top; }
+@glass-bottom: 278px;
+@glass-bottom-square: 372px;
+@glass-height-square: 34px;
+@glass-width-square: 36px;
+.keyframes(screen, {
+  0% { width: 0; height: 0; bottom: @glass-bottom-square + @glass-height-square/2; left: @gameboy-width/2; border-radius: 0; }
+  16% { width: 0; height: 0; bottom: @glass-bottom-square + @glass-height-square/2 ; left: @gameboy-width/2; border-radius: 0; }
+  19.5% { width: @glass-width-square; height: @glass-height-square; left: (@gameboy-width - @glass-width-square)/2; bottom: @glass-bottom-square; border-radius: 0; }
+  23.5% { bottom: @glass-bottom; height: @glass-height-square; border-radius: 0 0 25% 25% ~"/" 0 0 10px 10px; }
+  27.5% { height: @glass-height; width: @glass-width-square; left: (@gameboy-width - @glass-width-square)/2; border-radius: 0 0 50% 50% ~"/" 0 0 20px 20px; }
+  32.5% { width: @glass-width; left: (@gameboy-width - @glass-width)/2; border-radius: 10px 10px 50% 50% ~"/" 10px 10px 20px 20px; }
 });
 
 #glass {
@@ -569,9 +542,44 @@
   z-index: @glass-z;
   width: @glass-width;
   height: @glass-height;
-  left: (@gameboy-width - @glass-width)/2;
-  top: @glass-top;
-  background-color: @lightgray;
+  left: @glass-left;
+  bottom: @glass-bottom;
+  border-radius: 10px 10px 50% 50% ~"/" 10px 10px 20px 20px;
+  background-color: @black;
+  .animation(screen @gameboy-duration linear);
+}
+
+/////
+
+@screen-width: 180px;
+@screen-height: 160px;
+@screen-width-square: 36px;
+@screen-height-square: 32px;
+@screen-top: @border-top + 40px;
+@screen-left: (@gameboy-width - @screen-width)/2;
+@screen-left-square: (@gameboy-width - @screen-width-square)/2;
+@screen-top-square: @screen-top + 10px;
+@screen-left-square: (@gameboy-width - @screen-width-square)/2;
+@screen-top-rectangle: @screen-top-square + 60px;
+@screen-color: @lightgray;
+@screen-z: @glass-z + 1;
+.keyframes(glass, {
+  0% { width: 0; height: 0; top: @screen-top-square + @screen-height-square/2; left: @gameboy-width/2; }
+  28% { width: 0; height: 0; top: @screen-top-square + @screen-height-square/2; left: @gameboy-width/2; }
+  30% { width: @screen-width-square; height: @screen-height-square; top: @screen-top-square; left: @screen-left-square; }
+  34% { top: @screen-top-rectangle; width: @screen-width-square; left: @screen-left-square; }
+  37% { width: @screen-width; left: @screen-left; height: @screen-height-square; top: @screen-top-rectangle; }
+  40% { height: @screen-height; top: @screen-top; }
+});
+
+#screen {
+  position: absolute;
+  z-index: @screen-z;
+  width: @screen-width;
+  height: @screen-height;
+  left: (@gameboy-width - @screen-width)/2;
+  top: @screen-top;
+  background-color: @screen-color;
   .animation(glass @gameboy-duration linear);
 }
 
@@ -1150,5 +1158,85 @@
   border-radius: 50%;
   .speaker-holes-box-shadow-generate();
   .animation(speaker-holes @gameboy-duration linear);
+}
+
+/////
+
+@screen-gameboy-text-z: @screen-z + 1;
+@screen-gameboy-text-left: -80px;
+@screen-gameboy-text-top: 100px;
+@screen-gameboy-text-width: 500px;
+.keyframes(screen-gameboy-text, {
+  0% { color: @gameboy-yellow; background-position: -120px; opacity: 0; }
+  63.9% { opacity: 0; }
+  64% { color: @gameboy-yellow; background-position: -120px; opacity: 1; }
+  66.5% { color: @gameboy-yellow; }
+  67% { color: @gameboy-red; }
+  69.5% { color: @gameboy-red; }
+  70% { color: @gameboy-purple; }
+  72.5% { color: @gameboy-purple; }
+  73% { color: @green; }
+  75.5% { color: @green; }
+  76% { color: @gameboy-blue; }
+  78% { background-position: 130px; }
+});
+
+#screen-gameboy-text {
+  position: absolute;
+  font-family: 'Asap', sans-serif;
+  font-size: 32px;
+  font-weight: bold;
+  font-style: italic;
+  letter-spacing: -2px;
+  text-align: center;
+  opacity: 1;
+  width: @screen-gameboy-text-width;
+  left: @screen-gameboy-text-left;
+  top: @screen-gameboy-text-top;
+  transform: skew(-5deg);
+  overflow: hidden;
+  white-space: nowrap;
+  z-index: @screen-gameboy-text-z;
+  color: @gameboy-blue;
+  background: -webkit-linear-gradient(0deg, @gameboy-blue 40%, @gameboy-green 40%, @gameboy-green 45%, @gameboy-purple 45%, @gameboy-purple 50%, @gameboy-red 50%, @gameboy-red 55%, @gameboy-yellow 55%, @gameboy-yellow 60%, @screen-color 60%);
+  background-position: 130px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  .animation(screen-gameboy-text @gameboy-duration linear);
+}
+
+/////
+
+@power-z: @glass-z + 1;
+@power-left: 35px;
+@power-top: 95px;
+@power-width: 8px;
+@power-height: 8px;
+@power-decor-gray: @medgray;
+@power-decor-black: @black;
+.power-box-shadow(@color) {
+  box-shadow: 5px 0 @black, 8px 0 @color, 12px 0 @black, 15px 0 @color, 19px 0 @black, 22px 0 @color;
+}
+.keyframes(power, {
+  0% { opacity: 0; background-color: @darkgray; box-shadow: none; }
+  36% { opacity: 0; }
+  37% { opacity: 1; }
+  39% { .power-box-shadow(@black); }
+  40% { .power-box-shadow(@medgray); }
+  54% { background-color: @darkgray; }
+  55% { background-color: @red; }
+});
+
+#power {
+  position: absolute;
+  z-index: @power-z;
+  top: @power-top;
+  left: @power-left;
+  width: @power-width;
+  height: @power-height;
+  border-radius: 50%;
+  background-color: @red;
+  .power-box-shadow(@medgray);
+  .animation(power @gameboy-duration linear);
 }
 

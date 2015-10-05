@@ -3,4 +3,4 @@
  * All Rights Reserved.
  */
 
-var bchanx=bchanx||{};$(function(){console.log("hi");$("#button").bind("click",function(){$("#gameboy").hide(50,function(){setTimeout(function(){$("#gameboy").show()},100)})})});
+var bchanx=bchanx||{};$(function(){console.log("hi");$("#button").bind("click",function(){$("#gameboy").hide(50,function(){setTimeout(function(){$("#gameboy").show()},100)})});$("#gameboy").show()});
