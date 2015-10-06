@@ -6,7 +6,7 @@
 @import '../base.less';
 @import url(https://fonts.googleapis.com/css?family=Asap:700italic);
 
-@gameboy-duration: 6.15s infinite;
+@gameboy-duration: 0;
 @gameboy-width: 340px;
 @gameboy-height: 570px;
 
@@ -27,8 +27,7 @@
   height: @gameboy-height;
   overflow: hidden;
   margin: 20px auto 0;
-  .transform(translateZ(1));
-  z-index: 5;
+  .transform(translateZ(0));
   &:hover {
     @hover-transition: 0.05s linear;
     div {
@@ -552,7 +551,7 @@
 /////
 
 @glass-gameboy-text-top: 238px;
-@glass-gameboy-text-left: 85px;
+@glass-gameboy-text-left: 83px;
 @glass-gameboy-text-width: 105px;
 @glass-gameboy-text-z: @glass-z + 1;
 .keyframes(glass-gameboy-text, {
@@ -575,6 +574,70 @@
   white-space: nowrap;
   z-index: @glass-gameboy-text-z;
   .animation(glass-gameboy-text @gameboy-duration linear);
+}
+
+/////
+
+@glass-color-text-z: @glass-z + 1;
+@glass-color-text-left: 188px;
+@glass-color-text-top: @glass-gameboy-text-top;
+.keyframes(glass-color-text, {
+  0% { color: transparent; }
+  42% { color: transparent; }
+  42.5% { color: @gameboy-red; }
+});
+.keyframes(glass-color-text-before, {
+  0% { color: transparent; border-color: transparent; }
+  42.5% { border-color: transparent; }
+  43% { color: transparent; border-color: @gameboy-purple; }
+  43.5% { color: @gameboy-green; }
+});
+.keyframes(glass-color-text-after, {
+  0% { color: transparent; border-color: transparent; }
+  43.5% { border-color: transparent; }
+  44% { color: transparent; border-color: @gameboy-yellow; }
+  44.5% { color: @gameboy-blue; }
+});
+
+#glass-color-text {
+  z-index: @glass-color-text-z;
+  color: @gameboy-red;
+  position: absolute;
+  top: @glass-color-text-top;
+  left: @glass-color-text-left;
+  font-family: 'Comic Sans', 'Comic Sans MS', cursive;
+  font-size: 22px;
+  letter-spacing: -2px;
+  font-weight: bold;
+  .animation(glass-color-text @gameboy-duration linear);
+  &::before {
+    content: "L";
+    position: absolute;
+    left: 12px;
+    top: 9px;
+    line-height: 5px;
+    text-indent: 10px;
+    color: @gameboy-green;
+    border: 4px @gameboy-purple solid;
+    border-radius: 50%;
+    width: 7px;
+    height: 7px;
+    .animation(glass-color-text-before @gameboy-duration linear);
+  }
+  &::after {
+    content: "R";
+    position: absolute;
+    left: 36px;
+    top: 9px;
+    line-height: 5px;
+    text-indent: 10px;
+    color: @gameboy-blue;
+    border: 4px @gameboy-yellow solid;
+    border-radius: 50%;
+    width: 7px;
+    height: 7px;
+    .animation(glass-color-text-after @gameboy-duration linear);
+  }
 }
 
 /////
