@@ -130,36 +130,26 @@ a:hover {
 //////////////////// CSS3 TRANSLATION/TRANSITIONS
 .transition(@rules) {
   -webkit-transition+: @rules;
-  -moz-transition+: @rules;
-  -o-transition+: @rules;
   transition+: @rules;
 }
 
 .transition(transform, @rules) {
   -webkit-transition: -webkit-transform @rules;
-  -moz-transition: -moz-transform @rules;
-  -o-transition: -o-transform @rules;
   transition: transform @rules;
 }
 
 .transform(@rules) {
   -webkit-transform: @rules;
-  -moz-transform: @rules;
-  -ms-transform: @rules;
-  -o-transform: @rules;
   transform: @rules;
 }
 
 .transform-style(@rules) {
   -webkit-transform-style: @rules;
-  -moz-transform-style: @rules;
   transform-style: @rules;
 }
 
 .transform-origin(@rules) {
   -webkit-transform-origin: @rules;
-  -moz-transform-origin: @rules;
-  -o-transform-origin: @rules;
   transform-origin: @rules;
 }
 
