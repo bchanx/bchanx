@@ -7,8 +7,10 @@
 @import url(https://fonts.googleapis.com/css?family=Asap:700italic);
 
 @gameboy-duration: 6.15s infinite;
+//@gameboy-duration: 0;
 @gameboy-width: 340px;
 @gameboy-height: 570px;
+@gameboy-color: @green;
 
 @gameboy-yellow: #f9e52e;
 @gameboy-red: #ff0151;
@@ -38,7 +40,7 @@
     div[id^="screen-"][id$="-text"] {
       opacity: 0;
     }
-    div:not([id="speaker-holes"]):not([id^="cover-"]):not([id="power"]) {
+    div:not([id="speaker-holes"]):not([id^="cover-"]):not([id="power"]):not([class="capacitors"]) {
       box-shadow: 0 0 0 2px @black;
     }
     div[id^="cover-"] {
@@ -344,9 +346,10 @@
 /////
 
 @chip-z: @motherboard-z + 1;
+@chip-color: #308d58;
 .chip {
   z-index: @chip-z;
-  background-color: @chip-background;
+  background-color: @chip-color;
   position: absolute;
   right: 35px;
 }
@@ -354,11 +357,20 @@
 /////
 
 @chip-large-width: 30px;
-@chip-background: #308d58;
 .keyframes(chip-large, {
   0% { width: 0; height: @motherboard-height; right: 35px;}
   6.5% { width: 0; }
   8.5% { width: @chip-large-width; }
+});
+.keyframes(chip-large-before, {
+  0% { height: 0; }
+  10% { height: 0; }
+  11.5% { height: 100%; }
+});
+.keyframes(chip-large-after, {
+  0% { height: 0; }
+  11.5% { height: 0; }
+  13% { height: 100%; }
 });
 
 #chip-large {
@@ -366,6 +378,26 @@
   height: @motherboard-height;
   top: @motherboard-top;
   .animation(chip-large @gameboy-duration linear);
+  &::before {
+    content: "";
+    position: absolute;
+    right: 8px;
+    bottom: 0;
+    width: 4px;
+    height: 100%;
+    background-color: shade(@chip-color, 20%);
+    .animation(chip-large-before @gameboy-duration linear);
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    right: 18px;
+    bottom: 0;
+    width: 4px;
+    height: 100%;
+    background-color: shade(@chip-color, 20%);
+    .animation(chip-large-after @gameboy-duration linear);
+  }
 }
 
 /////
@@ -389,21 +421,70 @@
 
 /////
 
-.keyframes(chip-mask, {
+.keyframes(chip-triangle, {
   0% { border-top-width: 0; border-left-width: 0px; top: @motherboard-top + @chip-medium-height; }
   6.5% { border-top-width: 0; border-left-width: 0px; top: @motherboard-top + @chip-medium-height; }
   8.5% { border-top-width: 36px; border-left-width: 30px; top: @motherboard-top + @chip-medium-height; }
   10.5% { border-top-width: 96px; border-left-width: 80px; top: @motherboard-top + @chip-medium-height-final; }
 });
 
-#chip-mask {
+#chip-triangle {
   width: 0;
   height: 0;
   top: @motherboard-top + @chip-medium-height-final;
   background-color: transparent;
-  border-top: 96px @chip-background solid;
+  border-top: 96px @chip-color solid;
   border-left: 80px transparent solid;
-  .animation(chip-mask @gameboy-duration linear);
+  .animation(chip-triangle @gameboy-duration linear);
+}
+
+/////
+
+@capacitors-z: @chip-z + 1;
+@capacitors-box-shadow: 11px 0 1px @white, 11px -35px 1px @white, 31px -35px 1px @white, 21px -24px 1px @white, 21px -11px 1px @white;
+.capacitors-keyframes(@name, @start) {
+  @one: @start;
+  @two: @one + 1%;
+  @three: @two + 1%;
+  @four: @three + 1%;
+  @five: @four + 1%;
+  .keyframes(@name, {
+    0% { box-shadow: none; }
+    @{one} { box-shadow: 11px 0 1px transparent; }
+    @{two} { box-shadow: 11px 0 1px @white, 11px -35px 1px transparent, 31px -35px 1px transparent; }
+    @{three} { box-shadow: 11px 0 1px @white, 11px -35px 1px @white, 31px -35px 1px @white, 21px -24px 1px transparent; }
+    @{four} { box-shadow: 11px 0 1px @white, 11px -35px 1px @white, 31px -35px 1px @white, 21px -24px 1px @white, 21px -11px 1px transparent; }
+    @{five} { box-shadow: 11px 0 1px @white, 11px -35px 1px @white, 31px -35px 1px @white, 21px -24px 1px @white, 21px -11px 1px @white; }
+  });
+}
+
+.capacitors {
+  position: absolute;
+  z-index: @capacitors-z;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: transparent;
+  box-shadow: @capacitors-box-shadow;
+}
+
+@chip-capacitors-left: 240px;
+@chip-capacitors-top: 130px;
+.capacitors-keyframes(chip-capacitors, 12.5%);
+#chip-capacitors {
+  left: @chip-capacitors-left;
+  top: @chip-capacitors-top;
+  .animation(chip-capacitors @gameboy-duration linear);
+}
+
+@motherboard-capacitors-left: 85px;
+@motherboard-capacitors-top: 265px;
+.capacitors-keyframes(motherboard-capacitors, 22.5%);
+#motherboard-capacitors {
+  left: @motherboard-capacitors-left;
+  top: @motherboard-capacitors-top;
+  .transform(rotateZ(-90deg));
+  .animation(motherboard-capacitors @gameboy-duration linear);
 }
 
 /////
@@ -478,7 +559,7 @@
   border-radius: 100%;
   background-color: @black;
   .animation(speaker @gameboy-duration linear);
-  &:after {
+  &::after {
     content: ""; 
     position: absolute;
     z-index: @speaker-z + 1;
@@ -692,8 +773,8 @@
   69.5% { color: @gameboy-red; }
   70% { color: @gameboy-purple; }
   72.5% { color: @gameboy-purple; }
-  73% { color: @green; }
-  75.5% { color: @green; }
+  73% { color: @gameboy-green; }
+  75.5% { color: @gameboy-green; }
   76% { color: @gameboy-blue; }
   78% { background-position: 130px; }
   87% { opacity: 1; }
@@ -797,7 +878,7 @@
   border-radius: 5px 5px 0 0;
   font-size: @joystick-font-size;
   overflow: hidden;
-  &:before {
+  &::before {
     content: "";
     width: 61%;
     height: 36.28%;
@@ -808,7 +889,7 @@
     margin-left: -30.5%;
     bottom: -18.14%;
   }
-  &:after {
+  &::after {
     content: "";
     width: 0;
     height: 0;
@@ -1165,7 +1246,7 @@
 @cover-v-box-shadow-slices: @cover-v-slices - 1;
 @cover-v-width: @canvas-width / @cover-v-slices;
 @cover-v-height: @canvas-height;
-@cover-v-color: @green;
+@cover-v-color: @gameboy-color;
 .cover-v-box-shadow(@counter, @current : @counter + 1) when (@counter > 0) {
   .cover-v-box-shadow(@counter - 1, @current);
   & when (@counter < @current) {
@@ -1219,7 +1300,7 @@
 @cover-h-box-shadow-slices: @cover-h-slices - 1;
 @cover-h-width: @canvas-width;
 @cover-h-height: @canvas-height / @cover-h-slices;
-@cover-h-color: @green;
+@cover-h-color: @gameboy-color;
 .cover-h-box-shadow(@counter, @current : @counter + 1) when (@counter > 0) {
   .cover-h-box-shadow(@counter - 1, @current);
   & when (@counter < @current) {
@@ -1287,7 +1368,7 @@
   height: @gloss-height;
   top: @gloss-top;
   left: @gloss-left;
-  background-color: tint(@green, 20%);
+  background-color: tint(@gameboy-color, 20%);
   border-bottom-left-radius: @gloss-width/2 20px;
   border-bottom-right-radius: @gloss-width/2 20px;
   .animation(gloss @gameboy-duration linear);
