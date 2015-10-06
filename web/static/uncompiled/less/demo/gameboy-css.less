@@ -37,14 +37,14 @@
   //    .transition(opacity @hover-transition);
   //    .transition(outline @hover-transition);
     }
+    div[id^="cover-mask-"] {
+      opacity: 1;
+    }
     div[id^="screen-"][id$="-text"] {
       opacity: 0;
     }
-    div:not([id="speaker-holes"]):not([id^="cover-"]):not([id="power"]):not([class="capacitors"]) {
+    div:not([id="speaker-holes"]):not([id^="cover-"]):not([id="power"]):not([class="capacitors"]):not([id$="-text"]):not([id="canvas"]) {
       box-shadow: 0 0 0 2px @black;
-    }
-    div[id^="cover-"] {
-      outline: 2px @black solid;
     }
     #cover-vertical,
     #cover-horizontal,
@@ -205,8 +205,9 @@
   0% { height: 0; }
   8% { height: 0; }
   8.5% { height: @border-height - 30px; top: @border-top + 6px; }
-  9% { height: @border-height - 30px; top: @border-top + 6px; }
-  11.5% { height: 0; bottom: 50px + @border-height; }
+  9% { height: @border-height - 30px; }
+  11.5% { height: 0; top: @border-top + 6px; }
+  100% { top: @border-top + @border-height; }
 });
 #border-right {
   right: @border-right;
@@ -498,6 +499,16 @@
   12% { width: 0; height: 0; left: @gameboy-width / 2; top: @processor-top + @processor-square/2; }
   14% { width: @processor-square; height: @processor-square; left: (@gameboy-width - @processor-square) / 2; top: @processor-top; }
 });
+.keyframes(processor-before, {
+  0% { width: 0; }
+  16% { width: 0; }
+  18% { width: 50px; }
+});
+.keyframes(processor-after, {
+  0% { width: 0; }
+  18% { width: 0; }
+  20% { width: 50px; }
+});
 
 #processor {
   position: absolute;
@@ -508,6 +519,38 @@
   z-index: @processor-z;
   background-color: @black;
   .animation(processor @gameboy-duration linear);
+  &::before {
+    content: "llllll";
+    position: absolute;
+    color: @white;
+    width: 50px;
+    overflow: hidden;
+    font-weight: bold;
+    font-size: 15px;
+    letter-spacing: 3px;
+    text-shadow: 1px 0 0 @gray;
+    .transform(rotateZ(-90deg));
+    .transform-origin(0 0);
+    left: 45px;
+    bottom: -16px;
+    .animation(processor-before @gameboy-duration linear);
+  }
+  &::after {
+    content: "llllll";
+    position: absolute;
+    color: @white;
+    width: 50px;
+    overflow: hidden;
+    font-weight: bold;
+    font-size: 15px;
+    letter-spacing: 3px;
+    text-shadow: 1px 0 0 @gray;
+    .transform(rotateZ(90deg) rotateY(180deg));
+    .transform-origin(0 0);
+    left: 10px;
+    top: 51px;
+    .animation(processor-after @gameboy-duration linear);
+  }
 }
 
 /////
