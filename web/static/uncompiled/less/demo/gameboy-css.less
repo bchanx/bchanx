@@ -49,7 +49,7 @@
     div[id^="screen-"][id$="-text"] {
       opacity: 0;
     }
-    div:not([id="speaker-holes"]):not([id^="cover-"]):not([id="power"]):not([class="capacitors"]):not([id$="-text"]):not([id="canvas"]):not([class="circuit"]) {
+    div:not([id="speaker-holes"]):not([id^="cover-"]):not([id="power"]):not([class="capacitors"]):not([id$="-text"]):not([id="canvas"]):not([class="circuit"]):not([id="transistors"]) {
       box-shadow: 0 0 0 2px @black;
     }
     #cover-vertical,
@@ -649,6 +649,33 @@
   &::after {
     .animation(circuit-top-after @gameboy-duration linear);
   }
+}
+
+/////
+
+@transistors-z: @motherboard-z + 1;
+@transistors-top: 310px;
+@transistors-left: 50px;
+@transistors-size: 8px;
+.keyframes(transistors, {
+  0% { opacity: 0; box-shadow: none; }
+  17% { opacity: 0; box-shadow: 16px 0 transparent; }
+  19% { opacity: 1; box-shadow: 16px 0, 32px 0 transparent; }
+  21% { box-shadow: 16px 0, 32px 0, 48px 0 transparent; }
+  23% { box-shadow: 16px 0, 32px 0, 48px 0; }
+});
+
+#transistors {
+  z-index: @transistors-z;
+  position: absolute;
+  top: @transistors-top;
+  left: @transistors-left;
+  width: @transistors-size;
+  height: @transistors-size;
+  border-radius: 50%;
+  background-color: @darkgray;
+  box-shadow: 16px 0, 32px 0, 48px 0;
+  .animation(transistors @gameboy-duration linear);
 }
 
 /////
