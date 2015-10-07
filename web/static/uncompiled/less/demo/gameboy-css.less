@@ -40,10 +40,16 @@
     div[id^="cover-mask-"] {
       opacity: 1;
     }
+    div[class="circuit"] {
+      &::before,
+      &::after {
+        opacity: 0.5;
+      }
+    }
     div[id^="screen-"][id$="-text"] {
       opacity: 0;
     }
-    div:not([id="speaker-holes"]):not([id^="cover-"]):not([id="power"]):not([class="capacitors"]):not([id$="-text"]):not([id="canvas"]) {
+    div:not([id="speaker-holes"]):not([id^="cover-"]):not([id="power"]):not([class="capacitors"]):not([id$="-text"]):not([id="canvas"]):not([class="circuit"]) {
       box-shadow: 0 0 0 2px @black;
     }
     #cover-vertical,
@@ -322,6 +328,7 @@
 @motherboard-square: 56px;
 @motherboard-square-top: 265px;
 @motherboard-z: @backboard-z + 1;
+@motherboard-color: #4ca879;
 @cover-z: @motherboard-z + 10;
 .keyframes(motherboard, {
   0% { width: 0; height: 0; left: @gameboy-width/2; top: @motherboard-square-top + @motherboard-square/2; }
@@ -340,7 +347,7 @@
   height: @motherboard-height;
   left: @motherboard-left;
   top: @motherboard-top;
-  background-color: #4ca879;
+  background-color: @motherboard-color;
   .animation(motherboard @gameboy-duration linear);
 }
 
@@ -558,6 +565,90 @@
   height: @link-port-size;
   background-color: @white;
   .animation(link-port @gameboy-duration linear);
+}
+
+/////
+
+@circuit-z: @motherboard-z + 1;
+@circuit-opacity: 0.5;
+.circuit-keyframes(@name, @start) {
+  @opacity: @start - 0.1%;
+  @before-name: "@{name}-before";
+  @after-name: "@{name}-after";
+  @before-start: @start;
+  @before-end: @start + 2%;
+  @after-start: @before-end;
+  @after-end: @after-start + 2%;
+  .keyframes(@name, {
+    0% { opacity: 0; }
+    @{opacity} { opacity: 0; }
+    @{start} { opacity: @circuit-opacity; }
+  });
+  .keyframes(@before-name, {
+    0% { height: 100%; }
+    @{before-start} { height: 100%; }
+    @{before-end} { height: 0%; }
+  });
+  .keyframes(@after-name, {
+    0% { height: 100%; }
+    @{after-start} { height: 100%; }
+    @{after-end} { height: 0%; }
+  });
+}
+.circuit {
+  z-index: @circuit-z;
+  position: absolute;
+  box-shadow: inset 0 0 0 1px @white;
+  border-radius: ~"50% / 25%";
+  opacity: @circuit-opacity;
+  &::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 50%;
+    height: 0%;
+    background-color: @motherboard-color;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50%;
+    height: 0%;
+    background-color: @motherboard-color;
+  }
+}
+
+.circuit-keyframes(circuit-bottom, 13.5%);
+#circuit-bottom {
+  width: 30px;
+  height: 60px;
+  top: 330px;
+  left: 155px;
+  .transform(rotateZ(-90deg));
+  .animation(circuit-bottom @gameboy-duration linear);
+  &::before {
+    .animation(circuit-bottom-before @gameboy-duration linear);
+  }
+  &::after {
+    .animation(circuit-bottom-after @gameboy-duration linear);
+  }
+}
+.circuit-keyframes(circuit-top, 16.5%);
+#circuit-top {
+  width: 40px;
+  height: 80px;
+  top: 100px;
+  left: 70px;
+  .animation(circuit-top @gameboy-duration linear);
+  &::before {
+    .animation(circuit-top-before @gameboy-duration linear);
+  }
+  &::after {
+    .animation(circuit-top-after @gameboy-duration linear);
+  }
 }
 
 /////
