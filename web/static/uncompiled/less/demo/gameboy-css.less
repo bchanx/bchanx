@@ -6,6 +6,7 @@
 @import '../base.less';
 @import url(https://fonts.googleapis.com/css?family=Asap:700italic);
 
+//@gameboy-duration: 60s infinite;
 @gameboy-duration: 6.15s infinite;
 //@gameboy-duration: 0;
 @gameboy-width: 340px;
@@ -49,7 +50,7 @@
     div[id^="screen-"][id$="-text"] {
       opacity: 0;
     }
-    div:not([id="speaker-holes"]):not([id^="cover-"]):not([id="power"]):not([class="capacitors"]):not([id$="-text"]):not([id="canvas"]):not([class="circuit"]):not([id="transistors"]) {
+    div:not([id="speaker-holes"]):not([id^="cover-"]):not([id="power"]):not([class="capacitors"]):not([id$="-text"]):not([id="canvas"]):not([class="circuit"]):not([id="transistors"]):not([id="joystick"]):not([id="control"]):not([id="start-select-button"]) {
       box-shadow: 0 0 0 2px @black;
     }
     #cover-vertical,
@@ -1278,134 +1279,92 @@
   .animation(control-a @gameboy-duration linear);
 }
 
+
+
 /////
 
-@start-select-width: 100px;
-@start-select-height: 25px;
-@start-select-bottom: 85px;
-@start-select-left: (@gameboy-width - @start-select-width)/2;
-@start-select-z: @controller-z + 1;
-.keyframes(start-select, {
+@start-select-box-width: 100px;
+@start-select-box-height: 25px;
+@start-select-box-bottom: 85px;
+@start-select-box-border: 4px;
+@start-select-box-left: (@gameboy-width - @start-select-box-width)/2;
+@start-select-box-z: @controller-z + 1;
+.keyframes(start-select-box, {
   0% { width: 0; left: @gameboy-width/2; }
   18% { width: 0; left: @gameboy-width/2; }
-  21.5% { width: @start-select-width; left: @start-select-left; }
+  21.5% { width: @start-select-box-width; left: @start-select-box-left; }
 });
 
-#start-select {
-  border-top: 4px @gray solid;
-  border-bottom: 4px @gray solid;
-  position: absolute;
-  z-index: @start-select-z;
-  width: @start-select-width;
-  height: @start-select-height;
-  bottom: @start-select-bottom;
-  left: @start-select-left;
-  background-color: @lightgray;
-  .animation(start-select @gameboy-duration linear);
-}
-
-/////
-
-@start-select-button-width: 40px;
-@start-select-button-height: 13px;
-@start-select-button-z: @start-select-z + 1;
-@start-select-button-bottom: @start-select-bottom + 6px;
-.keyframes(start-select-button, {
-  0% { width: 0; height: 0; bottom: @start-select-button-bottom + @start-select-button-height/2; }
-  22% { width: 0; height: 0; bottom: @start-select-button-bottom + @start-select-button-height/2; }
-  26% { width: @start-select-button-width; height: @start-select-button-height; bottom: @start-select-button-bottom; }
+@start-select-pad-width: 40px;
+@start-select-pad-height: 13px;
+@start-select-pad-z: @start-select-box-z + 1;
+@start-select-pad-bottom: 2px;
+@start-select-pad-offset: 5px;
+@start-select-pad-tweak: 4px;
+@start-select-pad-color: #9d9d9d;
+@start-select-pad-box-shadow: @start-select-box-width - @start-select-pad-offset * 2 - @start-select-pad-width;
+@start-select-pad-box-shadow-offset: @start-select-box-width - @start-select-pad-width - (@start-select-pad-offset * 2) + (@start-select-pad-tweak * 2);
+.keyframes(start-select-pad, {
+  0% { width: 0; height: 0; left: @start-select-pad-offset - @start-select-pad-tweak + @start-select-pad-width/2; bottom: @start-select-pad-bottom + @start-select-pad-height/2; box-shadow: @start-select-pad-box-shadow-offset 0 @start-select-pad-color; }
+  22% { width: 0; height: 0; left: @start-select-pad-offset - @start-select-pad-tweak + @start-select-pad-width/2; bottom: @start-select-pad-bottom + @start-select-pad-height/2; box-shadow: @start-select-pad-box-shadow-offset 0 @start-select-pad-color; }
+  26% { width: @start-select-pad-width; height: @start-select-pad-height; left: @start-select-pad-offset - @start-select-pad-tweak; bottom: @start-select-pad-bottom; box-shadow: @start-select-pad-box-shadow-offset 0 @start-select-pad-color; }
+  28.5% { left: @start-select-pad-offset; box-shadow: @start-select-pad-box-shadow 0 @start-select-pad-color; }
   35.5% { font-size: 0; }
   40% { font-size: 10px; }
 });
 
-.start-select-button {
+#start-select-box {
+  border-top: @start-select-box-border @gray solid;
+  border-bottom: @start-select-box-border @gray solid;
+  position: absolute;
+  z-index: @start-select-box-z;
+  width: @start-select-box-width;
+  height: @start-select-box-height;
+  bottom: @start-select-box-bottom;
+  left: @start-select-box-left;
+  background-color: @lightgray;
+  .animation(start-select-box @gameboy-duration linear);
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: @start-select-pad-z;
+    bottom: @start-select-pad-bottom;
+    width: @start-select-pad-width;
+    height: @start-select-pad-height;
+    border-radius: 10px;
+    background-color: @start-select-pad-color;
+    left: @start-select-pad-offset;
+    box-shadow: @start-select-pad-box-shadow 0 @start-select-pad-color;
+    .animation(start-select-pad @gameboy-duration linear);
+  }
+}
+
+/////
+
+@start-select-button-width: 32px;
+@start-select-button-height: 9px;
+@start-select-button-bottom: @start-select-box-bottom + @start-select-box-border + @start-select-pad-bottom + (@start-select-pad-height - @start-select-button-height) / 2;
+@start-select-button-z: @cover-z + 1;
+@start-select-button-offset: @start-select-pad-offset + (@start-select-pad-width - @start-select-button-width)/2;
+@start-select-button-left: @start-select-box-left + @start-select-button-offset;
+@start-select-button-box-shadow: @start-select-box-width - @start-select-button-width - @start-select-button-offset * 2;
+.keyframes(start-select-button, {
+  0% { width: 0; height: 0; bottom: @start-select-button-bottom + @start-select-button-height/2; left: @start-select-button-left + @start-select-button-width/2; }
+  29.5% { width: 0; height: 0; bottom: @start-select-button-bottom + @start-select-button-height/2; left: @start-select-button-left + @start-select-button-width/2; }
+  34% { width: @start-select-button-width; height: @start-select-button-height; bottom: @start-select-button-bottom; left: @start-select-button-left; }
+});
+
+#start-select-button {
   position: absolute;
   z-index: @start-select-button-z;
-  bottom: @start-select-button-bottom;
   width: @start-select-button-width;
   height: @start-select-button-height;
-  border-radius: 10px;
-  background-color: #9d9d9d;
-  .animation(start-select-button @gameboy-duration linear);
-}
-
-/////
-
-@start-select-offset: 125px;
-@start-select-tweak: 4px;
-.keyframes(start, {
-  0% { left: @start-select-offset - @start-select-tweak + @start-select-button-width/2; }
-  22% { left: @start-select-offset - @start-select-tweak + @start-select-button-width/2; }
-  26% { left: @start-select-offset - @start-select-tweak; }
-  28.5% { left: @start-select-offset; }
-});
-
-#start {
-  left: @start-select-offset;
-  .animation(start-select-button @gameboy-duration linear);
-  .animation(start @gameboy-duration linear);
-}
-
-/////
-
-.keyframes(select, {
-  0% { right: @start-select-offset - @start-select-tweak + @start-select-button-width/2; }
-  22% { right: @start-select-offset - @start-select-tweak + @start-select-button-width/2; }
-  26% { right: @start-select-offset - @start-select-tweak; }
-  28.5% { right: @start-select-offset; }
-});
-
-#select {
-  right: @start-select-offset;
-  .animation(start-select-button @gameboy-duration linear);
-  .animation(select @gameboy-duration linear);
-}
-
-/////
-
-@start-select-button-inner-width: 32px;
-@start-select-button-inner-height: 9px;
-@start-select-button-inner-bottom: @start-select-button-bottom + 2px;
-@start-select-button-inner-z: @cover-z + 1;
-.keyframes(start-select-button-inner, {
-  0% { width: 0; height: 0; bottom: @start-select-button-inner-bottom + @start-select-button-inner-height/2; }
-  29.5% { width: 0; height: 0; bottom: @start-select-button-inner-bottom + @start-select-button-inner-height/2; }
-  34% { width: @start-select-button-inner-width; height: @start-select-button-inner-height; bottom: @start-select-button-inner-bottom; }
-});
-
-.start-select-button-inner {
-  position: absolute;
-  z-index: @start-select-button-inner-z;
-  width: @start-select-button-inner-width;
-  height: @start-select-button-inner-height;
-  bottom: @start-select-button-inner-bottom;
+  bottom: @start-select-button-bottom;
+  left: @start-select-button-left;
   background-color: @darkgray;
   border-radius: 100%;
-}
-
-/////
-
-@start-select-inner-offset: @start-select-offset + (@start-select-button-width - @start-select-button-inner-width)/2;
-.keyframes(start-inner, {
-  0% { left: @start-select-inner-offset + @start-select-button-inner-width/2; }
-  29.5% { left: @start-select-inner-offset + @start-select-button-inner-width/2; }
-  34% { left: @start-select-inner-offset; }
-});
-#start-inner {
-  left: @start-select-inner-offset;
-  .animation(start-select-button-inner @gameboy-duration linear);
-  .animation(start-inner @gameboy-duration linear);
-}
-
-.keyframes(select-inner, {
-  0% { right: @start-select-inner-offset + @start-select-button-inner-width/2; }
-  29.5% { right: @start-select-inner-offset + @start-select-button-inner-width/2; }
-  34% { right: @start-select-inner-offset; }
-});
-#select-inner {
-  right: @start-select-inner-offset;
-  .animation(start-select-button-inner @gameboy-duration linear);
-  .animation(select-inner @gameboy-duration linear);
+  box-shadow: @start-select-button-box-shadow 0 @darkgray;
+  .animation(start-select-button @gameboy-duration linear);
 }
 
 /////
