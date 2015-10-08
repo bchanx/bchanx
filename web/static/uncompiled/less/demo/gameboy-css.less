@@ -360,33 +360,34 @@
   z-index: @chip-z;
   background-color: @chip-color;
   position: absolute;
-  right: 35px;
 }
 
 /////
 
-@chip-large-width: 30px;
-.keyframes(chip-large, {
+@chip-tall-width: 30px;
+@chip-tall-right: 35px;
+.keyframes(chip-tall, {
   0% { width: 0; height: @motherboard-height; right: 35px;}
   6.5% { width: 0; }
-  8.5% { width: @chip-large-width; }
+  8.5% { width: @chip-tall-width; }
 });
-.keyframes(chip-large-before, {
+.keyframes(chip-tall-before, {
   0% { height: 0; }
   10% { height: 0; }
   11.5% { height: 100%; }
 });
-.keyframes(chip-large-after, {
+.keyframes(chip-tall-after, {
   0% { height: 0; }
   11.5% { height: 0; }
   13% { height: 100%; }
 });
 
-#chip-large {
-  width: @chip-large-width;
+#chip-tall {
+  width: @chip-tall-width;
   height: @motherboard-height;
   top: @motherboard-top;
-  .animation(chip-large @gameboy-duration linear);
+  right: @chip-tall-right;
+  .animation(chip-tall @gameboy-duration linear);
   &::before {
     content: "";
     position: absolute;
@@ -395,7 +396,7 @@
     width: 4px;
     height: 100%;
     background-color: shade(@chip-color, 20%);
-    .animation(chip-large-before @gameboy-duration linear);
+    .animation(chip-tall-before @gameboy-duration linear);
   }
   &::after {
     content: "";
@@ -405,46 +406,94 @@
     width: 4px;
     height: 100%;
     background-color: shade(@chip-color, 20%);
-    .animation(chip-large-after @gameboy-duration linear);
+    .animation(chip-tall-after @gameboy-duration linear);
   }
 }
 
 /////
 
-@chip-medium-width: 80px;
-@chip-medium-height: 200px;
-@chip-medium-height-final: 140px;
-.keyframes(chip-medium, {
-  0% { width: 0; height: @chip-medium-height; right: 35px; }
+@chip-short-width: 80px;
+@chip-short-height: 200px;
+@chip-short-height-final: 140px;
+.keyframes(chip-short, {
+  0% { width: 0; height: @chip-short-height; right: 35px; }
   6.5% { width: 0; }
-  8.5% { width: @chip-large-width; height: @chip-medium-height; }
-  10.5% { width: @chip-medium-width; height: @chip-medium-height-final; }
+  8.5% { width: @chip-tall-width; height: @chip-short-height; }
+  10.5% { width: @chip-short-width; height: @chip-short-height-final; }
 });
+.chip-details(@name, @x, @y) {
+  .keyframes(@name, {
+    0% { background-color: transparent; box-shadow: @x @y transparent; }
+    18% { background-color: transparent; }
+    20% { box-shadow: @x @y transparent; }
+    24% { background-color: @gray; }
+    26% { box-shadow: @x @y @gray; }
+  });
+}
+.chip-details(chip-details, 6px, 0);
+.chip-details(chip-details-diagonal, 5px, 4px);
 
-#chip-medium {
-  width: @chip-medium-width;
-  height: @chip-medium-height-final;
+#chip-short {
+  width: @chip-short-width;
+  height: @chip-short-height-final;
   top: @motherboard-top;
-  .animation(chip-medium @gameboy-duration linear);
+  right: @chip-tall-right;
+  .animation(chip-short @gameboy-duration linear);
+  &::before {
+    content: "";
+    width: 2px;
+    height: 201px;
+    top: 199px;
+    background-color: @gray;
+    position: absolute;
+    left: -14px + (@chip-short-width - @chip-tall-width);
+    box-shadow: 6px 0 @gray;
+    .animation(chip-details @gameboy-duration linear);
+  }
+  &::after {
+    content: "";
+    width: 2px;
+    height: 100%;
+    background-color: @gray;
+    position: absolute;
+    left: -14px;
+    box-shadow: 6px 0 @gray;
+    .animation(chip-details @gameboy-duration linear);
+  }
 }
 
 /////
 
-.keyframes(chip-triangle, {
-  0% { border-top-width: 0; border-left-width: 0px; top: @motherboard-top + @chip-medium-height; }
-  6.5% { border-top-width: 0; border-left-width: 0px; top: @motherboard-top + @chip-medium-height; }
-  8.5% { border-top-width: 36px; border-left-width: 30px; top: @motherboard-top + @chip-medium-height; }
-  10.5% { border-top-width: 96px; border-left-width: 80px; top: @motherboard-top + @chip-medium-height-final; }
+@chip-diagonal-width: 50px;
+@chip-diagonal-height: 78px;
+@chip-diagonal-bottom: 295px;
+@chip-diagonal-left: 275px;
+.keyframes(chip-diagonal, {
+  0% { width: 0; height: 0; }
+  8.5% { width: 0; height: 0; }
+  10.5% { width: @chip-diagonal-width; height: @chip-diagonal-height; }
 });
 
-#chip-triangle {
-  width: 0;
-  height: 0;
-  top: @motherboard-top + @chip-medium-height-final;
-  background-color: transparent;
-  border-top: 96px @chip-color solid;
-  border-left: 80px transparent solid;
-  .animation(chip-triangle @gameboy-duration linear);
+#chip-diagonal {
+  width: @chip-diagonal-width;
+  height: @chip-diagonal-height;
+  left: @chip-diagonal-left;
+  bottom: @chip-diagonal-bottom;
+  border-bottom-right-radius: 100% 100%;
+  .transform-origin(0 100%);
+  .transform(rotateZ(-40deg));
+  .animation(chip-diagonal @gameboy-duration linear);
+  &::before {
+    content: "";
+    width: 2px;
+    height: 100%;
+    background-color: @gray;
+    position: absolute;
+    left: -11px;
+    top: -9px;
+    box-shadow: 5px 4px @gray;
+    .animation(chip-details-diagonal @gameboy-duration linear);
+  }
 }
 
 /////
@@ -1278,8 +1327,6 @@
   bottom: @control-a-bottom;
   .animation(control-a @gameboy-duration linear);
 }
-
-
 
 /////
 
