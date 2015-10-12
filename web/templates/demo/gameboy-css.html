@@ -8,61 +8,72 @@
 {% endblock %}
 
 {% block body %}
-<div id="title">Animated Gameboy in CSS</div>
-<div id="links">
-  <a href="/gameboy-css">Read blog</a>
-  <div class="or">or</div>
-  <a href="/gameboy-css">Checkout the code</a>
-</div>
-<div id="gameboy">
-  <div id="canvas"></div>
-  <div id="border"></div>
-  <div id="border-top"></div>
-  <div id="border-left"></div>
-  <div id="border-bottom"></div>
-  <div id="border-right"></div>
-  <div id="screw-small-right" class="screw small"></div>
-  <div id="screw-small-left" class="screw small"></div>
-  <div id="screw-large-right" class="screw large"></div>
-  <div id="screw-large-left" class="screw large"></div>
-  <div id="backboard"></div>
-  <div id="motherboard"></div>
-  <div id="motherboard-capacitors" class="capacitors"></div>
-  <div id="chip-short" class="chip"></div>
-  <div id="chip-diagonal" class="chip"></div>
-  <div id="chip-tall" class="chip"></div>
-  <div id="chip-capacitors" class="capacitors"></div>
-  <div id="contrast-knob"></div>
-  <div id="link-port"></div>
-  <div id="circuit-bottom" class="circuit"></div>
-  <div id="circuit-top" class="circuit"></div>
-  <div id="transistors"></div>
-  <div id="processor"></div>
-  <div id="component"></div>
-  <div id="controller"></div>
-  <div id="speaker"></div>
-  <div id="whitescreen"></div>
-  <div id="glass"></div>
-  <div id="glass-gameboy-text">GAME BOY</div>
-  <div id="glass-color-text">C</div>
-  <div id="screen"></div>
-  <div id="screen-gameboy-text">GAME BOY</div>
-  <div id="screen-nintendo-text">Nintendo</div>
-  <div id="joystick-pad"></div>
-  <div id="joystick-left" class="joystick"></div>
-  <div id="joystick-right" class="joystick"></div>
-  <div id="joystick-top" class="joystick"></div>
-  <div id="joystick-bottom" class="joystick"></div>
-  <div id="control"></div>
-  <div id="control-b" class="control-button">B</div>
-  <div id="control-a" class="control-button">A</div>
-  <div id="start-select-box"></div>
-  <div id="start-select-button"></div>
-  <div id="cover-vertical"></div>
-  <div id="cover-horizontal"></div>
-  <div id="gloss"></div>
-  <div id="speaker-holes"></div>
-  <div id="power"></div>
+<div id="container">
+  <div id="title">Animated Gameboy in CSS</div>
+  <div id="links">
+    <a href="/gameboy-css">Read blog</a>
+    <div class="or">or</div>
+    <a href="/gameboy-css">Checkout the code</a>
+  </div>
+  <div id="gameboy" class="transparent">
+    <div id="canvas"></div>
+    <div id="border"></div>
+    <div id="border-top"></div>
+    <div id="border-left"></div>
+    <div id="border-bottom"></div>
+    <div id="border-right"></div>
+    <div id="screw-small-right" class="screw small"></div>
+    <div id="screw-small-left" class="screw small"></div>
+    <div id="screw-large-right" class="screw large"></div>
+    <div id="screw-large-left" class="screw large"></div>
+    <div id="backboard"></div>
+    <div id="motherboard"></div>
+    <div id="motherboard-capacitors" class="capacitors"></div>
+    <div id="chip-short" class="chip"></div>
+    <div id="chip-diagonal" class="chip"></div>
+    <div id="chip-tall" class="chip"></div>
+    <div id="chip-capacitors" class="capacitors"></div>
+    <div id="contrast-knob"></div>
+    <div id="link-port"></div>
+    <div id="circuit-bottom" class="circuit"></div>
+    <div id="circuit-top" class="circuit"></div>
+    <div id="transistors"></div>
+    <div id="processor"></div>
+    <div id="component"></div>
+    <div id="controller"></div>
+    <div id="speaker"></div>
+    <div id="whitescreen"></div>
+    <div id="glass"></div>
+    <div id="glass-gameboy-text">GAME BOY</div>
+    <div id="glass-color-text">C</div>
+    <div id="screen"></div>
+    <div id="screen-gameboy-text">GAME BOY</div>
+    <div id="screen-nintendo-text">Nintendo</div>
+    <div id="joystick-pad"></div>
+    <div id="joystick-left" class="joystick"></div>
+    <div id="joystick-right" class="joystick"></div>
+    <div id="joystick-top" class="joystick"></div>
+    <div id="joystick-bottom" class="joystick"></div>
+    <div id="control"></div>
+    <div id="control-b" class="control-button">B</div>
+    <div id="control-a" class="control-button">A</div>
+    <div id="start-select-box"></div>
+    <div id="start-select-button"></div>
+    <div id="cover-vertical"></div>
+    <div id="cover-horizontal"></div>
+    <div id="gloss"></div>
+    <div id="speaker-holes"></div>
+    <div id="power"></div>
+  </div>
+  <div id="colors">
+    <span>Colors:</span>
+    <div class="color-selection" data-color="red"></div>
+    <div class="color-selection" data-color="purple"></div>
+    <div class="color-selection" data-color="green"></div>
+    <div class="color-selection" data-color="yellow"></div>
+    <div class="color-selection" data-color="teal"></div>
+    <div class="color-selection" data-color="transparent"></div>
+  </div>
 </div>
 {% endblock %}
 

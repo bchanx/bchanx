@@ -18,14 +18,16 @@
 @lightgreen: #5cd17d;
 @green: #4ca879;
 @darkgreen: #308d58;
-@red: #f07365;
 
-@gameboy-yellow: #f9e52e;
 @gameboy-red: #ff0151;
-@gameboy-purple: #7942ba;
-@gameboy-green: #aedf19;
-@gameboy-lightblue: #01b4dd;
-@gameboy-blue: #2549a1;
+@gameboy-purple: #5151dd;
+@gameboy-green: #85e367;
+@gameboy-yellow: #f9e52e;
+@gameboy-teal: #01b4dd;
+@gameboy-transparent: rgba(140, 140, 140, 0.15);
+
+@gameboy-colors: red, purple, green, yellow, teal, transparent;
+@gameboy-gloss-tints: 10%, 5%, 15%, 20%, 10%, 20%;
 
 ///// RESET
 
@@ -49,7 +51,7 @@ body {
 
 @gameboy-width: 340px;
 @gameboy-height: 570px;
-@gameboy-color: rgba(195, 146, 240, 0.3);
+@gameboy-color: @gameboy-green;
 @gameboy-duration: 6.15s infinite;
 @gameboy-border-radius: ~"15px 15px 170px 170px / 15px 15px 35px 35px";
 
@@ -80,7 +82,9 @@ body {
       box-shadow: 0 0 0 2px @black;
     }
     #cover-vertical,
-    #cover-horizontal,
+    #cover-horizontal {
+      opacity: 0.1;
+    }
     #gloss {
       opacity: 0.2;
     }
@@ -1054,7 +1058,7 @@ body {
   0% { color: transparent; border-color: transparent; }
   43.5% { border-color: transparent; }
   44% { color: transparent; border-color: @gameboy-yellow; }
-  44.5% { color: @gameboy-blue; }
+  44.5% { color: @gameboy-teal; }
 });
 
 #glass-color-text {
@@ -1089,7 +1093,7 @@ body {
     top: 5px;
     line-height: 5px;
     text-indent: 10px;
-    color: @gameboy-blue;
+    color: @gameboy-teal;
     border: 4px @gameboy-yellow solid;
     border-radius: 50%;
     width: 7px;
@@ -1145,11 +1149,11 @@ body {
   66.5% { color: @gameboy-yellow; }
   67% { color: @gameboy-red; }
   69.5% { color: @gameboy-red; }
-  70% { color: @gameboy-purple; }
-  72.5% { color: @gameboy-purple; }
+  70% { color: screen(@gameboy-red, @gameboy-purple); }
+  72.5% { color: screen(@gameboy-red, @gameboy-purple); }
   73% { color: @gameboy-green; }
   75.5% { color: @gameboy-green; }
-  76% { color: @gameboy-blue; }
+  76% { color: saturate(@gameboy-purple, 30%); }
   78% { background-position: 130px; }
   87% { opacity: 1; }
   92% { opacity: 0; }
@@ -1171,8 +1175,8 @@ body {
   overflow: hidden;
   white-space: nowrap;
   z-index: @screen-gameboy-text-z;
-  color: @gameboy-blue;
-  background: -webkit-linear-gradient(0deg, @gameboy-blue 40%, @gameboy-green 40%, @gameboy-green 45%, @gameboy-purple 45%, @gameboy-purple 50%, @gameboy-red 50%, @gameboy-red 55%, @gameboy-yellow 55%, @gameboy-yellow 60%, @screen-color 60%);
+  color: saturate(@gameboy-purple, 30%);
+  background: -webkit-linear-gradient(0deg, saturate(@gameboy-purple, 30%) 40%, @gameboy-green 40%, @gameboy-green 45%, screen(@gameboy-red, @gameboy-purple) 45%, screen(@gameboy-red, @gameboy-purple) 50%, @gameboy-red 50%, @gameboy-red 55%, @gameboy-yellow 55%, @gameboy-yellow 60%, @screen-color 60%);
   background-position: 130px;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1508,44 +1512,39 @@ body {
 @cover-v-slices: 10; // 10, 17, 20, 34
 @cover-v-width: @canvas-width / @cover-v-slices;
 @cover-v-height: @canvas-height;
-@cover-v-color: @gameboy-color;
-.cover-v-box-shadow(@counter, @current : @counter + 1) when (@counter > 0) {
-  .cover-v-box-shadow(@counter - 1, @current);
+.cover-v-box-shadow(@color, @counter, @current : @counter + 1) when (@counter > 0) {
+  .cover-v-box-shadow(@color, @counter - 1, @current);
   & when (@counter < @current) {
-    box-shadow+: @cover-v-width*@counter 0 @cover-v-color;
+    box-shadow+: @cover-v-width*@counter 0 @color;
   }
   & when (@counter = @current) {
-    box-shadow+: @cover-v-width*@counter @cover-v-height/2 @cover-v-color;
+    box-shadow+: @cover-v-width*@counter @cover-v-height/2 @color;
   }
   & when (@counter > @current) {
-    box-shadow+: @cover-v-width*@counter @cover-v-height @cover-v-color;
+    box-shadow+: @cover-v-width*@counter @cover-v-height @color;
   }
 }
-.cover-v-box-shadow-keyframes(@startPercentage, @endPercentage, @slices, @counter : 0) when (@counter <= @slices) {
+.cover-v-box-shadow-keyframes(@color, @startPercentage, @endPercentage, @slices, @counter : 0) when (@counter <= @slices) {
   @increment: (@endPercentage - @startPercentage) / (@slices + 1);
   @currentPercentage: @startPercentage + @increment * @counter;
   & when (@counter = 0) {
    @{startPercentage} { width: @cover-v-width; height: 0 }
   }
   & when (@counter = 1) {
-    @{currentPercentage} { height: @cover-v-height/2; .cover-v-box-shadow(@slices - 1, 0) }
+    @{currentPercentage} { height: @cover-v-height/2; .cover-v-box-shadow(@color, @slices - 1, 0) }
   }
   & when (@counter = 2) {
-    @{currentPercentage} { height: @cover-v-height; .cover-v-box-shadow(@slices - 1, 1) }
+    @{currentPercentage} { height: @cover-v-height; .cover-v-box-shadow(@color, @slices - 1, 1) }
   }
   & when (@counter > 2) and (@counter < @slices) {
-    @{currentPercentage} { .cover-v-box-shadow(@slices - 1, @counter - 1) }
+    @{currentPercentage} { .cover-v-box-shadow(@color, @slices - 1, @counter - 1) }
   }
   & when (@counter = @slices) {
-    @{currentPercentage} { .cover-v-box-shadow(@slices - 1, @counter - 1) }
-    @{endPercentage} { .cover-v-box-shadow(@slices - 1) } 
+    @{currentPercentage} { .cover-v-box-shadow(@color, @slices - 1, @counter - 1) }
+    @{endPercentage} { .cover-v-box-shadow(@color, @slices - 1) } 
   }
-  .cover-v-box-shadow-keyframes(@startPercentage, @endPercentage, @slices, @counter + 1);
+  .cover-v-box-shadow-keyframes(@color, @startPercentage, @endPercentage, @slices, @counter + 1);
 }
-.keyframes(cover-vertical, {
-  0% { width: 0; height: 0; box-shadow: none; }
-  .cover-v-box-shadow-keyframes(39%, 49%, @cover-v-slices);
-});
 
 #cover-vertical {
   position: absolute;
@@ -1553,9 +1552,25 @@ body {
   width: @cover-v-width;
   height: @cover-v-height;
   bottom: 0;
-  background-color: @cover-v-color;
-  .animation(cover-vertical @gameboy-duration linear);
-  .cover-v-box-shadow(@cover-v-slices - 1);
+}
+
+#gameboy {
+  .-(@i: length(@gameboy-colors)) when (@i > 0) {
+    @name: extract(@gameboy-colors, @i);
+    @color: %("gameboy-%s", @name);
+    .keyframes(~"cover-vertical-@{name}", {
+      0% { width: 0; height: 0; box-shadow: none; }
+      .cover-v-box-shadow-keyframes(@@color, 39%, 49%, @cover-v-slices);
+    });
+    &.@{name} {
+      #cover-vertical {
+        background-color: @@color;
+        .animation(~"cover-vertical-@{name}" @gameboy-duration linear);
+        .cover-v-box-shadow(@@color, @cover-v-slices - 1);
+      }
+    }
+    .-((@i - 1));
+  } .-;
 }
 
 /////
@@ -1563,44 +1578,39 @@ body {
 @cover-h-slices: 15; // 10, 15, 19, 30, 38
 @cover-h-width: @canvas-width;
 @cover-h-height: @canvas-height / @cover-h-slices;
-@cover-h-color: @gameboy-color;
-.cover-h-box-shadow(@counter, @current : @counter + 1) when (@counter > 0) {
-  .cover-h-box-shadow(@counter - 1, @current);
+.cover-h-box-shadow(@color, @counter, @current : @counter + 1) when (@counter > 0) {
+  .cover-h-box-shadow(@color, @counter - 1, @current);
   & when (@counter < @current) {
-    box-shadow+: 0 -@cover-h-height*@counter @cover-h-color;
+    box-shadow+: 0 -@cover-h-height*@counter @color;
   }
   & when (@counter = @current) {
-    box-shadow+: -@cover-h-width/2 -@cover-h-height*@counter @cover-h-color;
+    box-shadow+: -@cover-h-width/2 -@cover-h-height*@counter @color;
   }
   & when (@counter > @current) {
-    box-shadow+: -@cover-h-width -@cover-h-height*@counter @cover-h-color;
+    box-shadow+: -@cover-h-width -@cover-h-height*@counter @color;
   }
 }
-.cover-h-box-shadow-keyframes(@startPercentage, @endPercentage, @slices, @counter : 0) when (@counter <= @slices) {
+.cover-h-box-shadow-keyframes(@color, @startPercentage, @endPercentage, @slices, @counter : 0) when (@counter <= @slices) {
   @increment: (@endPercentage - @startPercentage) / (@slices + 1);
   @currentPercentage: @startPercentage + @increment * @counter;
   & when (@counter = 0) {
     @{currentPercentage} { width: 0; height: @cover-h-height; }
   }
   & when (@counter = 1) {
-    @{currentPercentage} { width: @cover-h-width/2; .cover-h-box-shadow(@slices - 1, 0) }
+    @{currentPercentage} { width: @cover-h-width/2; .cover-h-box-shadow(@color, @slices - 1, 0) }
   }
   & when (@counter = 2) {
-    @{currentPercentage} { width: @cover-h-width; .cover-h-box-shadow(@slices - 1, 1) }
+    @{currentPercentage} { width: @cover-h-width; .cover-h-box-shadow(@color, @slices - 1, 1) }
   }
   & when (@counter > 2) and (@counter < @slices) {
-    @{currentPercentage} { .cover-h-box-shadow(@slices - 1, @counter - 1) }
+    @{currentPercentage} { .cover-h-box-shadow(@color, @slices - 1, @counter - 1) }
   }
   & when (@counter = @slices) {
-    @{currentPercentage} { .cover-h-box-shadow(@slices - 1, @counter - 1) } 
-    @{endPercentage} { .cover-h-box-shadow(@slices - 1) } 
+    @{currentPercentage} { .cover-h-box-shadow(@color, @slices - 1, @counter - 1) } 
+    @{endPercentage} { .cover-h-box-shadow(@color, @slices - 1) } 
   }
-  .cover-h-box-shadow-keyframes(@startPercentage, @endPercentage, @slices, @counter + 1);
+  .cover-h-box-shadow-keyframes(@color, @startPercentage, @endPercentage, @slices, @counter + 1);
 }
-.keyframes(cover-horizontal, {
-  0% { width: 0; height: 0; box-shadow: none; }
-  .cover-h-box-shadow-keyframes(39%, 49%, @cover-h-slices);
-});
 
 #cover-horizontal {
   position: absolute;
@@ -1609,9 +1619,25 @@ body {
   height: @cover-h-height;
   bottom: 0;
   left: 0;
-  background-color: @cover-h-color;
-  .animation(cover-horizontal @gameboy-duration linear);
-  .cover-h-box-shadow(@cover-h-slices - 1);
+}
+
+#gameboy {
+  .-(@i: length(@gameboy-colors)) when (@i > 0) {
+    @name: extract(@gameboy-colors, @i);
+    @color: %("gameboy-%s", @name);
+    .keyframes(~"cover-horizontal-@{name}", {
+      0% { width: 0; height: 0; box-shadow: none; }
+      .cover-h-box-shadow-keyframes(@@color, 39%, 49%, @cover-h-slices);
+    });
+    &.@{name} {
+      #cover-horizontal {
+        background-color: @@color;
+        .animation(~"cover-horizontal-@{name}" @gameboy-duration linear);
+        .cover-h-box-shadow(@@color, @cover-h-slices - 1);
+      }
+    }
+    .-((@i - 1));
+  } .-;
 }
 
 /////
@@ -1621,7 +1647,6 @@ body {
 @gloss-z: @cover-z;
 @gloss-top: 275px;
 @gloss-left: 54px;
-@gloss-color: tint(@gameboy-color, 15%);
 .keyframes(gloss, {
   0% { width: 0; height: 0; left: @gloss-left + @gloss-width/2; }
   46% { width: 0; height: 0; left: @gloss-left + @gloss-width/2; }
@@ -1634,10 +1659,22 @@ body {
   height: @gloss-height;
   top: @gloss-top;
   left: @gloss-left;
-  background-color: @gloss-color;
   border-bottom-left-radius: @gloss-width/2 20px;
   border-bottom-right-radius: @gloss-width/2 20px;
   .animation(gloss @gameboy-duration linear);
+}
+
+#gameboy {
+  .-(@i: length(@gameboy-colors)) when (@i > 0) {
+    @name: extract(@gameboy-colors, @i);
+    @color: %("gameboy-%s", @name);
+    &.@{name} {
+      #gloss {
+        background-color: tint(@@color, extract(@gameboy-gloss-tints, @i));
+      }
+    }
+    .-((@i - 1));
+  } .-;
 }
 
 /////
@@ -1700,7 +1737,7 @@ body {
   39% { .power-box-shadow(@black); }
   40% { .power-box-shadow(@lightergray); }
   54% { background-color: @darkgray; }
-  55% { background-color: @red; }
+  55% { background-color: @gameboy-red; }
 });
 
 #power {
@@ -1749,14 +1786,14 @@ body {
   position: absolute;
   font-size: 26px;
   left: 110px;
-  top: 70px;
+  top: 30px;
 }
 
 #links {
   position: absolute;
   font-size: 16px;
   right: 90px;
-  top: 545px;
+  top: 505px;
   a {
     font-size: 26px;
   }
@@ -1767,3 +1804,57 @@ body {
   }
 }
 
+#container {
+  width: 100%;
+  height: 634px;
+  margin: 40px 0;
+  position: relative;
+}
+
+#colors {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  margin: 0 auto;
+  text-align: center;
+  span {
+    vertical-align: top;
+  }
+  .color-selection {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-left: 5px;
+    border-radius: 3px;
+    &.active,
+    &:hover {
+      opacity: 1 !important;
+    }
+    &[data-color="transparent"] {
+      border: 1px @lightgray dotted;
+      opacity: 0.4;
+      background: @gameboy-transparent;
+    }
+    &[data-color="red"] {
+      opacity: 0.1;
+      background: @gameboy-red;
+    }
+    &[data-color="purple"] {
+      opacity: 0.1;
+      background: @gameboy-purple;
+    }
+    &[data-color="green"] {
+      opacity: 0.2;
+      background: @gameboy-green;
+    }
+    &[data-color="yellow"] {
+      opacity: 0.3;
+      background: @gameboy-yellow;
+    }
+    &[data-color="teal"] {
+      opacity: 0.15;
+      background: @gameboy-teal;
+    }
+  }
+}
