@@ -214,23 +214,23 @@ html {
   display: none;
   width: @width;
   #playlists {
-    border: 1px @lightgray dotted;
+    border: 1px @whitegray dotted;
     background: @background;
     width: @width;
     padding: 15px 0;
-    color: @lightgray;
+    color: @whitegray;
     li {
       height: 25px;
       line-height: 25px;
       padding: 0 20px;
       cursor: pointer;
-      color: @lightgray;
+      color: @whitegray;
       &:hover {
         background-color: @gray;
       }
       &.playlist-playing {
         font-weight: 700;
-        color: @green !important;
+        color: @lightgreen !important;
       }
     }
   }
@@ -241,7 +241,7 @@ html {
   width: @width;
   #about {
     text-align: center;
-    border: 1px @lightgray dotted;
+    border: 1px @whitegray dotted;
     background: @background;
     width: @width;
     padding: 15px 0;
@@ -268,8 +268,8 @@ html {
       visibility: visible;
       line-height: @height;
       text-align: center;
-      color: @lightgray;
-      border: 1px dotted @lightgray;
+      color: @whitegray;
+      border: 1px dotted @whitegray;
       background: @background;
     }
   }
@@ -294,7 +294,7 @@ html {
         vertical-align: top;
         cursor: pointer;
         border: 1px @gray solid;
-        color: @lightgray;
+        color: @whitegray;
         display: inline-block;
         height: 36px;
         line-height: 36px;
@@ -307,7 +307,7 @@ html {
         &.on {
           &:after {
             font-size: 12px;
-            color: @green;
+            color: @lightgreen;
             content: " (on)";
           }
         }
@@ -324,7 +324,7 @@ html {
         &.show {
           &:after {
             font-size: 12px;
-            color: @green;
+            color: @lightgreen;
             content: " (show)";
           }
         }
@@ -351,7 +351,7 @@ html {
       }
       #video-title {
         font-weight: 700;
-        color: @green;
+        color: @lightgreen;
         padding: 0 10px 0 20px;
         text-align: left;
         width: @width * 0.84 - 3;
@@ -380,12 +380,12 @@ html {
           }
           &.playing .track {
             font-weight: 700;
-            color: @green !important;
+            color: @lightgreen !important;
           }
         }
         tr {
           border: 1px solid @gray;
-          color: @lightgray;
+          color: @whitegray;
           th, td {
             white-space: nowrap;
             overflow: hidden;
@@ -413,7 +413,7 @@ html {
       border: 1px @gray solid;
       width: @width;
       padding: 10px;
-      color: @lightgray;
+      color: @whitegray;
     }
   }
 }

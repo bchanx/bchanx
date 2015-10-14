@@ -34,15 +34,31 @@
         border-color: @black;
       }
       &:hover {
-        background-color: @green;
+        background-color: @lightgreen;
         div[class*=-none] {
-          background-color: @green;
+          background-color: @lightgreen;
         }
         div[class*=-spots] {
-          border-color: @green;
+          border-color: @lightgreen;
         }
       }
     }
   }
 }
 
+#footer-icons {
+  text-align: center;
+  a,
+  a:link,
+  a:visited,
+  a:hover,
+  a:active,
+  a:focus {
+    color: @black;
+    font-size: 26px;
+    margin: 0 5px;
+    &:hover {
+      color: @lightgreen;
+    }
+  }
+}

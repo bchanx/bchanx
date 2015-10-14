@@ -1,79 +1,106 @@
 {% extends "base.html" %}
-{% import 'logo.html' as logo %}
 {% import "header.html" as header %}
 {% import "footer.html" as footer %}
+{% import "social.html" as social %}
 
 {% block head %}
-  {{ header.meta("bchanx", responsive="true") }}
+  {{ header.meta(title="Animated Gameboy in CSS", url="http://www.bchanx.com/animated-gameboy-in-css", responsive="true", notscalable="true") }}
+  <meta property="og:url" content="http://www.bchanx.com/animated-gameboy-in-css"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Animated Gameboy in CSS"/>
+  <meta property="og:description" content="Hover or tap for a behind-the-scenes reveal."/>
+  <meta property="og:image" content="http://bchanx.com/static/images/animated-gameboy-in-css.png"/>
 {% endblock %}
 
 {% block body %}
-<div id="container">
-  <div id="title">Animated Gameboy in CSS</div>
-  <div id="links">
-    <a href="/gameboy-css">Read blog</a>
-    <div class="or">or</div>
-    <a href="/gameboy-css">Checkout the code</a>
+  <div id="container">
+    <div id="title">
+      <div>Animated Gameboy in CSS</div>
+      <div class="small">(Tested in Chrome 45+, Firefox 41+, Safari 8+)</div>
+    </div>
+    <div id="main">
+      <div id="gameboy" class="green">
+        <div id="canvas"></div>
+        <div id="border"></div>
+        <div id="border-top"></div>
+        <div id="border-left"></div>
+        <div id="border-bottom"></div>
+        <div id="border-right"></div>
+        <div id="screw-small-right" class="screw small"></div>
+        <div id="screw-small-left" class="screw small"></div>
+        <div id="screw-large-right" class="screw large"></div>
+        <div id="screw-large-left" class="screw large"></div>
+        <div id="backboard"></div>
+        <div id="motherboard"></div>
+        <div id="motherboard-capacitors" class="capacitors"></div>
+        <div id="chip-short" class="chip"></div>
+        <div id="chip-diagonal" class="chip"></div>
+        <div id="chip-tall" class="chip"></div>
+        <div id="chip-capacitors" class="capacitors"></div>
+        <div id="contrast-knob"></div>
+        <div id="link-port"></div>
+        <div id="circuit-bottom" class="circuit"></div>
+        <div id="circuit-top" class="circuit"></div>
+        <div id="transistors"></div>
+        <div id="processor"></div>
+        <div id="component"></div>
+        <div id="controller"></div>
+        <div id="speaker"></div>
+        <div id="whitescreen"></div>
+        <div id="glass"></div>
+        <div id="glass-gameboy-text">GAME BOY</div>
+        <div id="glass-color-text">C</div>
+        <div id="screen"></div>
+        <div id="screen-gameboy-text">GAME BOY</div>
+        <div id="screen-nintendo-text">Nintendo</div>
+        <div id="joystick-pad"></div>
+        <div id="joystick-left" class="joystick"></div>
+        <div id="joystick-right" class="joystick"></div>
+        <div id="joystick-top" class="joystick"></div>
+        <div id="joystick-bottom" class="joystick"></div>
+        <div id="control"></div>
+        <div id="control-b" class="control-button">B</div>
+        <div id="control-a" class="control-button">A</div>
+        <div id="start-select-box"></div>
+        <div id="start-select-button"></div>
+        <div id="cover-vertical"></div>
+        <div id="cover-horizontal"></div>
+        <div id="gloss"></div>
+        <div id="speaker-holes"></div>
+        <div id="power"></div>
+      </div>
+      <div id="colors">
+        <span>Colors:</span>
+        <div class="color" data-color="red"></div>
+        <div class="color" data-color="purple"></div>
+        <div class="color" data-color="green"></div>
+        <div class="color" data-color="yellow"></div>
+        <div class="color" data-color="teal"></div>
+        <div class="color" data-color="transparent"></div>
+      </div>
+    </div>
+    <div id="links">
+      <div class="content">
+        <div class="link">
+          <a href="/animated-gameboy-in-css-blog">Read blog</a>
+        </div>
+        <div class="link or">or</div>
+        <div class="link">
+          <a href="https://github.com/bchanx/animated-gameboy-in-css">Checkout the code</a>
+        </div>
+        <div id="social">
+          <div class="fb">{{ social.facebook("http://www.bchanx.com/animated-gameboy-in-css") }}</div>
+          <div class="twtr">{{ social.twitter(size="small") }}</div>
+          <div class="gthb">{{ social.github("bchanx", "animated-gameboy-in-css", "watch") }}</div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div id="gameboy" class="transparent">
-    <div id="canvas"></div>
-    <div id="border"></div>
-    <div id="border-top"></div>
-    <div id="border-left"></div>
-    <div id="border-bottom"></div>
-    <div id="border-right"></div>
-    <div id="screw-small-right" class="screw small"></div>
-    <div id="screw-small-left" class="screw small"></div>
-    <div id="screw-large-right" class="screw large"></div>
-    <div id="screw-large-left" class="screw large"></div>
-    <div id="backboard"></div>
-    <div id="motherboard"></div>
-    <div id="motherboard-capacitors" class="capacitors"></div>
-    <div id="chip-short" class="chip"></div>
-    <div id="chip-diagonal" class="chip"></div>
-    <div id="chip-tall" class="chip"></div>
-    <div id="chip-capacitors" class="capacitors"></div>
-    <div id="contrast-knob"></div>
-    <div id="link-port"></div>
-    <div id="circuit-bottom" class="circuit"></div>
-    <div id="circuit-top" class="circuit"></div>
-    <div id="transistors"></div>
-    <div id="processor"></div>
-    <div id="component"></div>
-    <div id="controller"></div>
-    <div id="speaker"></div>
-    <div id="whitescreen"></div>
-    <div id="glass"></div>
-    <div id="glass-gameboy-text">GAME BOY</div>
-    <div id="glass-color-text">C</div>
-    <div id="screen"></div>
-    <div id="screen-gameboy-text">GAME BOY</div>
-    <div id="screen-nintendo-text">Nintendo</div>
-    <div id="joystick-pad"></div>
-    <div id="joystick-left" class="joystick"></div>
-    <div id="joystick-right" class="joystick"></div>
-    <div id="joystick-top" class="joystick"></div>
-    <div id="joystick-bottom" class="joystick"></div>
-    <div id="control"></div>
-    <div id="control-b" class="control-button">B</div>
-    <div id="control-a" class="control-button">A</div>
-    <div id="start-select-box"></div>
-    <div id="start-select-button"></div>
-    <div id="cover-vertical"></div>
-    <div id="cover-horizontal"></div>
-    <div id="gloss"></div>
-    <div id="speaker-holes"></div>
-    <div id="power"></div>
-  </div>
-  <div id="colors">
-    <span>Colors:</span>
-    <div class="color-selection" data-color="red"></div>
-    <div class="color-selection" data-color="purple"></div>
-    <div class="color-selection" data-color="green"></div>
-    <div class="color-selection" data-color="yellow"></div>
-    <div class="color-selection" data-color="teal"></div>
-    <div class="color-selection" data-color="transparent"></div>
-  </div>
-</div>
+  <div id="comments">{{ social.disqus("animated-gameboy-in-css", "Animated Gameboy in  CSS", "http://   www.bchanx.com/animated-gameboy-in-css") }}</div>
+  <div id="love">Built with love.</div>
+{% endblock %}
+
+{% block footer %}
+  {{ footer.blog() }}
 {% endblock %}
 

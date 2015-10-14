@@ -15,3 +15,7 @@ def logosInPureCSS():
 @app.route('/logos-in-pure-css/')
 def logosInPureCSS2():
   return redirect(url_for('logosInPureCSS'))
+
+@app.route('/animated-gameboy-in-css-blog')
+def gameboyCSSBlog():
+  return render('blog/animated-gameboy-in-css-blog.html', css='gameboy-blog.less')

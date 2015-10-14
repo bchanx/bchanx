@@ -3,8 +3,12 @@
 
 {% macro meta(title="bchanx", url="", responsive="", notscalable="") -%}
   <title>{{ title }}</title>
-  {% if url %}<link rel="canonical" href="{{ url }}"/>{% endif %}
-  {% if responsive %}<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable={% if notscalable %}no{% else %}yes{% endif %}">{% endif %}
+  {% if url %}
+  <link rel="canonical" href="{{ url }}"/>
+  {% endif %}
+  {% if responsive %}
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable={% if notscalable %}no{% else %}yes{% endif %}">
+  {% endif %}
 {%- endmacro %}
 
 {% macro render(name) -%}

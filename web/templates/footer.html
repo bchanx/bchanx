@@ -14,10 +14,19 @@
 </div>
 {%- endmacro %}
 
+{% macro icons() -%}
+<div id="footer-icons">
+  <a href="https://www.twitter.com/bchanx" class="ion ion-social-twitter"></a>
+  <a href="https://www.instagram.com/bchanx" class="ion ion-social-instagram"></a>
+  <a href="https://www.github.com/bchanx" class="ion ion-social-github"></a>
+  <a href="https://www.linkedin.com/bchanx" class="ion ion-social-linkedin"></a>
+</div>
+{%- endmacro %}
+
 {% macro blog() -%}
 <div id="blog-footer-container">
-  {{ links() }}
-  <div id="footer-copyright">&copy; 2013-2014 <a href="/">Brian Chan</a></div>
+  {{ icons() }}
+  <div id="footer-copyright">&copy; 2015 <a href="/">bchanx</a></div>
 </div>
 {%- endmacro %}
 
