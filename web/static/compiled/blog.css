@@ -2983,17 +2983,38 @@ hr {
 #footer-links .icon .logo-twitter-small:hover,
 #footer-links .icon .logo-github-small:hover,
 #footer-links .icon .logo-linkedin-small:hover {
-  background-color: #5CD17D;
+  background-color: #5cd17d;
 }
 #footer-links .icon .logo-twitter-small:hover div[class*=-none],
 #footer-links .icon .logo-github-small:hover div[class*=-none],
 #footer-links .icon .logo-linkedin-small:hover div[class*=-none] {
-  background-color: #5CD17D;
+  background-color: #5cd17d;
 }
 #footer-links .icon .logo-twitter-small:hover div[class*=-spots],
 #footer-links .icon .logo-github-small:hover div[class*=-spots],
 #footer-links .icon .logo-linkedin-small:hover div[class*=-spots] {
-  border-color: #5CD17D;
+  border-color: #5cd17d;
+}
+#footer-icons {
+  text-align: center;
+}
+#footer-icons a,
+#footer-icons a:link,
+#footer-icons a:visited,
+#footer-icons a:hover,
+#footer-icons a:active,
+#footer-icons a:focus {
+  color: #222222;
+  font-size: 26px;
+  margin: 0 5px;
+}
+#footer-icons a:hover,
+#footer-icons a:link:hover,
+#footer-icons a:visited:hover,
+#footer-icons a:hover:hover,
+#footer-icons a:active:hover,
+#footer-icons a:focus:hover {
+  color: #5cd17d;
 }
 html,
 button,
@@ -3019,12 +3040,12 @@ a:visited,
 a:hover,
 a:active,
 a:focus {
-  color: #5CD17D;
+  color: #5cd17d;
   font-weight: 400;
   text-decoration: none;
 }
 a:hover {
-  color: #369152;
+  color: #308d58;
 }
 .line-break {
   height: 1px;
