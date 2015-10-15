@@ -28,6 +28,23 @@
 </div>
 {%- endmacro %}
 
+{% macro githubStar(user, repo, size="") -%}
+<div class="social-button">
+  <a class="github-button" href="https://github.com/{{ user }}/{{ repo }}" data-icon="octicon-star" {% if size %}data-style="mega" {% endif %}data-count-href="/{{ user }}/{{ repo }}/stargazers" data-count-api="/repos/{{ user }}/{{ repo }}#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star {{ user }}/{{ repo }} on GitHub">Star</a>
+</div>
+{%- endmacro %}
+
+{% macro githubFork(user, repo, size="") -%}
+<div class="social-button">
+  <a class="github-button" href="https://github.com/{{ user }}/{{ repo }}/fork" data-icon="octicon-repo-forked" data-count-href="/{{ user }}/{{ repo }}/network" data-count-api="/repos/{{ user }}/{{ repo }}#forks_count" data-count-aria-label="# forks on GitHub" aria-label="Fork {{ user }}/{{ repo }} on GitHub">Fork</a>
+</div>
+{%- endmacro %}
+
+{% macro githubScript() -%}
+  <!-- Place this tag right after the last button or just before your close body tag. -->
+  <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+{%- endmacro %}
+
 {% macro disqus(id, title, url) -%}
 <div id="disqus_thread"></div>
 <script type="text/javascript">

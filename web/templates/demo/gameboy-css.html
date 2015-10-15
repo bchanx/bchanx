@@ -91,13 +91,14 @@
         <div id="social">
           <div class="fb">{{ social.facebook("http://www.bchanx.com/animated-gameboy-in-css") }}</div>
           <div class="twtr">{{ social.twitter(size="small") }}</div>
-          <div class="gthb">{{ social.github("bchanx", "animated-gameboy-in-css", "watch") }}</div>
+          <div class="gthb">{{ social.githubStar("bchanx", "animated-gameboy-in-css") }}</div>
         </div>
       </div>
     </div>
   </div>
   <div id="comments">{{ social.disqus("animated-gameboy-in-css", "Animated Gameboy in  CSS", "http://   www.bchanx.com/animated-gameboy-in-css") }}</div>
   <div id="love">Built with love.</div>
+  {{ social.githubScript() }}
 {% endblock %}
 
 {% block footer %}
