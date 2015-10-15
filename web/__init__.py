@@ -6,8 +6,10 @@ All Rights Reserved.
 import os
 from flask import Flask, abort, request, send_from_directory
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.compress import Compress
 
 app = Flask(import_name='web')
+Compress(app)
 app.config.from_object('config.Properties')
 db = SQLAlchemy(app)
 
