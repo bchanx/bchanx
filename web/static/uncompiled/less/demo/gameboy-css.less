@@ -23,6 +23,12 @@
   .flex-direction(row);
 }
 
+@media screen and (max-width: 977px) {
+  #social {
+    text-align: left !important;
+  }
+}
+
 @media screen and (max-width: 800px) {
   #container {
     .flex-direction(column);
@@ -62,6 +68,8 @@
   }
   #social {
     margin-top: 40px !important;
+    margin-left: 20px !important;
+    text-align: center !important;
     .fb {
       margin-top: 0 !important;
     }
@@ -74,6 +82,13 @@
   }
   #love {
     font-size: 18px !important;
+  }
+}
+
+@media screen and (max-width: 399px) {
+  #gameboy {
+    margin: -30px -50px -20px !important;
+    .transform(scale(0.8));
   }
 }
 
@@ -128,8 +143,9 @@
 
 #social {
   margin-top: 12px;
-  margin-left: 10px;
+  padding: 0 20px;
   display: block;
+  text-align: center;
   > div {
     display: inline-block;
     vertical-align: top;
@@ -137,6 +153,10 @@
   }
   .fb {
     margin-top: -2px;
+    margin-bottom: 5px;
+  }
+  .social-button {
+    margin-bottom: 5px;
   }
 }
 
