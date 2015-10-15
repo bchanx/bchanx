@@ -23,12 +23,6 @@
   .flex-direction(row);
 }
 
-@media screen and (max-width: 905px) {
-  #social {
-    text-align: left !important;
-  }
-}
-
 @media screen and (max-width: 800px) {
   #container {
     .flex-direction(column);
@@ -45,7 +39,7 @@
     font-size: 22px !important;
     margin-top: 20px !important;
     .small {
-      font-size: 12px !important;
+      font-size: 11px !important;
     }
   }
   #links {
@@ -69,9 +63,6 @@
   #social {
     margin-top: 40px !important;
     text-align: center !important;
-    .fb {
-      margin-top: 0 !important;
-    }
   }
   #gameboy {
     margin: 20px 0 !important;
@@ -126,9 +117,9 @@
     width: 100%;
     .link {
       display: inline-block;
-    }
-    a {
-      font-size: 26px;
+      a {
+        font-size: 26px;
+      }
     }
     .or {
       display: inline-block;
@@ -144,15 +135,19 @@
   margin-top: 12px;
   padding: 0 20px;
   display: block;
+  font-size: 12px;
   text-align: center;
   > div {
     display: inline-block;
     vertical-align: top;
     margin-right: 5px;
   }
+  a {
+    font-size: 14px;
+    line-height: 24px;
+  }
   .fb {
-    margin-top: -2px;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
   }
   .social-button {
     margin-bottom: 5px;
