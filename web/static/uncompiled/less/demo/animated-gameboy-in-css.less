@@ -96,6 +96,9 @@ body {
       }
     }
   }
+  @media screen and (max-width: @gameboy-width + 40px) {
+    .transform(scale(0.8));
+  }
 }
 
 /////
@@ -1073,7 +1076,7 @@ body {
   position: absolute;
   top: @glass-color-text-top;
   left: @glass-color-text-left;
-  font-family: 'Comic Sans', 'Comic Sans MS', cursive;
+  font-family: 'Comic Sans', 'Comic Sans MS', 'Chalkboard', cursive;
   font-size: 23px;
   letter-spacing: -2px;
   font-weight: 700;
@@ -1359,6 +1362,7 @@ body {
   22% { border-width: 6px; box-shadow: 0 0; }
   24% { border-width: 4px; box-shadow: 0 4px; }
   26% { box-shadow: 0 3px }
+  100% { .transform(rotate(-18deg)); }
 });
 
 #control {
@@ -1837,5 +1841,4 @@ body {
     }
   }
 }
-
 

@@ -3136,6 +3136,12 @@ body {
 #gameboy.transparent:hover #gloss {
   opacity: 0.6;
 }
+@media screen and (max-width: 340px + 40px) {
+  #gameboy {
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+}
 @-moz-keyframes canvas {
   0% {
     width: 0;
@@ -8885,7 +8891,7 @@ body {
   position: absolute;
   top: 242px;
   left: 186px;
-  font-family: 'Comic Sans', 'Comic Sans MS', cursive;
+  font-family: 'Comic Sans', 'Comic Sans MS', 'Chalkboard', cursive;
   font-size: 23px;
   letter-spacing: -2px;
   font-weight: 700;
@@ -10225,6 +10231,10 @@ body {
   26% {
     box-shadow: 0 3px;
   }
+  100% {
+    -webkit-transform: rotate(-18deg);
+    transform: rotate(-18deg);
+  }
 }
 @-webkit-keyframes control {
   0% {
@@ -10265,6 +10275,10 @@ body {
   26% {
     box-shadow: 0 3px;
   }
+  100% {
+    -webkit-transform: rotate(-18deg);
+    transform: rotate(-18deg);
+  }
 }
 @keyframes control {
   0% {
@@ -10304,6 +10318,10 @@ body {
   }
   26% {
     box-shadow: 0 3px;
+  }
+  100% {
+    -webkit-transform: rotate(-18deg);
+    transform: rotate(-18deg);
   }
 }
 @-moz-keyframes control {
@@ -10345,6 +10363,10 @@ body {
   26% {
     box-shadow: 0 3px;
   }
+  100% {
+    -webkit-transform: rotate(-18deg);
+    transform: rotate(-18deg);
+  }
 }
 @-webkit-keyframes control {
   0% {
@@ -10385,6 +10407,10 @@ body {
   26% {
     box-shadow: 0 3px;
   }
+  100% {
+    -webkit-transform: rotate(-18deg);
+    transform: rotate(-18deg);
+  }
 }
 @keyframes control {
   0% {
@@ -10424,6 +10450,10 @@ body {
   }
   26% {
     box-shadow: 0 3px;
+  }
+  100% {
+    -webkit-transform: rotate(-18deg);
+    transform: rotate(-18deg);
   }
 }
 #control {
