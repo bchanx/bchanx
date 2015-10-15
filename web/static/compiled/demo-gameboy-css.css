@@ -3136,7 +3136,7 @@ body {
 #gameboy.transparent:hover #gloss {
   opacity: 0.6;
 }
-@media screen and (max-width: 340px + 40px) {
+@media screen and (max-width: 399px) {
   #gameboy {
     -webkit-transform: scale(0.8);
     transform: scale(0.8);
@@ -8891,7 +8891,7 @@ body {
   position: absolute;
   top: 242px;
   left: 186px;
-  font-family: 'Comic Sans', 'Comic Sans MS', 'Chalkboard', cursive;
+  font-family: 'Comic Sans', 'Comic Sans MS', 'ChalkboardSE-Bold', cursive;
   font-size: 23px;
   letter-spacing: -2px;
   font-weight: 700;
@@ -15716,6 +15716,7 @@ body {
 }
 #social {
   margin-top: 12px;
+  margin-left: 10px;
   display: block;
 }
 #social > div {
