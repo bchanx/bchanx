@@ -64,7 +64,7 @@ def jsminify(f):
   tmp = '/tmp/%s' % f.replace('/', '-')
   with open(tmp, 'w') as minify:
     minify.write('\n'.join(['var bchanx = bchanx || {};'] + [JS_MAPPING[js]['content'] for js in jsmapping(f)]))
-  return subprocess.check_output(['java', '-jar', os.path.expanduser('~/bchanx/misc/closure-compiler.jar'), '--js', tmp])
+  return subprocess.check_output(['java', '-jar', os.path.expanduser('~/bchanx/misc/closure-compiler.jar'), '--js', tmp, '--language_in', 'ECMASCRIPT5'])
   os.remove(tmp)
 
 
