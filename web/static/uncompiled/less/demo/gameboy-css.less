@@ -61,6 +61,7 @@
     }
   }
   #social {
+    padding: 0 20px !important;
     margin-top: 40px !important;
     text-align: center !important;
   }
@@ -79,6 +80,22 @@
   #gameboy {
     margin: -30px -50px -20px !important;
     .transform(scale(0.8));
+  }
+  #title {
+    font-size: 18px !important;
+    .small {
+      font-size: 10px !important;
+    }
+  }
+  #colors {
+    font-size: 14px !important;
+  }
+  #links {
+    .content {
+      a {
+        font-size: 18px !important;
+      }
+    }
   }
 }
 
@@ -133,9 +150,9 @@
 
 #social {
   margin-top: 12px;
-  padding: 0 20px;
+  min-height: 38px;
   display: block;
-  font-size: 12px;
+  font-size: 15px;
   text-align: center;
   > div {
     display: inline-block;
@@ -147,7 +164,10 @@
     line-height: 24px;
   }
   .fb {
-    margin-bottom: 4px;
+    .transform(scale(1.35));
+    .transform-origin(100% 0);
+    margin-left: 45px;
+    margin-bottom: 10px;
   }
   .social-button {
     margin-bottom: 5px;

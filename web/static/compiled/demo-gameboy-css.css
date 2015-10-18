@@ -15579,11 +15579,6 @@ body {
   -ms-flex-direction: row;
   flex-direction: row;
 }
-@media screen and (max-width: 905px) {
-  #social {
-    text-align: left !important;
-  }
-}
 @media screen and (max-width: 800px) {
   #container {
     -webkit-flex-direction: column;
@@ -15607,7 +15602,7 @@ body {
     margin-top: 20px !important;
   }
   #title .small {
-    font-size: 12px !important;
+    font-size: 11px !important;
   }
   #links {
     margin: 0 0 40px !important;
@@ -15628,11 +15623,9 @@ body {
     margin: 0 5p !important;
   }
   #social {
+    padding: 0 20px !important;
     margin-top: 40px !important;
     text-align: center !important;
-  }
-  #social .fb {
-    margin-top: 0 !important;
   }
   #gameboy {
     margin: 20px 0 !important;
@@ -15649,6 +15642,18 @@ body {
     margin: -30px -50px -20px !important;
     -webkit-transform: scale(0.8);
     transform: scale(0.8);
+  }
+  #title {
+    font-size: 18px !important;
+  }
+  #title .small {
+    font-size: 10px !important;
+  }
+  #colors {
+    font-size: 14px !important;
+  }
+  #links .content a {
+    font-size: 18px !important;
   }
 }
 #title {
@@ -15711,7 +15716,7 @@ body {
 #links .content .link {
   display: inline-block;
 }
-#links .content a {
+#links .content .link a {
   font-size: 26px;
 }
 #links .content .or {
@@ -15723,8 +15728,9 @@ body {
 }
 #social {
   margin-top: 12px;
-  padding: 0 20px;
+  min-height: 38px;
   display: block;
+  font-size: 15px;
   text-align: center;
 }
 #social > div {
@@ -15732,9 +15738,17 @@ body {
   vertical-align: top;
   margin-right: 5px;
 }
+#social a {
+  font-size: 14px;
+  line-height: 24px;
+}
 #social .fb {
-  margin-top: -2px;
-  margin-bottom: 5px;
+  -webkit-transform: scale(1.35);
+  transform: scale(1.35);
+  -webkit-transform-origin: 100% 0;
+  transform-origin: 100% 0;
+  margin-left: 45px;
+  margin-bottom: 10px;
 }
 #social .social-button {
   margin-bottom: 5px;

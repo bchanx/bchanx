@@ -1,12 +1,115 @@
 {% extends "base.html" %}
 {% import "header.html" as header %}
+{% import "footer.html" as footer %}
+{% import "social.html" as social %}
 
 {% block head %}
   {{ header.meta("Animated Gameboy in CSS", "http://www.bchanx.com/animated-gameboy-in-css", "true") }}
+  <meta property="og:url" content="http://www.bchanx.com/animated-gameboy-in-css"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Animated Gameboy in CSS"/>
+  <meta property="og:description" content="Hover or tap for a behind-the-scenes reveal."/>
+  <meta property="og:image" content="http://www.bchanx.com/static/images/gameboy/animated-gameboy-in-css.png"/>
 {% endblock %}
 
 {% block body %}
+  <div id="container">
+    <div class="title" data-date="October 16th, 2015">Animated Gameboy in CSS</div>
 
-  <a href="/animated-gameboy-in-css">HI!</a>
+    <div class="break"></div>
 
+    <div class="content">
+      <div class="gameboy-gif-small"></div>
+      <br>
+      <a href="/animated-gameboy-in-css">HI!</a>
+      Not sure what to write.
+      <br>
+      <br>
+      Your bones don't break, mine do. That's clear. Your cells react to bacteria and viruses differently than mine. You don't get sick, I do. That's also clear. But for some reason, you and I react the exact same way to water. We swallow it too fast, we choke. We get some in our lungs, we drown. However unreal it may seem, we are connected, you and I. We're on the same curve, just on opposite ends.  
+      <br>
+      <br>
+      Below are five advanced techniques that I've found useful for doodling in CSS.
+    </div>
+
+    <div class="break"></div>
+
+    <div class="title-bar">
+      1. Make use of letters and fonts for shapes and objects
+    </div>
+
+    <div class="content">
+      Fonts provide a range of characters and that we can leverage to create interesting shapes and edges. <span class="code">font-size</span>, <span class="code">text-shadow</span>, and <span class="code">letter-spacing</span> are amongst several animatable properties that can style letters. Together, they can be used to create intricate patterns not possible (or extremely difficult) with regular CSS techniques.
+      <br>
+      <br>
+      The processor chip was created in such manner.
+    </div>
+
+    <div class="break"></div>
+
+    <div class="title-bar">
+      2. Animation text with a linear-gradient <span class="placeholder">(-webkit- only, with fallback)</span>
+    </div>
+
+    <div class="content">
+      There is a...
+      <br>
+      <br>
+      The rolling Gameboy text uses this technique. Here's how it looks on <span class="code">-webkit-</span> browsers:
+      <div class="gameboy-text-webkit"></div>
+      <br>
+      And here's how it looks otherwise with the fallback (on Firefox, etc):
+      <div class="gameboy-text-other"></div>
+    </div>
+
+    <div class="break"></div>
+
+    <div class="title-bar">
+      3. Managing repetition using box-shadows
+    </div>
+  
+    <div class="content">
+      COVER and/or SPEAKERS
+    </div>
+
+    <div class="break"></div>
+
+    <div class="title-bar">
+      4. Thinking outside the box with ::pseudo elements
+    </div>
+
+    <div class="content">
+      gameboy glass COLOR text
+    </div>
+
+    <div class="break"></div>
+
+    <div class="title-bar">
+      5. Rotational symmetry with transform-origin
+    </div>
+
+    <div class="content">
+      All CSS <span class="code">transform</span>'s use <span class="code">transform-origin</span> as the reference point for applying the transformation. By default, this (x, y, z) value is set to <span class="code">50% 50% 0</span>, which is the midpoint of the element in the current <span class="code">z-index</span> plane. This is ideal in most cases when your point of symmetry is dead center of the element (i.e when you're trying to mirror a block of text, or when you're trying to animate a spinner).
+      <br>
+      <br>
+      However, when you're aiming to <b>create</b> rotational symmetry with asymmetric elements, not setting the proper <span class="code">transform-origin</span> will induce a ripple effect and cause your animations to run askew, since everything is animating off the element instead of the desired rotational center.
+      <br>
+      <br>
+      The joystick demonstrates this issue.
+    </div>
+
+    <div class="break"></div>
+
+    <div class="social">
+      <div class="fb">{{ social.facebook("http://www.bchanx.com/animated-gameboy-in-css") }}</div>
+      <div class="twtr">{{ social.twitter(size="large") }}</div>
+      <div class="gthb">{{ social.githubStar("bchanx", "animated-gameboy-in-css", size="large") }}</div>
+      {{ social.githubScript() }}
+    </div>
+
+    <div class="comments">{{ social.disqus("animated-gameboy-in-css", "Animated Gameboy in CSS", "http://www.bchanx.com/animated-gameboy-in-css") }}</div>
+  </div>
+{% endblock %}
+
+{% block footer %}
+  {{ footer.blog() }}
 {% endblock %}
