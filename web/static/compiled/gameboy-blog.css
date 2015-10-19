@@ -3134,6 +3134,14 @@ html {
   width: 40% !important;
   max-width: 300px !important;
 }
+.foreword {
+  font-size: 0.8em;
+  font-style: italic;
+  width: 100%;
+  text-align: center;
+  color: #9d9d9d;
+  margin: 10px 0;
+}
 .title-bar {
   padding: 20px 50px !important;
   background-color: white;
@@ -3182,9 +3190,9 @@ html {
 .highlight {
   padding: 1px 3px;
   font-family: monospace, serif;
-  font-size: 0.8em;
+  font-size: 0.7em;
   line-height: 1.8em;
-  vertical-align: top;
+  vertical-align: middle;
   background-color: #9d9d9d;
   border: 1px #b0b0b0 solid;
   color: #f8f8f8;
@@ -3200,12 +3208,16 @@ b {
   width: 164px;
   height: 52px;
   margin: 0 auto;
+  display: inline-block;
+  vertical-align: middle;
 }
 .gameboy-text-other {
   background: url('/static/images/gameboy/gameboy-text-other.gif') 0 0 no-repeat;
   width: 164px;
   height: 52px;
   margin: 0 auto;
+  display: inline-block;
+  vertical-align: middle;
 }
 .example {
   margin: 40px auto 20px;
@@ -3274,9 +3286,6 @@ b {
   background: inherit;
   border-top: 2px #f0f0f0 solid;
 }
-.example .code pre .tag .value {
-  color: #308d58;
-}
 .example .code .html {
   position: relative;
 }
@@ -3322,6 +3331,12 @@ b {
   background-color: rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
+.linear-gradient-example {
+  padding: 0 5px;
+  color: white;
+  font-weight: 400;
+  background: linear-gradient(to right, #39cccc 10%, #7FDBFF 35%, #0074D9 60%, #001f3f 85%);
+}
 @-moz-keyframes processor {
   0% {
     width: 0;
@@ -3333,7 +3348,7 @@ b {
     width: 0;
     height: 0;
     left: 0;
-    top: -;
+    top: 0;
   }
   28% {
     width: 56px;
@@ -3353,7 +3368,7 @@ b {
     width: 0;
     height: 0;
     left: 0;
-    top: -;
+    top: 0;
   }
   28% {
     width: 56px;
@@ -3373,7 +3388,7 @@ b {
     width: 0;
     height: 0;
     left: 0;
-    top: -;
+    top: 0;
   }
   28% {
     width: 56px;
@@ -3492,4 +3507,172 @@ b {
   top: 50px;
   -webkit-animation: processor-after 3s infinite linear;
   animation: processor-after 3s infinite linear;
+}
+@-moz-keyframes screen-gameboy-text {
+  0% {
+    color: #f9e52e;
+    background-position: -120px;
+    opacity: 0;
+  }
+  11.7% {
+    opacity: 0;
+  }
+  12% {
+    color: #f9e52e;
+    background-position: -120px;
+    opacity: 1;
+  }
+  19.5% {
+    color: #f9e52e;
+  }
+  21% {
+    color: #ff0151;
+  }
+  28.5% {
+    color: #ff0151;
+  }
+  30% {
+    color: #ff52e8;
+  }
+  37.5% {
+    color: #ff52e8;
+  }
+  39% {
+    color: #85e367;
+  }
+  46.5% {
+    color: #85e367;
+  }
+  48% {
+    color: #3232fc;
+  }
+  54% {
+    background-position: 130px;
+  }
+  81% {
+    opacity: 1;
+  }
+  96% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes screen-gameboy-text {
+  0% {
+    color: #f9e52e;
+    background-position: -120px;
+    opacity: 0;
+  }
+  11.7% {
+    opacity: 0;
+  }
+  12% {
+    color: #f9e52e;
+    background-position: -120px;
+    opacity: 1;
+  }
+  19.5% {
+    color: #f9e52e;
+  }
+  21% {
+    color: #ff0151;
+  }
+  28.5% {
+    color: #ff0151;
+  }
+  30% {
+    color: #ff52e8;
+  }
+  37.5% {
+    color: #ff52e8;
+  }
+  39% {
+    color: #85e367;
+  }
+  46.5% {
+    color: #85e367;
+  }
+  48% {
+    color: #3232fc;
+  }
+  54% {
+    background-position: 130px;
+  }
+  81% {
+    opacity: 1;
+  }
+  96% {
+    opacity: 0;
+  }
+}
+@keyframes screen-gameboy-text {
+  0% {
+    color: #f9e52e;
+    background-position: -120px;
+    opacity: 0;
+  }
+  11.7% {
+    opacity: 0;
+  }
+  12% {
+    color: #f9e52e;
+    background-position: -120px;
+    opacity: 1;
+  }
+  19.5% {
+    color: #f9e52e;
+  }
+  21% {
+    color: #ff0151;
+  }
+  28.5% {
+    color: #ff0151;
+  }
+  30% {
+    color: #ff52e8;
+  }
+  37.5% {
+    color: #ff52e8;
+  }
+  39% {
+    color: #85e367;
+  }
+  46.5% {
+    color: #85e367;
+  }
+  48% {
+    color: #3232fc;
+  }
+  54% {
+    background-position: 130px;
+  }
+  81% {
+    opacity: 1;
+  }
+  96% {
+    opacity: 0;
+  }
+}
+#screen-gameboy-text {
+  position: absolute;
+  font-family: 'Asap', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -2px;
+  text-align: center;
+  opacity: 0;
+  width: 500px;
+  left: -250px;
+  top: -22px;
+  -webkit-transform: skew(-5deg);
+  transform: skew(-5deg);
+  overflow: hidden;
+  white-space: nowrap;
+  color: #3232fc;
+  background: -webkit-linear-gradient(0deg, #3232fc 40%, #85e367 40%, #85e367 45%, #ff52e8 45%, #ff52e8 50%, #ff0151 50%, #ff0151 55%, #f9e52e 55%, #f9e52e 60%, #e8e8e8 60%);
+  background-position: 130px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-animation: screen-gameboy-text 3s infinite linear;
+  animation: screen-gameboy-text 3s infinite linear;
 }

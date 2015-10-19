@@ -3,4 +3,4 @@
  * All Rights Reserved.
  */
 
-var bchanx=bchanx||{};console.log("YO...");$(function(){hljs.initHighlightingOnLoad()});
+var bchanx=bchanx||{};$(function(){hljs.initHighlightingOnLoad()});

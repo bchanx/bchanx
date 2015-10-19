@@ -3,6 +3,8 @@
 // All Rights Reserved.
 //
 
+@import url(https://fonts.googleapis.com/css?family=Asap:700italic);
+
 @import 'reset.less';
 @import 'flexbox.less';
 @import 'base.less';
@@ -62,6 +64,15 @@ html {
   max-width: 300px !important;
 }
 
+.foreword {
+  font-size: 0.8em;
+  font-style: italic;
+  width: 100%;
+  text-align: center;
+  color: @lightgray;
+  margin: 10px 0;
+}
+
 .title-bar {
   padding: 20px 50px !important;
   background-color: white;
@@ -112,9 +123,9 @@ html {
 .highlight {
   padding: 1px 3px;
   font-family: monospace, serif;
-  font-size: 0.8em;
+  font-size: 0.7em;
   line-height: 1.8em;
-  vertical-align: top;
+  vertical-align: middle;
   background-color: @lightgray;
   border: 1px @lightergray solid;
   color: @palegray;
@@ -219,7 +230,16 @@ b {
   }
 }
 
-@demo-duration: 3s infinite;
+.linear-gradient-example {
+  padding: 0 5px;
+  color: white;
+  font-weight: 400;
+  background: linear-gradient(to right, #39cccc 10%, #7FDBFF 35%, #0074D9 60%, #001f3f 85%);
+}
+
+////// DEMOS
+
+@processor-duration: 3s infinite;
 @processor-square: 56px;
 .keyframes(processor, {
   0% { width: 0; height: 0; left: 0; top: 0; }
@@ -248,7 +268,7 @@ b {
   letter-spacing: 3px;
   font-weight: 700;
   font-family: 'Oxygen', Helvetica, arial, sans-serif;
-  .animation(processor @demo-duration linear);
+  .animation(processor @processor-duration linear);
   &::before {
     content: "llllll";
     position: absolute;
@@ -259,7 +279,7 @@ b {
     .transform-origin(0 0);
     left: 48px;
     bottom: -15px;
-    .animation(processor-before @demo-duration linear);
+    .animation(processor-before @processor-duration linear);
   }
   &::after {
     content: "llllll";
@@ -271,6 +291,53 @@ b {
     .transform-origin(0 0);
     left: 7px;
     top: 50px;
-    .animation(processor-after @demo-duration linear);
+    .animation(processor-after @processor-duration linear);
   }
+}
+
+@gameboy-red: #ff0151;
+@gameboy-purple: #5151dd;
+@gameboy-green: #85e367;
+@gameboy-yellow: #f9e52e;
+@gameboy-teal: #01b4dd;
+@screen-duration: 3s infinite;
+@screen-gameboy-text-width: 500px;
+.keyframes(screen-gameboy-text, {
+  0% { color: @gameboy-yellow; background-position: -120px; opacity: 0; }
+  11.7% { opacity: 0; }
+  12% { color: @gameboy-yellow; background-position: -120px; opacity: 1; }
+  19.5% { color: @gameboy-yellow; }
+  21% { color: @gameboy-red; }
+  28.5% { color: @gameboy-red; }
+  30% { color: screen(@gameboy-red, @gameboy-purple); }
+  37.5% { color: screen(@gameboy-red, @gameboy-purple); }
+  39% { color: @gameboy-green; }
+  46.5% { color: @gameboy-green; }
+  48% { color: saturate(@gameboy-purple, 30%); }
+  54% { background-position: 130px; }
+  81% { opacity: 1; }
+  96% { opacity: 0; }
+});
+
+#screen-gameboy-text {
+  position: absolute;
+  font-family: 'Asap', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -2px;
+  text-align: center;
+  opacity: 0;
+  width: @screen-gameboy-text-width;
+  left: -@screen-gameboy-text-width/2;
+  top: -22px;
+  .transform(skew(-5deg));
+  overflow: hidden;
+  white-space: nowrap;
+  color: saturate(@gameboy-purple, 30%);
+  background: -webkit-linear-gradient(0deg, saturate(@gameboy-purple, 30%) 40%, @gameboy-green 40%, @gameboy-green 45%, screen(@gameboy-red, @gameboy-purple) 45%, screen(@gameboy-red, @gameboy-purple) 50%, @gameboy-red 50%, @gameboy-red 55%, @gameboy-yellow 55%, @gameboy-yellow 60%, @lightestgray 60%);
+  background-position: 130px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  .animation(screen-gameboy-text @screen-duration linear);
 }

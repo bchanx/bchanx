@@ -21,15 +21,22 @@
 
     <div class="content">
       <div class="gameboy-gif-small"></div>
+      <div class="foreword">This is the technical blog post. <a href="/animated-gameboy-in-css">Click here</a> to see the actual demo.</div>
+    </div>
+
+    <div class="break"></div>
+
+    <div class="content">
+      &nbsp;&nbsp;&nbsp;
       <br>
-      <a href="/animated-gameboy-in-css">HI!</a>
-      Not sure what to write.
+      <br>
+      Being able to draw with CSS is knowing what tools and techniques you have at your disposal to leverage and abuse.
       <br>
       <br>
-      Your bones don't break, mine do. That's clear. Your cells react to bacteria and viruses differently than mine. You don't get sick, I do. That's also clear. But for some reason, you and I react the exact same way to water. We swallow it too fast, we choke. We get some in our lungs, we drown. However unreal it may seem, we are connected, you and I. We're on the same curve, just on opposite ends.  
+      Of course, once you load yourself with a wide enough CSS arsenal, you enable the ability to implement certain features in a myriad of ways. Therefore for this project, I made it a priority to use as few <span class="highlight">&lt;div&gt;</span> elements as possible without sacrificing the desired effect.
       <br>
       <br>
-      Below are five advanced techniques that I've found useful for doodling in CSS.
+      &nbsp;&nbsp;&nbsp;Below are five advanced techniques that I've found useful for doodling in CSS.
     </div>
 
     <div class="break"></div>
@@ -39,10 +46,7 @@
     </div>
 
     <div class="content">
-      Fonts provide a range of characters and that we can leverage to create interesting shapes and edges. <span class="highlight">font-size</span>, <span class="highlight">text-shadow</span>, and <span class="highlight">letter-spacing</span> are amongst several animatable properties that can style letters. Together, they can be used to create intricate patterns not possible (or extremely difficult) with regular CSS techniques.
-      <br>
-      <br>
-      The processor chip was created in such manner.
+      &nbsp;&nbsp;&nbsp;Fonts provide a range of characters and that we can leverage to create interesting shapes and edges. <span class="highlight">font-size</span>, <span class="highlight">text-shadow</span>, and <span class="highlight">letter-spacing</span> are amongst several animatable properties that can style letters. Together, they can be used to create intricate patterns not possible (or extremely difficult) with regular CSS techniques.
       <div class="example">
         <div class="demo">
           <div class="demo-wrapper">
@@ -59,20 +63,35 @@
     <div class="break"></div>
 
     <div class="title-bar">
-      2. Animation text with a linear-gradient <span class="placeholder">(-webkit- only, with fallback)</span>
+      2. Animating text with a linear-gradient <span class="placeholder">(webkit only, with fallback)</span>
     </div>
 
     <div class="content">
-      There is a...
+      &nbsp;&nbsp;&nbsp;Currently, only webkit browsers have CSS support for creating text with a linear gradient fill. In short, it involves setting a <span class="highlight">linear-gradient</span> on your element background, while applying <span class="highlight">-webkit-background-clip: text</span> to mask away the non text background, and finally using <span class="highlight">-webkit-text-fill-color: transparent</span> to let the gradient become the font-color.
       <br>
       <br>
-      The rolling Gameboy text uses this technique. Here's how it compares between browsers:
+      &nbsp;&nbsp;&nbsp;Since webkit properties only work on selected browsers, the above technique will cause non webkit vendors to degrade to text with a undesireable <span class="linear-gradient-example">linear gradient background</span>. However, thanks to this <a href="http://nimbupani.com/using-background-clip-for-text-with-css-fallback.html">clever trick</a>, you can degrade gracefully by using <span class="highlight">-webkit-linear-gradient</span> to only show the gradient background for webkit browsers, then set <span class="highlight">color</span> as a cross browser fallback.
       <br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight" style="vertical-align: middle; margin-left: 2px;">-webkit-</span>:
+      <br>
+      &nbsp;&nbsp;&nbsp;From here, you can animate the gradient by using <span class="highlight">background-position</span> to achieve the desired text animation. Here's how it compares between browsers:
+      <br>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;webkit:
       <div class="gameboy-text-webkit"></div>
       <br>
-      non <span class="highlight" style="vertical-align: middle">-webkit-</span>:
+      non-webkit:
       <div class="gameboy-text-other"></div>
+      <div class="example">
+        <div class="demo">
+          <div class="demo-wrapper">
+            <div id="screen-gameboy-text">GAME BOY</div>
+          </div>
+        </div>
+        <div class="code">
+          <pre><code class="html">{{ code.text.html }}</code></pre>
+          <pre><code class="css">{{ code.text.css }}</code></pre>
+        </div>
+      </div>
     </div>
 
     <div class="break"></div>
@@ -102,19 +121,21 @@
     </div>
 
     <div class="content">
-      All CSS <span class="highlight">transform</span>'s use <span class="highlight">transform-origin</span> as the reference point for applying the transformation. By default, this (x, y, z) value is set to <span class="highlight">50% 50% 0</span>, which is the midpoint of the element in the current <span class="highlight">z-index</span> plane. This is ideal in most cases when your point of symmetry is dead center of the element (i.e when you're trying to mirror a block of text, or when you're trying to animate a spinner).
+      &nbsp;&nbsp;&nbsp;All CSS <span class="highlight">transform</span>'s use <span class="highlight">transform-origin</span> as the reference point for applying the transformation. By default, this (x, y, z) value is set to <span class="highlight">50% 50% 0</span>, which is the midpoint of the element in the current <span class="highlight">z-index</span> plane. This is ideal in most cases when your point of symmetry is dead center of the element (i.e when you're trying to mirror a block of text, or when you're trying to animate a spinner).
       <br>
       <br>
-      However, when you're aiming to <b>create</b> rotational symmetry with asymmetric elements, not setting the proper <span class="highlight">transform-origin</span> will induce a ripple effect and cause your animations to run askew, since everything is animating off the element instead of the desired rotational center.
+      &nbsp;&nbsp;&nbsp;However, when you're aiming to <b>create</b> rotational symmetry with asymmetric elements, not setting the proper <span class="highlight">transform-origin</span> will induce a ripple effect and cause your animations to run askew, since everything is animating off the element instead of the desired rotational center.
       <br>
       <br>
-      The joystick demonstrates this issue.
     </div>
 
     <div class="break"></div>
 
     <div class="content">
-      CLOSING THOUGHTS...
+      &nbsp;&nbsp;&nbsp;Currently, there's no shortcut or automated tool (yet) to help generate CSS for intricate drawings loaded with animations. Not that there ever needs to be, because from a <b>Time Spent</b> vs <b>Outcome</b> perspective, drawing with CSS is definitely unfavorable compared to traditional (and digital) pen and paper methods. It's a very tedious task of eyeballing positions and adjusting properties to achieve the pixel perfect curve, which can then easily be matched in swift seconds using photoshop or other familiar means.
+      <br>
+      <br>
+      &nbsp;&nbsp;&nbsp;That being said, learning and drawing with CSS allows you the opportunity to dive deep and explore the vast specification that defines everything we see on the web. It gives you a chance to familiarize yourself with current established properties, while suprising you with bleeding edge features that you had no idea existed. This knowledge is invaluable for achieving desired design aspirations and UI experiences while implementing user facing web apps and tools, all within a quick and performant manner.
     </div>
 
     <div class="break"></div>
