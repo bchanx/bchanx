@@ -5,6 +5,7 @@
 
 {% block head %}
   {{ header.meta("Animated Gameboy in CSS", "http://www.bchanx.com/animated-gameboy-in-css", "true") }}
+  <link rel="stylesheet" type="text/css" href="/static/dist/highlight.css"/>
   <meta property="og:url" content="http://www.bchanx.com/animated-gameboy-in-css"/>
   <meta property="og:type" content="website"/>
   <meta property="og:title" content="Animated Gameboy in CSS"/>
@@ -14,7 +15,7 @@
 
 {% block body %}
   <div id="container">
-    <div class="title" data-date="October 16th, 2015">Animated Gameboy in CSS</div>
+    <div class="header" data-date="October 16th, 2015">Animated Gameboy in CSS</div>
 
     <div class="break"></div>
 
@@ -38,10 +39,21 @@
     </div>
 
     <div class="content">
-      Fonts provide a range of characters and that we can leverage to create interesting shapes and edges. <span class="code">font-size</span>, <span class="code">text-shadow</span>, and <span class="code">letter-spacing</span> are amongst several animatable properties that can style letters. Together, they can be used to create intricate patterns not possible (or extremely difficult) with regular CSS techniques.
+      Fonts provide a range of characters and that we can leverage to create interesting shapes and edges. <span class="highlight">font-size</span>, <span class="highlight">text-shadow</span>, and <span class="highlight">letter-spacing</span> are amongst several animatable properties that can style letters. Together, they can be used to create intricate patterns not possible (or extremely difficult) with regular CSS techniques.
       <br>
       <br>
       The processor chip was created in such manner.
+      <div class="example">
+        <div class="demo">
+          <div class="demo-wrapper">
+            <div id="processor"></div>
+          </div>
+        </div>
+        <div class="code">
+          <pre><code class="html">{{ code.processor.html }}</code></pre>
+          <pre><code class="css">{{ code.processor.css }}</code></pre>
+        </div>
+      </div>
     </div>
 
     <div class="break"></div>
@@ -54,7 +66,7 @@
       There is a...
       <br>
       <br>
-      The rolling Gameboy text uses this technique. Here's how it looks on <span class="code">-webkit-</span> browsers:
+      The rolling Gameboy text uses this technique. Here's how it looks on <span class="highlight">-webkit-</span> browsers:
       <div class="gameboy-text-webkit"></div>
       <br>
       And here's how it looks otherwise with the fallback (on Firefox, etc):
@@ -88,13 +100,19 @@
     </div>
 
     <div class="content">
-      All CSS <span class="code">transform</span>'s use <span class="code">transform-origin</span> as the reference point for applying the transformation. By default, this (x, y, z) value is set to <span class="code">50% 50% 0</span>, which is the midpoint of the element in the current <span class="code">z-index</span> plane. This is ideal in most cases when your point of symmetry is dead center of the element (i.e when you're trying to mirror a block of text, or when you're trying to animate a spinner).
+      All CSS <span class="highlight">transform</span>'s use <span class="highlight">transform-origin</span> as the reference point for applying the transformation. By default, this (x, y, z) value is set to <span class="highlight">50% 50% 0</span>, which is the midpoint of the element in the current <span class="highlight">z-index</span> plane. This is ideal in most cases when your point of symmetry is dead center of the element (i.e when you're trying to mirror a block of text, or when you're trying to animate a spinner).
       <br>
       <br>
-      However, when you're aiming to <b>create</b> rotational symmetry with asymmetric elements, not setting the proper <span class="code">transform-origin</span> will induce a ripple effect and cause your animations to run askew, since everything is animating off the element instead of the desired rotational center.
+      However, when you're aiming to <b>create</b> rotational symmetry with asymmetric elements, not setting the proper <span class="highlight">transform-origin</span> will induce a ripple effect and cause your animations to run askew, since everything is animating off the element instead of the desired rotational center.
       <br>
       <br>
       The joystick demonstrates this issue.
+    </div>
+
+    <div class="break"></div>
+
+    <div class="content">
+      CLOSING THOUGHTS...
     </div>
 
     <div class="break"></div>
@@ -113,3 +131,7 @@
 {% block footer %}
   {{ footer.blog() }}
 {% endblock %}
+
+{% block script %}
+  <script type="text/javascript" src="/static/dist/highlight.min.js"></script>
+{% endblock script %}
