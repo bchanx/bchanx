@@ -3,6 +3,8 @@ Copyright (c) 2015 Brian Chan (bchanx.com)
 All Rights Reserved.
 '''
 
+import os
+import flask
 from web import app
 from web.base import render, staticUrl
 from flask import redirect, url_for
@@ -16,27 +18,17 @@ def logosInPureCSS():
 def logosInPureCSS2():
   return redirect(url_for('logosInPureCSS'))
 
+# TODO: fill the rest in
 def gameboyCode():
+  components = ['processor']
   code = {}
-  code['processor'] = {
-    'html': '<div id="processor"></div>',
-    'css': """#processor {
-  position: absolute;
-  width: 56px;
-  height: 56px;
-  top: 285px;
-  left: 142px;
-  z-index: 4;
-  background-color: #222222;
-  color: #ffffff;
-  font-size: 15px;
-  letter-spacing: 3px;
-  font-weight: 700;
-  font-family: 'Oxygen', Helvetica, arial, sans-serif;
-  -webkit-animation: processor 8s infinite linear;
-  animation: processor 8s infinite linear;
-}"""
-  }
+  for c in components:
+    for type in ['html', 'css']:
+      if c not in code:
+        code[c] = {}
+      path = os.path.join(flask.current_app.root_path, 'code', 'gameboy', '%s.%s' % (c, type))
+      with open(path, 'r') as f:
+        code[c][type] = f.read()
   return code
 
 

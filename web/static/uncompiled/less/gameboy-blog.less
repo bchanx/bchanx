@@ -132,6 +132,8 @@ b {
   width: 164px;
   height: 52px;
   margin: 0 auto;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .gameboy-text-other {
@@ -139,6 +141,8 @@ b {
   width: 164px;
   height: 52px;
   margin: 0 auto;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .example-pseudo(@content, @type: before) {
@@ -192,9 +196,6 @@ b {
         background: inherit;
         border-top: 2px @whitegray solid;
       }
-      .tag .value {
-        color: @darkgreen;
-      }
     }
     .html {
       position: relative;
@@ -222,7 +223,7 @@ b {
 @processor-square: 56px;
 .keyframes(processor, {
   0% { width: 0; height: 0; left: 0; top: 0; }
-  24% { width: 0; height: 0; left: 0; top: -; }
+  24% { width: 0; height: 0; left: 0; top: 0; }
   28% { width: @processor-square; height: @processor-square; left: -(@processor-square / 2); top: -(@processor-square / 2); }
 });
 .keyframes(processor-before, {
