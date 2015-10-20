@@ -496,3 +496,58 @@ b {
     .animation(glass-color-text-after @demo-duration linear);
   }
 }
+
+@cover-color: @gameboy-green;
+@cover-v-slices: 10;
+@cover-v-width: 200px / @cover-v-slices;
+@cover-v-height: 50px;
+.cover-v-box-shadow(@color, @counter, @current : @counter + 1) when (@counter > 0) {
+  .cover-v-box-shadow(@color, @counter - 1, @current);
+  & when (@counter < @current) {
+    box-shadow+: @cover-v-width*@counter 0 @color;
+  }
+  & when (@counter = @current) {
+    box-shadow+: @cover-v-width*@counter @cover-v-height/2 @color;
+  }
+  & when (@counter > @current) {
+    box-shadow+: @cover-v-width*@counter @cover-v-height @color;
+  }
+}
+.cover-v-box-shadow-keyframes(@color, @startPercentage, @endPercentage, @slices, @counter : 0) when (@counter <= @slices) {
+  @increment: (@endPercentage - @startPercentage) / (@slices + 1);
+  @currentPercentage: @startPercentage + @increment * @counter;
+  & when (@counter = 0) {
+   @{startPercentage} { width: @cover-v-width; height: 0 }
+  }
+  & when (@counter = 1) {
+    @{currentPercentage} { height: @cover-v-height/2; .cover-v-box-shadow(@color, @slices - 1, 0) }
+  }
+  & when (@counter = 2) {
+    @{currentPercentage} { height: @cover-v-height; .cover-v-box-shadow(@color, @slices - 1, 1) }
+  }
+  & when (@counter > 2) and (@counter < @slices) {
+    @{currentPercentage} { .cover-v-box-shadow(@color, @slices - 1, @counter - 1) }
+  }
+  & when (@counter = @slices) {
+    @{currentPercentage} { .cover-v-box-shadow(@color, @slices - 1, @counter - 1) }
+    @{endPercentage} { .cover-v-box-shadow(@color, @slices - 1) }
+  }
+  .cover-v-box-shadow-keyframes(@color, @startPercentage, @endPercentage, @slices, @counter + 1);
+}
+
+.keyframes(cover-vertical, {
+  0% { width: 0; height: 0; box-shadow: none; }
+  .cover-v-box-shadow-keyframes(@cover-color, 20%, 80%, @cover-v-slices);
+});
+
+#cover-vertical {
+  position: absolute;
+  width: @cover-v-width;
+  height: @cover-v-height;
+  bottom: 0;
+  background-color: @cover-color;
+  .animation(cover-vertical @demo-duration linear);
+  .cover-v-box-shadow(@cover-color, @cover-v-slices - 1);
+}
+
+

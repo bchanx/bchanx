@@ -20,7 +20,7 @@ def logosInPureCSS2():
 
 # TODO: fill the rest in
 def gameboyCode():
-  components = ['processor', 'text', 'joystick', 'color']
+  components = ['processor', 'text', 'joystick', 'color', 'cover']
   code = {}
   for c in components:
     for type in ['html', 'css']:
