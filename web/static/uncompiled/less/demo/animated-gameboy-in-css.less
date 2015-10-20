@@ -1305,7 +1305,7 @@ body {
   .animation(joystick-top-bottom @gameboy-duration linear);
 }
 #joystick-bottom {
-  .transform(rotate(180deg));
+  .transform(rotate(180deg) translateZ(0));
   left: @joystick-pad-left + (@joystick-pad-circle - @joystick-width)/2;
   top: @border-top + 365px;
   .animation(joystick @gameboy-duration linear);
@@ -1328,7 +1328,7 @@ body {
 });
 
 #joystick-left {
-  .transform(rotate(-90deg));
+  .transform(rotate(-90deg) translateZ(0));
   .transform-origin(50% 100%);
   right: @joystick-left-offset;
   bottom: @joystick-pad-bottom + @joystick-pad-circle/2;
@@ -1336,7 +1336,7 @@ body {
   .animation(joystick-left @gameboy-duration linear);
 }
 #joystick-right {
-  .transform(rotate(90deg));
+  .transform(rotate(90deg) translateZ(0));
   .transform-origin(50% 100%);
   left: @joystick-right-offset;
   bottom: @joystick-pad-bottom + @joystick-pad-circle/2;

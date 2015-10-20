@@ -138,6 +138,11 @@ b {
   font-style: italic;
 }
 
+.gameboy-text-example {
+  width: 100%;
+  text-align: center;
+}
+
 .gameboy-text-webkit {
   background: url('/static/images/gameboy/gameboy-text-webkit.gif') 0 0 no-repeat;
   width: 164px;
@@ -172,7 +177,7 @@ b {
   & when (@type = after) {
     &:@{type} {
       top: initial;
-      bottom: calc(~"-100% - 2px");
+      bottom: -46px;
     }
   }
 }
@@ -239,7 +244,8 @@ b {
 
 ////// DEMOS
 
-@processor-duration: 3s infinite;
+@demo-duration: 3s infinite;
+
 @processor-square: 56px;
 .keyframes(processor, {
   0% { width: 0; height: 0; left: 0; top: 0; }
@@ -268,7 +274,7 @@ b {
   letter-spacing: 3px;
   font-weight: 700;
   font-family: 'Oxygen', Helvetica, arial, sans-serif;
-  .animation(processor @processor-duration linear);
+  .animation(processor @demo-duration linear);
   &::before {
     content: "llllll";
     position: absolute;
@@ -279,7 +285,7 @@ b {
     .transform-origin(0 0);
     left: 48px;
     bottom: -15px;
-    .animation(processor-before @processor-duration linear);
+    .animation(processor-before @demo-duration linear);
   }
   &::after {
     content: "llllll";
@@ -291,7 +297,7 @@ b {
     .transform-origin(0 0);
     left: 7px;
     top: 50px;
-    .animation(processor-after @processor-duration linear);
+    .animation(processor-after @demo-duration linear);
   }
 }
 
@@ -300,7 +306,6 @@ b {
 @gameboy-green: #85e367;
 @gameboy-yellow: #f9e52e;
 @gameboy-teal: #01b4dd;
-@screen-duration: 3s infinite;
 @screen-gameboy-text-width: 500px;
 .keyframes(screen-gameboy-text, {
   0% { color: @gameboy-yellow; background-position: -120px; opacity: 0; }
@@ -339,5 +344,155 @@ b {
   background-position: 130px;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  .animation(screen-gameboy-text @screen-duration linear);
+  .animation(screen-gameboy-text @demo-duration linear);
+}
+
+@joystick-width: 20px;
+@joystick-height: 35px;
+@joystick-left: -@joystick-width/2;
+@joystick-bottom: -@joystick-height/2;
+@joystick-font-size: 9px;
+.joystick {
+  position: absolute;
+  width: @joystick-width;
+  height: @joystick-height;
+  background-color: @darkgray;
+  border-radius: 5px 5px 0 0;
+  font-size: @joystick-font-size;
+  overflow: hidden;
+  &::before {
+    content: "";
+    width: 61%;
+    height: 36.28%;
+    border-radius: 100%;
+    background-color: @black;
+    position: absolute;
+    left: 50%;
+    margin-left: -30.5%;
+    bottom: -18.14%;
+  }
+  &::after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-bottom-color: @black;
+    border-style: solid;
+    font-size: inherit;
+    border-width: 0 0.7em 1em 0.7em;
+    top: 15%;
+    left: 17.7%;
+    position: absolute;
+  }
+}
+.keyframes(joystick, {
+  0% { width: 0; height: 0; font-size: 0; }
+  35% { width: 0; height: 0; font-size: 0; }
+  50% { width: @joystick-width; height: @joystick-height; font-size: @joystick-font-size; }
+});
+.keyframes(joystick-top-bottom, {
+  0% { left: 0; }
+  35% { left: 0; }
+  50% { left: @joystick-left; }
+});
+
+#joystick-top {
+  left: @joystick-left;
+  bottom: 0;
+  .animation(joystick @demo-duration linear);
+  .animation(joystick-top-bottom @demo-duration linear);
+}
+#joystick-bottom {
+  .transform(rotate(180deg) translateZ(0));
+  left: @joystick-left;
+  top: 0;
+  .animation(joystick @demo-duration linear);
+  .animation(joystick-top-bottom @demo-duration linear);
+}
+
+.keyframes(joystick-left, {
+  0% { right: 0; }
+  35% { right: 0; }
+  50% { right: @joystick-left; }
+});
+.keyframes(joystick-right, {
+  0% { left: 0; }
+  35% { left: 0; }
+  50% { left: @joystick-left; }
+});
+
+#joystick-left {
+  .transform(rotate(-90deg) translateZ(0));
+  .transform-origin(50% 100%);
+  right: @joystick-left;
+  bottom: 0;
+  .animation(joystick @demo-duration linear);
+  .animation(joystick-left @demo-duration linear);
+}
+#joystick-right {
+  .transform(rotate(90deg) translateZ(0));
+  .transform-origin(50% 100%);
+  left: @joystick-left;
+  bottom: 0;
+  .animation(joystick @demo-duration linear);
+  .animation(joystick-right @demo-duration linear);
+}
+
+@glass-color-text-left: 186px;
+
+.keyframes(glass-color-text, {
+  0% { color: transparent; }
+  32% { color: transparent; }
+  36% { color: @gameboy-red; }
+});
+.keyframes(glass-color-text-before, {
+  0% { color: transparent; border-color: transparent; }
+  36% { border-color: transparent; }
+  40% { color: transparent; border-color: @gameboy-purple; }
+  42% { color: @gameboy-green; }
+});
+.keyframes(glass-color-text-after, {
+  0% { color: transparent; border-color: transparent; }
+  42% { border-color: transparent; }
+  46% { color: transparent; border-color: @gameboy-yellow; }
+  50% { color: @gameboy-teal; }
+});
+#glass-color-text {
+  color: @gameboy-red;
+  position: absolute;
+  top: -26px;
+  left: -45px;
+  font-family: 'Comic Sans', 'Comic Sans MS', 'ChalkboardSE-Bold', cursive;
+  font-size: 35px;
+  letter-spacing: -2px;
+  font-weight: 700;
+  .animation(glass-color-text @demo-duration linear);
+  &::before {
+    content: "L";
+    position: absolute;
+    left: 18px;
+    top: 17px;
+    line-height: 5px;
+    text-indent: 13px;
+    color: @gameboy-green;
+    border: 5px @gameboy-purple solid;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    .animation(glass-color-text-before @demo-duration linear);
+  }
+  &::after {
+    content: "R";
+    position: absolute;
+    left: 48px;
+    top: 17px;
+    line-height: 5px;
+    text-indent: 13px;
+    color: @gameboy-teal;
+    border: 5px @gameboy-yellow solid;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    .animation(glass-color-text-after @demo-duration linear);
+  }
 }

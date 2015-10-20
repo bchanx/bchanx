@@ -10027,8 +10027,8 @@ body {
   animation: joystick 8s infinite linear, joystick 8s infinite linear, joystick-top-bottom 8s infinite linear, joystick-top-bottom 8s infinite linear;
 }
 #joystick-bottom {
-  -webkit-transform: rotate(180deg);
-  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg) translateZ(0);
+  transform: rotate(180deg) translateZ(0);
   left: 53px;
   top: 385px;
   -webkit-animation: joystick 8s infinite linear, joystick 8s infinite linear, joystick-top-bottom 8s infinite linear, joystick-top-bottom 8s infinite linear;
@@ -10167,8 +10167,8 @@ body {
   }
 }
 #joystick-left {
-  -webkit-transform: rotate(-90deg);
-  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg) translateZ(0);
+  transform: rotate(-90deg) translateZ(0);
   -webkit-transform-origin: 50% 100%;
   transform-origin: 50% 100%;
   right: 261px;
@@ -10177,8 +10177,8 @@ body {
   animation: joystick 8s infinite linear, joystick 8s infinite linear, joystick-left 8s infinite linear, joystick-left 8s infinite linear;
 }
 #joystick-right {
-  -webkit-transform: rotate(90deg);
-  transform: rotate(90deg);
+  -webkit-transform: rotate(90deg) translateZ(0);
+  transform: rotate(90deg) translateZ(0);
   -webkit-transform-origin: 50% 100%;
   transform-origin: 50% 100%;
   left: 53px;
