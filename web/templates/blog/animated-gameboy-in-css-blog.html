@@ -100,10 +100,14 @@
     <div class="break"></div>
 
     <div class="title-bar">
-      3. Managing repetition using box-shadows
+      3. Managing repetition using box-shadow <span class="placeholder">(and similarly, text-shadow)</span>
     </div>
   
     <div class="content">
+      &nbsp;&nbsp;&nbsp;<span class="highlight">box-shadow</span>'s are quite limited in how they can be styled, but prove quite useful when dealing with repetition. Since they always take the shape of the parent element, simple monochrome shapes can be cloned infinitely by extending and repositioning the shadow effect.
+      <br>
+      <br>
+      &nbsp;&nbsp;&nbsp;You can extend this further by managing the shadow offsets to create cool fill effects. Keep in mind that the shadows reflect the parent element, so the parent must be made available in the DOM first before the shadows are visible. This likely means that the parent must be animated first, with the shadows initially hidden by an offset so they can show at a delayed frame of time.
       <div class="example">
         <div class="demo">
           <div class="demo-wrapper" style="width: 200px; height: 50px; overflow: hidden">
