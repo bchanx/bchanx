@@ -30,7 +30,7 @@
       &nbsp;&nbsp;&nbsp;Drawing with CSS is all about knowing what properties and techniques are available for you to leverage and abuse. The more complex the picture or animation, the more rules you'll have to bend in order to make it work.
       <br>
       <br>
-      &nbsp;&nbsp;&nbsp;With the CSS specifications being so diverse, there are many ways to achieve a certain desired effect. Being able to it in as little code as possible is key to elegance and performance. Therefore, for this project I set myself a constraint to use as few <span class="highlight">&lt;div&gt;</span>'s as possible, and instead rely as much as I could on native CSS.
+      &nbsp;&nbsp;&nbsp;With the CSS specifications being so diverse, there are many ways to arrive at a certain desired effect. Being able to do it in as little code as possible is key to elegance and performance. Therefore, for this project I set myself a constraint to use as few <span class="highlight">&lt;div&gt;</span>'s as possible, and instead rely as much as I could on native CSS.
       <br>
       <br>
       &nbsp;&nbsp;&nbsp;Below, I share five advanced techniques that I used for doodling in CSS.
@@ -124,6 +124,13 @@
     </div>
 
     <div class="content">
+      &nbsp;&nbsp;&nbsp;Pseudo elements <span class="highlight">::before</span> and <span class="highlight">::after</span> offer two additional elements in the DOM. The advantages of using them include minimizing HTML code, where each of them can be individually styled and animated, while tightly coupling themselves to the parent root, making the positioning of the entire grouping much easier to handle.
+      <br>
+      <br>
+      &nbsp;&nbsp;&nbsp;Animating the <span class="color-text"><span class="red">c</span><span class="purple">o</span><span class="green">l</span><span class="yellow">o</span><span class="teal">r</span></span> text was a very interesting challenge. On one hand, I could easily create separate <span class="highlight">&lt;div&gt;</span>'s for each letter, set their own individual colors, then animate them one by one. However, under the original constraint I set of minimizing the usage of <span class="highlight">&lt;div&gt;</span>'s, I looked for alternate ways to make this happen. But, even by using pseudo elements, it would only provide three animatable objects in total, not five. Was it possible to achieve this effect by using just a <b>single</b> element?
+      <br>
+      <br>
+      &nbsp;&nbsp;&nbsp;... Yes it was. Don't let anything stop you from being creative and coming up with new ways of solving old problems. Exploit the rules of CSS beyond their intentions, and let pseudo elements further that exploration.
       <div class="example">
         <div class="demo">
           <div class="demo-wrapper">
@@ -150,7 +157,7 @@
       &nbsp;&nbsp;&nbsp;Keep in mind that all CSS <span class="highlight">transform</span>'s use <span class="highlight">transform-origin</span> as the reference point for applying the animation. By default, this (x, y, z) value is set to <span class="highlight">50% 50% 0</span>, which is the midpoint of the element in the current <span class="highlight">z-index</span> plane. 
       <br>
       <br>
-      &nbsp;&nbsp;&nbsp;The default origin is ideal in most cases when your point of symmetry is dead center of the element (i.e when you're trying to mirror a block of text, or when you're trying to animate a spinner). But if you're constructing an object by fitting together rotated components, make sure that the origin is set to the <b>rotational point of symmetry</b>.
+      &nbsp;&nbsp;&nbsp;The default origin is ideal in most cases when your point of symmetry is dead center of the element (i.e when you're trying to mirror a block of text, or when you're trying to animate a spinner). But if you're constructing an object by fitting together rotated components, make sure that the origin is set to the <b>rotational point of symmetry</b>. Otherwise, the transforms will not animate correctly, and you'll be pulling out hair trying to figure out why things don't look quite right.
       <div class="example">
         <div class="demo">
           <div class="demo-wrapper">
@@ -173,10 +180,10 @@
       &nbsp;&nbsp;&nbsp;Drawing with CSS is a very tedious task of eyeballing positions and tweaking element properties, in order to achieve that pixel perfect curve. There's no shortcuts or automated tools (yet) to help generate CSS for intricate drawings loaded with animations.
       <br>
       <br>
-      &nbsp;&nbsp;&nbsp;...But not that there ever needs to be, because from a <b>Time Spent</b> vs <b>Outcome</b> perspective, it is definitely unfavorable compared to traditional (and digital) pen and paper methods. Hours of work spent tweaking and tweening CSS can easily be replicated in swift minutes using photoshop or other similar means.
+      &nbsp;&nbsp;&nbsp;... But not that there ever needs to be. From a <b>Time Spent</b> vs <b>Outcome</b> perspective, drawing with CSS is definitely unfavorable compared to traditional (and digital) pen and paper methods. Hours of work spent tweaking and tweening CSS can easily be replicated in swift minutes using photoshop or other similar means.
       <br>
       <br>
-      &nbsp;&nbsp;&nbsp;That being said, learning and drawing with CSS allows you the opportunity to dive deep and explore the vast specification that defines everything we see on the web. It gives you a chance to familiarize yourself with current established properties, while suprising you with bleeding edge features that you had no idea existed. This knowledge is invaluable for achieving desirable UX and meeting design expectations in a quick and performant manner, whether you're building a production scale web app or tinkering a personal web tool.
+      &nbsp;&nbsp;&nbsp;That being said, learning and drawing with CSS allows you the opportunity to dive deep and explore the vast specification that defines most of what we see on the web. It gives you a chance to familiarize yourself with existing properties, invoke discoveries of undiscovered rules, and surprise yourself with bleeding edge features that you had no idea existed. This knowledge is invaluable for achieving desirable UX and meeting design expectations in a quick and performant manner, whether you're building a production scale web app or tinkering a personal web tool.
       <br>
       <br>
       &nbsp;&nbsp;&nbsp;All in all, do what you love, and never stop learning.
