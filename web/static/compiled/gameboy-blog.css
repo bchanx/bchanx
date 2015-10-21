@@ -3231,6 +3231,7 @@ b {
   border-radius: 3px;
   position: relative;
   font-size: 0.65em;
+  overflow: hidden;
   display: -webkit-flex;
   display: -moz-flex;
   display: -ms-flexbox;
@@ -3253,6 +3254,7 @@ b {
   display: flex;
   position: relative;
   min-height: 100px;
+  overflow: hidden;
   -webkit-justify-content: center;
   -moz-justify-content: center;
   -ms-justify-content: center;
