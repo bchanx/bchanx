@@ -15747,7 +15747,11 @@ body {
   transform: scale(1.35);
   -webkit-transform-origin: 100% 0;
   transform-origin: 100% 0;
+  margin-top: -1px;
+  margin-bottom: 10px;
   margin-left: 45px;
+}
+#social .fb .social-button {
   margin-bottom: 10px;
 }
 #social .social-button {

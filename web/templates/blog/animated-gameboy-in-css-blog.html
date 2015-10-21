@@ -27,16 +27,13 @@
     <div class="break"></div>
 
     <div class="content">
-      &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;Drawing with CSS is all about knowing what properties and techniques are available for you to leverage and abuse. The more complex the picture or animation, the more rules you'll have to bend in order to make it work.
       <br>
       <br>
-      Being able to draw with CSS is knowing what tools and techniques you have at your disposal to leverage and abuse.
+      &nbsp;&nbsp;&nbsp;With the CSS specifications being so diverse, there are many ways to achieve a certain desired effect. Being able to it in as little code as possible is key to elegance and performance. Therefore, for this project I set myself a constraint to use as few <span class="highlight">&lt;div&gt;</span>'s as possible, and instead rely as much as I could on native CSS.
       <br>
       <br>
-      Of course, once you load yourself with a wide enough CSS arsenal, you enable the ability to implement certain features in a myriad of ways. Therefore for this project, I made it a priority to use as few <span class="highlight">&lt;div&gt;</span> elements as possible without sacrificing the desired effect.
-      <br>
-      <br>
-      &nbsp;&nbsp;&nbsp;Below are five advanced techniques that I've found useful for doodling in CSS.
+      &nbsp;&nbsp;&nbsp;Below, I share five advanced techniques that I used for doodling in CSS.
     </div>
 
     <div class="break"></div>
@@ -73,7 +70,7 @@
       &nbsp;&nbsp;&nbsp;Since webkit properties only work on selected browsers, the above technique will cause non webkit vendors to degrade and leave behind text on a undesireable <span class="linear-gradient-example">linear gradient background</span>.
       <br>
       <br>
-      &nbsp;&nbsp;&nbsp;However, thanks to this <a href="http://nimbupani.com/using-background-clip-for-text-with-css-fallback.html">clever trick</a>, you can degrade gracefully by using <span class="highlight">-webkit-linear-gradient</span> to force a gradient background for webkit browsers only, then set <span class="highlight">color</span> as a cross browser fallback. From here, you can animate the gradient by using <span class="highlight">background-position</span> to achieve the desired text animation.
+      &nbsp;&nbsp;&nbsp;However, thanks to this <a href="http://nimbupani.com/using-background-clip-for-text-with-css-fallback.html">clever trick</a>, the issue can be avoided by using <span class="highlight">-webkit-linear-gradient</span> to force a gradient background in webkit browsers only, using <span class="highlight">color</span> as a cross browser fallback. From here, you can animate the gradient by using <span class="highlight">background-position</span> to achieve the desired text effect, and animate <span class="highlight">color</span> for non supporting browsers.
       <br>
       <br>
       &nbsp;&nbsp;&nbsp;Here's how it compares between browsers:

@@ -1,5 +1,5 @@
 #joystick-top {
-  left: -10px;
+  left: -11px;
   bottom: 0;
   -webkit-animation: joystick 3s infinite linear, joystick-top-bottom 3s infinite linear;
   animation: joystick 3s infinite linear, joystick-top-bottom 3s infinite linear;
@@ -7,7 +7,7 @@
 #joystick-bottom {
   -webkit-transform: rotate(180deg) translateZ(0);
   transform: rotate(180deg) translateZ(0);
-  left: -10px;
+  left: -11px;
   top: 0;
   -webkit-animation: joystick 3s infinite linear, joystick-top-bottom 3s infinite linear;
   animation: joystick 3s infinite linear, joystick-top-bottom 3s infinite linear;
@@ -17,7 +17,7 @@
   transform: rotate(-90deg) translateZ(0);
   -webkit-transform-origin: 50% 100%;
   transform-origin: 50% 100%;
-  right: -10px;
+  right: -11px;
   bottom: 0;
   -webkit-animation: joystick 3s infinite linear, joystick-left 3s infinite linear;
   animation: joystick 3s infinite linear, joystick-left 3s infinite linear;
@@ -27,18 +27,18 @@
   transform: rotate(90deg) translateZ(0);
   -webkit-transform-origin: 50% 100%;
   transform-origin: 50% 100%;
-  left: -10px;
+  left: -11px;
   bottom: 0;
   -webkit-animation: joystick 3s infinite linear, joystick-right 3s infinite linear;
   animation: joystick 3s infinite linear, joystick-right 3s infinite linear;
 }
 .joystick {
   position: absolute;
-  width: 20px;
-  height: 35px;
+  width: 22px;
+  height: 37px;
   background-color: #303030;
   border-radius: 5px 5px 0 0;
-  font-size: 9px;
+  font-size: 10px;
   overflow: hidden;
 }
 .joystick::before {
@@ -46,7 +46,7 @@
   width: 61%;
   height: 36.28%;
   border-radius: 100%;
-  background-color: #222222;
+  background-color: #4a4a4a;
   position: absolute;
   left: 50%;
   margin-left: -30.5%;
@@ -57,7 +57,7 @@
   width: 0;
   height: 0;
   border-color: transparent;
-  border-bottom-color: #222222;
+  border-bottom-color: #4a4a4a;
   border-style: solid;
   font-size: inherit;
   border-width: 0 0.7em 1em 0.7em;
@@ -77,9 +77,9 @@
     font-size: 0;
   }
   50% {
-    width: 20px;
-    height: 35px;
-    font-size: 9px;
+    width: 22px;
+    height: 37px;
+    font-size: 10px;
   }
 }
 @keyframes joystick-top-bottom {
@@ -90,7 +90,7 @@
     left: 0;
   }
   50% {
-    left: -10px;
+    left: -11px;
   }
 }
 @keyframes joystick-left {
@@ -101,7 +101,7 @@
     right: 0;
   }
   50% {
-    right: -10px;
+    right: -11px;
   }
 }
 @keyframes joystick-right {
@@ -112,6 +112,6 @@
     left: 0;
   }
   50% {
-    left: -10px;
+    left: -11px;
   }
 }

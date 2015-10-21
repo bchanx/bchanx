@@ -347,11 +347,11 @@ b {
   .animation(screen-gameboy-text @demo-duration linear);
 }
 
-@joystick-width: 20px;
-@joystick-height: 35px;
+@joystick-width: 22px;
+@joystick-height: 37px;
 @joystick-left: -@joystick-width/2;
 @joystick-bottom: -@joystick-height/2;
-@joystick-font-size: 9px;
+@joystick-font-size: 10px;
 .joystick {
   position: absolute;
   width: @joystick-width;
@@ -365,7 +365,7 @@ b {
     width: 61%;
     height: 36.28%;
     border-radius: 100%;
-    background-color: @black;
+    background-color: lighten(@darkgray, 10%);
     position: absolute;
     left: 50%;
     margin-left: -30.5%;
@@ -376,7 +376,7 @@ b {
     width: 0;
     height: 0;
     border-color: transparent;
-    border-bottom-color: @black;
+    border-bottom-color: lighten(@darkgray, 10%);
     border-style: solid;
     font-size: inherit;
     border-width: 0 0.7em 1em 0.7em;
