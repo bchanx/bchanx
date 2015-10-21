@@ -3342,6 +3342,24 @@ b {
   font-weight: 400;
   background: linear-gradient(to right, #39cccc 10%, #7FDBFF 35%, #0074D9 60%, #001f3f 85%);
 }
+.color-text {
+  font-weight: 700;
+}
+.color-text .red {
+  color: #ff0151;
+}
+.color-text .purple {
+  color: #5151dd;
+}
+.color-text .green {
+  color: #85e367;
+}
+.color-text .yellow {
+  color: #f9e52e;
+}
+.color-text .teal {
+  color: #01b4dd;
+}
 @-moz-keyframes processor {
   0% {
     width: 0;
