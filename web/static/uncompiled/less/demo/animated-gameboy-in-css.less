@@ -1217,13 +1217,13 @@ body {
 /////
 
 @joystick-pad-z: @controller-z + 1;
-@joystick-pad-circle: 110px;
+@joystick-pad-size: 110px;
 @joystick-pad-left: @border-right;
 @joystick-pad-bottom: 130px;
 .keyframes(joystick-pad, {
-  0% { width: 0; height: 0; left: @joystick-pad-left + @joystick-pad-circle/2; bottom: @joystick-pad-bottom + @joystick-pad-circle/2; border: 0 transparent solid; box-shadow: 0 0; }
-  14% { width: 0; height: 0; left: @joystick-pad-left + @joystick-pad-circle/2; bottom: @joystick-pad-bottom + @joystick-pad-circle/2; }
-  18% { width: @joystick-pad-circle; height: @joystick-pad-circle; left: @joystick-pad-left; bottom: @joystick-pad-bottom; }
+  0% { width: 0; height: 0; left: @joystick-pad-left + @joystick-pad-size/2; bottom: @joystick-pad-bottom + @joystick-pad-size/2; border: 0 transparent solid; box-shadow: 0 0; }
+  14% { width: 0; height: 0; left: @joystick-pad-left + @joystick-pad-size/2; bottom: @joystick-pad-bottom + @joystick-pad-size/2; }
+  18% { width: @joystick-pad-size; height: @joystick-pad-size; left: @joystick-pad-left; bottom: @joystick-pad-bottom; }
   18.5% { border: 0 transparent solid; }
   20% { box-shadow: 0 0; }
   20.5% { border: 5px @gray solid; }
@@ -1234,8 +1234,8 @@ body {
 #joystick-pad {
   position: absolute;
   z-index: @joystick-pad-z;
-  width: @joystick-pad-circle;
-  height: @joystick-pad-circle;
+  width: @joystick-pad-size;
+  height: @joystick-pad-size;
   border-radius: 100%;
   border: 4px @gray solid;
   box-shadow: 2px 3px;
@@ -1247,101 +1247,59 @@ body {
 
 /////
 
-@joystick-z : @cover-z + 1;
-@joystick-width: 26px;
-@joystick-height: 43px;
-@joystick-left: @joystick-pad-left + (@joystick-pad-circle - @joystick-width)/2;
-@joystick-bottom: @joystick-pad-bottom + (@joystick-pad-circle - @joystick-height)/2;
-@joystick-font-size: 12px;
-.joystick {
+@joystick-z: @cover-z + 1;
+.keyframes(joystick, {
+  0% { color: transparent; font-size: 12px; line-height: 101px; text-indent: 54px; }
+  18% { font-size: 12px; line-height: 101px; text-indent: 54px; }
+  20% { color: transparent; }
+  23.5% { color: @black; font-size: 102px; line-height: 44px; text-indent: 43px; }
+});
+.keyframes(joystick-control, {
+  0% { width: 0; height: 0; padding: 0; padding-top: 5px; font-size: 0; line-height: 1px; color: transparent; top: 55px; left: 55px; }
+  18% { width: 0; height: 0; padding: 0; padding-top: 5px; font-size: 0; line-height: 1px; color: transparent; top: 55px; left: 55px; }
+  20% { color: transparent; }
+  23.5% { width: 26px; height: 86px; padding-left: 5px; padding-right: 5px; padding-top: 0; font-size: 16px; line-height: 21px; color: @black; top: 12px; left: 42px; }
+});
+
+#joystick {
   position: absolute;
   z-index: @joystick-z;
-  width: @joystick-width;
-  height: @joystick-height;
-  background-color: @darkgray;
-  border-radius: 5px 5px 0 0;
-  font-size: @joystick-font-size;
-  overflow: hidden;
-  &::before {
-    content: "";
-    width: 61%;
-    height: 36.28%;
-    border-radius: 100%;
-    background-color: @black;
+  width: @joystick-pad-size;
+  height: @joystick-pad-size;
+  bottom: @joystick-pad-bottom;
+  left: @joystick-pad-left;
+  font-size: 102px;
+  font-weight: 700;
+  font-family: 'Oxygen', Helvetica, arial, sans-serif;
+  line-height: 44px;
+  text-indent: 43px;
+  color: @black;
+  .animation(joystick @gameboy-duration linear);
+  &::before,
+  &::after {
     position: absolute;
-    left: 50%;
-    margin-left: -30.5%;
-    bottom: -18.14%;
+    content: "\025B2\03000\03000\025BC";
+    box-sizing: border-box;
+    z-index: -1;
+    left: 42px;
+    top: 12px;
+    text-indent: 0;
+    width: 26px;
+    height: 86px;
+    padding-left: 5px;
+    padding-right: 5px;
+    line-height: 21px;
+    border-radius: 3px;
+    background-color: @darkgray;
+    word-wrap: break-word;
+    text-align: center;
+    font-size: 16px;
+    color: @black;
+    .animation(joystick-control @gameboy-duration linear);
   }
   &::after {
-    content: "";
-    width: 0;
-    height: 0;
-    border-color: transparent;
-    border-bottom-color: @black;
-    border-style: solid;
-    font-size: inherit;
-    border-width: 0 0.7em 1em 0.7em;
-    top: 15%;
-    left: 17.7%;
-    position: absolute;
+    .transform(rotateZ(-90deg));
   }
-}
-.keyframes(joystick, {
-  0% { width: 0; height: 0; font-size: 0; }
-  16% { width: 0; height: 0; font-size: 0; }
-  21.5% { width: @joystick-width; height: @joystick-height; font-size: @joystick-font-size; }
-});
-.keyframes(joystick-top-bottom, {
-  0% { left: @joystick-pad-left + @joystick-pad-circle/2; }
-  16% { left: @joystick-pad-left + @joystick-pad-circle/2; }
-  21.5% { left: @joystick-pad-left + (@joystick-pad-circle - @joystick-width)/2; }
-});
-
-#joystick-top {
-  left: @joystick-pad-left + (@joystick-pad-circle - @joystick-width)/2;
-  bottom: @joystick-pad-bottom + @joystick-pad-circle/2;
-  .animation(joystick @gameboy-duration linear);
-  .animation(joystick-top-bottom @gameboy-duration linear);
-}
-#joystick-bottom {
-  .transform(rotate(180deg) translateZ(0));
-  left: @joystick-pad-left + (@joystick-pad-circle - @joystick-width)/2;
-  top: @border-top + 365px;
-  .animation(joystick @gameboy-duration linear);
-  .animation(joystick-top-bottom @gameboy-duration linear);
-}
-
-/////
-
-@joystick-left-offset: 261px;
-@joystick-right-offset: 53px;
-.keyframes(joystick-left, {
-  0% { right: @joystick-left-offset + @joystick-width/2; }
-  16% { right: @joystick-left-offset + @joystick-width/2; }
-  21.5% { right: @joystick-left-offset; }
-});
-.keyframes(joystick-right, {
-  0% { left: @joystick-right-offset + @joystick-width/2; }
-  16% { left: @joystick-right-offset + @joystick-width/2; }
-  21.5% { left: @joystick-right-offset; }
-});
-
-#joystick-left {
-  .transform(rotate(-90deg) translateZ(0));
-  .transform-origin(50% 100%);
-  right: @joystick-left-offset;
-  bottom: @joystick-pad-bottom + @joystick-pad-circle/2;
-  .animation(joystick @gameboy-duration linear);
-  .animation(joystick-left @gameboy-duration linear);
-}
-#joystick-right {
-  .transform(rotate(90deg) translateZ(0));
-  .transform-origin(50% 100%);
-  left: @joystick-right-offset;
-  bottom: @joystick-pad-bottom + @joystick-pad-circle/2;
-  .animation(joystick @gameboy-duration linear);
-  .animation(joystick-right @gameboy-duration linear);
 }
 
 /////

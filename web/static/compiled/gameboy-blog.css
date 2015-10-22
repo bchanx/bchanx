@@ -3096,6 +3096,15 @@ html {
     font-size: 16px;
   }
 }
+@media screen and (max-width: 400px) {
+  html {
+    font-size: 14px;
+  }
+  #container > div {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+  }
+}
 #header {
   padding: 0;
 }
@@ -3322,7 +3331,7 @@ b {
 }
 .example .code .html:after {
   top: initial;
-  bottom: -46px;
+  bottom: calc(-3em - 7px);
 }
 .example .code .css {
   max-height: 300px;
@@ -3513,7 +3522,7 @@ b {
   transform: rotateZ(-90deg);
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
-  left: 48px;
+  left: 45px;
   bottom: -15px;
   -webkit-animation: processor-before 3s infinite linear;
   animation: processor-before 3s infinite linear;
@@ -3528,7 +3537,7 @@ b {
   transform: rotateZ(90deg) rotateY(180deg);
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
-  left: 7px;
+  left: 10px;
   top: 50px;
   -webkit-animation: processor-after 3s infinite linear;
   animation: processor-after 3s infinite linear;

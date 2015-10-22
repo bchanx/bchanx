@@ -9818,373 +9818,414 @@ body {
   -webkit-animation: joystick-pad 8s infinite linear, joystick-pad 8s infinite linear;
   animation: joystick-pad 8s infinite linear, joystick-pad 8s infinite linear;
 }
-.joystick {
+@-moz-keyframes joystick {
+  0% {
+    color: transparent;
+    font-size: 12px;
+    line-height: 101px;
+    text-indent: 54px;
+  }
+  18% {
+    font-size: 12px;
+    line-height: 101px;
+    text-indent: 54px;
+  }
+  20% {
+    color: transparent;
+  }
+  23.5% {
+    color: #222222;
+    font-size: 102px;
+    line-height: 44px;
+    text-indent: 43px;
+  }
+}
+@-webkit-keyframes joystick {
+  0% {
+    color: transparent;
+    font-size: 12px;
+    line-height: 101px;
+    text-indent: 54px;
+  }
+  18% {
+    font-size: 12px;
+    line-height: 101px;
+    text-indent: 54px;
+  }
+  20% {
+    color: transparent;
+  }
+  23.5% {
+    color: #222222;
+    font-size: 102px;
+    line-height: 44px;
+    text-indent: 43px;
+  }
+}
+@keyframes joystick {
+  0% {
+    color: transparent;
+    font-size: 12px;
+    line-height: 101px;
+    text-indent: 54px;
+  }
+  18% {
+    font-size: 12px;
+    line-height: 101px;
+    text-indent: 54px;
+  }
+  20% {
+    color: transparent;
+  }
+  23.5% {
+    color: #222222;
+    font-size: 102px;
+    line-height: 44px;
+    text-indent: 43px;
+  }
+}
+@-moz-keyframes joystick {
+  0% {
+    color: transparent;
+    font-size: 12px;
+    line-height: 101px;
+    text-indent: 54px;
+  }
+  18% {
+    font-size: 12px;
+    line-height: 101px;
+    text-indent: 54px;
+  }
+  20% {
+    color: transparent;
+  }
+  23.5% {
+    color: #222222;
+    font-size: 102px;
+    line-height: 44px;
+    text-indent: 43px;
+  }
+}
+@-webkit-keyframes joystick {
+  0% {
+    color: transparent;
+    font-size: 12px;
+    line-height: 101px;
+    text-indent: 54px;
+  }
+  18% {
+    font-size: 12px;
+    line-height: 101px;
+    text-indent: 54px;
+  }
+  20% {
+    color: transparent;
+  }
+  23.5% {
+    color: #222222;
+    font-size: 102px;
+    line-height: 44px;
+    text-indent: 43px;
+  }
+}
+@keyframes joystick {
+  0% {
+    color: transparent;
+    font-size: 12px;
+    line-height: 101px;
+    text-indent: 54px;
+  }
+  18% {
+    font-size: 12px;
+    line-height: 101px;
+    text-indent: 54px;
+  }
+  20% {
+    color: transparent;
+  }
+  23.5% {
+    color: #222222;
+    font-size: 102px;
+    line-height: 44px;
+    text-indent: 43px;
+  }
+}
+@-moz-keyframes joystick-control {
+  0% {
+    width: 0;
+    height: 0;
+    padding: 0;
+    padding-top: 5px;
+    font-size: 0;
+    line-height: 1px;
+    color: transparent;
+    top: 55px;
+    left: 55px;
+  }
+  18% {
+    width: 0;
+    height: 0;
+    padding: 0;
+    padding-top: 5px;
+    font-size: 0;
+    line-height: 1px;
+    color: transparent;
+    top: 55px;
+    left: 55px;
+  }
+  20% {
+    color: transparent;
+  }
+  23.5% {
+    width: 26px;
+    height: 86px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 0;
+    font-size: 16px;
+    line-height: 21px;
+    color: #222222;
+    top: 12px;
+    left: 42px;
+  }
+}
+@-webkit-keyframes joystick-control {
+  0% {
+    width: 0;
+    height: 0;
+    padding: 0;
+    padding-top: 5px;
+    font-size: 0;
+    line-height: 1px;
+    color: transparent;
+    top: 55px;
+    left: 55px;
+  }
+  18% {
+    width: 0;
+    height: 0;
+    padding: 0;
+    padding-top: 5px;
+    font-size: 0;
+    line-height: 1px;
+    color: transparent;
+    top: 55px;
+    left: 55px;
+  }
+  20% {
+    color: transparent;
+  }
+  23.5% {
+    width: 26px;
+    height: 86px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 0;
+    font-size: 16px;
+    line-height: 21px;
+    color: #222222;
+    top: 12px;
+    left: 42px;
+  }
+}
+@keyframes joystick-control {
+  0% {
+    width: 0;
+    height: 0;
+    padding: 0;
+    padding-top: 5px;
+    font-size: 0;
+    line-height: 1px;
+    color: transparent;
+    top: 55px;
+    left: 55px;
+  }
+  18% {
+    width: 0;
+    height: 0;
+    padding: 0;
+    padding-top: 5px;
+    font-size: 0;
+    line-height: 1px;
+    color: transparent;
+    top: 55px;
+    left: 55px;
+  }
+  20% {
+    color: transparent;
+  }
+  23.5% {
+    width: 26px;
+    height: 86px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 0;
+    font-size: 16px;
+    line-height: 21px;
+    color: #222222;
+    top: 12px;
+    left: 42px;
+  }
+}
+@-moz-keyframes joystick-control {
+  0% {
+    width: 0;
+    height: 0;
+    padding: 0;
+    padding-top: 5px;
+    font-size: 0;
+    line-height: 1px;
+    color: transparent;
+    top: 55px;
+    left: 55px;
+  }
+  18% {
+    width: 0;
+    height: 0;
+    padding: 0;
+    padding-top: 5px;
+    font-size: 0;
+    line-height: 1px;
+    color: transparent;
+    top: 55px;
+    left: 55px;
+  }
+  20% {
+    color: transparent;
+  }
+  23.5% {
+    width: 26px;
+    height: 86px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 0;
+    font-size: 16px;
+    line-height: 21px;
+    color: #222222;
+    top: 12px;
+    left: 42px;
+  }
+}
+@-webkit-keyframes joystick-control {
+  0% {
+    width: 0;
+    height: 0;
+    padding: 0;
+    padding-top: 5px;
+    font-size: 0;
+    line-height: 1px;
+    color: transparent;
+    top: 55px;
+    left: 55px;
+  }
+  18% {
+    width: 0;
+    height: 0;
+    padding: 0;
+    padding-top: 5px;
+    font-size: 0;
+    line-height: 1px;
+    color: transparent;
+    top: 55px;
+    left: 55px;
+  }
+  20% {
+    color: transparent;
+  }
+  23.5% {
+    width: 26px;
+    height: 86px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 0;
+    font-size: 16px;
+    line-height: 21px;
+    color: #222222;
+    top: 12px;
+    left: 42px;
+  }
+}
+@keyframes joystick-control {
+  0% {
+    width: 0;
+    height: 0;
+    padding: 0;
+    padding-top: 5px;
+    font-size: 0;
+    line-height: 1px;
+    color: transparent;
+    top: 55px;
+    left: 55px;
+  }
+  18% {
+    width: 0;
+    height: 0;
+    padding: 0;
+    padding-top: 5px;
+    font-size: 0;
+    line-height: 1px;
+    color: transparent;
+    top: 55px;
+    left: 55px;
+  }
+  20% {
+    color: transparent;
+  }
+  23.5% {
+    width: 26px;
+    height: 86px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 0;
+    font-size: 16px;
+    line-height: 21px;
+    color: #222222;
+    top: 12px;
+    left: 42px;
+  }
+}
+#joystick {
   position: absolute;
   z-index: 14;
+  width: 110px;
+  height: 110px;
+  bottom: 130px;
+  left: 11px;
+  font-size: 102px;
+  font-weight: 700;
+  font-family: 'Oxygen', Helvetica, arial, sans-serif;
+  line-height: 44px;
+  text-indent: 43px;
+  color: #222222;
+  -webkit-animation: joystick 8s infinite linear, joystick 8s infinite linear;
+  animation: joystick 8s infinite linear, joystick 8s infinite linear;
+}
+#joystick::before,
+#joystick::after {
+  position: absolute;
+  content: "\025B2\03000\03000\025BC";
+  box-sizing: border-box;
+  z-index: -1;
+  left: 42px;
+  top: 12px;
+  text-indent: 0;
   width: 26px;
-  height: 43px;
+  height: 86px;
+  padding-left: 5px;
+  padding-right: 5px;
+  line-height: 21px;
+  border-radius: 3px;
   background-color: #303030;
-  border-radius: 5px 5px 0 0;
-  font-size: 12px;
-  overflow: hidden;
+  word-wrap: break-word;
+  text-align: center;
+  font-size: 16px;
+  color: #222222;
+  -webkit-animation: joystick-control 8s infinite linear, joystick-control 8s infinite linear;
+  animation: joystick-control 8s infinite linear, joystick-control 8s infinite linear;
 }
-.joystick::before {
-  content: "";
-  width: 61%;
-  height: 36.28%;
-  border-radius: 100%;
-  background-color: #222222;
-  position: absolute;
-  left: 50%;
-  margin-left: -30.5%;
-  bottom: -18.14%;
-}
-.joystick::after {
-  content: "";
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-bottom-color: #222222;
-  border-style: solid;
-  font-size: inherit;
-  border-width: 0 0.7em 1em 0.7em;
-  top: 15%;
-  left: 17.7%;
-  position: absolute;
-}
-@-moz-keyframes joystick {
-  0% {
-    width: 0;
-    height: 0;
-    font-size: 0;
-  }
-  16% {
-    width: 0;
-    height: 0;
-    font-size: 0;
-  }
-  21.5% {
-    width: 26px;
-    height: 43px;
-    font-size: 12px;
-  }
-}
-@-webkit-keyframes joystick {
-  0% {
-    width: 0;
-    height: 0;
-    font-size: 0;
-  }
-  16% {
-    width: 0;
-    height: 0;
-    font-size: 0;
-  }
-  21.5% {
-    width: 26px;
-    height: 43px;
-    font-size: 12px;
-  }
-}
-@keyframes joystick {
-  0% {
-    width: 0;
-    height: 0;
-    font-size: 0;
-  }
-  16% {
-    width: 0;
-    height: 0;
-    font-size: 0;
-  }
-  21.5% {
-    width: 26px;
-    height: 43px;
-    font-size: 12px;
-  }
-}
-@-moz-keyframes joystick {
-  0% {
-    width: 0;
-    height: 0;
-    font-size: 0;
-  }
-  16% {
-    width: 0;
-    height: 0;
-    font-size: 0;
-  }
-  21.5% {
-    width: 26px;
-    height: 43px;
-    font-size: 12px;
-  }
-}
-@-webkit-keyframes joystick {
-  0% {
-    width: 0;
-    height: 0;
-    font-size: 0;
-  }
-  16% {
-    width: 0;
-    height: 0;
-    font-size: 0;
-  }
-  21.5% {
-    width: 26px;
-    height: 43px;
-    font-size: 12px;
-  }
-}
-@keyframes joystick {
-  0% {
-    width: 0;
-    height: 0;
-    font-size: 0;
-  }
-  16% {
-    width: 0;
-    height: 0;
-    font-size: 0;
-  }
-  21.5% {
-    width: 26px;
-    height: 43px;
-    font-size: 12px;
-  }
-}
-@-moz-keyframes joystick-top-bottom {
-  0% {
-    left: 66px;
-  }
-  16% {
-    left: 66px;
-  }
-  21.5% {
-    left: 53px;
-  }
-}
-@-webkit-keyframes joystick-top-bottom {
-  0% {
-    left: 66px;
-  }
-  16% {
-    left: 66px;
-  }
-  21.5% {
-    left: 53px;
-  }
-}
-@keyframes joystick-top-bottom {
-  0% {
-    left: 66px;
-  }
-  16% {
-    left: 66px;
-  }
-  21.5% {
-    left: 53px;
-  }
-}
-@-moz-keyframes joystick-top-bottom {
-  0% {
-    left: 66px;
-  }
-  16% {
-    left: 66px;
-  }
-  21.5% {
-    left: 53px;
-  }
-}
-@-webkit-keyframes joystick-top-bottom {
-  0% {
-    left: 66px;
-  }
-  16% {
-    left: 66px;
-  }
-  21.5% {
-    left: 53px;
-  }
-}
-@keyframes joystick-top-bottom {
-  0% {
-    left: 66px;
-  }
-  16% {
-    left: 66px;
-  }
-  21.5% {
-    left: 53px;
-  }
-}
-#joystick-top {
-  left: 53px;
-  bottom: 185px;
-  -webkit-animation: joystick 8s infinite linear, joystick 8s infinite linear, joystick-top-bottom 8s infinite linear, joystick-top-bottom 8s infinite linear;
-  animation: joystick 8s infinite linear, joystick 8s infinite linear, joystick-top-bottom 8s infinite linear, joystick-top-bottom 8s infinite linear;
-}
-#joystick-bottom {
-  -webkit-transform: rotate(180deg) translateZ(0);
-  transform: rotate(180deg) translateZ(0);
-  left: 53px;
-  top: 385px;
-  -webkit-animation: joystick 8s infinite linear, joystick 8s infinite linear, joystick-top-bottom 8s infinite linear, joystick-top-bottom 8s infinite linear;
-  animation: joystick 8s infinite linear, joystick 8s infinite linear, joystick-top-bottom 8s infinite linear, joystick-top-bottom 8s infinite linear;
-}
-@-moz-keyframes joystick-left {
-  0% {
-    right: 274px;
-  }
-  16% {
-    right: 274px;
-  }
-  21.5% {
-    right: 261px;
-  }
-}
-@-webkit-keyframes joystick-left {
-  0% {
-    right: 274px;
-  }
-  16% {
-    right: 274px;
-  }
-  21.5% {
-    right: 261px;
-  }
-}
-@keyframes joystick-left {
-  0% {
-    right: 274px;
-  }
-  16% {
-    right: 274px;
-  }
-  21.5% {
-    right: 261px;
-  }
-}
-@-moz-keyframes joystick-left {
-  0% {
-    right: 274px;
-  }
-  16% {
-    right: 274px;
-  }
-  21.5% {
-    right: 261px;
-  }
-}
-@-webkit-keyframes joystick-left {
-  0% {
-    right: 274px;
-  }
-  16% {
-    right: 274px;
-  }
-  21.5% {
-    right: 261px;
-  }
-}
-@keyframes joystick-left {
-  0% {
-    right: 274px;
-  }
-  16% {
-    right: 274px;
-  }
-  21.5% {
-    right: 261px;
-  }
-}
-@-moz-keyframes joystick-right {
-  0% {
-    left: 66px;
-  }
-  16% {
-    left: 66px;
-  }
-  21.5% {
-    left: 53px;
-  }
-}
-@-webkit-keyframes joystick-right {
-  0% {
-    left: 66px;
-  }
-  16% {
-    left: 66px;
-  }
-  21.5% {
-    left: 53px;
-  }
-}
-@keyframes joystick-right {
-  0% {
-    left: 66px;
-  }
-  16% {
-    left: 66px;
-  }
-  21.5% {
-    left: 53px;
-  }
-}
-@-moz-keyframes joystick-right {
-  0% {
-    left: 66px;
-  }
-  16% {
-    left: 66px;
-  }
-  21.5% {
-    left: 53px;
-  }
-}
-@-webkit-keyframes joystick-right {
-  0% {
-    left: 66px;
-  }
-  16% {
-    left: 66px;
-  }
-  21.5% {
-    left: 53px;
-  }
-}
-@keyframes joystick-right {
-  0% {
-    left: 66px;
-  }
-  16% {
-    left: 66px;
-  }
-  21.5% {
-    left: 53px;
-  }
-}
-#joystick-left {
-  -webkit-transform: rotate(-90deg) translateZ(0);
-  transform: rotate(-90deg) translateZ(0);
-  -webkit-transform-origin: 50% 100%;
-  transform-origin: 50% 100%;
-  right: 261px;
-  bottom: 185px;
-  -webkit-animation: joystick 8s infinite linear, joystick 8s infinite linear, joystick-left 8s infinite linear, joystick-left 8s infinite linear;
-  animation: joystick 8s infinite linear, joystick 8s infinite linear, joystick-left 8s infinite linear, joystick-left 8s infinite linear;
-}
-#joystick-right {
-  -webkit-transform: rotate(90deg) translateZ(0);
-  transform: rotate(90deg) translateZ(0);
-  -webkit-transform-origin: 50% 100%;
-  transform-origin: 50% 100%;
-  left: 53px;
-  bottom: 185px;
-  -webkit-animation: joystick 8s infinite linear, joystick 8s infinite linear, joystick-right 8s infinite linear, joystick-right 8s infinite linear;
-  animation: joystick 8s infinite linear, joystick 8s infinite linear, joystick-right 8s infinite linear, joystick-right 8s infinite linear;
+#joystick::after {
+  -webkit-transform: rotateZ(-90deg);
+  transform: rotateZ(-90deg);
 }
 @-moz-keyframes control {
   0% {

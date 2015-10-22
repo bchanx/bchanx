@@ -21,6 +21,18 @@ html {
   }
 }
 
+@media screen and (max-width: 400px) {
+  html {
+    font-size: 14px;
+  }
+  #container {
+    > div {
+      padding-left: 30px !important;
+      padding-right: 30px !important;
+    }
+  }
+}
+
 #header {
   padding: 0;
 }
@@ -177,7 +189,7 @@ b {
   & when (@type = after) {
     &:@{type} {
       top: initial;
-      bottom: -46px;
+      bottom: calc(~"-3em - 7px");
     }
   }
 }
@@ -304,7 +316,7 @@ b {
     text-shadow: -1px 0 0 @gray;
     .transform(rotateZ(-90deg));
     .transform-origin(0 0);
-    left: 48px;
+    left: 45px;
     bottom: -15px;
     .animation(processor-before @demo-duration linear);
   }
@@ -316,7 +328,7 @@ b {
     text-shadow: -1px 0 0 @gray;
     .transform(rotateZ(90deg) rotateY(180deg));
     .transform-origin(0 0);
-    left: 7px;
+    left: 10px;
     top: 50px;
     .animation(processor-after @demo-duration linear);
   }

@@ -23,7 +23,7 @@
   transform: rotateZ(-90deg);
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
-  left: 48px;
+  left: 45px;
   bottom: -15px;
   -webkit-animation: processor-before 3s infinite linear;
   animation: processor-before 3s infinite linear;
@@ -38,7 +38,7 @@
   transform: rotateZ(90deg) rotateY(180deg);
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
-  left: 7px;
+  left: 10px;
   top: 50px;
   -webkit-animation: processor-after 3s infinite linear;
   animation: processor-after 3s infinite linear;
