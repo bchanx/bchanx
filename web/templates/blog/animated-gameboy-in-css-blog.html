@@ -33,7 +33,7 @@
       &nbsp;&nbsp;&nbsp;With the CSS specifications being so diverse, there are many ways to arrive at a certain desired effect. Being able to do it in as little code as possible is key to elegance and performance. Therefore, for this project I set myself a constraint to use as few <span class="highlight">&lt;div&gt;</span>'s as possible, and instead rely as much as I could on native styling.
       <br>
       <br>
-      &nbsp;&nbsp;&nbsp;Below, I share five advanced techniques that I used for doodling in CSS.
+      &nbsp;&nbsp;&nbsp;Below, I share five techniques that I've learned and used for doodling in CSS.
     </div>
 
     <div class="break"></div>
@@ -100,31 +100,7 @@
     <div class="break"></div>
 
     <div class="title-bar">
-      3. Managing repetition using box-shadow <span class="placeholder">(and similarly, text-shadow)</span>
-    </div>
-  
-    <div class="content">
-      &nbsp;&nbsp;&nbsp;<span class="highlight">box-shadow</span>'s are quite limited in how they can be styled, but prove quite useful when dealing with repetition. Since they always take the shape of the parent element, simple monochrome shapes can be cloned infinitely by extending and repositioning the shadow effect.
-      <br>
-      <br>
-      &nbsp;&nbsp;&nbsp;You can extend this further by managing the shadow offsets to create cool fill effects. Keep in mind that the shadows reflect the parent element, so the parent must be made available in the DOM first before the shadows are visible. This likely means that the parent must be animated first, with the shadows initially hidden by an offset so they can show at a delayed frame of time.
-      <div class="example">
-        <div class="demo">
-          <div class="demo-wrapper" style="width: 200px; height: 50px; overflow: hidden">
-            <div id="cover-vertical"></div>
-          </div>
-        </div>
-        <div class="code">
-          <pre><code class="html">{{ code.cover.html }}</code></pre>
-          <pre><code class="css">{{ code.cover.css }}</code></pre>
-        </div>
-      </div>
-    </div>
-
-    <div class="break"></div>
-
-    <div class="title-bar">
-      4. Thinking outside the box with ::pseudo elements
+      3. Thinking outside the box with ::pseudo elements
     </div>
 
     <div class="content">
@@ -151,29 +127,45 @@
     <div class="break"></div>
 
     <div class="title-bar">
-      5. Identify repeatable shapes and simplify
+      4. Drawing circles and squares
     </div>
 
     <div class="content">
-      &nbsp;&nbsp;&nbsp;Recognize when symmetrical or complex objects can be broken down into repeatable, smaller components. Style and animate the simpler element, then duplicate, translate, and rotate through CSS <span class="highlight">transform</span>'s to recreate the full complex original.
-      <br>
-      <br>
-      &nbsp;&nbsp;&nbsp;Keep in mind that all CSS <span class="highlight">transform</span>'s use <span class="highlight">transform-origin</span> as the reference point for applying the animation. By default, this (x, y, z) value is set to <span class="highlight">50% 50% 0</span>, which is the midpoint of the element in the current <span class="highlight">z-index</span> plane. 
-      <br>
-      <br>
-      &nbsp;&nbsp;&nbsp;The default origin is ideal in most cases when your point of symmetry is dead center of the element (i.e when you're trying to mirror a block of text, or when you're trying to animate a spinner). But if you're constructing an object by fitting together rotated components, make sure that the origin is set to the <b>rotational point of symmetry</b>. Otherwise, the transforms will not animate correctly, and you'll be pulling out hair trying to figure out why things don't look quite right.
+      &nbsp;&nbsp;&nbsp;You can "draw" circles and squares using a single <span class="highlight">div</span> by masking the element inset border with it's own pseudo elements, then shrinking their width and height to reveal the drawing path. This one is fairly straight forward to learn and similarly easy to apply. The only caveat is that it will only work on top of a monochrome background, otherwise the effect is lost.
       <div class="example">
         <div class="demo">
           <div class="demo-wrapper">
-            <div id="joystick-left" class="joystick"></div>
-            <div id="joystick-right" class="joystick"></div>
-            <div id="joystick-top" class="joystick"></div>
-            <div id="joystick-bottom" class="joystick"></div>
+            <div id="circle"></div>
+            <div id="square"></div>
           </div>
         </div>
         <div class="code">
-          <pre><code class="html">{{ code.joystick.html }}</code></pre>
-          <pre><code class="css">{{ code.joystick.css }}</code></pre>
+          <pre><code class="html">{{ code.shapes.html }}</code></pre>
+          <pre><code class="css">{{ code.shapes.css }}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="break"></div>
+
+    <div class="title-bar">
+      5. Managing repetition using box-shadow <span class="placeholder">(and similarly, text-shadow)</span>
+    </div>
+  
+    <div class="content">
+      &nbsp;&nbsp;&nbsp;<span class="highlight">box-shadow</span>'s are quite limited in how they can be styled, but prove quite useful when dealing with repetition. Since they always take the shape of the parent element, simple monochrome shapes can be cloned infinitely by extending and repositioning the shadow effect.
+      <br>
+      <br>
+      &nbsp;&nbsp;&nbsp;You can extend this further by managing the shadow offsets to create cool fill effects. Keep in mind that the shadows reflect the parent element, so the parent must be made available in the DOM first before the shadows are visible. This likely means that the parent must be animated first, with the shadows initially hidden by an offset so they can show at a delayed frame of time.
+      <div class="example">
+        <div class="demo">
+          <div class="demo-wrapper" style="width: 200px; height: 50px; overflow: hidden">
+            <div id="cover-vertical"></div>
+          </div>
+        </div>
+        <div class="code">
+          <pre><code class="html">{{ code.cover.html }}</code></pre>
+          <pre><code class="css">{{ code.cover.css }}</code></pre>
         </div>
       </div>
     </div>
