@@ -8885,7 +8885,7 @@ body {
   position: absolute;
   top: 242px;
   left: 186px;
-  font-family: 'Comic Sans', 'Comic Sans MS', 'ChalkboardSE-Bold', cursive;
+  font-family: 'Comic Sans', 'Comic Sans MS', 'ChalkboardSE-Bold', sans-serif, cursive;
   font-size: 23px;
   letter-spacing: -2px;
   font-weight: 700;
