@@ -31,6 +31,17 @@
   -webkit-animation: circle-after 3s infinite linear;
   animation: circle-after 3s infinite linear;
 }
+@keyframes circle-before {
+  0% {
+    height: 100%;
+  }
+  10% {
+    height: 100%;
+  }
+  20% {
+    height: 0%;
+  }
+}
 @keyframes circle-after {
   0% {
     height: 100%;
@@ -72,6 +83,24 @@
   background-color: #e8e8e8;
   -webkit-animation: square-after 3s infinite linear;
   animation: square-after 3s infinite linear;
+}
+@keyframes square-before {
+  0% {
+    height: 100%;
+    width: 100%;
+  }
+  40% {
+    height: 100%;
+    width: 100%;
+  }
+  45% {
+    height: 100%;
+    width: 3px;
+  }
+  50% {
+    height: 0;
+    width: 3px;
+  }
 }
 @keyframes square-after {
   0% {
