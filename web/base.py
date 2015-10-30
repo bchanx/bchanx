@@ -20,7 +20,7 @@ def render(template, css=None, js=None, yt=False, **kwargs):
   js = resolvePath(js, debug)
   if debug:
     js = resolvePath('debug.js') + js
-    js.append('/static/dist/less.min.js')
+    js.append(flask.url_for('static', filename='dist/less.min.js'))
   if yt:
     js.append('https://www.youtube.com/iframe_api')
     js.append('https://apis.google.com/js/client.js?onload=googleApiClientReady')
