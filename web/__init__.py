@@ -13,8 +13,7 @@ Compress(app)
 app.config.from_object('config.Properties')
 db = SQLAlchemy(app)
 
-from web import errors, index, fantasy, jukebox, models, filters, blog, demo, cestlacreme
-
+from web import errors, index, fantasy, jukebox, models, filters, blog, demo
 
 @app.route('/favicon.ico')
 def favicon():
