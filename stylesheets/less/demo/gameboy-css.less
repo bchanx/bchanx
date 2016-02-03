@@ -1,0 +1,192 @@
+//
+// Copyright (c) 2015 Brian Chan (bchanx.com)
+// All Rights Reserved.
+//
+
+@import '../reset.less';
+@import '../base.less';
+@import '../flexbox.less';
+@import 'animated-gameboy-in-css.less';
+
+#header {
+  padding: 0;
+}
+
+#container {
+  width: 100%;
+  max-width: 1440px;
+  min-height: 715px;
+  height: 100vh;
+  max-height: 1000px;
+  position: relative;
+  .flex-display(flex);
+  .flex-direction(row);
+}
+
+@media screen and (max-width: 800px) {
+  #container {
+    .flex-direction(column);
+    min-height: initial;
+    height: auto;
+  }
+  #title,
+  #links {
+    height: auto !important;
+    padding-top: 0 !important;
+    .flex-basis(~"auto !important");
+  }
+  #title {
+    font-size: 22px !important;
+    margin-top: 20px !important;
+    .small {
+      font-size: 11px !important;
+    }
+  }
+  #links {
+    margin: 0 0 40px !important;
+    font-size: 12px !important;
+    .content {
+      position: static !important;
+      .link {
+        display: block !important;
+      }
+      a {
+        font-size: 22px !important;
+      }
+      .or {
+        line-height: 25px !important;
+        height: 22px !important;
+        margin: 0 5p !important;
+      }
+    }
+  }
+  #social {
+    padding: 0 20px !important;
+    margin-top: 40px !important;
+    text-align: center !important;
+  }
+  #gameboy {
+    margin: 20px 0 !important;
+  }
+  #colors {
+    margin-bottom: 30px !important;
+  }
+  #love {
+    font-size: 18px !important;
+  }
+}
+
+@media screen and (max-width: 399px) {
+  #gameboy {
+    margin: -30px -50px -20px !important;
+    .transform(scale(0.8));
+  }
+  #title {
+    font-size: 18px !important;
+    .small {
+      font-size: 10px !important;
+    }
+  }
+  #colors {
+    font-size: 14px !important;
+  }
+  #links {
+    .content {
+      a {
+        font-size: 18px !important;
+      }
+    }
+  }
+}
+
+#title {
+  .flex-grow(1);
+  .flex-basis(0);
+  font-size: 26px;
+  margin: 0 40px;
+  height: 715px;
+  padding-top: 80px;
+  text-align: center;
+  .align-self(center);
+  .small {
+    font-size: 13px;
+    color: @lightgray;
+  }
+}
+
+#main {
+  .flex-shrink(0);
+  .align-self(center);
+}
+
+#links {
+  .flex-grow(1);
+  .flex-basis(0);
+  .align-self(center);
+  margin: 0 40px;
+  text-align: center;
+  font-size: 16px;
+  height: 715px;
+  position: relative;
+  .content {
+    position: absolute;
+    bottom: 145px;
+    width: 100%;
+    .link {
+      display: inline-block;
+      a {
+        font-size: 26px;
+      }
+    }
+    .or {
+      display: inline-block;
+      line-height: 38px;
+      height: 33px;
+      margin: 0 5px;
+      vertical-align: top;
+    }
+  }
+}
+
+#social {
+  margin-top: 12px;
+  min-height: 38px;
+  display: block;
+  font-size: 15px;
+  text-align: center;
+  > div {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 5px;
+  }
+  a {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .fb {
+    .transform(scale(1.35));
+    .transform-origin(100% 0);
+    margin-top: -1px;
+    margin-bottom: 10px;
+    margin-left: 45px;
+    .social-button {
+      margin-bottom: 10px;
+    }
+  }
+  .social-button {
+    margin-bottom: 5px;
+  }
+}
+
+#love {
+  font-size: 20px;
+  text-align: center;
+  margin: 50px 0 40px;
+}
+
+#comments {
+  width: 100%;
+  padding: 0 50px;
+  margin: 0 auto 40px;
+  max-width: 800px;
+}

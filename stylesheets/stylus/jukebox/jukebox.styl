@@ -1,0 +1,145 @@
+$width = 640px
+$height = 360px
+$margin = 60px
+$padding = 100px
+
+.jukebox-container
+  width: 100%
+  min-width: $width + (2 * $margin)
+  height: 100%
+  min-height: $height + (2 * $padding)
+  background-color: $black
+  color: $gray1
+  padding: $padding 0
+  display: flex
+  flex-direction: row
+  position: relative
+  ::-moz-selection
+    background: $gray4
+    text-shadow: none
+  ::selection
+    background: $gray4
+    text-shadow: none
+
+.jukebox
+  flex-grow: 1
+  margin: 0 $margin
+  min-width: $width
+  display: flex
+  flex-direction: column
+  align-items: center
+  opacity: 0
+  transition: opacity 0.3s linear
+  &.active
+    opacity: 1
+
+#jukebox-slidr
+  max-height: $height
+  display: none
+
+#jukebox-slidr .slidr-control
+  &.up
+  &.down
+    display: none
+  &.left
+    left: -50px
+  &.right
+    right: -50px
+
+.video-playlists
+  outline: 1px $gray2 dotted
+  padding: 20px 0
+  width: $width
+
+.video-player
+  width: $width
+
+.video
+  width: $width
+  height: $height
+  flex-shrink: 0
+  position: relative
+
+.video-none
+  outline: 1px $gray2 dotted
+  width: $width
+  height: $height
+  visibility: visible
+  opacity: 1
+  position: absolute
+  top: 0
+  left: 0
+  text-align: center
+  display: flex
+  justify-content: center
+  align-items: center
+  &.hidden
+    visibility: hidden
+    opacity: 0
+    max-height: 0
+
+.youtube
+  width: $width
+  height: $height
+  visibility: visible
+  opacity: 1
+  position: absolute
+  top: 0
+  left: 0
+  &.hidden
+    opacity: 0
+    visibility: hidden
+    max-height: 0
+
+.controls
+  margin-top: 10px
+  width: $width
+  display: flex
+  flex-direction: row
+  flex-shrink: 0
+  justify-content: center;
+  font-size: 1.4em
+  &.hidden
+    opacity: 0
+    visibility: hidden
+    max-height: 0
+  div[class*="-button"]
+    flex-shrink: 0
+    padding: 3px 10px
+    margin: 0 3px
+    cursor: pointer
+    opacity: 0.8
+    &:hover
+      opacity: 1
+    &.active
+      color: $green
+      opacity: 1
+
+.playlist
+  outline: 1px $gray2 dotted
+  margin-top: 10px
+  width: $width
+  flex-shrink: 0
+
+.playlist-item
+  cursor: pointer
+  padding: 2px 20px
+  &:hover
+    background-color: $gray7
+
+.playlist-name
+  display: inline-block
+  font-weight: 400
+
+.playlist-length
+  display: inline-block
+  margin-left: 3px
+
+.click
+  position: absolute
+  top: -30px
+  cursor: pointer
+  width: 100%
+  > div
+    display: inline-block
+    margin-right: 10px

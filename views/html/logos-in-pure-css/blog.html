@@ -1,0 +1,79 @@
+{% extends "./html/base.html" %}
+{% import "./html/header.html" as header %}
+{% import "./html/footer.html" as footer %}
+{% import "./html/logo.html" as logo %}
+{% import "./html/social.html" as social %}
+
+{% block head %}
+  {{ header.meta("Logos In Pure CSS", "http://www.bchanx.com/logos-in-pure-css", "true") }}
+{% endblock %}
+
+{% block header %}
+  {{ header.render("Logos In Pure CSS") }}
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="/static/dist/css/logos-in-pure-css-blog{{min}}.css"/>
+{% endblock %}
+
+{% block body %}
+  <div class="blog-container clearfix">
+    <div class="block date">
+      May 28, 2013
+    </div>
+    <div class="line-break"></div>
+    <div class="block text">
+      As a weekend project, I recreated some well known logos in pure CSS.
+      This was a purely for fun experiment, heavily inspired by the Twitter logo done <a href="http://labs.upperdog.se/twitter-logo-in-css/">here</a>.
+    </div>
+    <div class="block demo">
+      <div class="logo">{{ logo.twitter('small') }}</div>
+      <div class="logo">{{ logo.github('small') }}</div>
+      <div class="logo">{{ logo.evernote('small') }}</div>
+      <div class="logo">{{ logo.dropbox('small') }}</div>
+      <div class="logo">{{ logo.apple('small') }}</div>
+      <div class="logo">{{ logo.facebook('small') }}</div>
+      <div class="logo">{{ logo.linkedin('small') }}</div>
+    </div>
+    <div class="block demo">
+      <a href="/logos-in-pure-css"><strong>See demo</strong></a>
+    </div>
+    <div class="line-break"></div>
+    <div class="block text">
+      As CSS3 grows more powerful with each browser release, people discover more ways to hack and create things that it wasn't intended for.
+      A whole slew of icons made entirely in CSS are abound; ranging from simple <a href="http://nicolasgallagher.com/pure-css-gui-icons/">GUI icons</a>,
+      to more sophisticated <a href="http://graphicpeel.com/cssiosicons">iOS icons</a>, <a href="http://one-div.com/">animated</a> ones, and even recreating the <a href="http://codepen.io/html5web/pen/puGal">Nintendo Gameboy</a>.
+    </div>
+    <div class="block text">
+      Rendering icons in pure CSS has its advantages. It allows programmers who aren't proficient in imaging programs like Photoshop to create high quality assets.
+      It maintains image quality as it resizes, so it's not lossy on high density displays or zooms.
+      It's readily available for modifications and tweaks, mitigating the bothersome back and forth with opening Photoshop and replacing an entire directory of assets.
+      There are potential performance gains by letting your more than capable browser render a couple lines of code, mitigating additional network roundtrips for image fetching.
+    </div>
+    <div class="block text">
+      Of course, it also comes with some drawbacks.
+      There's no lasso or magic brush tools handy in CSS, so even creating small 16x16 icons will be significantly slower than traditional methods.
+      It <strong>will likely</strong> break on non-modern browsers.
+      And even on modern browsers, there are often <a href="https://code.google.com/p/chromium/issues/detail?id=62363">
+      browser</a> <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=382721">specific</a> bugs that cause some fancy CSS rule to malfunction.
+    </div>
+    <div class="block text">
+      However, as more browsers <a href="http://thenextweb.com/insider/2013/04/04/opera-confirms-it-will-follow-google-and-ditch-webkit-for-blink-as-part-of-its-commitment-to-chromium/">consolidate</a> and web standards continue to unify,
+      cross-browser performance will become more of an afterthought.
+      Using CSS to style, draw, and animate will see much heavier adoption and further techniques will arise.
+      These hacks will eventually have a chance to find its place in parts of standard web development.
+      <br/><br/>
+      See discussion on <a href="http://news.ycombinator.com/item?id=5802043">Hacker News</a>.
+    </div>
+    <div class="block social">
+      <span class="twitter">{{ social.twitter() }}</span>
+      <span class="github">{{ social.githubStar("bchanx", "logos-in-pure-css", size="large") }}</span>
+    </div>
+    <div class="block disqus">{{ social.disqus("logos-in-pure-css", "Logos in Pure CSS", "http://www.bchanx.com/logos-in-pure-css") }}</div>
+  </div>
+  {{ social.githubScript() }}
+{% endblock %}
+
+{% block footer %}
+  {{ footer.blog() }}
+{% endblock %}

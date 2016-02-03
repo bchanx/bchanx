@@ -1,0 +1,734 @@
+{% extends "./html/base.html" %}
+{% import "./html/header.html" as header %}
+{% import "./html/footer.html" as footer %}
+{% import "./html/logo.html" as logo %}
+{% import "./html/social.html" as social %}
+
+{% block head %}
+  {{ header.meta("slidr.js - add some slide effects.", "http://www.bchanx.com/slidr", "true", "true") }}
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="/static/dist/css/lib/github.min.css"/>
+  <link rel="stylesheet" href="/static/dist/css/lib/markdown.css"/>
+  <link rel="stylesheet" href="/static/dist/css/slidr-demo{{min}}.css"/>
+{% endblock %}
+
+{% block header %}
+  {{ header.github("slidr.js", "..add some slide effects.") }}
+{% endblock %}
+
+{% block body %}
+  <img id="github-banner-image"
+       alt="Fork me on GitHub"
+       src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+  <a id="github-banner" href="https://www.github.com/bchanx/slidr"></a>
+
+  <div class="blog-container clearfix">
+    <div id="slidr">
+      <div class="slidr-home" data-slidr="home">
+        <div class="block demo">
+          A simple, lightweight javascript library for adding slide transitions to your page. No dependencies required.
+          <br><br>
+          Check out the demo below, or read the <a href="#docs">documentation</a>.
+        </div>
+        <div class="block">
+          <div id="slidr-home-demo" class="demo-slides">
+            <div data-slidr="one">one</div>
+            <div data-slidr="two">two</div>
+            <div data-slidr="three">three</div>
+            <div data-slidr="four">four</div>
+            <div data-slidr="five">five</div>
+            <div data-slidr="six">six</div>
+          </div>
+        </div>
+        <div id="slidr-home-demo-effects" class="block" style="text-align: center">
+          <div class="cube">cube</div>
+          <div class="linear">linear</div>
+          <div class="fade">fade</div>
+          <div class="none">none</div>
+        </div>
+        <div id="slidr-home-demo-settings" class="block" style="text-align: center">
+          <div class="controls active">controls</div>
+          <div class="breadcrumbs">breadcrumbs</div>
+        </div>
+        <div class="block demo">
+          <br>
+          Works on any inline, inline-block or block elements.
+          <br>
+          Slides can contain any html content, no restrictions.*
+          <br>
+          <span class="subtext">(Tested on Chrome 26.0, Firefox 20.0, Safari 5.1.7, IE 10, Opera 16.0. Limited support for IE8/9.)</span>
+          <br><br>
+          <span class="subtext2">*the goal, not a guarantee.</span>
+          <br><br>
+          Built with love.
+        </div>
+      </div>
+      <div class="slidr-docs" data-slidr="docs">
+        <div class="block">
+          <a href="#home">Home</a>
+        </div>      
+        <div class="block">
+          <div class="markdown" id="features">
+## Features
+- **Add as many Slidr's as you want** - *even place them within each other.*
+- **Dynamic resizing** - *adapts to the size of its content, unless you don't want it to.*
+- **Keyboard navigation** - *move your cursor on top of the demo below, and hit the arrow keys!*
+- **Touch navigation** (mobile) - *change the slides below by swiping left, right, up or down!*
+          </div>
+          <div class="slidr-example">
+            <div id="slidr-nav-demo" class="demo-slides">
+              <div data-slidr="one">one</div>
+              <div data-slidr="two">two</div>
+              <div data-slidr="three">three</div>
+            </div>
+          </div>
+          <div class="markdown" id="instructions">
+## Instructions
+Include either `slidr.js` or `slidr.min.js` somewhere at the bottom of your html page, after the body content.
+
+```javascript
+<script src="/path/to/slidr.min.js"></script>
+```
+          </div>
+          <div class="markdown" id="html">
+## HTML
+slidr.js works on any `inline`, `inline-block` or `block` elements with an `id` defined.
+Valid slides include any first-level children elements with the `data-slidr` attribute set to some unique value within the parent scope. For example:
+
+```html
+<ul id="slidr-ul" style="display: inline">
+  <li data-slidr="one">apple</li>
+  <li data-slidr="two">banana</li>
+  <li data-slidr="three">coconut</li>
+</ul>
+
+<div id="slidr-img" style="display: inline-block">
+  <img data-slidr="one" src="/static/images/slidr/apple.png"/>
+  <img data-slidr="two" src="/static/images/slidr/banana.png"/>
+  <img data-slidr="three" src="/static/images/slidr/coconut.png"/>
+</div>
+
+<div id="slidr-div" style="dislay: block">
+  <div data-slidr="one">apple</div>
+  <div data-slidr="two">banana</div>
+  <div data-slidr="three">coconut</div>
+</div>
+```
+
+are all valid html markup for creating three different `Slidr`'s within the same page.
+(inline elements are transformed into inline-blocks in order to apply transitions).
+
+          </div>
+
+          <div class="slidr-example hideOnSmall" style="margin-bottom: 0">
+            <ul id="slidr-ul" style="display: inline">
+              <li data-slidr="one">apple</li>
+              <li data-slidr="two">banana</li>
+              <li data-slidr="three">coconut</li>
+            </ul>
+
+            <div id="slidr-img" style="display: inline-block">
+              <img data-slidr="one" src="/static/images/slidr/apple.png"/>
+              <img data-slidr="two" src="/static/images/slidr/banana.png"/>
+              <img data-slidr="three" src="/static/images/slidr/coconut.png"/>
+            </div>
+
+            <div id="slidr-div" style="display: block">
+              <div data-slidr="one">apple</div>
+              <div data-slidr="two">banana</div>
+              <div data-slidr="three">coconut</div>
+            </div>
+          </div>
+
+          <div class="markdown" id="javascript">
+## Javascript
+A global `slidr` object is available for calling. The most minimal way of creating a slidr is this:
+
+```javascript
+slidr.create('slidr-id').start();
+```
+
+`create()` accepts an optional settings parameter as its second argument. A call with all the settings toggled looks like so:
+
+```javascript
+slidr.create('slidr-id', {
+  after: function(e) { console.log('in: ' + e.in.slidr); },
+  before: function(e) { console.log('out: ' + e.out.slidr); },
+  breadcrumbs: true,
+  controls: 'corner',
+  direction: 'vertical',
+  fade: false,
+  keyboard: true,
+  overflow: true,
+  pause: false,
+  theme: '#222',
+  timing: { 'cube': '0.5s ease-in' },
+  touch: true,
+  transition: 'cube'
+}).start();
+```
+
+### Settings
+Full details on available settings listed below:
+
+| Parameter     | Type      | Default    | Description                                                                   |
+| ------------- |:---------:|:----------:| -----------------------------------------------------------------------------:|
+| `after`       | _function_| no-op      | Callback function after a slide transition finishes.                          |
+| `before`      | _function_| no-op      | Callback function before a slide transition begins.                           |
+| `breadcrumbs` | _bool_    | false      | Show or hide breadcrumbs on start(). `true` or `false`.                       |
+| `controls`    | _string_  | border     | Show or hide control arrows on start(). `border`, `corner` or `none`.         |
+| `direction`   | _string_  | horizontal | The default direction for new slides. `horizontal` or `h`, `vertical` or `v`. |
+| `fade`        | _bool_    | true       | Whether slide transitions should fade in/out. `true` or `false`.              |
+| `keyboard`    | _bool_    | false      | Whether to enable keyboard navigation upon mouseover. `true` or `false`.      |
+| `overflow`    | _bool_    | false      | Whether to overflow transitions at slidr borders. `true` or `false`.          |
+| `pause`       | _bool_    | false      | Whether to pause on mouseover when running in auto(). `true` or `false`.      |
+| `theme`       | _string_  | #fff       | Sets color theme for breadcrumbs/controls. `#hexcode` or `rgba(value)`.       |
+| `timing`      | _object_  | {}         | Custom animation timings to apply. `{'transition': 'timing'}`.                |
+| `touch`       | _bool_    | false      | Whether to enable touch navigation for mobile devices. `true` or `false`.     |
+| `transition`  | _string_  | linear     | The default transition to apply. `cube`, `linear`, `fade`, or `none`.         |
+
+The `before` and `after` callback functions return the following metadata:
+
+```javascript
+{
+  id: "slidr-id",
+  in: {
+    el: #<HTMLElement>,
+    slidr: "data-slidr-in",
+    trans: "transition-in",
+    dir: "direction-in"
+  },
+  out: {
+    el: #<HTMLElement>,
+    slidr: "data-slidr-out",
+    trans: "transition-out",
+    dir: "direction-out"
+  }
+}
+```
+
+### Global API
+The global `slidr` namespace provides the following function calls:
+
+```javascript
+/**
+ * Current version.
+ * @return {string} major.minor.patch.
+ */
+ function version() {};
+
+/**
+ * Available transitions.
+ * @return {Array} of transitions.
+ */
+ function transitions() {};
+
+/**
+ * Creates and returns a Slidr.
+ * Calling create on the same element twice returns the already instantiated Slidr.
+ * @param {string} id The element id to turn into a Slidr.
+ * @param {Object=} opt_settings Settings to apply.
+ */
+ function create(id, opt_settings) {};
+ ```
+
+### Slidr API
+For javascript control, you can save a reference to the `Slidr` object as follows:
+
+```javascript
+// Initialize a Slidr. 
+// Display breadcrumbs, overflow transitions, use cube transition.
+var s = slidr.create('slidr-api-demo', {
+  breadcrumbs: true,
+  overflow: true
+});
+
+// Add horizontal slides with default linear transition.
+// The extra "one" allows the slidr to circle back and loop infinitely.
+s.add('h', ['one', 'two', 'three', 'one']);
+
+// Add vertical slides using a cube transition.
+s.add('v', ['five', 'four', 'three', 'five'], 'cube');
+
+// Now start.
+s.start();
+```
+
+`Slidr` functions are fully chainable (where it makes sense to do so). The following is equivalent:
+
+```javascript
+var s = slidr.create('slidr-api-demo', {
+  breadcrumbs: true,
+  overflow: true
+}).add('h', ['one', 'two', 'three', 'one'])
+  .add('v', ['five', 'four', 'three', 'five'], 'cube')
+  .start();
+```
+
+which produces this:
+          </div>
+          <div class="slidr-example">
+            <div id="slidr-api-demo" class="demo-slides">
+              <div data-slidr="one">one</div>
+              <div data-slidr="two">two</div>
+              <div data-slidr="three">three</div>
+              <div data-slidr="four">four</div>
+              <div data-slidr="five">five</div>
+            </div>
+          </div>
+          <div class="markdown">
+The full list of available functions in a `Slidr` object is listed below:
+
+```javascript
+/**
+ * Start the Slidr!
+ * Automatically finds slides to create if nothing was added prior to calling start().
+ * @param {string} opt_start `data-slidr` id to start on.
+ * @return {this}
+ */
+ function start(opt_start) {};
+
+/**
+ * Check whether we can slide.
+ * @param {string} next a direction ('up', 'down', 'left', 'right') or a `data-slidr` id.
+ * @return {boolean}
+ */
+ function canSlide(next) {};
+
+/**
+ * Slide!
+ * @param {string} next a direction ('up', 'down', 'left', 'right') or a `data-slidr` id.
+ * @return {this}
+ */
+ function slide(next) {};
+
+/**
+ * Adds a set of slides.
+ * @param {string} direction `horizontal || h` or `vertical || v`.
+ * @param {Array} ids A list of `data-slidr` id's to add to Slidr. Slides must be direct children of the Slidr.
+ * @param {string=} opt_transition The transition to apply between the slides, or uses the default.
+ * @param {boolean=} opt_overwrite Whether to overwrite existing slide mappings/transitions if conflicts occur.
+ * @return {this}
+ */
+ function add(direction, ids, opt_transition, opt_overwrite) {};
+
+/**
+ * Automatically advance to the next slide after a certain timeout. Calls start() if not already called.
+ * @param {int=} opt_msec The number of millis between each slide transition. Defaults to 5000 (5 seconds).
+ * @param {string=} opt_direction 'up', 'down', 'left', or 'right'. Defaults to 'right'.
+ * @param {string=} opt_start The `data-slidr` id to start at (only works if auto is called to start the Slidr).
+ * @return {this}
+ */
+ function auto(opt_msec, opt_direction, opt_start) {};
+
+/**
+ * Stop auto transition if it's turned on.
+ * @return {this}
+ */
+ function stop() {};
+
+/**
+ * Set custom animation timings.
+ * @param {string|Object} transition Either a transition name (i.e. 'cube'), or a {'transition': 'timing'} object.
+ * @param {string=} opt_timing The new animation timing (i.e "0.5s ease-in"). Not required if transition is an object.
+ * @return {this}
+ */
+ function timing(transition, opt_timing) {};
+
+/**
+ * Toggle breadcrumbs.
+ * @return {this}
+ */
+ function breadcrumbs() {};
+
+/**
+ * Toggle controls.
+ * @param {string=} opt_scheme Toggle on/off if not present, else change layout. 'border', `corner` or `none`.
+ * @return {this}
+ */
+ function controls(opt_scheme) {};
+```
+          </div>
+          <div class="markdown" id="css">
+## CSS
+
+### Temporary scrollbar during transitions
+On some browsers, `Slidr`'s that transition beyond the viewport might force an unwanted temporary scrollbar to appear
+(although this won't affect the page, the flickering can still be annoying). To fix this, add the following CSS:
+
+```css
+body {
+  overflow: hidden;
+}
+```
+
+### Dynamic resize
+`Slidr` follows a fairly straightforward heuristic for figuring out what it's width or height should be. If the `width`
+and `height` is explicitly set, `Slidr` will not resize. Otherwise, it will always adapt to the size of its content.
+You can also set just one and it'll dynamic resize the other.
+
+If `min-width` and `min-height` is defined, `Slidr` will only resize if the content exceeds those bounds.
+
+Dynamically resizing (no width/height set):
+
+```html
+<div id="slidr-inline-dynamic" style="display: inline">
+  <div data-slidr="one">good</div>
+  <div data-slidr="two">gorgeous</div>
+  <div data-slidr="three">unbelievable</div>
+</div>
+```
+          </div>
+          <div class="slidr-example" style="text-align: center; color: #b0b0b0">
+Today was a 
+<div id="slidr-inline-dynamic" style="display: inline">
+  <div data-slidr="one">good</div>
+  <div data-slidr="two">gorgeous</div>
+  <div data-slidr="three">unbelievable</div>
+</div>
+day.
+          </div>
+          <div class="markdown">
+Static sizing (width and height set):
+
+```html
+<div id="slidr-inline-static" style="display: inline; width: 155px; height: 30px">
+  <div data-slidr="one">good</div>
+  <div data-slidr="two">gorgeous</div>
+  <div data-slidr="three">unbelievable</div>
+</div>
+```
+          </div>
+          <div class="slidr-example" style="text-align: center; color: #b0b0b0">
+Today was a 
+<div id="slidr-inline-static" style="display: inline; width: 155px; height: 30px">
+  <div data-slidr="one">good</div>
+  <div data-slidr="two">gorgeous</div>
+  <div data-slidr="three">unbelievable</div>
+</div>
+day.
+          </div>
+
+          <div class="markdown">
+### Slidr controllers
+`Slidr` controllers are marked up like so:
+
+```html
+<aside id="{slidr-id}-control">
+  <div class="slidr-control up"></div>
+  <div class="slidr-control down"></div>
+  <div class="slidr-control left"></div>
+  <div class="slidr-control right"></div>
+</aside>
+```
+
+You can customize the look of `Slidr` controls through CSS selectors like below:
+
+```css
+// Customizing a specific controller arrow.
+aside[id="{slidr-id}-control"] .slidr-control.right {
+  width: 50px !important;
+  height: 50px !important;
+  top: 50% !important;
+  margin-top: -25px !important;
+  right: -25px !important;
+  border-radius: 25px;
+  background: url('/static/images/slidr/arrow_right.png') 14px 13px no-repeat black;
+  opacity: 0.4;
+}
+
+aside[id="{slidr-id}-control"] .slidr-control.right:hover {
+  opacity: 1;
+}
+```
+
+Note: controller arrows make use of the `:after` psuedo element.
+To hide the default triangular arrow, use the following CSS:
+
+```css
+// Hide a single arrow within a single controller.
+aside[id="{slidr-id}-control"] .slidr-control.right:after {
+  border-color: transparent !important;
+}
+
+// Hide all arrows within a single controller.
+aside[id="{slidr-id}-control"] .slidr-control:after {
+  border-color: transparent !important;
+}
+
+// Hide all Slidr arrows.
+aside[id*="-control"] .slidr-control:after {
+  border-color: transparent !important;   
+}
+```
+
+### Slidr breadcrumbs
+
+`Slidr` breadcrumbs have a similar HTML markup.
+Each `ul` denotes an entire row, while each `li` denotes an individual breadcrumb:
+
+```html
+<aside id="{slidr-id}-breadcrumbs">
+  <ul class="slidr-breadcrumbs">
+    <li></li>
+    <li class="normal"></li>
+    <li class="normal active"></li>
+  </ul>
+  ...
+</aside>
+```
+
+Thus you can configure them like so:
+
+```css
+// Customize the position, size, border color and background color.
+aside[id="{slidr-id}-breadcrumbs"] {
+  right: 50% !important;
+  margin-right: -41px !important;
+}
+
+aside[id="{slidr-id}-breadcrumbs"] .slidr-breadcrumbs li {
+  width: 15px !important;
+  height: 15px !important;
+  margin: 3px !important;
+}
+
+aside[id="{slidr-id}-breadcrumbs"] .slidr-breadcrumbs li.normal {
+  border-color: white !important;
+}
+
+aside[id="{slidr-id}-breadcrumbs"] .slidr-breadcrumbs li.active {
+  background-color: black !important;
+}
+```
+
+Altogether, it results in something like this:
+          </div>
+          <div class="slidr-example">
+            <div id="slidr-css-demo" class="demo-slides">
+              <div data-slidr="one">one</div>
+              <div data-slidr="two">two</div>
+              <div data-slidr="three">three</div>
+            </div>
+          </div>
+          <div class="markdown">
+In the worst case, feel free to create your own controllers and access via the Slidr API instead!
+
+For further questions or issues, visit [here](https://github.com/bchanx/slidr/issues).
+          </div>
+          <div class="markdown" id="license">
+## License
+
+This software is free to use under the MIT license.
+          </div>
+          <div class="breadcrumb-link" style="text-align: center; margin: 20px 0;">
+            <a class="top" style="position: relative; bottom: 0; text-decoration: underline; font-size: 18px;" href="#">Back to top</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}
+  {{ footer.blog() }}
+{% endblock %}
+
+{% block scripts %}
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script src="/static/dist/js/lib/jquery.min.js"></script>
+  <script src="/static/dist/js/lib/marked.min.js"></script>
+  <script src="/static/dist/js/lib/slidr{{min}}.js"></script>
+  <!--[if lte IE 8]>
+    <script>var lteIE8 = true;</script>
+  <![endif]-->
+  <script>
+    $(function() {
+      var indexOf = function(list, val) {
+        if (Array.prototype.indexOf) return list.indexOf(val);
+        if (list && list.length) for (var i = 0, len = list.length; i < len; i++) if (list[i] == val) return i;
+        return -1;
+      };
+
+      var h = ['one', 'two', 'three', 'four', 'one'];
+      var v = ['six', 'five', 'four', 'six'];
+
+      var updateEffect = function(s, effect) {
+        $('#slidr-home-demo-effects > div').removeClass('active');
+        $('#slidr-home-demo-effects > div.' + effect).addClass('active');
+        $('#slidr-home-demo > div').text(effect);
+      };
+
+      var addEffect = function(s, effect) {
+        effect = effect || 'linear';
+        s.add('h', h, effect, true).add('v', v, effect, true).start();
+        updateEffect(s, effect);
+      };
+
+      var s1 = slidr.create('slidr-home-demo', {
+        'overflow': true,
+        'keyboard': true
+      });
+      addEffect(s1, 'linear');
+      s1.auto();
+
+      var eventType = ('ontouchstart' in window) ? 'touchend' : 'click';
+      $('aside[id="slidr-home-demo-control"]').one(eventType, function() {
+        s1.stop();
+      });
+
+      $(document).one('keydown', function() {
+        s1.stop();
+      });
+
+      $('aside[id="slidr-home-demo-breadcrumbs"]').one(eventType, function() {
+        s1.stop();
+      });
+
+      $('#slidr-home-demo-effects > div').each(function() {
+        $(this).bind(eventType, function() { addEffect(s1, $(this).text()); });
+      });
+
+      var currentStyle = 'border';
+      var controls = ['border', 'corner', 'none'];
+      $('#slidr-home-demo-settings > div').each(function() {
+        $(this).bind(eventType, function() {
+          var type = $(this).text();
+          if (type === 'controls') {
+            currentStyle = controls[(indexOf(controls, currentStyle) + 1) % controls.length];
+            s1.controls(currentStyle);
+            (currentStyle === 'none') ? $(this).removeClass('active') : $(this).addClass('active');
+          } else if (type === 'breadcrumbs') {
+            ($('#slidr-home-demo-breadcrumbs').css('visibility') === 'hidden') ?
+              $(this).addClass('active') : $(this).removeClass('active');
+            s1.breadcrumbs();
+          }
+        });
+      });
+
+      // IF <= IE8, abort.
+      var lteIE8 = !!lteIE8;
+      if (lteIE8) {
+        $('.slidr-docs').remove();
+        $('a[href="#docs"]').attr('href', 'https://github.com/bchanx/slidr');
+      } else {
+        // Highlight markdown.
+        $('.markdown').each(function() {
+          this.innerHTML = marked(("".trim) ? this.innerHTML.trim() : this.innerHTML.replace(/^\s+|\s+$/g, ''));
+        });
+
+        // Highlight code blocks.
+        hljs.initHighlightingOnLoad();
+
+        // Set up Slidr nav demo.
+        slidr.create('slidr-nav-demo', {
+          'controls': 'none',
+          'overflow': true,
+          'keyboard': true,
+          'touch': true
+        }).add('h', ['one', 'two', 'three', 'one'], 'cube')
+          .add('v', ['one', 'two', 'three', 'one'], 'linear')
+          .start();
+
+        // Set up demo slidr's.
+        var demos = [slidr.create('slidr-div', {'theme': '#222'}).start(),
+                     slidr.create('slidr-img', {'theme': '#222'}).start(),
+                     slidr.create('slidr-ul', {'theme': '#222'}).start()];
+        var demoNames = ['#slidr-div-control', '#slidr-img-control', '#slidr-ul-control'];
+        for (var i = 0, demo; demo = demoNames[i]; i++) {
+          $(demo + ' .slidr-control.left').bind(eventType, function(e) {
+            (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
+            e.stopPropagation();
+            for (var d = 0, dd; dd = demos[d]; d++) dd.slide('left');
+          });
+          $(demo + ' .slidr-control.right').bind(eventType, function(e) {
+            (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
+            e.stopPropagation();
+            for (var d = 0, dd; dd = demos[d]; d++) dd.slide('right');
+          });
+        }
+
+        // Set up Slidr API demo.
+        slidr.create('slidr-api-demo', {
+          breadcrumbs: true,
+          overflow: true
+        }).add('h', ['one', 'two', 'three', 'one'])
+          .add('v', ['five', 'four', 'three', 'five'], 'cube')
+          .start();
+
+        // Set up Slidr CSS demo.
+        slidr.create('slidr-css-demo', {
+          breadcrumbs: true,
+          overflow: true,
+          transition: 'cube'
+        }).add('h', ['one', 'two', 'three', 'one'], 'linear')
+          .start();
+
+        // Set up Slidr auto resize demo.
+        slidr.create('slidr-inline-dynamic', {
+          transition: 'cube',
+          controls: 'none'
+        }).add('v', ['one', 'three', 'two', 'one']).auto(3000, 'up');
+        slidr.create('slidr-inline-static', {
+          transition: 'cube',
+          controls: 'none'
+        }).add('v', ['one', 'three', 'two', 'one']).auto(3000, 'up');
+
+        // Add breadcrumb links.
+        var anchors = [];
+        $('.markdown[id]').each(function() {
+          var h2 = $(this).find('h2').get(0);
+          if (h2) {
+            var newNode = $(
+              '<div class="breadcrumb-link">' +
+                '<div class="action">' +
+                  '<a href="#' + h2.innerHTML.toLowerCase() + '">' + h2.innerHTML + '</a>' +
+                '</div>' +
+                '<div class="top"><a href="#">Top</a></div>' +
+                '<h2>' + h2.innerHTML + '</h2>' +
+              '</div>').get(0);
+            h2.parentNode.insertBefore(newNode, h2);
+            h2.parentNode.removeChild(h2);
+            anchors.push('#' + h2.innerHTML.toLowerCase());
+          }
+        });
+      }
+
+      // Setup master slidr, breadcrumbs and hash changes.
+      var pages = ['#home', '#docs'];
+      var checkPage = function() {
+        var hash = window.location.hash;
+        if (indexOf(pages, hash) >= 0) return hash.slice(1);
+        else if (indexOf(anchors, hash) >= 0) return 'docs';
+        else if (hash === '' && indexOf(window.location.href, '#') < 0) return 'home';
+        return null;
+      };
+
+      var checkAnchor = function() {
+        var hash = window.location.hash;
+        var href = $('a[href="' + hash + '"]');
+        if (indexOf(anchors, hash) >= 0 && href) {
+          href.get(0).click();
+        }
+      };
+
+      var page = checkPage();
+      var master = slidr.create('slidr', {
+        'controls': 'none',
+        'transition': 'cube',
+        'overflow': true
+      }).start(page);
+      if (page === 'docs') checkAnchor();
+
+      $(window).bind('hashchange', function(e) {
+        var newPage = checkPage();
+        if (newPage) {
+          master.slide(newPage);
+          checkAnchor();
+        }
+      });
+    });
+  </script>
+{% endblock %}

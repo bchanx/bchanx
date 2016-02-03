@@ -1,0 +1,175 @@
+//
+// Copyright (c) 2015 Brian Chan (bchanx.com)
+// All Rights Reserved.
+//
+
+@import 'reset.less';
+@import 'colors.less';
+@import 'logo.less';
+@import 'header.less';
+@import 'footer.less';
+
+//////////////////// BASE
+html, button, input, select, textarea {
+  font-family: 'Oxygen', Helvetica, arial, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: @black;
+}
+
+html {
+  min-height: 100%;
+  background-color: @palegray;
+  overflow-y: scroll;
+}
+
+body {
+  line-height: 1.4;
+}
+
+a,
+a:link,
+a:visited,
+a:hover,
+a:active,
+a:focus {
+  color: @lightgreen;
+  font-weight: 400;
+  text-decoration: none;
+}
+a:hover {
+  color: @darkgreen;
+}
+
+//////////////////// FORMAT
+.line-break {
+  height: 1px;
+  width: 600px;
+  margin: 20px auto;
+  border-bottom: 1px #cccccc solid;
+}    
+
+.social-button {
+  display: inline-block;
+}
+//////////////////// STYLING
+.user-select-none() {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.border-radius(@radius...) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  -ms-border-radius: @radius;
+  -o-border-radius: @radius;
+  border-radius: @radius;
+}
+
+/*
+ * This fixes an overflow:hidden issue in webkit.
+ * Webkit has issues properly cropping children elements when border-radius and positioning is set on a parent.
+ * The bug causes children elements to appear beyond the borders of the parent element.
+ * http://stackoverflow.com/questions/5736503/how-to-make-css3-rounded-corners-hide-overflow-in-chrome-opera
+ */
+.border-radius-fix() {
+  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+}
+
+// inset? h-shadow v-shadow blur spread color
+.box-shadow(@style) {
+  -webkit-box-shadow: @style;
+  -moz-box-shadow: @style;
+  -ms-box-shadow: @style;
+  -o-box-shadow: @style;
+  box-shadow: @style;
+}
+
+.linear-gradient (top, @c1, @c2) {
+  background-color: @c1;
+  background-image: -webkit-gradient(linear, left top, left bottom, from (@c1), to(@c2));
+  background-image: -webkit-linear-gradient(top, @c1, @c2);
+  background-image: -moz-linear-gradient(top, @c1, @c2);
+  background-image: -ms-linear-gradient(top, @c1, @c2);
+  background-image: -o-linear-gradient(top, @c1, @c2);
+  background-image: linear-gradient(top, @c1, @c2);
+}
+
+.radial-gradient (@prefixed-pos, @unprefixed-pos, @rules...) {
+  background-image: -moz-radial-gradient(@prefixed-pos, @rules);
+  background-image: -o-radial-gradient(@prefixed-pos, @rules);
+  background-image: -webkit-radial-gradient(@prefixed-pos, @rules);
+  background-image: radial-gradient(@unprefixed-pos, @rules);
+}
+//////////////////// CSS3 TRANSLATION/TRANSITIONS
+.transition(@rules) {
+  -webkit-transition+: @rules;
+  transition+: @rules;
+}
+
+.transition(transform, @rules) {
+  -webkit-transition: -webkit-transform @rules;
+  transition: transform @rules;
+}
+
+.transform(@rules) {
+  -webkit-transform: @rules;
+  transform: @rules;
+}
+
+.transform-style(@rules) {
+  -webkit-transform-style: @rules;
+  transform-style: @rules;
+}
+
+.transform-origin(@rules) {
+  -webkit-transform-origin: @rules;
+  transform-origin: @rules;
+}
+
+.backface-visibility(@type) {
+  -webkit-backface-visibility: @type;
+  -moz-backface-visibility: @type;
+  backface-visibility: @type;
+}
+
+.animation(@rules) {
+  -webkit-animation+: @rules;
+  animation+: @rules;
+}
+
+.keyframes(@name; @arguments) {
+  @-moz-keyframes @name { @arguments(); }
+  @-webkit-keyframes @name { @arguments(); }
+  @keyframes @name { @arguments(); }
+}
+
+//////////////////// CLEARFIX
+/*
+ * Clearfix: contain floats
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements that receive the `clearfix` class.
+ * 2. The use of `table` rather than `block` is only necessary if using `:before` to contain the top-margins of child elements.
+ */
+.clearfix:before, .clearfix:after {
+  content: ' '; /* 1 */
+  display: table; /* 2 */
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+/*
+ * For IE 6/7 only. Include this rule to trigger hasLayout and contain floats.
+ */
+.clearfix {
+  *zoom: 1;
+}
+

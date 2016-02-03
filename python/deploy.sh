@@ -10,6 +10,22 @@ function printError {
 }
 
 #####
+# Compile assets
+#####
+printStatus "Compiling Assets"
+python ./compile.py
+if [[ $? != 0 ]]; then
+  printError "Compiled Failed"
+  exit 1
+fi
+
+#####
+# Checking copyright
+#####
+printStatus "Checking Copyright"
+copyright ./
+
+#####
 # Push changes to Git
 #####
 status=$(git status 2>&1)

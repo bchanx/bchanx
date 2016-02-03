@@ -1,0 +1,107 @@
+//
+// Copyright (c) 2015 Brian Chan (bchanx.com)
+// All Rights Reserved.
+//
+
+@import '../blog.less';
+
+#logos-in-pure-css {
+  .user-select-none();
+  margin: 0 auto;
+  width: 640px;
+  .logo-block {
+    .title {
+      font-size: 20px;
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+    .logos {
+      position: relative;
+      margin-bottom: 20px;
+      width: 100%;
+      height: 322px;
+      .css, .actual {
+        vertical-align: top;
+        display: inline-block;
+        width: 300px;
+      }
+      .css {
+        .transition(~"padding-left 1.0s ease");
+        z-index: 1;
+        left: 0;
+      }
+      .actual {
+        position: absolute;
+        top: 0;
+        left: 340px;
+        .transition(~"left 1.0s ease");
+        z-index: 2;
+        opacity: 0.6;
+        &:hover {
+          left: 170px;
+          width: 470px;
+          padding-right: 170px;
+          & + .css {
+            width: 470px;
+            padding-left: 170px;
+          }
+        }
+      }
+      .css:before {
+        content: "CSS";
+        position: relative;
+      }
+      .actual:before {
+        content: "Image";
+        position: relative;
+      }
+    }
+  }
+}
+
+.logo-twitter-large,
+.logo-github-large,
+.logo-evernote-large,
+.logo-dropbox-large,
+.logo-apple-large {
+  &:hover {
+    overflow: visible;
+    -webkit-mask-image: none;
+    div {
+      opacity: 0.8;
+      border: 2px @black solid;
+    }
+  }
+}
+
+.logo-github-large:hover {
+  div {
+    border-color: @lightergray;
+  }
+  .tail-body-spots, .tail-end-spots {
+    border: 5px @lightergray dotted;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .line-break {
+    margin-bottom: 40px;
+  }
+  #logos-in-pure-css {
+    width: 300px;
+    .logo-block {
+      .logos {
+        height: 300px;
+        .css {
+          margin: 0 auto;
+          &:before {
+            display: none;
+          }
+        }
+        .actual {
+          display: none;
+        }
+      }
+    }
+  }
+}

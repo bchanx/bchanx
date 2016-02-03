@@ -1,0 +1,10 @@
+*.py[cod]
+*.sw?
+*~
+*.egg
+*.egg-info
+!static/compiled/*
+!static/dist/*
+!web/static/dist/
+.env
+.DS_Store

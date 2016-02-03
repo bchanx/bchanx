@@ -1,0 +1,22 @@
+{
+  "name": "bchanx",
+  "description": "bchanx",
+  "main": "server.js",
+  "authors": [
+    "@bchanx"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/bchanx/bchanx",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Ionicons": "ionicons#~2.0.1",
+    "normalize-css": "normalize.css#~3.0.3"
+  }
+}

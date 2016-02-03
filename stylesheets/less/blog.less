@@ -1,0 +1,106 @@
+//
+// Copyright (c) 2015 Brian Chan (bchanx.com)
+// All Rights Reserved.
+//
+
+@import 'base.less';
+@import 'header-responsive.less';
+
+.blog-container {
+  width: 640px;
+  height: 100%;
+  margin: 0 auto;
+  .block {
+    margin: 20px 0;
+    padding: 0 20px;
+    font-size: 20px;
+    line-height: 1.5em;
+    .subtext {
+      font-size: 14px;
+    }
+    .subtext2 {
+      font-size: 12px;
+    }
+    &.social {
+      text-align: center;
+    }
+    &.disqus {
+      margin-bottom: 0;
+    }
+    &.demo {
+      text-align: center;
+      margin: 25px 0;
+      strong {
+        font-size: 40px;
+        letter-spacing: -2px;
+      }
+      .logo {
+        display: inline-block;
+        width: 52px;
+        height: 52px;
+      }
+    }
+    &.date {
+      margin-top: 10px;
+      font-size: 16px;
+      text-align: center;
+      letter-spacing: 0.4em;
+    }
+    &.text:before {
+      content: "\a0\a0";
+    }
+  }
+}
+
+#blog-footer-container {
+  width: 640px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 640px) {
+  .blog-container,
+  #blog-footer-container {
+    width: 440px;
+  }
+  .blog-container {
+    .block {
+      font-size: 16px;
+      .subtext {
+        font-size: 10px;
+      }
+      .subtext2 {
+        font-size: 9px;
+      }
+      &.date {
+        letter-spacing: 0.2em;
+      }
+      &.demo strong {
+        font-size: 35px;
+      }
+    }
+  }
+  .line-break {
+    width: 400px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .blog-container,
+  #blog-footer-container {
+    width: 320px;
+  }
+  .blog-container .block {
+    &.demo strong {
+      font-size: 30px;
+    }
+    &.date {
+      font-size: 14px;
+      letter-spacing: 0.1em;
+    }
+  }
+  .line-break {
+    width: 280px;
+  }
+}
+

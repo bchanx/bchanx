@@ -1,0 +1,16 @@
+extends layout
+
+block css
+  link(rel="stylesheet", href="/static/dist/css/lib/normalize.min.css")
+  link(rel="stylesheet", href="/static/dist/css/lib/ionicons.min.css")
+  link(rel="stylesheet", href="/static/dist/css/main#{min}.css")
+
+block js
+  script(src="/static/dist/js/vendor#{min}.js")
+
+block content
+  div#app #{html}
+
+block scripts
+  script(src="/static/dist/js/bundle#{min}.js")
+  script(src="/static/dist/js/main#{min}.js")

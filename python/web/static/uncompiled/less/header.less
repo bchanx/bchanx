@@ -1,0 +1,123 @@
+//
+// Copyright (c) 2015 Brian Chan (bchanx.com)
+// All Rights Reserved.
+//
+
+#header {
+  padding-top: 20px;
+  #header-container {
+    margin: 0 auto;
+    display: block;
+    #header-logo {
+      width: 80px;
+      height: 80px;
+      margin-left: 20px;
+      position: relative;
+      z-index: 10;
+    }
+    #header-content {
+      width: 600px;
+      margin: 0 auto;
+      position: relative;
+      &.logo {
+        margin-top: -85px;
+      }
+      #header-title {
+        text-align: center;
+        vertical-align: top;
+        display: block;
+        font-weight: 300;
+        font-size: 60px;
+        line-height: 85px;
+        word-wrap: break-word;
+        color: @black;
+      }
+      #header-subtitle {
+        display: block;
+        padding-bottom: 10px;
+        text-align: center;
+        color: @lightergray;
+        font-size: 16px;
+        line-height: 16px;
+      }
+      #header-social {
+        position: absolute;
+        right: 0;
+        top: 20px;
+        width: 95px;
+        .social-button {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+// BCHANX
+@radius: 80px;
+
+.logo-bchanx {
+  width: @radius;
+  height: @radius;
+  display: inline-block;
+  .user-select-none();
+  .logo-content {
+    .transition(transform, ~"0.4s ease");
+    .transform-style(preserve-3d);
+    width: @radius;
+    height: @radius;
+    .border-radius(50%);
+    .box-shadow(0 0 @radius * 0.05 0 rgba(0, 0, 0, 0.5));
+    border: 1px rgba(0, 0, 0, 0.3) solid;
+    position: relative;
+    .logo-text {
+      width: @radius - 2;
+      height: @radius - 2;
+      .border-radius(50%);
+      .transform(rotateY(180deg));
+      .backface-visibility(hidden);
+      background-color: @white;
+      position: absolute;
+      .logo-b {
+        position: relative;
+        &:before, &:after {
+          content: "";
+          position: absolute;
+          border-style: solid;
+          border-color: @black;
+        }
+        &:before {
+          left: @radius * 0.34;
+          top: @radius * 0.185;
+          height: @radius * 0.6;
+          border-width: 0 0 0 ceil(@radius * 0.07);
+        }
+        &:after {
+          top: @radius * 0.39;
+          left: @radius * 0.34;
+          width: @radius * 0.3;
+          border-width: ceil(@radius * 0.03) ceil(@radius * 0.05);
+          border-left: none;
+          height: @radius * 0.34;
+          .border-radius(0 @radius * 0.2 @radius * 0.2 0);
+        }
+      }
+    }
+    .logo-pic {
+      width: @radius;
+      height: @radius;
+      .backface-visibility(hidden);
+      .transform(translateZ(1px));
+      position: absolute;
+      img {
+        .border-radius(50%);
+        width: @radius - 2;
+        height: @radius - 2;
+      }
+    }
+  }
+  &:hover .logo-content {
+    .transform(rotateY(180deg));
+  }
+}
+

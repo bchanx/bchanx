@@ -1,0 +1,66 @@
+{% import './logo.html' as logo %}
+
+{% macro twitter(size="large") %}
+<div class="social-button">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-via="bchanx" data-size="{{ size }}">Tweet</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</div>
+{% endmacro %}
+
+{% macro github(user, repo, type, size="") %}
+<div class="social-button">
+  <iframe src="http://ghbtns.com/github-btn.html?user={{ user }}&repo={{ repo }}&type={{ type }}&count=true{% if size %}&size=large{% endif %}"
+    allowtransparency="true" frameborder="0" scrolling="0" width="{% if size %}170{% else %}107{% endif %}" height="{% if size %}30{% else %}20{% endif %}"></iframe>
+</div>
+{% endmacro %}
+
+{% macro githubStar(user, repo, size="") %}
+<div class="social-button">
+  <a class="github-button" href="https://github.com/{{ user }}/{{ repo }}" data-icon="octicon-star" {% if size %}data-style="mega" {% endif %}data-count-href="/{{ user }}/{{ repo }}/stargazers" data-count-api="/repos/{{ user }}/{{ repo }}#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star {{ user }}/{{ repo }} on GitHub">Star</a>
+</div>
+{% endmacro %}
+
+{% macro githubFork(user, repo, size="") %}
+<div class="social-button">
+  <a class="github-button" href="https://github.com/{{ user }}/{{ repo }}/fork" data-icon="octicon-repo-forked" data-count-href="/{{ user }}/{{ repo }}/network" data-count-api="/repos/{{ user }}/{{ repo }}#forks_count" data-count-aria-label="# forks on GitHub" aria-label="Fork {{ user }}/{{ repo }} on GitHub">Fork</a>
+</div>
+{% endmacro %}
+
+{% macro githubScript() %}
+  <!-- Place this tag right after the last button or just before your close body tag. -->
+  <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+{% endmacro %}
+
+{% macro disqus(id, title, url) %}
+<div id="disqus_thread"></div>
+<script>
+  var disqus_shortname = "bchanx";
+  var disqus_identifier = "{{ id }}";
+  var disqus_title = "{{ title }}";
+  var disqus_url = "{{ url }}";
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+{% endmacro %}
+
+{% macro facebook(url) %}
+<div class="social-button">
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.async = true;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+  <div class="fb-like" data-href="{{ url }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+</div>
+
+{% endmacro %}

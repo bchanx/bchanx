@@ -1,0 +1,40 @@
+{% import './logo.html' as logo %}
+{% import './social.html' as social %}
+
+{% macro meta(title="bchanx", url="", responsive="", notscalable="") %}
+  <title>{{ title }}</title>
+  {% if url %}
+  <link rel="canonical" href="{{ url }}"/>
+  {% endif %}
+  {% if responsive %}
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable={% if notscalable %}no{% else %}yes{% endif %}">
+  {% endif %}
+{% endmacro %}
+
+{% macro render(name, showLogo="") %}
+<div id="header-container">
+  {% if showLogo %}
+    <div id="header-logo">
+      <a href="/">{{ logo.bchanx() }}</a>
+    </div>
+  {% endif %}
+  <div id="header-content"{% if showLogo %} class="logo"{% endif %}>
+    <div id="header-title">{{ name }}</div>
+  </div>
+</div>
+{% endmacro %}
+
+{% macro github(title, subtitle) %}
+<div id="header-container">
+  <div id="header-content">
+    <div id="header-title" style="text-align: left; font-weight: 600">{{ title }}</div>
+    <div id="header-subtitle" style="text-align: left">{{ subtitle }}</div>
+    <div id="header-social">
+      {{ social.githubStar("bchanx", "slidr") }}
+      {{ social.githubFork("bchanx", "slidr") }}
+      {{ social.githubScript() }}
+      {{ social.twitter("small") }}
+    </div>
+  </div>
+</div>
+{% endmacro %}
