@@ -1,16 +1,26 @@
 import React from 'react';
 import classNames from 'classnames';
 import { TYPES } from './redux/actionTypes';
+import { searchFocus } from './redux/actions';
 
 var None = React.createClass({
   getDefaultProps: function() {
     return {
-      current: {}
+      current: {},
+      dispatch: null
     }
   },
 
   triggerSearch: function() {
-    console.log("-->> trigger search!");
+    this.props.dispatch(searchFocus());
+  },
+
+  triggerPlaylist: function() {
+    console.log("-->> trigger playlist!");
+  },
+
+  triggerRestart: function() {
+    console.log("-->> trigger restart!");
   },
 
   render: function() {
@@ -21,7 +31,7 @@ var None = React.createClass({
           You've reached the end of the playlist!
           <br/>
           <br/>
-          Restart this playlist, choose another, or search a video.</div>
+          <span className="action" onClick={this.triggerRestart}>Restart</span> this playlist, choose <span className="action" onClick={this.triggerPlaylist}>another</span>, or <span className="action" onClick={this.triggerSearch}>search</span> a video.</div>
       );
     }
     else if (this.props.current.isQueue) {
@@ -30,12 +40,12 @@ var None = React.createClass({
           You've reached the end of the queue!
           <br/>
           <br/>
-          Please <span onClick={this.triggerSearch}>search</span> for another video, or select a playlist.</div>
+          Please <span className="action" onClick={this.triggerSearch}>search</span> for another video, or select a <span className="action" onClick={this.triggerPlaylist}>playlist</span>.</div>
       );
     }
     else {
       message = (
-        <div>Select a playlist, or search for a video.</div>
+        <div>Select a <span className="action" onClick={this.triggerPlaylist}>playlist</span>, or <span className="action" onClick={this.triggerSearch}>search</span> for a video.</div>
       );
     }
     return (

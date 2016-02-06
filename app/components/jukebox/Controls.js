@@ -23,7 +23,6 @@ var Controls = React.createClass({
 
   next: function() {
     this.props.dispatch(playNext());
-
   },
 
   repeat: function() {

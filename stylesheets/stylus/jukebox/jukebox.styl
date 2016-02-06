@@ -1,19 +1,31 @@
-$width = 640px
-$height = 360px
-$margin = 60px
-$padding = 100px
+$jukebox-width = 640px
+$jukebox-height = 360px
+$jukebox-margin = 60px
+$jukebox-padding = 100px
+
+input
+  background: transparent
+  color: $gray1
+  border: 1px $gray2 dotted
+  padding: 0 8px
+  &:focus
+    outline: 1px $green dashed
+    outline-offset: -5px
 
 .jukebox-container
   width: 100%
-  min-width: $width + (2 * $margin)
   height: 100%
-  min-height: $height + (2 * $padding)
+  min-width: $jukebox-width + (2 * $jukebox-margin)
+  min-height: $jukebox-height + (2 * $jukebox-padding)
   background-color: $black
   color: $gray1
-  padding: $padding 0
+  padding: $jukebox-padding 0
   display: flex
   flex-direction: row
+  overflow-y: scroll
   position: relative
+  &::-webkit-scrollbar
+    display: none
   ::-moz-selection
     background: $gray4
     text-shadow: none
@@ -23,8 +35,8 @@ $padding = 100px
 
 .jukebox
   flex-grow: 1
-  margin: 0 $margin
-  min-width: $width
+  margin: 0 $jukebox-margin
+  min-width: $jukebox-width
   display: flex
   flex-direction: column
   align-items: center
@@ -34,36 +46,40 @@ $padding = 100px
     opacity: 1
 
 #jukebox-slidr
-  max-height: $height
+  max-height: $jukebox-height
   display: none
-
-#jukebox-slidr .slidr-control
-  &.up
-  &.down
-    display: none
-  &.left
-    left: -50px
-  &.right
-    right: -50px
+  .slidr-control
+    &.up
+    &.down
+      display: none
+    &.left
+      left: -50px
+    &.right
+      right: -50px
+  &.video-not-showing .video-player .playlist
+    max-height: 0
 
 .video-playlists
-  outline: 1px $gray2 dotted
+  border: 1px $gray2 dotted
   padding: 20px 0
-  width: $width
+  width: $jukebox-width
+  max-height: $jukebox-height
 
 .video-player
-  width: $width
+  width: $jukebox-width
+  padding-bottom: 100px
+  border-bottom: 0px transparent solid
 
 .video
-  width: $width
-  height: $height
+  width: $jukebox-width
+  height: $jukebox-height
   flex-shrink: 0
   position: relative
 
 .video-none
-  outline: 1px $gray2 dotted
-  width: $width
-  height: $height
+  border: 1px $gray2 dotted
+  width: $jukebox-width
+  height: $jukebox-height
   visibility: visible
   opacity: 1
   position: absolute
@@ -79,8 +95,8 @@ $padding = 100px
     max-height: 0
 
 .youtube
-  width: $width
-  height: $height
+  width: $jukebox-width
+  height: $jukebox-height
   visibility: visible
   opacity: 1
   position: absolute
@@ -93,16 +109,14 @@ $padding = 100px
 
 .controls
   margin-top: 10px
-  width: $width
+  width: $jukebox-width
   display: flex
   flex-direction: row
   flex-shrink: 0
   justify-content: center;
   font-size: 1.4em
   &.hidden
-    opacity: 0
-    visibility: hidden
-    max-height: 0
+    display: none
   div[class*="-button"]
     flex-shrink: 0
     padding: 3px 10px
@@ -114,12 +128,17 @@ $padding = 100px
     &.active
       color: $green
       opacity: 1
+      &:hover
+        color: $green-light
 
 .playlist
-  outline: 1px $gray2 dotted
+  border: 1px $gray2 dotted
   margin-top: 10px
-  width: $width
+  width: $jukebox-width
   flex-shrink: 0
+  height: 200px
+  &.hidden
+    display: none
 
 .playlist-item
   cursor: pointer
@@ -134,6 +153,13 @@ $padding = 100px
 .playlist-length
   display: inline-block
   margin-left: 3px
+
+.action
+  color: $green
+  cursor: pointer
+  font-weight: 400
+  &:hover
+    color: $green-light
 
 .click
   position: absolute

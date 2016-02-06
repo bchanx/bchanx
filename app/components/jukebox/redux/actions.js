@@ -2,6 +2,8 @@ import {
   SHUFFLE,
   REPEAT,
   PLAYLIST,
+  SEARCH_TOGGLE,
+  SEARCH_FOCUS,
   NOW_PLAYING,
   PLAY_PREV,
   PLAY_NEXT,
@@ -21,6 +23,14 @@ export function repeat() {
 
 export function playlist() {
   return { type: PLAYLIST };
+}
+
+export function searchToggle() {
+  return { type: SEARCH_TOGGLE };
+}
+
+export function searchFocus(opt_focus) {
+  return { type: SEARCH_FOCUS, focus: opt_focus };
 }
 
 export function nowPlaying(status) {

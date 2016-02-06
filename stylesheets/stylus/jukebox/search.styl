@@ -1,36 +1,94 @@
-.search
+$search-result-width = 200px
+$search-result-height = 180px
+$search-margin-right = 20px
+
+.search-container
   flex-shrink: 0
   display: flex
   width: 0
   opacity: 0
+  position: relative
   transition: width 0.2s ease-out, opacity 0.3s linear
   &.active
     opacity: 1
   &.expanded
-    outline: 1px $gray2 dotted
-    width: 300px
-    margin-right: 10px
-    .search-results
+    width: (2 * $search-result-width) + 10px;
+    margin-right: $search-margin-right
+    .search-content
+      visibility: visible
       max-height: initial
+      max-width: initial
+    .search-icon
+      left: -40px
 
-@media screen and (max-width: 1129px)
-  .search
-    display: none !important
+.search
+  position: fixed
+  margin-right: $search-margin-right
+  display: flex
+  min-height: $jukebox-height
+  max-height: "calc(100vh - (2 * %s))" % $jukebox-padding
 
 .search-icon
   width: 40px
   height: 40px
   cursor: pointer
   opacity: 0.8
-  margin-left: -40px
+  position: absolute
+  left: -50px
   &:hover
     opacity: 1
   > span[class^="ion-ios"]
     font-size: 40px
     line-height: 40px
 
-.search-results
+.search-content
   flex-grow: 1
   display: flex
   flex-direction: column
+  overflow: hidden
+  visibility: hidden
+  padding: 1px
+  margin: -1px
   max-height: 0
+  max-width: 0
+
+.search-bar
+  height: 40px
+  flex-shrink: 0
+
+.search-options
+  height: 40px
+  padding: 0 9px
+  flex-shrink: 0
+  line-height: 52px
+
+.search-results
+  border: 1px $gray2 dotted
+  overflow-x: hidden
+  overflow-y: scroll
+  flex-grow: 1
+  display: flex
+  flex-flow: row
+  flex-wrap: wrap
+  &::-webkit-scrollbar
+    display: none
+
+.search-result
+  outline: 1px blue solid
+  height: $search-result-height
+  width: $search-result-width
+  &:nth-child(2n)
+    margin-left: 8px
+    outline: 1px yellow solid
+
+
+@media screen and (max-width: 1279px)
+  .search-container.expanded
+    width: $search-result-width
+
+  .search-result:nth-child(2n)
+    margin-left: initial !important
+
+@media screen and (max-width: 1059px)
+  .search-container
+    display: none !important

@@ -12,6 +12,8 @@ import {
   ADD_TO_PLAYLIST,
   REMOVE_FROM_PLAYLIST,
   DELETE_PLAYLIST,
+  SEARCH_TOGGLE,
+  SEARCH_FOCUS,
   TYPES
 } from './actionTypes';
 
@@ -37,7 +39,27 @@ let controls = function(state, action) {
       });
 
     default:
-      return state
+      return state;
+  }
+};
+
+let search = function(state, action) {
+  switch (action.type) {
+    case SEARCH_TOGGLE:
+      let expand = !state.expand;
+      return update(state, {
+        expand: expand,
+        focus: expand
+      });
+
+    case SEARCH_FOCUS:
+      return update(state, {
+        expand: true,
+        focus: action.focus !== undefined ? action.focus : true
+      });
+
+    default:
+      return state;
   }
 };
 
@@ -226,6 +248,7 @@ let playlists = function(state, action) {
 export default function reducer(state = {}, action) {
   return {
     controls: controls(state.controls, action),
+    search: search(state.search, action),
     playlists: playlists(state.playlists, action),
     current: current(state.current, action, state.controls, state.playlists),
   };

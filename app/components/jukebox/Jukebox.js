@@ -14,24 +14,30 @@ var Jukebox = React.createClass({
 
   getInitialState: function() {
     return {
+      videoShowing: true,
       current: {
         isPlaying: false,
-        isLoading: false,
+        isQueue: false,
         mediaId: null,
         mediaType: TYPES.UNKNOWN,
         playlist: null,
         index: null,
         order: [],
-        queue: [],
-        isQueue: false
+        queue: []
       },
       controls: {
         repeat: false,
         shuffle: true,
         playlist: false
       },
+      search: {
+        expand: false,
+        focus: false
+      },
       playlists: [{
         name: 'EDM',
+        created: Date.now(),
+        modified: Date.now(),
         media: [
           "0:JbH_Vn5pq8I",
           "0:Csm3BX30jZQ",
@@ -43,8 +49,6 @@ var Jukebox = React.createClass({
     };
   },
 
-  _slidr: null,
-
   _shouldUpdate: false,
 
   shouldComponentUpdate: function(nextProps, nextState) {
@@ -53,30 +57,57 @@ var Jukebox = React.createClass({
     return result;
   },
 
+  forceUpdate: function(state) {
+    this._shouldUpdate = true;
+    this.setState(state);
+  },
+
   dispatch: function(...actions) {
     let newState = this.state;
     actions.forEach(action => {
       newState = reducer(newState, action);
     });
-    this._shouldUpdate = true;
-    this.setState(newState);
+    this.forceUpdate(newState);
   },
 
-  slidr: function() {
-    return this._slidr;
+  slidr: {
+    ref: null,
+    loaded: false,
+    timer: null
   },
 
-  createSlidr: function(slidr) {
-    if (!this._slidr) {
-      this._slidr = slidr.create('jukebox-slidr', {
+  slidrHandler: function(e) {
+    if (!this.slidr.timer) {
+      this.slidr.timer = this.setTimeout(() => {
+        if (e.out.slidr === 'video-player') {
+          this.forceUpdate({
+            videoShowing: false
+          });
+        }
+        else if (e.in.slidr === 'video-player') {
+          this.forceUpdate({
+            videoShowing: true
+          });
+        }
+        this.slidr.timer = null;
+      }, 100);
+    }
+  },
+
+  slidrCreate: function(slidr) {
+    if (!this.slidr.ref) {
+      this.slidr.ref = slidr.create('jukebox-slidr', {
         transition: 'cube',
         overflow: true,
         controls: 'border',
-        keyboard: true
+        keyboard: true,
+        before: this.slidrHandler,
+        after: this.slidrHandler
       }).add('h', ['video-playlists', 'video-player', 'video-playlists'])
         .add('v', ['video-playlists', 'video-player', 'video-playlists'])
         .start('video-player');
       this.setTimeout(() => {
+        this.slidr.loaded = true;
         this._shouldUpdate = true;
         this.setState(this.state);
       }, 200);
@@ -87,13 +118,13 @@ var Jukebox = React.createClass({
     return (
       <div className="jukebox-container">
         <div className={classNames("jukebox", {
-          active: !!this._slidr
+          active: this.slidr.loaded
         })}>
-          <Slidr id="jukebox-slidr" onLoaded={this.createSlidr}>
+          <Slidr id="jukebox-slidr" className={this.state.videoShowing ? '' : 'video-not-showing'} onLoaded={this.slidrCreate}>
             <VideoPlaylists
               current={this.state.current}
               playlists={this.state.playlists}
-              slidr={this.slidr}
+              slidr={this.slidr.ref}
               dispatch={this.dispatch}
               />
             <VideoPlayer
@@ -104,8 +135,11 @@ var Jukebox = React.createClass({
           </Slidr>
         </div>
         <Search className={classNames({
-          active: !!this._slidr
-        })}/>
+          active: this.slidr.loaded
+        })}
+          search={this.state.search}
+          dispatch={this.dispatch}
+          />
       </div>
     );
   }

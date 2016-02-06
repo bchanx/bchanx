@@ -28,6 +28,7 @@ var Video = React.createClass({
       <div className="video">
         <None
           current={this.props.current}
+          dispatch={this.props.dispatch}
           />
         <YouTube
           current={this.props.current}

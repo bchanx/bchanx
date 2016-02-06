@@ -17,7 +17,7 @@ var VideoPlaylists = React.createClass({
     this.props.dispatch(selectPlaylist(index), playCurrent());
     if (this.props.slidr) {
       console.log("-->> SLIDE!!");
-      this.props.slidr().slide('video-player');
+      this.props.slidr.slide('video-player');
     }
   },
 

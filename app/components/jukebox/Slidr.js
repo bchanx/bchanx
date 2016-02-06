@@ -15,6 +15,7 @@ var Slidr = React.createClass({
   getDefaultProps: function() {
     return {
       id: 'slidr',
+      className: '',
       onLoaded: null
     };
   },
@@ -44,7 +45,7 @@ var Slidr = React.createClass({
 
   render: function() {
     return (
-      <div id={this.props.id}>
+      <div id={this.props.id} className={this.props.className}>
         {this.props.children}  
       </div>
     )

@@ -3,6 +3,10 @@ export const SHUFFLE = 'SHUFFLE';
 export const REPEAT = 'REPEAT';
 export const PLAYLIST = 'PLAYLIST';
 
+// Search
+export const SEARCH_TOGGLE = 'SEARCH_TOGGLE';
+export const SEARCH_FOCUS = 'SEARCH_FOCUS';
+
 // Current
 export const NOW_PLAYING = 'NOW_PLAYING';
 export const PLAY_NEXT = 'PLAY_NEXT';

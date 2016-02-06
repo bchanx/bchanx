@@ -380,30 +380,34 @@ var Jukebox = _react2.default.createClass({
 
   getInitialState: function getInitialState() {
     return {
+      videoShowing: true,
       current: {
         isPlaying: false,
-        isLoading: false,
+        isQueue: false,
         mediaId: null,
         mediaType: _actionTypes.TYPES.UNKNOWN,
         playlist: null,
         index: null,
         order: [],
-        queue: [],
-        isQueue: false
+        queue: []
       },
       controls: {
         repeat: false,
         shuffle: true,
         playlist: false
       },
+      search: {
+        expand: false,
+        focus: false
+      },
       playlists: [{
         name: 'EDM',
+        created: Date.now(),
+        modified: Date.now(),
         media: ["0:JbH_Vn5pq8I", "0:Csm3BX30jZQ", "0:Rhm_-gMbTGU", "0:cERIwGKSU1A", "0:XWBEbR47Kwc"]
       }]
     };
   },
-
-  _slidr: null,
 
   _shouldUpdate: false,
 
@@ -411,6 +415,11 @@ var Jukebox = _react2.default.createClass({
     var result = this._shouldUpdate;
     this._shouldUpdate = false;
     return result;
+  },
+
+  forceUpdate: function forceUpdate(state) {
+    this._shouldUpdate = true;
+    this.setState(state);
   },
 
   dispatch: function dispatch() {
@@ -423,27 +432,50 @@ var Jukebox = _react2.default.createClass({
     actions.forEach(function (action) {
       newState = (0, _reducers2.default)(newState, action);
     });
-    this._shouldUpdate = true;
-    this.setState(newState);
+    this.forceUpdate(newState);
   },
 
-  slidr: function slidr() {
-    return this._slidr;
+  slidr: {
+    ref: null,
+    loaded: false,
+    timer: null
   },
 
-  createSlidr: function createSlidr(slidr) {
+  slidrHandler: function slidrHandler(e) {
     var _this = this;
 
-    if (!this._slidr) {
-      this._slidr = slidr.create('jukebox-slidr', {
+    if (!this.slidr.timer) {
+      this.slidr.timer = this.setTimeout(function () {
+        if (e.out.slidr === 'video-player') {
+          _this.forceUpdate({
+            videoShowing: false
+          });
+        } else if (e.in.slidr === 'video-player') {
+          _this.forceUpdate({
+            videoShowing: true
+          });
+        }
+        _this.slidr.timer = null;
+      }, 100);
+    }
+  },
+
+  slidrCreate: function slidrCreate(slidr) {
+    var _this2 = this;
+
+    if (!this.slidr.ref) {
+      this.slidr.ref = slidr.create('jukebox-slidr', {
         transition: 'cube',
         overflow: true,
         controls: 'border',
-        keyboard: true
+        keyboard: true,
+        before: this.slidrHandler,
+        after: this.slidrHandler
       }).add('h', ['video-playlists', 'video-player', 'video-playlists']).add('v', ['video-playlists', 'video-player', 'video-playlists']).start('video-player');
       this.setTimeout(function () {
-        _this._shouldUpdate = true;
-        _this.setState(_this.state);
+        _this2.slidr.loaded = true;
+        _this2._shouldUpdate = true;
+        _this2.setState(_this2.state);
       }, 200);
     }
   },
@@ -455,15 +487,15 @@ var Jukebox = _react2.default.createClass({
       _react2.default.createElement(
         'div',
         { className: (0, _classnames2.default)("jukebox", {
-            active: !!this._slidr
+            active: this.slidr.loaded
           }) },
         _react2.default.createElement(
           _Slidr2.default,
-          { id: 'jukebox-slidr', onLoaded: this.createSlidr },
+          { id: 'jukebox-slidr', className: this.state.videoShowing ? '' : 'video-not-showing', onLoaded: this.slidrCreate },
           _react2.default.createElement(_VideoPlaylists2.default, {
             current: this.state.current,
             playlists: this.state.playlists,
-            slidr: this.slidr,
+            slidr: this.slidr.ref,
             dispatch: this.dispatch
           }),
           _react2.default.createElement(_VideoPlayer2.default, {
@@ -474,8 +506,11 @@ var Jukebox = _react2.default.createClass({
         )
       ),
       _react2.default.createElement(_Search2.default, { className: (0, _classnames2.default)({
-          active: !!this._slidr
-        }) })
+          active: this.slidr.loaded
+        }),
+        search: this.state.search,
+        dispatch: this.dispatch
+      })
     );
   }
 });
@@ -499,6 +534,8 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 var _actionTypes = require('./redux/actionTypes');
 
+var _actions = require('./redux/actions');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var None = _react2.default.createClass({
@@ -506,12 +543,21 @@ var None = _react2.default.createClass({
 
   getDefaultProps: function getDefaultProps() {
     return {
-      current: {}
+      current: {},
+      dispatch: null
     };
   },
 
   triggerSearch: function triggerSearch() {
-    console.log("-->> trigger search!");
+    this.props.dispatch((0, _actions.searchFocus)());
+  },
+
+  triggerPlaylist: function triggerPlaylist() {
+    console.log("-->> trigger playlist!");
+  },
+
+  triggerRestart: function triggerRestart() {
+    console.log("-->> trigger restart!");
   },
 
   render: function render() {
@@ -523,7 +569,24 @@ var None = _react2.default.createClass({
         'You\'ve reached the end of the playlist!',
         _react2.default.createElement('br', null),
         _react2.default.createElement('br', null),
-        'Restart this playlist, choose another, or search a video.'
+        _react2.default.createElement(
+          'span',
+          { className: 'action', onClick: this.triggerRestart },
+          'Restart'
+        ),
+        ' this playlist, choose ',
+        _react2.default.createElement(
+          'span',
+          { className: 'action', onClick: this.triggerPlaylist },
+          'another'
+        ),
+        ', or ',
+        _react2.default.createElement(
+          'span',
+          { className: 'action', onClick: this.triggerSearch },
+          'search'
+        ),
+        ' a video.'
       );
     } else if (this.props.current.isQueue) {
       message = _react2.default.createElement(
@@ -535,16 +598,34 @@ var None = _react2.default.createClass({
         'Please ',
         _react2.default.createElement(
           'span',
-          { onClick: this.triggerSearch },
+          { className: 'action', onClick: this.triggerSearch },
           'search'
         ),
-        ' for another video, or select a playlist.'
+        ' for another video, or select a ',
+        _react2.default.createElement(
+          'span',
+          { className: 'action', onClick: this.triggerPlaylist },
+          'playlist'
+        ),
+        '.'
       );
     } else {
       message = _react2.default.createElement(
         'div',
         null,
-        'Select a playlist, or search for a video.'
+        'Select a ',
+        _react2.default.createElement(
+          'span',
+          { className: 'action', onClick: this.triggerPlaylist },
+          'playlist'
+        ),
+        ', or ',
+        _react2.default.createElement(
+          'span',
+          { className: 'action', onClick: this.triggerSearch },
+          'search'
+        ),
+        ' for a video.'
       );
     }
     return _react2.default.createElement(
@@ -559,7 +640,7 @@ var None = _react2.default.createClass({
 
 exports.default = None;
 
-},{"./redux/actionTypes":15,"classnames":"classnames","react":"react"}],8:[function(require,module,exports){
+},{"./redux/actionTypes":15,"./redux/actions":16,"classnames":"classnames","react":"react"}],8:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -601,6 +682,8 @@ var _classnames = require('classnames');
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
+var _actions = require('./redux/actions');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Search = _react2.default.createClass({
@@ -608,6 +691,7 @@ var Search = _react2.default.createClass({
 
   getDefaultProps: function getDefaultProps() {
     return {
+      search: {},
       className: '',
       dispatch: null
     };
@@ -615,35 +699,81 @@ var Search = _react2.default.createClass({
 
   getInitialState: function getInitialState() {
     return {
-      expanded: false
+      value: '',
+      results: ['a', 'b', 'c', 'd', 'e', 'f', 'g']
     };
   },
 
+  componentDidUpdate: function componentDidUpdate() {
+    if (this.props.search.focus) {
+      this.refs.searchBar.focus();
+      this.props.dispatch((0, _actions.searchFocus)(false));
+    }
+  },
+
   toggleSearch: function toggleSearch() {
+    this.props.dispatch((0, _actions.searchToggle)());
+  },
+
+  handleChange: function handleChange(event) {
     this.setState({
-      expanded: !this.state.expanded
+      value: event.target.value
     });
   },
 
   render: function render() {
     return _react2.default.createElement(
       'div',
-      { className: (0, _classnames2.default)("search", this.props.className, {
-          expanded: this.state.expanded
+      { className: (0, _classnames2.default)("search-container", this.props.className, {
+          expanded: this.props.search.expand
         }) },
       _react2.default.createElement(
         'div',
-        { className: 'search-icon', onClick: this.toggleSearch },
-        _react2.default.createElement('span', { className: 'ion-ios-search-strong' })
-      ),
-      _react2.default.createElement('div', { className: 'search-results' })
+        { className: 'search' },
+        _react2.default.createElement(
+          'div',
+          { className: 'search-icon', onClick: this.toggleSearch },
+          _react2.default.createElement('span', { className: 'ion-ios-search-strong' })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'search-content' },
+          _react2.default.createElement('input', {
+            className: 'search-bar',
+            type: 'text',
+            ref: 'searchBar',
+            placeholder: 'Enter search here...',
+            value: this.state.value,
+            onChange: this.handleChange,
+            onInput: this.handleInput,
+            onSubmit: this.handleSubmit
+          }),
+          _react2.default.createElement(
+            'div',
+            { className: 'search-options' },
+            'Results:'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'search-results' },
+            this.state.results.map(function (r, idx) {
+              return _react2.default.createElement(
+                'div',
+                { key: idx, className: 'search-result' },
+                _react2.default.createElement('div', { className: 'media-screencap' }),
+                _react2.default.createElement('div', { className: 'media-title' })
+              );
+            })
+          )
+        )
+      )
     );
   }
 });
 
 exports.default = Search;
 
-},{"classnames":"classnames","react":"react"}],10:[function(require,module,exports){
+},{"./redux/actions":16,"classnames":"classnames","react":"react"}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -673,6 +803,7 @@ var Slidr = _react2.default.createClass({
   getDefaultProps: function getDefaultProps() {
     return {
       id: 'slidr',
+      className: '',
       onLoaded: null
     };
   },
@@ -703,7 +834,7 @@ var Slidr = _react2.default.createClass({
   render: function render() {
     return _react2.default.createElement(
       'div',
-      { id: this.props.id },
+      { id: this.props.id, className: this.props.className },
       this.props.children
     );
   }
@@ -762,7 +893,8 @@ var Video = _react2.default.createClass({
       'div',
       { className: 'video' },
       _react2.default.createElement(_None2.default, {
-        current: this.props.current
+        current: this.props.current,
+        dispatch: this.props.dispatch
       }),
       _react2.default.createElement(_YouTube2.default, {
         current: this.props.current,
@@ -876,7 +1008,7 @@ var VideoPlaylists = _react2.default.createClass({
     this.props.dispatch((0, _actions.selectPlaylist)(index), (0, _actions.playCurrent)());
     if (this.props.slidr) {
       console.log("-->> SLIDE!!");
-      this.props.slidr().slide('video-player');
+      this.props.slidr.slide('video-player');
     }
   },
 
@@ -1050,6 +1182,10 @@ var SHUFFLE = exports.SHUFFLE = 'SHUFFLE';
 var REPEAT = exports.REPEAT = 'REPEAT';
 var PLAYLIST = exports.PLAYLIST = 'PLAYLIST';
 
+// Search
+var SEARCH_TOGGLE = exports.SEARCH_TOGGLE = 'SEARCH_TOGGLE';
+var SEARCH_FOCUS = exports.SEARCH_FOCUS = 'SEARCH_FOCUS';
+
 // Current
 var NOW_PLAYING = exports.NOW_PLAYING = 'NOW_PLAYING';
 var PLAY_NEXT = exports.PLAY_NEXT = 'PLAY_NEXT';
@@ -1086,6 +1222,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.shuffle = shuffle;
 exports.repeat = repeat;
 exports.playlist = playlist;
+exports.searchToggle = searchToggle;
+exports.searchFocus = searchFocus;
 exports.nowPlaying = nowPlaying;
 exports.playPrev = playPrev;
 exports.playNext = playNext;
@@ -1106,6 +1244,14 @@ function repeat() {
 
 function playlist() {
   return { type: _actionTypes.PLAYLIST };
+}
+
+function searchToggle() {
+  return { type: _actionTypes.SEARCH_TOGGLE };
+}
+
+function searchFocus(opt_focus) {
+  return { type: _actionTypes.SEARCH_FOCUS, focus: opt_focus };
 }
 
 function nowPlaying(status) {
@@ -1167,6 +1313,26 @@ var controls = function controls(state, action) {
     case _actionTypes.PLAYLIST:
       return update(state, {
         playlist: !state.playlist
+      });
+
+    default:
+      return state;
+  }
+};
+
+var search = function search(state, action) {
+  switch (action.type) {
+    case _actionTypes.SEARCH_TOGGLE:
+      var expand = !state.expand;
+      return update(state, {
+        expand: expand,
+        focus: expand
+      });
+
+    case _actionTypes.SEARCH_FOCUS:
+      return update(state, {
+        expand: true,
+        focus: action.focus !== undefined ? action.focus : true
       });
 
     default:
@@ -1389,6 +1555,7 @@ function reducer() {
 
   return {
     controls: controls(state.controls, action),
+    search: search(state.search, action),
     playlists: playlists(state.playlists, action),
     current: current(state.current, action, state.controls, state.playlists)
   };
