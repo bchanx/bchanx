@@ -8,6 +8,7 @@ var VideoPlayer = React.createClass({
     return {
       current: {},
       controls: {},
+      slidr: null,
       dispatch: null
     };
   },
@@ -17,6 +18,8 @@ var VideoPlayer = React.createClass({
       <div className="video-player" data-slidr="video-player">
         <Video
           current={this.props.current}
+          controls={this.props.controls}
+          slidr={this.props.slidr}
           dispatch={this.props.dispatch}
           />
         <Controls

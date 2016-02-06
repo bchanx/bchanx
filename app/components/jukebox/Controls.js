@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { TYPES } from './redux/actionTypes';
-import { repeat, shuffle, playlist, playNext, playPrev, nowPlaying } from './redux/actions';
+import { play, pause, repeat, shuffle, playlist, playNext, playPrev } from './redux/actions';
 
 var Controls = React.createClass({
 
@@ -14,7 +14,7 @@ var Controls = React.createClass({
   },
 
   playPause: function() {
-    this.props.dispatch(nowPlaying(!this.props.current.isPlaying));
+    this.props.dispatch(this.props.current.isPlaying ? pause(true) : play(true));
   },
 
   previous: function() {

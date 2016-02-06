@@ -1,12 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
 import { TYPES } from './redux/actionTypes';
-import { searchFocus } from './redux/actions';
+import { searchFocus, restartPlaylist, playCurrent } from './redux/actions';
 
 var None = React.createClass({
   getDefaultProps: function() {
     return {
       current: {},
+      slidr: null,
       dispatch: null
     }
   },
@@ -16,11 +17,11 @@ var None = React.createClass({
   },
 
   triggerPlaylist: function() {
-    console.log("-->> trigger playlist!");
+    this.props.slidr.slide('video-playlists');
   },
 
   triggerRestart: function() {
-    console.log("-->> trigger restart!");
+    this.props.dispatch(restartPlaylist(), playCurrent());
   },
 
   render: function() {

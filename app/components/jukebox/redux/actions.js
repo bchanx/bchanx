@@ -1,24 +1,35 @@
 import {
-  SHUFFLE,
+  PLAY,
+  PAUSE,
   REPEAT,
+  SHUFFLE,
   PLAYLIST,
   SEARCH_TOGGLE,
   SEARCH_FOCUS,
   NOW_PLAYING,
   PLAY_PREV,
   PLAY_NEXT,
-  QUEUE_NEXT,
   PLAY_NOW,
+  PLAY_CURRENT,
+  QUEUE_NEXT,
   SELECT_PLAYLIST,
-  PLAY_CURRENT
+  RESTART_PLAYLIST
 } from './actionTypes';
 
-export function shuffle() {
-  return { type: SHUFFLE };
+export function play(status) {
+  return { type: PLAY, status: !!status };
+}
+
+export function pause(status) {
+  return { type: PAUSE, status: !!status };
 }
 
 export function repeat() {
   return { type: REPEAT };
+}
+
+export function shuffle() {
+  return { type: SHUFFLE };
 }
 
 export function playlist() {
@@ -34,7 +45,7 @@ export function searchFocus(opt_focus) {
 }
 
 export function nowPlaying(status) {
-  return { type: NOW_PLAYING, status: status };
+  return { type: NOW_PLAYING, status: !!status };
 }
 
 export function playPrev() {
@@ -43,6 +54,10 @@ export function playPrev() {
 
 export function playNext() {
   return { type: PLAY_NEXT };
+}
+
+export function restartPlaylist() {
+  return { type: RESTART_PLAYLIST };
 }
 
 export function playCurrent() {

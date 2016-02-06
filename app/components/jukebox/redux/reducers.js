@@ -1,6 +1,8 @@
 import {
-  SHUFFLE,
+  PLAY,
+  PAUSE,
   REPEAT,
+  SHUFFLE,
   PLAYLIST,
   NOW_PLAYING,
   PLAY_NEXT,
@@ -8,6 +10,7 @@ import {
   PLAY_PREV,
   PLAY_NOW,
   PLAY_CURRENT,
+  RESTART_PLAYLIST,
   SELECT_PLAYLIST,
   ADD_TO_PLAYLIST,
   REMOVE_FROM_PLAYLIST,
@@ -23,14 +26,24 @@ let update = function(state, updated) {
 
 let controls = function(state, action) {
   switch (action.type) {
-    case SHUFFLE:
+    case PLAY:
       return update(state, {
-        shuffle: !state.shuffle
+        play: action.status
+      });
+
+    case PAUSE:
+      return update(state, {
+        pause: action.status
       });
 
     case REPEAT:
       return update(state, {
         repeat: !state.repeat
+      });
+
+    case SHUFFLE:
+      return update(state, {
+        shuffle: !state.shuffle
       });
 
     case PLAYLIST:
@@ -168,6 +181,14 @@ let current = function(state, action, controls, playlists) {
             index: prevIndex
           });
         }
+      }
+      return state;
+
+    case RESTART_PLAYLIST:
+      if (state.order.length) {
+        return update(state, {
+          index: 0
+        });
       }
       return state;
 

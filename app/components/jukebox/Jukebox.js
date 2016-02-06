@@ -130,6 +130,7 @@ var Jukebox = React.createClass({
             <VideoPlayer
               current={this.state.current}
               controls={this.state.controls}
+              slidr={this.slidr.ref}
               dispatch={this.dispatch}
               />
           </Slidr>

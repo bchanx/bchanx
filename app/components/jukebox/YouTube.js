@@ -2,7 +2,7 @@ import React from 'react';
 import { ReactScriptLoaderMixin } from 'react-script-loader';
 import classNames from 'classnames';
 import { TYPES } from './redux/actionTypes';
-import { nowPlaying, playNext } from './redux/actions';
+import { play, pause, nowPlaying, playNext } from './redux/actions';
 
 var YouTube = React.createClass({
 
@@ -11,6 +11,7 @@ var YouTube = React.createClass({
   getDefaultProps: function() {
     return {
       current: {},
+      controls: {},
       dispatch: null
     };
   },
@@ -31,29 +32,34 @@ var YouTube = React.createClass({
     window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady;
   },
 
+  _youtube: null,
+
   componentWillReceiveProps: function(nextProps) {
-    if (this._player) {
+    if (this._youtube) {
       if (nextProps.current.mediaType === TYPES.YOUTUBE) {
         if (nextProps.current.mediaId !== this.props.current.mediaId) {
-          this._player.loadVideoById(nextProps.current.mediaId);
-        }
-        else if (this.props.current.isPlaying && !nextProps.current.isPlaying) {
-          this._player.pauseVideo();
-        }
-        else if (!this.props.current.isPlaying && nextProps.current.isPlaying) {
-          this._player.playVideo();
+          this._youtube.loadVideoById(nextProps.current.mediaId);
         }
       }
       else if (this.props.current.isPlaying) {
-        this._player.pauseVideo();
+        this._youtube.pauseVideo();
       }
     }
   },
 
-  _player: null,
+  componentDidUpdate: function() {
+    if (this.props.controls.play) {
+      this._youtube.playVideo();
+      this.props.dispatch(play(false));
+    }
+    else if (this.props.controls.pause) {
+      this._youtube.pauseVideo();
+      this.props.dispatch(pause(false));
+    }
+  },
 
   onYouTubeIframeAPIReady: function() {
-    this._player = new YT.Player('youtube-iframe', {
+    this._youtube = new YT.Player('youtube-iframe', {
       width: '640',
       height: '360',
       videoId: null,
@@ -73,26 +79,35 @@ var YouTube = React.createClass({
   },
 
   onPlayerReady: function(event) {
+    // TODO: set volume to 100
     event.target.setVolume(0);
   },
 
   onPlayerStateChange: function(event) {
     console.log("-->> PLAYER STATE:", event.data);
-    let dispatchQueue = [nowPlaying(event.data === YT.PlayerState.PLAYING)];
 
-    if (event.data === YT.PlayerState.BUFFERING) {
+    if (event.data === YT.PlayerState.PLAYING) {
+      this.props.dispatch(nowPlaying(true));
+    }
+    else if (event.data === YT.PlayerState.PAUSED) {
+      this.props.dispatch(nowPlaying(false));
+    }
+    else if (event.data === YT.PlayerState.BUFFERING) {
       // Sometimes it gets stuck, help it play
-      this._player.playVideo();
+      this._youtube.playVideo();
     }
-    if (event.data === YT.PlayerState.ENDED) {
-      dispatchQueue.push(playNext());
+    else if (event.data === YT.PlayerState.ENDED) {
+      if (this.props.controls.repeat) {
+        this._youtube.playVideo();
+      }
+      else {
+        this.props.dispatch(playNext());
+      }
     }
-
-    this.props.dispatch(...dispatchQueue);
   },
 
   stopVideo: function() {
-    this._player.stopVideo();
+    this._youtube.stopVideo();
   },
 
   render: function() {

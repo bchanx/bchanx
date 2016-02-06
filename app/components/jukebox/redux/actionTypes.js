@@ -1,6 +1,8 @@
 // Controls
-export const SHUFFLE = 'SHUFFLE';
+export const PLAY = 'PLAY';
+export const PAUSE = 'PAUSE';
 export const REPEAT = 'REPEAT';
+export const SHUFFLE = 'SHUFFLE';
 export const PLAYLIST = 'PLAYLIST';
 
 // Search
@@ -15,6 +17,7 @@ export const QUEUE_NEXT = 'QUEUE_NEXT';
 export const PLAY_NOW = 'PLAY_NOW';
 export const PLAY_CURRENT = 'PLAY_CURRENT';
 export const SELECT_PLAYLIST = 'SELECT_PLAYLIST';
+export const RESTART_PLAYLIST = 'RESTART_PLAYLIST';
 
 // Playlist
 export const ADD_TO_PLAYLIST = 'ADD_TO_PLAYLIST';

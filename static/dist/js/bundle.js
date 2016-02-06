@@ -256,7 +256,7 @@ var Controls = _react2.default.createClass({
   },
 
   playPause: function playPause() {
-    this.props.dispatch((0, _actions.nowPlaying)(!this.props.current.isPlaying));
+    this.props.dispatch(this.props.current.isPlaying ? (0, _actions.pause)(true) : (0, _actions.play)(true));
   },
 
   previous: function previous() {
@@ -501,6 +501,7 @@ var Jukebox = _react2.default.createClass({
           _react2.default.createElement(_VideoPlayer2.default, {
             current: this.state.current,
             controls: this.state.controls,
+            slidr: this.slidr.ref,
             dispatch: this.dispatch
           })
         )
@@ -544,6 +545,7 @@ var None = _react2.default.createClass({
   getDefaultProps: function getDefaultProps() {
     return {
       current: {},
+      slidr: null,
       dispatch: null
     };
   },
@@ -553,11 +555,11 @@ var None = _react2.default.createClass({
   },
 
   triggerPlaylist: function triggerPlaylist() {
-    console.log("-->> trigger playlist!");
+    this.props.slidr.slide('video-playlists');
   },
 
   triggerRestart: function triggerRestart() {
-    console.log("-->> trigger restart!");
+    this.props.dispatch((0, _actions.restartPlaylist)(), (0, _actions.playCurrent)());
   },
 
   render: function render() {
@@ -873,6 +875,8 @@ var Video = _react2.default.createClass({
   getDefaultProps: function getDefaultProps() {
     return {
       current: {},
+      controls: {},
+      slidr: null,
       dispatch: null
     };
   },
@@ -894,10 +898,12 @@ var Video = _react2.default.createClass({
       { className: 'video' },
       _react2.default.createElement(_None2.default, {
         current: this.props.current,
+        slidr: this.props.slidr,
         dispatch: this.props.dispatch
       }),
       _react2.default.createElement(_YouTube2.default, {
         current: this.props.current,
+        controls: this.props.controls,
         dispatch: this.props.dispatch
       }),
       _react2.default.createElement(
@@ -952,6 +958,7 @@ var VideoPlayer = _react2.default.createClass({
     return {
       current: {},
       controls: {},
+      slidr: null,
       dispatch: null
     };
   },
@@ -962,6 +969,8 @@ var VideoPlayer = _react2.default.createClass({
       { className: 'video-player', 'data-slidr': 'video-player' },
       _react2.default.createElement(_Video2.default, {
         current: this.props.current,
+        controls: this.props.controls,
+        slidr: this.props.slidr,
         dispatch: this.props.dispatch
       }),
       _react2.default.createElement(_Controls2.default, {
@@ -1075,6 +1084,7 @@ var YouTube = _react2.default.createClass({
   getDefaultProps: function getDefaultProps() {
     return {
       current: {},
+      controls: {},
       dispatch: null
     };
   },
@@ -1095,26 +1105,32 @@ var YouTube = _react2.default.createClass({
     window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady;
   },
 
+  _youtube: null,
+
   componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-    if (this._player) {
+    if (this._youtube) {
       if (nextProps.current.mediaType === _actionTypes.TYPES.YOUTUBE) {
         if (nextProps.current.mediaId !== this.props.current.mediaId) {
-          this._player.loadVideoById(nextProps.current.mediaId);
-        } else if (this.props.current.isPlaying && !nextProps.current.isPlaying) {
-          this._player.pauseVideo();
-        } else if (!this.props.current.isPlaying && nextProps.current.isPlaying) {
-          this._player.playVideo();
+          this._youtube.loadVideoById(nextProps.current.mediaId);
         }
       } else if (this.props.current.isPlaying) {
-        this._player.pauseVideo();
+        this._youtube.pauseVideo();
       }
     }
   },
 
-  _player: null,
+  componentDidUpdate: function componentDidUpdate() {
+    if (this.props.controls.play) {
+      this._youtube.playVideo();
+      this.props.dispatch((0, _actions.play)(false));
+    } else if (this.props.controls.pause) {
+      this._youtube.pauseVideo();
+      this.props.dispatch((0, _actions.pause)(false));
+    }
+  },
 
   onYouTubeIframeAPIReady: function onYouTubeIframeAPIReady() {
-    this._player = new YT.Player('youtube-iframe', {
+    this._youtube = new YT.Player('youtube-iframe', {
       width: '640',
       height: '360',
       videoId: null,
@@ -1134,28 +1150,31 @@ var YouTube = _react2.default.createClass({
   },
 
   onPlayerReady: function onPlayerReady(event) {
+    // TODO: set volume to 100
     event.target.setVolume(0);
   },
 
   onPlayerStateChange: function onPlayerStateChange(event) {
-    var _props;
-
     console.log("-->> PLAYER STATE:", event.data);
-    var dispatchQueue = [(0, _actions.nowPlaying)(event.data === YT.PlayerState.PLAYING)];
 
-    if (event.data === YT.PlayerState.BUFFERING) {
+    if (event.data === YT.PlayerState.PLAYING) {
+      this.props.dispatch((0, _actions.nowPlaying)(true));
+    } else if (event.data === YT.PlayerState.PAUSED) {
+      this.props.dispatch((0, _actions.nowPlaying)(false));
+    } else if (event.data === YT.PlayerState.BUFFERING) {
       // Sometimes it gets stuck, help it play
-      this._player.playVideo();
+      this._youtube.playVideo();
+    } else if (event.data === YT.PlayerState.ENDED) {
+      if (this.props.controls.repeat) {
+        this._youtube.playVideo();
+      } else {
+        this.props.dispatch((0, _actions.playNext)());
+      }
     }
-    if (event.data === YT.PlayerState.ENDED) {
-      dispatchQueue.push((0, _actions.playNext)());
-    }
-
-    (_props = this.props).dispatch.apply(_props, dispatchQueue);
   },
 
   stopVideo: function stopVideo() {
-    this._player.stopVideo();
+    this._youtube.stopVideo();
   },
 
   render: function render() {
@@ -1178,8 +1197,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 // Controls
-var SHUFFLE = exports.SHUFFLE = 'SHUFFLE';
+var PLAY = exports.PLAY = 'PLAY';
+var PAUSE = exports.PAUSE = 'PAUSE';
 var REPEAT = exports.REPEAT = 'REPEAT';
+var SHUFFLE = exports.SHUFFLE = 'SHUFFLE';
 var PLAYLIST = exports.PLAYLIST = 'PLAYLIST';
 
 // Search
@@ -1194,6 +1215,7 @@ var QUEUE_NEXT = exports.QUEUE_NEXT = 'QUEUE_NEXT';
 var PLAY_NOW = exports.PLAY_NOW = 'PLAY_NOW';
 var PLAY_CURRENT = exports.PLAY_CURRENT = 'PLAY_CURRENT';
 var SELECT_PLAYLIST = exports.SELECT_PLAYLIST = 'SELECT_PLAYLIST';
+var RESTART_PLAYLIST = exports.RESTART_PLAYLIST = 'RESTART_PLAYLIST';
 
 // Playlist
 var ADD_TO_PLAYLIST = exports.ADD_TO_PLAYLIST = 'ADD_TO_PLAYLIST';
@@ -1219,14 +1241,17 @@ var TYPES = exports.TYPES = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.shuffle = shuffle;
+exports.play = play;
+exports.pause = pause;
 exports.repeat = repeat;
+exports.shuffle = shuffle;
 exports.playlist = playlist;
 exports.searchToggle = searchToggle;
 exports.searchFocus = searchFocus;
 exports.nowPlaying = nowPlaying;
 exports.playPrev = playPrev;
 exports.playNext = playNext;
+exports.restartPlaylist = restartPlaylist;
 exports.playCurrent = playCurrent;
 exports.playNow = playNow;
 exports.queueNext = queueNext;
@@ -1234,12 +1259,20 @@ exports.selectPlaylist = selectPlaylist;
 
 var _actionTypes = require('./actionTypes');
 
-function shuffle() {
-  return { type: _actionTypes.SHUFFLE };
+function play(status) {
+  return { type: _actionTypes.PLAY, status: !!status };
+}
+
+function pause(status) {
+  return { type: _actionTypes.PAUSE, status: !!status };
 }
 
 function repeat() {
   return { type: _actionTypes.REPEAT };
+}
+
+function shuffle() {
+  return { type: _actionTypes.SHUFFLE };
 }
 
 function playlist() {
@@ -1255,7 +1288,7 @@ function searchFocus(opt_focus) {
 }
 
 function nowPlaying(status) {
-  return { type: _actionTypes.NOW_PLAYING, status: status };
+  return { type: _actionTypes.NOW_PLAYING, status: !!status };
 }
 
 function playPrev() {
@@ -1264,6 +1297,10 @@ function playPrev() {
 
 function playNext() {
   return { type: _actionTypes.PLAY_NEXT };
+}
+
+function restartPlaylist() {
+  return { type: _actionTypes.RESTART_PLAYLIST };
 }
 
 function playCurrent() {
@@ -1300,14 +1337,24 @@ var update = function update(state, updated) {
 
 var controls = function controls(state, action) {
   switch (action.type) {
-    case _actionTypes.SHUFFLE:
+    case _actionTypes.PLAY:
       return update(state, {
-        shuffle: !state.shuffle
+        play: action.status
+      });
+
+    case _actionTypes.PAUSE:
+      return update(state, {
+        pause: action.status
       });
 
     case _actionTypes.REPEAT:
       return update(state, {
         repeat: !state.repeat
+      });
+
+    case _actionTypes.SHUFFLE:
+      return update(state, {
+        shuffle: !state.shuffle
       });
 
     case _actionTypes.PLAYLIST:
@@ -1460,6 +1507,14 @@ var current = function current(state, action, controls, playlists) {
             index: prevIndex
           });
         }
+      }
+      return state;
+
+    case _actionTypes.RESTART_PLAYLIST:
+      if (state.order.length) {
+        return update(state, {
+          index: 0
+        });
       }
       return state;
 

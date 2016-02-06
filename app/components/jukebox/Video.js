@@ -8,6 +8,8 @@ var Video = React.createClass({
   getDefaultProps: function() {
     return {
       current: {},
+      controls: {},
+      slidr: null,
       dispatch: null
     };
   },
@@ -28,10 +30,12 @@ var Video = React.createClass({
       <div className="video">
         <None
           current={this.props.current}
+          slidr={this.props.slidr}
           dispatch={this.props.dispatch}
           />
         <YouTube
           current={this.props.current}
+          controls={this.props.controls}
           dispatch={this.props.dispatch}
           />
         <div className="click">
