@@ -269,7 +269,6 @@ gulp.task('start', ['stylesheets', 'scripts', 'watch'], function() {
       NODE_ENV: ENV
     },
     watch: ['routes/', 'models/', 'server.js', JS_DIR + '/bundle.js'],
-//    ignore: ['scripts/', 'app/', DIST_DIR + '/', 'app.js']
   });
 });
 

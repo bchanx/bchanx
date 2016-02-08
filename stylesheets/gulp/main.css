@@ -477,7 +477,8 @@ input:focus {
 }
 .search-container.expanded .search-content {
   visibility: visible;
-  max-height: initial;
+  max-height: calc(100vh - (2 * 100px));
+  min-height: 360px;
   max-width: initial;
 }
 .search-container.expanded .search-icon {
@@ -485,6 +486,7 @@ input:focus {
 }
 .search {
   position: fixed;
+  width: 410px;
   margin-right: 20px;
   display: flex;
   min-height: 360px;
@@ -548,6 +550,7 @@ input:focus {
   outline: 1px #ff0 solid;
 }
 @media screen and (max-width: 1279px) {
+  .search,
   .search-container.expanded {
     width: 200px;
   }

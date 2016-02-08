@@ -1,6 +1,8 @@
 $search-result-width = 200px
 $search-result-height = 180px
 $search-margin-right = 20px
+$search-expanded-width = (2 * $search-result-width) + 10px
+$search-max-height = "calc(100vh - (2 * %s))" % $jukebox-padding
 
 .search-container
   flex-shrink: 0
@@ -12,21 +14,23 @@ $search-margin-right = 20px
   &.active
     opacity: 1
   &.expanded
-    width: (2 * $search-result-width) + 10px;
+    width: $search-expanded-width
     margin-right: $search-margin-right
     .search-content
       visibility: visible
-      max-height: initial
+      max-height: $search-max-height
+      min-height: $jukebox-height
       max-width: initial
     .search-icon
       left: -40px
 
 .search
   position: fixed
+  width: $search-expanded-width
   margin-right: $search-margin-right
   display: flex
   min-height: $jukebox-height
-  max-height: "calc(100vh - (2 * %s))" % $jukebox-padding
+  max-height: $search-max-height
 
 .search-icon
   width: 40px
@@ -83,6 +87,7 @@ $search-margin-right = 20px
 
 
 @media screen and (max-width: 1279px)
+  .search
   .search-container.expanded
     width: $search-result-width
 
