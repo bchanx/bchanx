@@ -2,15 +2,16 @@ $jukebox-width = 640px
 $jukebox-height = 360px
 $jukebox-margin = 60px
 $jukebox-padding = 100px
+$border = 1px $gray2 dashed
 
 input
   background: transparent
   color: $gray1
-  border: 1px $gray2 dotted
-  padding: 0 8px
+  border: $border
+  padding: 0 10px
   &:focus
-    outline: 1px $green dashed
-    outline-offset: -5px
+    outline: 1px $green-light dashed
+    outline-offset: -1px
 
 .jukebox-container
   width: 100%
@@ -59,11 +60,25 @@ input
   &.video-not-showing .video-player .playlist
     max-height: 0
 
-.video-playlists
-  border: 1px $gray2 dotted
+.playlists
+  border: $border
   padding: 20px 0
   width: $jukebox-width
   max-height: $jukebox-height
+
+.playlist-item
+  cursor: pointer
+  padding: 2px 20px
+  &:hover
+    background-color: $gray7
+
+.playlist-name
+  display: inline-block
+  font-weight: 400
+
+.playlist-length
+  display: inline-block
+  margin-left: 3px
 
 .video-player
   width: $jukebox-width
@@ -77,7 +92,7 @@ input
   position: relative
 
 .video-none
-  border: 1px $gray2 dotted
+  border: $border
   width: $jukebox-width
   height: $jukebox-height
   visibility: visible
@@ -93,6 +108,66 @@ input
     visibility: hidden
     opacity: 0
     max-height: 0
+
+.overlay
+  width: $jukebox-width
+  height: $jukebox-height
+  background: rgba(34, 34, 34, 0.93);
+  position: absolute
+  top: 0
+  left: 0
+  z-index: 1
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  &.hidden
+    display: none
+
+.overlay-message
+  margin-top: -20px
+  margin-bottom: 20px
+
+.overlay-continue
+  width: 100px
+  height: 100px
+  cursor: pointer
+  display: flex
+  justify-content: center
+  position: relative
+  align-items: center
+  &:hover > span[class^="ion-"]
+    opacity: 1
+  > span[class^="ion-"]
+    opacity: 0.8
+    font-size: 70px
+    margin-left: 10px
+
+.overlay-loading
+  transform: rotateZ(-90deg)
+  position: absolute
+  left: 0
+  top: 0
+  circle
+    fill: transparent
+    stroke-dasharray: 590px
+    stroke-dashoffset: 295px
+    stroke-width: 5px
+    stroke: $green
+
+@keyframes overlay-progress
+  from { stroke-dasharray: 295px }
+  to { stroke-dasharray: 590px }
+
+.overlay-cancel
+  margin-top: 20px
+  padding: 2px 10px
+  cursor: pointer
+  opacity: 0.8
+  font-size: 0.8rem
+  &:hover
+    opacity: 1
+    text-decoration: underline
 
 .youtube
   width: $jukebox-width
@@ -130,29 +205,16 @@ input
       opacity: 1
       &:hover
         color: $green-light
+    &.disabled
+      opacity: 0.05
 
-.playlist
-  border: 1px $gray2 dotted
+.media-list
+  border: $border
   margin-top: 10px
   width: $jukebox-width
   flex-shrink: 0
-  height: 200px
   &.hidden
     display: none
-
-.playlist-item
-  cursor: pointer
-  padding: 2px 20px
-  &:hover
-    background-color: $gray7
-
-.playlist-name
-  display: inline-block
-  font-weight: 400
-
-.playlist-length
-  display: inline-block
-  margin-left: 3px
 
 .action
   color: $green

@@ -1,13 +1,14 @@
 import React from 'react';
 import Video from './Video';
 import Controls from './Controls';
-import Playlist from './Playlist';
+import MediaList from './MediaList';
 
 var VideoPlayer = React.createClass({
   getDefaultProps: function() {
     return {
       current: {},
       controls: {},
+      overlay: {},
       slidr: null,
       dispatch: null
     };
@@ -19,15 +20,21 @@ var VideoPlayer = React.createClass({
         <Video
           current={this.props.current}
           controls={this.props.controls}
+          overlay={this.props.overlay}
           slidr={this.props.slidr}
           dispatch={this.props.dispatch}
           />
         <Controls
           current={this.props.current}
           controls={this.props.controls}
+          overlay={this.props.overlay}
           dispatch={this.props.dispatch}
           />
-        <Playlist/>
+        <MediaList
+          current={this.props.current}
+          controls={this.props.controls}
+          dispatch={this.props.dispatch}
+          />
       </div>
     );
   }

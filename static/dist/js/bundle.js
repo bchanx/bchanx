@@ -251,28 +251,63 @@ var Controls = _react2.default.createClass({
     return {
       current: {},
       controls: {},
+      overlay: {},
       dispatch: null
     };
   },
 
+  getInitialState: function getInitialState() {
+    return {
+      playPauseDisabled: false,
+      previousDisabled: false,
+      nextDisabled: false,
+      repeatDisabled: false,
+      shuffleDisabled: false
+    };
+  },
+
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+    var mediaValid = nextProps.current.mediaId && nextProps.current.mediaType !== _actionTypes.TYPES.UNKNOWN;
+    var endReached = !nextProps.current.queue.length && (!nextProps.current.order.length || nextProps.current.index === nextProps.current.order.length);
+
+    // Now set the control states
+    this.setState({
+      playPauseDisabled: !mediaValid || nextProps.current.isInvalid || nextProps.overlay.show,
+      previousDisabled: nextProps.current.isQueue || !nextProps.current.index,
+      nextDisabled: !mediaValid && endReached,
+      repeatDisabled: endReached || nextProps.current.isInvalid || nextProps.overlay.show,
+      shuffleDisabled: nextProps.current.isInvalid || nextProps.overlay.show || !nextProps.current.order.length
+    });
+  },
+
   playPause: function playPause() {
-    this.props.dispatch(this.props.current.isPlaying ? (0, _actions.pause)(true) : (0, _actions.play)(true));
+    if (!this.state.playPauseDisabled) {
+      this.props.dispatch(this.props.current.isPlaying ? (0, _actions.pause)(true) : (0, _actions.play)(true));
+    }
   },
 
   previous: function previous() {
-    this.props.dispatch((0, _actions.playPrev)());
+    if (!this.state.previousDisabled) {
+      this.props.dispatch((0, _actions.hideOverlay)(), (0, _actions.playPrev)());
+    }
   },
 
   next: function next() {
-    this.props.dispatch((0, _actions.playNext)());
+    if (!this.state.nextDisabled) {
+      this.props.dispatch((0, _actions.hideOverlay)(), (0, _actions.playNext)());
+    }
   },
 
   repeat: function repeat() {
-    this.props.dispatch((0, _actions.repeat)());
+    if (!this.state.repeatDisabled) {
+      this.props.dispatch((0, _actions.repeat)());
+    }
   },
 
   shuffle: function shuffle() {
-    this.props.dispatch((0, _actions.shuffle)());
+    if (!this.state.shuffleDisabled) {
+      this.props.dispatch((0, _actions.shuffle)());
+    }
   },
 
   playlist: function playlist() {
@@ -287,7 +322,9 @@ var Controls = _react2.default.createClass({
         }) },
       _react2.default.createElement(
         'div',
-        { className: 'play-pause-button', onClick: this.playPause },
+        { className: (0, _classnames2.default)("play-pause-button", {
+            disabled: this.state.playPauseDisabled
+          }), onClick: this.playPause },
         _react2.default.createElement('span', { className: (0, _classnames2.default)({
             'ion-ios-play': !this.props.current.isPlaying,
             'ion-ios-pause': this.props.current.isPlaying
@@ -295,25 +332,31 @@ var Controls = _react2.default.createClass({
       ),
       _react2.default.createElement(
         'div',
-        { className: 'prev-button', onClick: this.previous },
+        { className: (0, _classnames2.default)("prev-button", {
+            disabled: this.state.previousDisabled
+          }), onClick: this.previous },
         _react2.default.createElement('span', { className: 'ion-ios-skipbackward' })
       ),
       _react2.default.createElement(
         'div',
-        { className: 'next-button', onClick: this.next },
+        { className: (0, _classnames2.default)("next-button", {
+            disabled: this.state.nextDisabled
+          }), onClick: this.next },
         _react2.default.createElement('span', { className: 'ion-ios-skipforward' })
       ),
       _react2.default.createElement(
         'div',
         { className: (0, _classnames2.default)("repeat-button", {
-            active: this.props.controls.repeat
+            active: this.props.controls.repeat,
+            disabled: this.state.repeatDisabled
           }), onClick: this.repeat },
         _react2.default.createElement('span', { className: 'ion-ios-loop-strong' })
       ),
       _react2.default.createElement(
         'div',
         { className: (0, _classnames2.default)("shuffle-button", {
-            active: this.props.controls.shuffle
+            active: this.props.controls.shuffle,
+            disabled: this.state.shuffleDisabled
           }), onClick: this.shuffle },
         _react2.default.createElement('span', { className: 'ion-ios-shuffle-strong' })
       ),
@@ -330,7 +373,7 @@ var Controls = _react2.default.createClass({
 
 exports.default = Controls;
 
-},{"./redux/actionTypes":15,"./redux/actions":16,"classnames":"classnames","react":"react"}],6:[function(require,module,exports){
+},{"./redux/actionTypes":17,"./redux/actions":18,"classnames":"classnames","react":"react"}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -349,9 +392,9 @@ var _classnames = require('classnames');
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _VideoPlaylists = require('./VideoPlaylists');
+var _Playlists = require('./Playlists');
 
-var _VideoPlaylists2 = _interopRequireDefault(_VideoPlaylists);
+var _Playlists2 = _interopRequireDefault(_Playlists);
 
 var _VideoPlayer = require('./VideoPlayer');
 
@@ -383,6 +426,8 @@ var Jukebox = _react2.default.createClass({
       videoShowing: true,
       current: {
         isPlaying: false,
+        isInvalid: false,
+        playStates: [],
         isQueue: false,
         mediaId: null,
         mediaType: _actionTypes.TYPES.UNKNOWN,
@@ -392,9 +437,16 @@ var Jukebox = _react2.default.createClass({
         queue: []
       },
       controls: {
+        play: false,
+        pause: false,
         repeat: false,
         shuffle: true,
         playlist: false
+      },
+      overlay: {
+        show: false,
+        duration: 0,
+        action: null
       },
       search: {
         expand: false,
@@ -423,16 +475,23 @@ var Jukebox = _react2.default.createClass({
   },
 
   dispatch: function dispatch() {
-    var newState = this.state;
+    var _this = this;
 
     for (var _len = arguments.length, actions = Array(_len), _key = 0; _key < _len; _key++) {
       actions[_key] = arguments[_key];
     }
 
-    actions.forEach(function (action) {
-      newState = (0, _reducers2.default)(newState, action);
-    });
-    this.forceUpdate(newState);
+    if (actions && actions.length) {
+      (function () {
+        var newState = _this.state;
+        actions.forEach(function (action) {
+          if (action) {
+            newState = (0, _reducers2.default)(newState, action);
+          }
+        });
+        _this.forceUpdate(newState);
+      })();
+    }
   },
 
   slidr: {
@@ -442,26 +501,26 @@ var Jukebox = _react2.default.createClass({
   },
 
   slidrHandler: function slidrHandler(e) {
-    var _this = this;
+    var _this2 = this;
 
     if (!this.slidr.timer) {
       this.slidr.timer = this.setTimeout(function () {
         if (e.out.slidr === 'video-player') {
-          _this.forceUpdate({
+          _this2.forceUpdate({
             videoShowing: false
           });
         } else if (e.in.slidr === 'video-player') {
-          _this.forceUpdate({
+          _this2.forceUpdate({
             videoShowing: true
           });
         }
-        _this.slidr.timer = null;
+        _this2.slidr.timer = null;
       }, 100);
     }
   },
 
   slidrCreate: function slidrCreate(slidr) {
-    var _this2 = this;
+    var _this3 = this;
 
     if (!this.slidr.ref) {
       this.slidr.ref = slidr.create('jukebox-slidr', {
@@ -469,13 +528,14 @@ var Jukebox = _react2.default.createClass({
         overflow: true,
         controls: 'border',
         keyboard: true,
+        theme: '#f0f0f0',
         before: this.slidrHandler,
         after: this.slidrHandler
-      }).add('h', ['video-playlists', 'video-player', 'video-playlists']).add('v', ['video-playlists', 'video-player', 'video-playlists']).start('video-player');
+      }).add('h', ['playlists', 'video-player', 'playlists']).add('v', ['playlists', 'video-player', 'playlists']).start('video-player');
       this.setTimeout(function () {
-        _this2.slidr.loaded = true;
-        _this2._shouldUpdate = true;
-        _this2.setState(_this2.state);
+        _this3.slidr.loaded = true;
+        _this3._shouldUpdate = true;
+        _this3.setState(_this3.state);
       }, 200);
     }
   },
@@ -492,7 +552,7 @@ var Jukebox = _react2.default.createClass({
         _react2.default.createElement(
           _Slidr2.default,
           { id: 'jukebox-slidr', className: this.state.videoShowing ? '' : 'video-not-showing', onLoaded: this.slidrCreate },
-          _react2.default.createElement(_VideoPlaylists2.default, {
+          _react2.default.createElement(_Playlists2.default, {
             current: this.state.current,
             playlists: this.state.playlists,
             slidr: this.slidr.ref,
@@ -501,6 +561,7 @@ var Jukebox = _react2.default.createClass({
           _react2.default.createElement(_VideoPlayer2.default, {
             current: this.state.current,
             controls: this.state.controls,
+            overlay: this.state.overlay,
             slidr: this.slidr.ref,
             dispatch: this.dispatch
           })
@@ -518,7 +579,62 @@ var Jukebox = _react2.default.createClass({
 
 exports.default = Jukebox;
 
-},{"./Search":9,"./Slidr":10,"./VideoPlayer":12,"./VideoPlaylists":13,"./redux/actionTypes":15,"./redux/reducers":17,"classnames":"classnames","react":"react","react-timer-mixin":"react-timer-mixin"}],7:[function(require,module,exports){
+},{"./Playlists":11,"./Search":12,"./Slidr":13,"./VideoPlayer":15,"./redux/actionTypes":17,"./redux/reducers":19,"classnames":"classnames","react":"react","react-timer-mixin":"react-timer-mixin"}],7:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var MediaList = _react2.default.createClass({
+  displayName: 'MediaList',
+
+  getDefaultProps: function getDefaultProps() {
+    return {
+      current: {},
+      controls: {},
+      dispatch: null
+    };
+  },
+
+  render: function render() {
+    var _this = this;
+
+    return _react2.default.createElement(
+      'div',
+      { className: (0, _classnames2.default)("media-list", {
+          hidden: !this.props.current.order.length
+        }) },
+      this.props.current.order.map(function (p, idx) {
+        return _react2.default.createElement(
+          'div',
+          { key: idx, className: 'media-item' },
+          idx,
+          '. ',
+          p.mediaType,
+          ' - ',
+          p.mediaId,
+          ' ',
+          _this.props.current.mediaId === p.mediaId ? '*' : ''
+        );
+      })
+    );
+  }
+});
+
+exports.default = MediaList;
+
+},{"classnames":"classnames","react":"react"}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -555,7 +671,7 @@ var None = _react2.default.createClass({
   },
 
   triggerPlaylist: function triggerPlaylist() {
-    this.props.slidr.slide('video-playlists');
+    this.props.slidr.slide('playlists');
   },
 
   triggerRestart: function triggerRestart() {
@@ -642,7 +758,130 @@ var None = _react2.default.createClass({
 
 exports.default = None;
 
-},{"./redux/actionTypes":15,"./redux/actions":16,"classnames":"classnames","react":"react"}],8:[function(require,module,exports){
+},{"./redux/actionTypes":17,"./redux/actions":18,"classnames":"classnames","react":"react"}],9:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactTimerMixin = require('react-timer-mixin');
+
+var _reactTimerMixin2 = _interopRequireDefault(_reactTimerMixin);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _actions = require('./redux/actions');
+
+var _OverlayLoading = require('./OverlayLoading');
+
+var _OverlayLoading2 = _interopRequireDefault(_OverlayLoading);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Overlay = _react2.default.createClass({
+  displayName: 'Overlay',
+
+  mixins: [_reactTimerMixin2.default],
+
+  getDefaultProps: function getDefaultProps() {
+    return {
+      overlay: {},
+      dispatch: null
+    };
+  },
+
+  getInitialState: function getInitialState() {
+    return {
+      hidden: true,
+      count: 0
+    };
+  },
+
+  cancel: function cancel() {
+    this.props.dispatch((0, _actions.hideOverlay)());
+  },
+
+  continue: function _continue() {
+    this.clearInterval(this._timer);
+    this.props.dispatch((0, _actions.hideOverlay)(), this.props.overlay.action);
+  },
+
+  _timer: null,
+
+  overlayTimer: function overlayTimer() {
+    var _this = this;
+
+    this.clearInterval(this._timer);
+    this._timer = this.setInterval(function () {
+      var count = _this.state.count - 1;
+      if (count <= 0) {
+        _this.continue();
+      } else {
+        _this.setState({
+          count: count
+        });
+      }
+    }, 1000);
+  },
+
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+    if (nextProps.overlay.show) {
+      if (this.state.hidden) {
+        this.setState({
+          hidden: false,
+          count: nextProps.overlay.duration
+        });
+        this.overlayTimer();
+      }
+    } else {
+      if (!this.state.hidden) {
+        this.setState({
+          hidden: true,
+          count: 0
+        });
+        this.clearInterval(this._timer);
+      }
+    }
+  },
+
+  render: function render() {
+    return _react2.default.createElement(
+      'div',
+      { className: (0, _classnames2.default)("overlay", {
+          hidden: this.state.hidden
+        }) },
+      _react2.default.createElement(
+        'div',
+        { className: 'overlay-message' },
+        'Next in ',
+        this.state.count,
+        '...'
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'overlay-continue', onClick: this.continue },
+        _react2.default.createElement(_OverlayLoading2.default, { duration: this.props.overlay.duration }),
+        _react2.default.createElement('span', { className: 'ion-ios-play' })
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'overlay-cancel', onClick: this.cancel },
+        'Cancel'
+      )
+    );
+  }
+});
+
+exports.default = Overlay;
+
+},{"./OverlayLoading":10,"./redux/actions":18,"classnames":"classnames","react":"react","react-timer-mixin":"react-timer-mixin"}],10:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -655,21 +894,95 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Playlist = _react2.default.createClass({
-  displayName: "Playlist",
+var OverlayLoading = _react2.default.createClass({
+  displayName: "OverlayLoading",
+
+  getDefaultProps: function getDefaultProps() {
+    return {
+      duration: 5
+    };
+  },
 
   render: function render() {
     return _react2.default.createElement(
-      "div",
-      { className: "playlist" },
-      "Playlist!"
+      "svg",
+      { className: "overlay-loading", height: "100px", width: "100px" },
+      _react2.default.createElement("circle", { r: "47px", cx: "50px", cy: "50px", style: { animation: 'overlay-progress ' + this.props.duration + 's linear' } })
     );
   }
 });
 
-exports.default = Playlist;
+exports.default = OverlayLoading;
 
-},{"react":"react"}],9:[function(require,module,exports){
+},{"react":"react"}],11:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _actions = require('./redux/actions');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Playlists = _react2.default.createClass({
+  displayName: 'Playlists',
+
+  getDefaultProps: function getDefaultProps() {
+    return {
+      current: {},
+      playlists: [],
+      slidr: null,
+      dispatch: null
+    };
+  },
+
+  loadPlaylist: function loadPlaylist(index) {
+    console.log("-->> playlist clicked!", index);
+    this.props.dispatch((0, _actions.selectPlaylist)(index), (0, _actions.playCurrent)());
+    if (this.props.slidr) {
+      console.log("-->> SLIDE!!");
+      this.props.slidr.slide('video-player');
+    }
+  },
+
+  render: function render() {
+    var _this = this;
+
+    var playlists = this.props.playlists.map(function (p, idx) {
+      var onClickHandler = _this.loadPlaylist.bind(_this, idx);
+      return _react2.default.createElement(
+        'div',
+        { key: idx, className: 'playlist-item', onClick: onClickHandler },
+        _react2.default.createElement(
+          'div',
+          { className: 'playlist-name' },
+          p.name
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'playlist-length' },
+          ' (',
+          p.media.length,
+          ')'
+        )
+      );
+    });
+    return _react2.default.createElement(
+      'div',
+      { className: 'playlists', 'data-slidr': 'playlists' },
+      playlists
+    );
+  }
+});
+
+exports.default = Playlists;
+
+},{"./redux/actions":18,"react":"react"}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -775,7 +1088,7 @@ var Search = _react2.default.createClass({
 
 exports.default = Search;
 
-},{"./redux/actions":16,"classnames":"classnames","react":"react"}],10:[function(require,module,exports){
+},{"./redux/actions":18,"classnames":"classnames","react":"react"}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -844,7 +1157,7 @@ var Slidr = _react2.default.createClass({
 
 exports.default = Slidr;
 
-},{"react":"react","react-script-loader":"react-script-loader"}],11:[function(require,module,exports){
+},{"react":"react","react-script-loader":"react-script-loader"}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -863,6 +1176,10 @@ var _YouTube = require('./YouTube');
 
 var _YouTube2 = _interopRequireDefault(_YouTube);
 
+var _Overlay = require('./Overlay');
+
+var _Overlay2 = _interopRequireDefault(_Overlay);
+
 var _actionTypes = require('./redux/actionTypes');
 
 var _actions = require('./redux/actions');
@@ -876,6 +1193,7 @@ var Video = _react2.default.createClass({
     return {
       current: {},
       controls: {},
+      overlay: {},
       slidr: null,
       dispatch: null
     };
@@ -899,6 +1217,10 @@ var Video = _react2.default.createClass({
       _react2.default.createElement(_None2.default, {
         current: this.props.current,
         slidr: this.props.slidr,
+        dispatch: this.props.dispatch
+      }),
+      _react2.default.createElement(_Overlay2.default, {
+        overlay: this.props.overlay,
         dispatch: this.props.dispatch
       }),
       _react2.default.createElement(_YouTube2.default, {
@@ -926,7 +1248,7 @@ var Video = _react2.default.createClass({
 
 exports.default = Video;
 
-},{"./None":7,"./YouTube":14,"./redux/actionTypes":15,"./redux/actions":16,"react":"react"}],12:[function(require,module,exports){
+},{"./None":8,"./Overlay":9,"./YouTube":16,"./redux/actionTypes":17,"./redux/actions":18,"react":"react"}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -945,9 +1267,9 @@ var _Controls = require('./Controls');
 
 var _Controls2 = _interopRequireDefault(_Controls);
 
-var _Playlist = require('./Playlist');
+var _MediaList = require('./MediaList');
 
-var _Playlist2 = _interopRequireDefault(_Playlist);
+var _MediaList2 = _interopRequireDefault(_MediaList);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -958,6 +1280,7 @@ var VideoPlayer = _react2.default.createClass({
     return {
       current: {},
       controls: {},
+      overlay: {},
       slidr: null,
       dispatch: null
     };
@@ -970,90 +1293,28 @@ var VideoPlayer = _react2.default.createClass({
       _react2.default.createElement(_Video2.default, {
         current: this.props.current,
         controls: this.props.controls,
+        overlay: this.props.overlay,
         slidr: this.props.slidr,
         dispatch: this.props.dispatch
       }),
       _react2.default.createElement(_Controls2.default, {
         current: this.props.current,
         controls: this.props.controls,
+        overlay: this.props.overlay,
         dispatch: this.props.dispatch
       }),
-      _react2.default.createElement(_Playlist2.default, null)
+      _react2.default.createElement(_MediaList2.default, {
+        current: this.props.current,
+        controls: this.props.controls,
+        dispatch: this.props.dispatch
+      })
     );
   }
 });
 
 exports.default = VideoPlayer;
 
-},{"./Controls":5,"./Playlist":8,"./Video":11,"react":"react"}],13:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _actions = require('./redux/actions');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var VideoPlaylists = _react2.default.createClass({
-  displayName: 'VideoPlaylists',
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      current: {},
-      playlists: [],
-      slidr: null,
-      dispatch: null
-    };
-  },
-
-  loadPlaylist: function loadPlaylist(index) {
-    console.log("-->> playlist clicked!", index);
-    this.props.dispatch((0, _actions.selectPlaylist)(index), (0, _actions.playCurrent)());
-    if (this.props.slidr) {
-      console.log("-->> SLIDE!!");
-      this.props.slidr.slide('video-player');
-    }
-  },
-
-  render: function render() {
-    var _this = this;
-
-    var playlists = this.props.playlists.map(function (p, idx) {
-      var onClickHandler = _this.loadPlaylist.bind(_this, idx);
-      return _react2.default.createElement(
-        'div',
-        { key: idx, className: 'playlist-item', onClick: onClickHandler },
-        _react2.default.createElement(
-          'div',
-          { className: 'playlist-name' },
-          p.name
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'playlist-length' },
-          ' (',
-          p.media.length,
-          ')'
-        )
-      );
-    });
-    return _react2.default.createElement(
-      'div',
-      { className: 'video-playlists', 'data-slidr': 'video-playlists' },
-      playlists
-    );
-  }
-});
-
-exports.default = VideoPlaylists;
-
-},{"./redux/actions":16,"react":"react"}],14:[function(require,module,exports){
+},{"./Controls":5,"./MediaList":7,"./Video":14,"react":"react"}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1119,13 +1380,40 @@ var YouTube = _react2.default.createClass({
     }
   },
 
+  _isInvalid: function _isInvalid() {
+    var states = this.props.current.playStates;
+    if (states.length === 3 && states[0] === YT.PlayerState.UNSTARTED && states[1] === YT.PlayerState.BUFFERING && states[2] === YT.PlayerState.UNSTARTED) {
+      // Pattern to detect invalid videos
+      return true;
+    }
+    return false;
+  },
+
   componentDidUpdate: function componentDidUpdate() {
-    if (this.props.controls.play) {
-      this._youtube.playVideo();
-      this.props.dispatch((0, _actions.play)(false));
-    } else if (this.props.controls.pause) {
-      this._youtube.pauseVideo();
-      this.props.dispatch((0, _actions.pause)(false));
+    if (this.props.current.mediaType === _actionTypes.TYPES.YOUTUBE) {
+      var _props;
+
+      var dispatchQueue = [];
+      if (this.props.controls.play) {
+        this._youtube.playVideo();
+        dispatchQueue.push((0, _actions.play)(false));
+      } else if (this.props.controls.pause) {
+        this._youtube.pauseVideo();
+        dispatchQueue.push((0, _actions.pause)(false));
+      }
+      // Check whether the current state is valid
+      if (this._isInvalid()) {
+        if (!this.props.current.isInvalid) {
+          dispatchQueue.push((0, _actions.invalid)(true));
+          dispatchQueue.push((0, _actions.showOverlay)(5, (0, _actions.playNext)()));
+        }
+      } else {
+        if (this.props.current.isInvalid) {
+          dispatchQueue.push((0, _actions.invalid)(false));
+          dispatchQueue.push((0, _actions.hideOverlay)());
+        }
+      }
+      (_props = this.props).dispatch.apply(_props, dispatchQueue);
     }
   },
 
@@ -1155,22 +1443,27 @@ var YouTube = _react2.default.createClass({
   },
 
   onPlayerStateChange: function onPlayerStateChange(event) {
-    console.log("-->> PLAYER STATE:", event.data);
+    var _props2;
 
-    if (event.data === YT.PlayerState.PLAYING) {
-      this.props.dispatch((0, _actions.nowPlaying)(true));
-    } else if (event.data === YT.PlayerState.PAUSED) {
-      this.props.dispatch((0, _actions.nowPlaying)(false));
-    } else if (event.data === YT.PlayerState.BUFFERING) {
+    var dispatchQueue = [(0, _actions.nowPlaying)(event.data === YT.PlayerState.PLAYING, event.data)];
+
+    if (event.data === YT.PlayerState.PLAYING && this.props.current.index === this.props.current.order.length) {
+      // We reach this state by clicking really fast
+      this._youtube.pauseVideo();
+    }
+
+    if (event.data === YT.PlayerState.BUFFERING) {
       // Sometimes it gets stuck, help it play
       this._youtube.playVideo();
     } else if (event.data === YT.PlayerState.ENDED) {
       if (this.props.controls.repeat) {
         this._youtube.playVideo();
       } else {
-        this.props.dispatch((0, _actions.playNext)());
+        dispatchQueue.push((0, _actions.showOverlay)(5, (0, _actions.playNext)()));
       }
     }
+
+    (_props2 = this.props).dispatch.apply(_props2, dispatchQueue);
   },
 
   stopVideo: function stopVideo() {
@@ -1190,7 +1483,7 @@ var YouTube = _react2.default.createClass({
 
 exports.default = YouTube;
 
-},{"./redux/actionTypes":15,"./redux/actions":16,"classnames":"classnames","react":"react","react-script-loader":"react-script-loader"}],15:[function(require,module,exports){
+},{"./redux/actionTypes":17,"./redux/actions":18,"classnames":"classnames","react":"react","react-script-loader":"react-script-loader"}],17:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1207,7 +1500,12 @@ var PLAYLIST = exports.PLAYLIST = 'PLAYLIST';
 var SEARCH_TOGGLE = exports.SEARCH_TOGGLE = 'SEARCH_TOGGLE';
 var SEARCH_FOCUS = exports.SEARCH_FOCUS = 'SEARCH_FOCUS';
 
+// Overlay
+var SHOW_OVERLAY = exports.SHOW_OVERLAY = 'SHOW_OVERLAY';
+var HIDE_OVERLAY = exports.HIDE_OVERLAY = 'HIDE_OVERLAY';
+
 // Current
+var INVALID = exports.INVALID = 'INVALID';
 var NOW_PLAYING = exports.NOW_PLAYING = 'NOW_PLAYING';
 var PLAY_NEXT = exports.PLAY_NEXT = 'PLAY_NEXT';
 var PLAY_PREV = exports.PLAY_PREV = 'PLAY_PREV';
@@ -1235,7 +1533,7 @@ var TYPES = exports.TYPES = {
 // YT.PlayerState.BUFFERING (3)
 // YT.PlayerState.CUED (5)
 
-},{}],16:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1246,6 +1544,9 @@ exports.pause = pause;
 exports.repeat = repeat;
 exports.shuffle = shuffle;
 exports.playlist = playlist;
+exports.invalid = invalid;
+exports.showOverlay = showOverlay;
+exports.hideOverlay = hideOverlay;
 exports.searchToggle = searchToggle;
 exports.searchFocus = searchFocus;
 exports.nowPlaying = nowPlaying;
@@ -1279,6 +1580,18 @@ function playlist() {
   return { type: _actionTypes.PLAYLIST };
 }
 
+function invalid(status) {
+  return { type: _actionTypes.INVALID, status: !!status };
+}
+
+function showOverlay(duration, action) {
+  return { type: _actionTypes.SHOW_OVERLAY, duration: duration, action: action };
+}
+
+function hideOverlay() {
+  return { type: _actionTypes.HIDE_OVERLAY };
+}
+
 function searchToggle() {
   return { type: _actionTypes.SEARCH_TOGGLE };
 }
@@ -1287,8 +1600,8 @@ function searchFocus(opt_focus) {
   return { type: _actionTypes.SEARCH_FOCUS, focus: opt_focus };
 }
 
-function nowPlaying(status) {
-  return { type: _actionTypes.NOW_PLAYING, status: !!status };
+function nowPlaying(status, state) {
+  return { type: _actionTypes.NOW_PLAYING, status: !!status, state: state };
 }
 
 function playPrev() {
@@ -1319,7 +1632,7 @@ function selectPlaylist(index) {
   return { type: _actionTypes.SELECT_PLAYLIST, playlist: index };
 }
 
-},{"./actionTypes":15}],17:[function(require,module,exports){
+},{"./actionTypes":17}],19:[function(require,module,exports){
 'use strict';
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
@@ -1360,6 +1673,27 @@ var controls = function controls(state, action) {
     case _actionTypes.PLAYLIST:
       return update(state, {
         playlist: !state.playlist
+      });
+
+    default:
+      return state;
+  }
+};
+
+var overlay = function overlay(state, action) {
+  switch (action.type) {
+    case _actionTypes.SHOW_OVERLAY:
+      return update(state, {
+        show: true,
+        duration: action.duration,
+        action: action.action
+      });
+
+    case _actionTypes.HIDE_OVERLAY:
+      return update(state, {
+        show: false,
+        duration: 0,
+        callback: null
       });
 
     default:
@@ -1413,9 +1747,17 @@ var getVideoMetadata = function getVideoMetadata(video) {
 
 var current = function current(state, action, controls, playlists) {
   switch (action.type) {
-    case _actionTypes.NOW_PLAYING:
+    case _actionTypes.INVALID:
       return update(state, {
-        isPlaying: action.status
+        isInvalid: action.status
+      });
+
+    case _actionTypes.NOW_PLAYING:
+      var newPlayStates = state.playStates.slice(state.playStates.length >= 3 ? 1 : 0, state.playStates.length);
+      newPlayStates.push(action.state);
+      return update(state, {
+        isPlaying: action.status,
+        playStates: newPlayStates
       });
 
     case _actionTypes.PLAY_CURRENT:
@@ -1513,6 +1855,7 @@ var current = function current(state, action, controls, playlists) {
     case _actionTypes.RESTART_PLAYLIST:
       if (state.order.length) {
         return update(state, {
+          isPlaying: false,
           index: 0
         });
       }
@@ -1611,12 +1954,13 @@ function reducer() {
   return {
     controls: controls(state.controls, action),
     search: search(state.search, action),
+    overlay: overlay(state.overlay, action),
     playlists: playlists(state.playlists, action),
     current: current(state.current, action, state.controls, state.playlists)
   };
 }
 
-},{"./actionTypes":15}],18:[function(require,module,exports){
+},{"./actionTypes":17}],20:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -1649,7 +1993,7 @@ _reactDom2.default.render(_react2.default.createElement(
   (0, _routes2.default)()
 ), document.getElementById('app'));
 
-},{"./routes":19,"history/lib/createBrowserHistory":26,"react":"react","react-dom":"react-dom","react-router":"react-router"}],19:[function(require,module,exports){
+},{"./routes":21,"history/lib/createBrowserHistory":28,"react":"react","react-dom":"react-dom","react-router":"react-router"}],21:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1685,7 +2029,7 @@ var _Jukebox2 = _interopRequireDefault(_Jukebox);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"./components/App":1,"./components/Home":3,"./components/jukebox/Jukebox":6,"react":"react","react-router":"react-router"}],20:[function(require,module,exports){
+},{"./components/App":1,"./components/Home":3,"./components/jukebox/Jukebox":6,"react":"react","react-router":"react-router"}],22:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -1778,7 +2122,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],21:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 /**
  * Indicates that navigation was caused by a call to history.push.
  */
@@ -1810,7 +2154,7 @@ exports['default'] = {
   REPLACE: REPLACE,
   POP: POP
 };
-},{}],22:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -1837,7 +2181,7 @@ function loopAsync(turns, work, callback) {
 
   next();
 }
-},{}],23:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 (function (process){
 /*eslint-disable no-empty */
 'use strict';
@@ -1908,7 +2252,7 @@ function readState(key) {
   return null;
 }
 }).call(this,require('_process'))
-},{"_process":20,"warning":38}],24:[function(require,module,exports){
+},{"_process":22,"warning":40}],26:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -1989,13 +2333,13 @@ function supportsGoWithoutReloadUsingHash() {
   var ua = navigator.userAgent;
   return ua.indexOf('Firefox') === -1;
 }
-},{}],25:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
 var canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
 exports.canUseDOM = canUseDOM;
-},{}],26:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -2176,7 +2520,7 @@ function createBrowserHistory() {
 exports['default'] = createBrowserHistory;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"./Actions":21,"./DOMStateStorage":23,"./DOMUtils":24,"./ExecutionEnvironment":25,"./createDOMHistory":27,"./parsePath":32,"_process":20,"invariant":37}],27:[function(require,module,exports){
+},{"./Actions":23,"./DOMStateStorage":25,"./DOMUtils":26,"./ExecutionEnvironment":27,"./createDOMHistory":29,"./parsePath":34,"_process":22,"invariant":39}],29:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -2219,7 +2563,7 @@ function createDOMHistory(options) {
 exports['default'] = createDOMHistory;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"./DOMUtils":24,"./ExecutionEnvironment":25,"./createHistory":28,"_process":20,"invariant":37}],28:[function(require,module,exports){
+},{"./DOMUtils":26,"./ExecutionEnvironment":27,"./createHistory":30,"_process":22,"invariant":39}],30:[function(require,module,exports){
 //import warning from 'warning'
 'use strict';
 
@@ -2511,7 +2855,7 @@ function createHistory() {
 
 exports['default'] = createHistory;
 module.exports = exports['default'];
-},{"./Actions":21,"./AsyncUtils":22,"./createLocation":29,"./deprecate":30,"./parsePath":32,"./runTransitionHook":33,"deep-equal":34}],29:[function(require,module,exports){
+},{"./Actions":23,"./AsyncUtils":24,"./createLocation":31,"./deprecate":32,"./parsePath":34,"./runTransitionHook":35,"deep-equal":36}],31:[function(require,module,exports){
 //import warning from 'warning'
 'use strict';
 
@@ -2566,7 +2910,7 @@ function createLocation() {
 
 exports['default'] = createLocation;
 module.exports = exports['default'];
-},{"./Actions":21,"./parsePath":32}],30:[function(require,module,exports){
+},{"./Actions":23,"./parsePath":34}],32:[function(require,module,exports){
 //import warning from 'warning'
 
 "use strict";
@@ -2582,7 +2926,7 @@ function deprecate(fn) {
 
 exports["default"] = deprecate;
 module.exports = exports["default"];
-},{}],31:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -2596,7 +2940,7 @@ function extractPath(string) {
 
 exports["default"] = extractPath;
 module.exports = exports["default"];
-},{}],32:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -2643,7 +2987,7 @@ function parsePath(path) {
 exports['default'] = parsePath;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"./extractPath":31,"_process":20,"warning":38}],33:[function(require,module,exports){
+},{"./extractPath":33,"_process":22,"warning":40}],35:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -2670,7 +3014,7 @@ function runTransitionHook(hook, location, callback) {
 exports['default'] = runTransitionHook;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"_process":20,"warning":38}],34:[function(require,module,exports){
+},{"_process":22,"warning":40}],36:[function(require,module,exports){
 var pSlice = Array.prototype.slice;
 var objectKeys = require('./lib/keys.js');
 var isArguments = require('./lib/is_arguments.js');
@@ -2766,7 +3110,7 @@ function objEquiv(a, b, opts) {
   return typeof a === typeof b;
 }
 
-},{"./lib/is_arguments.js":35,"./lib/keys.js":36}],35:[function(require,module,exports){
+},{"./lib/is_arguments.js":37,"./lib/keys.js":38}],37:[function(require,module,exports){
 var supportsArgumentsClass = (function(){
   return Object.prototype.toString.call(arguments)
 })() == '[object Arguments]';
@@ -2788,7 +3132,7 @@ function unsupported(object){
     false;
 };
 
-},{}],36:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 exports = module.exports = typeof Object.keys === 'function'
   ? Object.keys : shim;
 
@@ -2799,7 +3143,7 @@ function shim (obj) {
   return keys;
 }
 
-},{}],37:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -2854,7 +3198,7 @@ var invariant = function(condition, format, a, b, c, d, e, f) {
 module.exports = invariant;
 
 }).call(this,require('_process'))
-},{"_process":20}],38:[function(require,module,exports){
+},{"_process":22}],40:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -2918,4 +3262,4 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = warning;
 
 }).call(this,require('_process'))
-},{"_process":20}]},{},[18]);
+},{"_process":22}]},{},[20]);

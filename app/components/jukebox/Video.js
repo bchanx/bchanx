@@ -1,6 +1,7 @@
 import React from 'react';
 import None from './None';
 import YouTube from './YouTube';
+import Overlay from './Overlay';
 import { TYPES } from './redux/actionTypes';
 import { playNow, playCurrent, queueNext } from './redux/actions';
 
@@ -9,6 +10,7 @@ var Video = React.createClass({
     return {
       current: {},
       controls: {},
+      overlay: {},
       slidr: null,
       dispatch: null
     };
@@ -31,6 +33,10 @@ var Video = React.createClass({
         <None
           current={this.props.current}
           slidr={this.props.slidr}
+          dispatch={this.props.dispatch}
+          />
+        <Overlay
+          overlay={this.props.overlay}
           dispatch={this.props.dispatch}
           />
         <YouTube

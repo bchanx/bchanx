@@ -9,7 +9,12 @@ export const PLAYLIST = 'PLAYLIST';
 export const SEARCH_TOGGLE = 'SEARCH_TOGGLE';
 export const SEARCH_FOCUS = 'SEARCH_FOCUS';
 
+// Overlay
+export const SHOW_OVERLAY = 'SHOW_OVERLAY';
+export const HIDE_OVERLAY = 'HIDE_OVERLAY';
+
 // Current
+export const INVALID = 'INVALID';
 export const NOW_PLAYING = 'NOW_PLAYING';
 export const PLAY_NEXT = 'PLAY_NEXT';
 export const PLAY_PREV = 'PLAY_PREV';

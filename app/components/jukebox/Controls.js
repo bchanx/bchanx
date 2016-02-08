@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { TYPES } from './redux/actionTypes';
-import { play, pause, repeat, shuffle, playlist, playNext, playPrev } from './redux/actions';
+import { play, pause, repeat, shuffle, playlist, playNext, playPrev, hideOverlay } from './redux/actions';
 
 var Controls = React.createClass({
 
@@ -9,28 +9,63 @@ var Controls = React.createClass({
     return {
       current: {},
       controls: {},
+      overlay: {},
       dispatch: null
     };
   },
 
+  getInitialState: function() {
+    return {
+      playPauseDisabled: false,
+      previousDisabled: false,
+      nextDisabled: false,
+      repeatDisabled: false,
+      shuffleDisabled: false
+    };
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    let mediaValid = nextProps.current.mediaId && nextProps.current.mediaType !== TYPES.UNKNOWN;
+    let endReached = !nextProps.current.queue.length && (!nextProps.current.order.length || nextProps.current.index === nextProps.current.order.length);
+
+    // Now set the control states
+    this.setState({
+      playPauseDisabled: !mediaValid || nextProps.current.isInvalid || nextProps.overlay.show,
+      previousDisabled: nextProps.current.isQueue || !nextProps.current.index,
+      nextDisabled: !mediaValid && endReached,
+      repeatDisabled: endReached || nextProps.current.isInvalid || nextProps.overlay.show,
+      shuffleDisabled: nextProps.current.isInvalid || nextProps.overlay.show || !nextProps.current.order.length
+    });
+  },
+
   playPause: function() {
-    this.props.dispatch(this.props.current.isPlaying ? pause(true) : play(true));
+    if (!this.state.playPauseDisabled) {
+      this.props.dispatch(this.props.current.isPlaying ? pause(true) : play(true));
+    }
   },
 
   previous: function() {
-    this.props.dispatch(playPrev());
+    if (!this.state.previousDisabled) {
+      this.props.dispatch(hideOverlay(), playPrev());
+    }
   },
 
   next: function() {
-    this.props.dispatch(playNext());
+    if (!this.state.nextDisabled) {
+      this.props.dispatch(hideOverlay(), playNext());
+    }
   },
 
   repeat: function() {
-    this.props.dispatch(repeat());
+    if (!this.state.repeatDisabled) {
+      this.props.dispatch(repeat());
+    }
   },
 
   shuffle: function() {
-    this.props.dispatch(shuffle());
+    if (!this.state.shuffleDisabled) {
+      this.props.dispatch(shuffle());
+    }
   },
 
   playlist: function() {
@@ -42,25 +77,33 @@ var Controls = React.createClass({
       <div className={classNames("controls", {
         hidden: this.props.current.mediaType === TYPES.UNKNOWN && !this.props.current.isQueue && this.props.current.playlist === null
       })}>
-        <div className="play-pause-button" onClick={this.playPause}>
+        <div className={classNames("play-pause-button", {
+          disabled: this.state.playPauseDisabled
+        })} onClick={this.playPause}>
           <span className={classNames({
             'ion-ios-play': !this.props.current.isPlaying,
             'ion-ios-pause': this.props.current.isPlaying
           })}></span>
         </div>
-        <div className="prev-button" onClick={this.previous}>
+        <div className={classNames("prev-button", {
+          disabled: this.state.previousDisabled
+        })} onClick={this.previous}>
           <span className="ion-ios-skipbackward"></span>
         </div>
-        <div className="next-button" onClick={this.next}>
+        <div className={classNames("next-button", {
+          disabled: this.state.nextDisabled
+        })} onClick={this.next}>
           <span className="ion-ios-skipforward"></span>
         </div>
         <div className={classNames("repeat-button", {
-          active: this.props.controls.repeat
+          active: this.props.controls.repeat,
+          disabled: this.state.repeatDisabled
         })} onClick={this.repeat}>
           <span className="ion-ios-loop-strong"></span>
         </div>
         <div className={classNames("shuffle-button", {
-          active: this.props.controls.shuffle
+          active: this.props.controls.shuffle,
+          disabled: this.state.shuffleDisabled
         })} onClick={this.shuffle}>
           <span className="ion-ios-shuffle-strong"></span>
         </div>

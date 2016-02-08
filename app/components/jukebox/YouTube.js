@@ -2,7 +2,7 @@ import React from 'react';
 import { ReactScriptLoaderMixin } from 'react-script-loader';
 import classNames from 'classnames';
 import { TYPES } from './redux/actionTypes';
-import { play, pause, nowPlaying, playNext } from './redux/actions';
+import { play, pause, nowPlaying, playNext, invalid, showOverlay, hideOverlay } from './redux/actions';
 
 var YouTube = React.createClass({
 
@@ -47,14 +47,43 @@ var YouTube = React.createClass({
     }
   },
 
-  componentDidUpdate: function() {
-    if (this.props.controls.play) {
-      this._youtube.playVideo();
-      this.props.dispatch(play(false));
+  _isInvalid: function() {
+    let states = this.props.current.playStates;
+    if (states.length === 3 &&
+        states[0] === YT.PlayerState.UNSTARTED &&
+        states[1] === YT.PlayerState.BUFFERING &&
+        states[2] === YT.PlayerState.UNSTARTED) {
+      // Pattern to detect invalid videos
+      return true;
     }
-    else if (this.props.controls.pause) {
-      this._youtube.pauseVideo();
-      this.props.dispatch(pause(false));
+    return false;
+  },
+
+  componentDidUpdate: function() {
+    if (this.props.current.mediaType === TYPES.YOUTUBE) {
+      let dispatchQueue = [];
+      if (this.props.controls.play) {
+        this._youtube.playVideo();
+        dispatchQueue.push(play(false));
+      }
+      else if (this.props.controls.pause) {
+        this._youtube.pauseVideo();
+        dispatchQueue.push(pause(false));
+      }
+      // Check whether the current state is valid
+      if (this._isInvalid()) {
+        if (!this.props.current.isInvalid) {
+          dispatchQueue.push(invalid(true));
+          dispatchQueue.push(showOverlay(5, playNext()));
+        }
+      }
+      else {
+        if (this.props.current.isInvalid) {
+          dispatchQueue.push(invalid(false));
+          dispatchQueue.push(hideOverlay());
+        }
+      }
+      this.props.dispatch(...dispatchQueue);
     }
   },
 
@@ -84,15 +113,14 @@ var YouTube = React.createClass({
   },
 
   onPlayerStateChange: function(event) {
-    console.log("-->> PLAYER STATE:", event.data);
+    let dispatchQueue = [nowPlaying(event.data === YT.PlayerState.PLAYING, event.data)];
 
-    if (event.data === YT.PlayerState.PLAYING) {
-      this.props.dispatch(nowPlaying(true));
+    if (event.data === YT.PlayerState.PLAYING && this.props.current.index === this.props.current.order.length) {
+      // We reach this state by clicking really fast
+      this._youtube.pauseVideo();
     }
-    else if (event.data === YT.PlayerState.PAUSED) {
-      this.props.dispatch(nowPlaying(false));
-    }
-    else if (event.data === YT.PlayerState.BUFFERING) {
+
+    if (event.data === YT.PlayerState.BUFFERING) {
       // Sometimes it gets stuck, help it play
       this._youtube.playVideo();
     }
@@ -101,9 +129,11 @@ var YouTube = React.createClass({
         this._youtube.playVideo();
       }
       else {
-        this.props.dispatch(playNext());
+        dispatchQueue.push(showOverlay(5, playNext()));
       }
     }
+
+    this.props.dispatch(...dispatchQueue);
   },
 
   stopVideo: function() {

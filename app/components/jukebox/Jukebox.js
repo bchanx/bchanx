@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactTimerMixin from 'react-timer-mixin';
 import classNames from 'classnames';
-import VideoPlaylists from './VideoPlaylists';
+import Playlists from './Playlists';
 import VideoPlayer from './VideoPlayer';
 import Search from './Search';
 import Slidr from './Slidr';
@@ -17,6 +17,8 @@ var Jukebox = React.createClass({
       videoShowing: true,
       current: {
         isPlaying: false,
+        isInvalid: false,
+        playStates: [],
         isQueue: false,
         mediaId: null,
         mediaType: TYPES.UNKNOWN,
@@ -26,9 +28,16 @@ var Jukebox = React.createClass({
         queue: []
       },
       controls: {
+        play: false,
+        pause: false,
         repeat: false,
         shuffle: true,
         playlist: false
+      },
+      overlay: {
+        show: false,
+        duration: 0,
+        action: null
       },
       search: {
         expand: false,
@@ -63,11 +72,15 @@ var Jukebox = React.createClass({
   },
 
   dispatch: function(...actions) {
-    let newState = this.state;
-    actions.forEach(action => {
-      newState = reducer(newState, action);
-    });
-    this.forceUpdate(newState);
+    if (actions && actions.length) {
+      let newState = this.state;
+      actions.forEach(action => {
+        if (action) {
+          newState = reducer(newState, action);
+        }
+      });
+      this.forceUpdate(newState);
+    }
   },
 
   slidr: {
@@ -101,10 +114,11 @@ var Jukebox = React.createClass({
         overflow: true,
         controls: 'border',
         keyboard: true,
+        theme: '#f0f0f0',
         before: this.slidrHandler,
         after: this.slidrHandler
-      }).add('h', ['video-playlists', 'video-player', 'video-playlists'])
-        .add('v', ['video-playlists', 'video-player', 'video-playlists'])
+      }).add('h', ['playlists', 'video-player', 'playlists'])
+        .add('v', ['playlists', 'video-player', 'playlists'])
         .start('video-player');
       this.setTimeout(() => {
         this.slidr.loaded = true;
@@ -121,7 +135,7 @@ var Jukebox = React.createClass({
           active: this.slidr.loaded
         })}>
           <Slidr id="jukebox-slidr" className={this.state.videoShowing ? '' : 'video-not-showing'} onLoaded={this.slidrCreate}>
-            <VideoPlaylists
+            <Playlists
               current={this.state.current}
               playlists={this.state.playlists}
               slidr={this.slidr.ref}
@@ -130,6 +144,7 @@ var Jukebox = React.createClass({
             <VideoPlayer
               current={this.state.current}
               controls={this.state.controls}
+              overlay={this.state.overlay}
               slidr={this.slidr.ref}
               dispatch={this.dispatch}
               />

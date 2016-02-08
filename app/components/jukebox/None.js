@@ -17,7 +17,7 @@ var None = React.createClass({
   },
 
   triggerPlaylist: function() {
-    this.props.slidr.slide('video-playlists');
+    this.props.slidr.slide('playlists');
   },
 
   triggerRestart: function() {

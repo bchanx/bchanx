@@ -1,7 +1,7 @@
 import React from 'react';
 import { selectPlaylist, playCurrent } from './redux/actions';
 
-var VideoPlaylists = React.createClass({
+var Playlists = React.createClass({
 
   getDefaultProps: function() {
     return {
@@ -32,11 +32,11 @@ var VideoPlaylists = React.createClass({
       );
     });
     return (
-      <div className="video-playlists" data-slidr="video-playlists">
+      <div className="playlists" data-slidr="playlists">
         {playlists}
       </div>
     );
   }
 });
 
-export default VideoPlaylists;
+export default Playlists;

@@ -4,6 +4,7 @@ import {
   REPEAT,
   SHUFFLE,
   PLAYLIST,
+  INVALID,
   NOW_PLAYING,
   PLAY_NEXT,
   QUEUE_NEXT,
@@ -17,6 +18,8 @@ import {
   DELETE_PLAYLIST,
   SEARCH_TOGGLE,
   SEARCH_FOCUS,
+  SHOW_OVERLAY,
+  HIDE_OVERLAY,
   TYPES
 } from './actionTypes';
 
@@ -49,6 +52,27 @@ let controls = function(state, action) {
     case PLAYLIST:
       return update(state, {
         playlist: !state.playlist
+      });
+
+    default:
+      return state;
+  }
+};
+
+let overlay = function(state, action) {
+  switch (action.type) {
+    case SHOW_OVERLAY:
+      return update(state, {
+        show: true,
+        duration: action.duration,
+        action: action.action
+      });
+
+    case HIDE_OVERLAY:
+      return update(state, {
+        show: false,
+        duration: 0,
+        callback: null
       });
 
     default:
@@ -102,9 +126,17 @@ let getVideoMetadata = function(video) {
 
 let current = function(state, action, controls, playlists) {
   switch (action.type) {
-    case NOW_PLAYING:
+    case INVALID:
       return update(state, {
-        isPlaying: action.status
+        isInvalid: action.status
+      });
+
+    case NOW_PLAYING:
+      let newPlayStates = state.playStates.slice(state.playStates.length >= 3 ? 1 : 0, state.playStates.length);
+      newPlayStates.push(action.state);
+      return update(state, {
+        isPlaying: action.status,
+        playStates: newPlayStates
       });
 
     case PLAY_CURRENT:
@@ -187,6 +219,7 @@ let current = function(state, action, controls, playlists) {
     case RESTART_PLAYLIST:
       if (state.order.length) {
         return update(state, {
+          isPlaying: false,
           index: 0
         });
       }
@@ -270,6 +303,7 @@ export default function reducer(state = {}, action) {
   return {
     controls: controls(state.controls, action),
     search: search(state.search, action),
+    overlay: overlay(state.overlay, action),
     playlists: playlists(state.playlists, action),
     current: current(state.current, action, state.controls, state.playlists),
   };
