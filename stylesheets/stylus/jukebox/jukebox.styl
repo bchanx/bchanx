@@ -2,13 +2,15 @@ $jukebox-width = 640px
 $jukebox-height = 360px
 $jukebox-margin = 60px
 $jukebox-padding = 100px
-$border = 1px $gray2 dashed
+$border = 1px $gray7 dashed
 
 input
   background: transparent
   color: $gray1
   border: $border
   padding: 0 10px
+  width: 100%
+  height: 40px
   &:focus
     outline: 1px $green-light dashed
     outline-offset: -1px
@@ -70,7 +72,7 @@ input
   cursor: pointer
   padding: 2px 20px
   &:hover
-    background-color: $gray7
+    background-color: $gray8
 
 .playlist-name
   display: inline-block
@@ -231,3 +233,12 @@ input
   > div
     display: inline-block
     margin-right: 10px
+
+.loading-spinner
+  font-size: 22px
+  display: inline-block
+  animation: loading 1s linear infinite
+
+@keyframes loading
+  0% { transform: rotateZ(0) }
+  100% { transform: rotateZ(359deg) }

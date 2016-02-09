@@ -14,6 +14,7 @@ var Search = React.createClass({
     return {
       search: {},
       className: '',
+      slidr: null,
       dispatch: null
     };
   },
@@ -21,6 +22,9 @@ var Search = React.createClass({
   getInitialState: function() {
     return {
       query: '',
+      last: '',
+      token: null,
+      loading: false,
       results: []
     };
   },
@@ -37,28 +41,48 @@ var Search = React.createClass({
     // Google JS script failed
   },
 
-  _getVideoDetails: function(query, ids) {
-    if (this._youtube && ids && ids.length) {
+  _getVideoDetails: function(query, token, items) {
+    if (this._youtube && items && items.length) {
       this._youtube.videos.list({
-        part: 'contentDetails, snippet',
-        id: ids.join(', ')
+        part: 'contentDetails, statistics',
+        id: items.map(item => item.id).join(', ')
       }).then((response) => {
         console.log("-->> video response:", response);
+        if (query !== this.state.query) {
+          // Query is no longer the latest, ignore
+          return;
+        }
+
         if (response && response.result && response.result.items && response.result.items.length) {
-          let formatted = response.result.items.map(item => {
+          let formatted = response.result.items.map((item, idx) => {
             return {
               id: item.id,
               type: TYPES.YOUTUBE,
-              title: item.snippet.title,
-              thumbnail: item.snippet.thumbnails.default.url,
+              title: items[idx].snippet.title,
+              thumbnail: items[idx].snippet.thumbnails.default.url,
               duration: item.contentDetails.duration,
-              channel: item.snippet.channelTitle,
-              description: item.snippet.description
+              channelTitle: items[idx].snippet.channelTitle,
+              description: items[idx].snippet.description,
+              publishedAt: items[idx].snippet.publishedAt,
+              viewCount: item.statistics.viewCount
             };
           });
           this.setState({
             query: query,
+            last: query,
+            loading: false,
+            token: token,
             results: formatted
+          });
+        }
+        else {
+          // Uh.. something went wrong
+          this.setState({
+            query: query,
+            last: query,
+            loading: false,
+            token: null,
+            results: []
           });
         }
       }, (error) => {
@@ -67,32 +91,55 @@ var Search = React.createClass({
     }
   },
 
-  _search: function(query, token) {
+  _search: function(query, opt_token) {
     // TODO: paginated search
-    if (this._youtube && query) {
-      console.log("-->> perform search!!", query);
+    console.log("-->> perform search!!", query, 'state:', this.state.query);
+    if (this._youtube) {
+      if (!query) {
+        // Empty query, do nothing
+        console.log("-->> do nothing..");
+        return;
+      }
+      else if (query === this.state.last && !opt_token) {
+        // Exact same as our last query, do nothing
+        return;
+      }
+      else if (query !== this.state.query) {
+        // Query is no longer the latest, ignore
+        return;
+      }
+
+      console.log("-->> NOW actually perform!!:", query);
       this._youtube.search.list({
         maxResults: 5,
-//        pageToken: token,
+        pageToken: opt_token,
         part: 'snippet',
         q: query,
         type: 'video'
       }).then((response) => {
         console.log("-->> query response:", response);
+        let token = response && response.result && response.result.nextPageToken || '';
         if (response && response.result && response.result.items && response.result.items.length) {
-          let ids = response.result.items.map(item => {
-            return item.id.videoId;
+          let items = response.result.items.map(item => {
+            return {
+              id: item.id.videoId,
+              snippet: item.snippet
+            };
           });
-          this._getVideoDetails(query, ids);
+          this._getVideoDetails(query, token, items);
         }
         else {
+          // Empty result, return
           this.setState({
             query: query,
+            last: query,
+            loading: false,
+            token: token,
             results: []
           });
         }
       }, (error) => {
-        // TODO: error handling
+        // TODO: error handling (take out 'snippet')
         console.log("-->> query error:", error);
       });
     }
@@ -117,7 +164,7 @@ var Search = React.createClass({
 
   componentDidUpdate: function() {
     if (this.props.search.focus) {
-      this.refs.searchBar.focus();
+      this.refs.searchInput.focus();
       this.props.dispatch(searchFocus(false));
     }
   },
@@ -127,23 +174,39 @@ var Search = React.createClass({
   },
 
   handleChange: function(event) {
-    let value = event.target.value;
-    if (!value) {
-      console.log("-->> yo reset?!?");
-      // TODO: CANCEL DEBOUNCED SEARCH
+    let query = event.target.value.trim();
+    this.setState({
+      query: query
+    });
+    if (!query) {
+      // The empty case, reset
       this.setState({
         query: '',
-        result: []  
+        last: '',
+        token: null,
+        loading: false,
+        results: []
+      });
+    }
+    else if (query === this.state.last) {
+      // No change from last successful query
+      return this.setState({
+        loading: false
       });
     }
     else {
-      this.debouncedSearch(value);
+      // Trying to search a new, different query
+      this.setState({
+        loading: true
+      });
+      this.debouncedSearch(query);
     }
   },
 
   playResult: function(id, type) {
     console.log("-->> PLAY RESULT:", id, type);
     this.props.dispatch(playNow(id, type));
+    this.props.slidr.slide('video-player');
   },
 
   queueResult: function(id, type) {
@@ -161,13 +224,20 @@ var Search = React.createClass({
             <span className="ion-ios-search-strong"></span>
           </div>
           <div className="search-content">
-            <input
-              className="search-bar"
-              type="text"
-              ref="searchBar"
-              placeholder="Enter search here..."
-              onChange={this.handleChange}
-              />
+            <div className="search-bar">
+              <input
+                className="search-input"
+                type="text"
+                ref="searchInput"
+                placeholder="Enter search here..."
+                onChange={this.handleChange}
+                />
+              <div className={classNames("search-loading", {
+                hidden: !this.state.loading
+              })}>
+                <span className="loading-spinner ion-load-c"></span>
+              </div>
+            </div>
             <div className="search-options">
               Results:
             </div>
@@ -179,10 +249,11 @@ var Search = React.createClass({
                     <div className="media-thumbnail">
                       <img src={r.thumbnail}/>
                     </div>
-                    <div className="media-title">{r.title}</div>
-                    <div className="media-duration">{r.duration}</div>
-                    <div className="media-channel">{r.channel}</div>
-                    <div className="media-description">{r.description}</div>
+                    <div className="media-title">
+                      <a href={"https://www.youtube.com/watch?v=" + r.id} target="_blank">{r.title}</a>
+                    </div>
+                    <div className="media-channel">{r.channelTitle} - {r.duration}</div>
+                    <div className="media-duration">{r.viewCount} - {r.publishedAt}</div>
                   </div>
                 );
               })}

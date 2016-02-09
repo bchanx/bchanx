@@ -154,6 +154,7 @@ var Jukebox = React.createClass({
           active: this.slidr.loaded
         })}
           search={this.state.search}
+          slidr={this.slidr.ref}
           dispatch={this.dispatch}
           />
       </div>

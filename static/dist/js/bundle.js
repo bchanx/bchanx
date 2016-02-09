@@ -601,6 +601,7 @@ var Jukebox = _react2.default.createClass({
           active: this.slidr.loaded
         }),
         search: this.state.search,
+        slidr: this.slidr.ref,
         dispatch: this.dispatch
       })
     );
@@ -1050,6 +1051,7 @@ var Search = _react2.default.createClass({
     return {
       search: {},
       className: '',
+      slidr: null,
       dispatch: null
     };
   },
@@ -1057,6 +1059,9 @@ var Search = _react2.default.createClass({
   getInitialState: function getInitialState() {
     return {
       query: '',
+      last: '',
+      token: null,
+      loading: false,
       results: []
     };
   },
@@ -1073,30 +1078,51 @@ var Search = _react2.default.createClass({
     // Google JS script failed
   },
 
-  _getVideoDetails: function _getVideoDetails(query, ids) {
+  _getVideoDetails: function _getVideoDetails(query, token, items) {
     var _this = this;
 
-    if (this._youtube && ids && ids.length) {
+    if (this._youtube && items && items.length) {
       this._youtube.videos.list({
-        part: 'contentDetails, snippet',
-        id: ids.join(', ')
+        part: 'contentDetails, statistics',
+        id: items.map(function (item) {
+          return item.id;
+        }).join(', ')
       }).then(function (response) {
         console.log("-->> video response:", response);
+        if (query !== _this.state.query) {
+          // Query is no longer the latest, ignore
+          return;
+        }
+
         if (response && response.result && response.result.items && response.result.items.length) {
-          var formatted = response.result.items.map(function (item) {
+          var formatted = response.result.items.map(function (item, idx) {
             return {
               id: item.id,
               type: _actionTypes.TYPES.YOUTUBE,
-              title: item.snippet.title,
-              thumbnail: item.snippet.thumbnails.default.url,
+              title: items[idx].snippet.title,
+              thumbnail: items[idx].snippet.thumbnails.default.url,
               duration: item.contentDetails.duration,
-              channel: item.snippet.channelTitle,
-              description: item.snippet.description
+              channelTitle: items[idx].snippet.channelTitle,
+              description: items[idx].snippet.description,
+              publishedAt: items[idx].snippet.publishedAt,
+              viewCount: item.statistics.viewCount
             };
           });
           _this.setState({
             query: query,
+            last: query,
+            loading: false,
+            token: token,
             results: formatted
+          });
+        } else {
+          // Uh.. something went wrong
+          _this.setState({
+            query: query,
+            last: query,
+            loading: false,
+            token: null,
+            results: []
           });
         }
       }, function (error) {
@@ -1105,33 +1131,54 @@ var Search = _react2.default.createClass({
     }
   },
 
-  _search: function _search(query, token) {
+  _search: function _search(query, opt_token) {
     var _this2 = this;
 
     // TODO: paginated search
-    if (this._youtube && query) {
-      console.log("-->> perform search!!", query);
+    console.log("-->> perform search!!", query, 'state:', this.state.query);
+    if (this._youtube) {
+      if (!query) {
+        // Empty query, do nothing
+        console.log("-->> do nothing..");
+        return;
+      } else if (query === this.state.last && !opt_token) {
+        // Exact same as our last query, do nothing
+        return;
+      } else if (query !== this.state.query) {
+        // Query is no longer the latest, ignore
+        return;
+      }
+
+      console.log("-->> NOW actually perform!!:", query);
       this._youtube.search.list({
         maxResults: 5,
-        //        pageToken: token,
+        pageToken: opt_token,
         part: 'snippet',
         q: query,
         type: 'video'
       }).then(function (response) {
         console.log("-->> query response:", response);
+        var token = response && response.result && response.result.nextPageToken || '';
         if (response && response.result && response.result.items && response.result.items.length) {
-          var ids = response.result.items.map(function (item) {
-            return item.id.videoId;
+          var items = response.result.items.map(function (item) {
+            return {
+              id: item.id.videoId,
+              snippet: item.snippet
+            };
           });
-          _this2._getVideoDetails(query, ids);
+          _this2._getVideoDetails(query, token, items);
         } else {
+          // Empty result, return
           _this2.setState({
             query: query,
+            last: query,
+            loading: false,
+            token: token,
             results: []
           });
         }
       }, function (error) {
-        // TODO: error handling
+        // TODO: error handling (take out 'snippet')
         console.log("-->> query error:", error);
       });
     }
@@ -1158,7 +1205,7 @@ var Search = _react2.default.createClass({
 
   componentDidUpdate: function componentDidUpdate() {
     if (this.props.search.focus) {
-      this.refs.searchBar.focus();
+      this.refs.searchInput.focus();
       this.props.dispatch((0, _actions.searchFocus)(false));
     }
   },
@@ -1168,22 +1215,37 @@ var Search = _react2.default.createClass({
   },
 
   handleChange: function handleChange(event) {
-    var value = event.target.value;
-    if (!value) {
-      console.log("-->> yo reset?!?");
-      // TODO: CANCEL DEBOUNCED SEARCH
+    var query = event.target.value.trim();
+    this.setState({
+      query: query
+    });
+    if (!query) {
+      // The empty case, reset
       this.setState({
         query: '',
-        result: []
+        last: '',
+        token: null,
+        loading: false,
+        results: []
+      });
+    } else if (query === this.state.last) {
+      // No change from last successful query
+      return this.setState({
+        loading: false
       });
     } else {
-      this.debouncedSearch(value);
+      // Trying to search a new, different query
+      this.setState({
+        loading: true
+      });
+      this.debouncedSearch(query);
     }
   },
 
   playResult: function playResult(id, type) {
     console.log("-->> PLAY RESULT:", id, type);
     this.props.dispatch((0, _actions.playNow)(id, type));
+    this.props.slidr.slide('video-player');
   },
 
   queueResult: function queueResult(id, type) {
@@ -1210,13 +1272,24 @@ var Search = _react2.default.createClass({
         _react2.default.createElement(
           'div',
           { className: 'search-content' },
-          _react2.default.createElement('input', {
-            className: 'search-bar',
-            type: 'text',
-            ref: 'searchBar',
-            placeholder: 'Enter search here...',
-            onChange: this.handleChange
-          }),
+          _react2.default.createElement(
+            'div',
+            { className: 'search-bar' },
+            _react2.default.createElement('input', {
+              className: 'search-input',
+              type: 'text',
+              ref: 'searchInput',
+              placeholder: 'Enter search here...',
+              onChange: this.handleChange
+            }),
+            _react2.default.createElement(
+              'div',
+              { className: (0, _classnames2.default)("search-loading", {
+                  hidden: !this.state.loading
+                }) },
+              _react2.default.createElement('span', { className: 'loading-spinner ion-load-c' })
+            )
+          ),
           _react2.default.createElement(
             'div',
             { className: 'search-options' },
@@ -1238,22 +1311,25 @@ var Search = _react2.default.createClass({
                 _react2.default.createElement(
                   'div',
                   { className: 'media-title' },
-                  r.title
-                ),
-                _react2.default.createElement(
-                  'div',
-                  { className: 'media-duration' },
-                  r.duration
+                  _react2.default.createElement(
+                    'a',
+                    { href: "https://www.youtube.com/watch?v=" + r.id, target: '_blank' },
+                    r.title
+                  )
                 ),
                 _react2.default.createElement(
                   'div',
                   { className: 'media-channel' },
-                  r.channel
+                  r.channelTitle,
+                  ' - ',
+                  r.duration
                 ),
                 _react2.default.createElement(
                   'div',
-                  { className: 'media-description' },
-                  r.description
+                  { className: 'media-duration' },
+                  r.viewCount,
+                  ' - ',
+                  r.publishedAt
                 )
               );
             })
