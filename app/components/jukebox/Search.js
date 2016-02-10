@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactTimerMixin from 'react-timer-mixin';
 import classNames from 'classnames';
+import moment from 'moment';
 import { ReactScriptLoaderMixin } from 'react-script-loader';
 import { searchToggle, searchFocus, playNow, queueNext, playCurrent } from './redux/actions';
 import { TYPES } from './redux/actionTypes';
@@ -25,6 +26,7 @@ var Search = React.createClass({
       last: '',
       token: null,
       loading: false,
+      error: false,
       results: []
     };
   },
@@ -43,7 +45,7 @@ var Search = React.createClass({
 
   _cache: {},
 
-  _addToCache: function(query, token, results) {
+  _addToCache: function(query, token, results, error) {
     if (!this._cache[query]) {
       this._cache[query] = {};
     }
@@ -52,6 +54,37 @@ var Search = React.createClass({
       this._cache[query].results = [];
     }
     this._cache[query].results = this._cache[query].results.concat(results);
+    this._cache[query].error = error;
+  },
+
+  _finishSearch: function(query, token, results, opt_error) {
+    this._addToCache(query, token, results, !!opt_error);
+    this.setState({
+      query: query,
+      last: query,
+      token: token,
+      loading: false,
+      error: !!opt_error,
+      results: this._cache[query].results
+    });
+  },
+
+  _formatTime: function(timestamp) {
+    let m = moment.duration(timestamp);
+    let seconds = String(m.asSeconds() % 60);
+    let minutes = String(Math.floor(m.asMinutes() % 60));
+    let hours = String(Math.floor(m.asHours() % 60));
+    return [hours, minutes, seconds].map(x => x.length === 1 ? '0' + x : x).join(':').replace(/^[0:]+/g, '');
+  },
+
+  _formatViews: function(views) {
+    let result = [];
+    while(views.length > 3) {
+      result.push(views.slice(-3));
+      views = views.slice(0, -3);
+    }
+    result.push(views);
+    return result.reverse().join(',');
   },
 
   _getVideoDetails: function(query, token, items) {
@@ -60,7 +93,6 @@ var Search = React.createClass({
         part: 'contentDetails, statistics',
         id: items.map(item => item.id).join(', ')
       }).then((response) => {
-        console.log("-->> video response:", response);
         if (query !== this.state.query) {
           // Query is no longer the latest, ignore
           return;
@@ -73,45 +105,29 @@ var Search = React.createClass({
               type: TYPES.YOUTUBE,
               title: items[idx].snippet.title,
               thumbnail: items[idx].snippet.thumbnails.medium.url,
-              duration: item.contentDetails.duration,
+              duration: this._formatTime(item.contentDetails.duration),
               channelTitle: items[idx].snippet.channelTitle,
               description: items[idx].snippet.description,
-              publishedAt: items[idx].snippet.publishedAt,
-              viewCount: item.statistics.viewCount
+              publishedAt: moment(items[idx].snippet.publishedAt).fromNow(),
+              viewCount: this._formatViews(item.statistics.viewCount)
             };
           });
-          this._addToCache(query, token, formatted);
-          this.setState({
-            query: query,
-            last: query,
-            loading: false,
-            token: token,
-            results: formatted
-          });
+          this._finishSearch(query, token, formatted);
         }
         else {
-          // Uh.. something went wrong
-          this.setState({
-            query: query,
-            last: query,
-            loading: false,
-            token: null,
-            results: []
-          });
+          // We reached the end
+          this._finishSearch(query, null, []);
         }
       }, (error) => {
-        console.log("-->> video error:", error);
+        this._finishSearch(query, null, [], true);
       });
     }
   },
 
   _search: function(query, opt_token) {
-    // TODO: paginated search
-    console.log("-->> perform search!!", query, 'state:', this.state.query, 'token:', opt_token, 'cache:', this._cache);
     if (this._youtube) {
       if (!query) {
         // Empty query, do nothing
-        console.log("-->> do nothing..");
         return;
       }
       else if (query === this.state.last && !opt_token) {
@@ -124,27 +140,25 @@ var Search = React.createClass({
       }
       else if (this._cache[query] && !opt_token) {
         // Return from cache
-        let { token, results } = this._cache[query];
-        console.log("-->> CACHE HIT!!", token, results);
+        let { token, results, error } = this._cache[query];
         return this.setState({
           query: query,
           last: query,
-          loading: false,
           token: token,
+          loading: false,
+          error: error,
           results: results
         });
       }
 
-      console.log("-->> NOW actually perform!!:", query);
       this._youtube.search.list({
-        maxResults: 5,
+        maxResults: opt_token ? 10 : 9,
         pageToken: opt_token,
         part: 'snippet',
         q: query,
         type: 'video'
       }).then((response) => {
-        console.log("-->> query response:", response);
-        let token = response && response.result && response.result.nextPageToken || '';
+        let token = response && response.result && response.result.nextPageToken || null;
         if (response && response.result && response.result.items && response.result.items.length) {
           let items = response.result.items.map(item => {
             return {
@@ -156,17 +170,10 @@ var Search = React.createClass({
         }
         else {
           // Empty result, return
-          this.setState({
-            query: query,
-            last: query,
-            loading: false,
-            token: token,
-            results: []
-          });
+          this._finishSearch(query, token, []);
         }
       }, (error) => {
-        // TODO: error handling (take out 'snippet')
-        console.log("-->> query error:", error);
+        this._finishSearch(query, null, [], true);
       });
     }
   },
@@ -199,20 +206,26 @@ var Search = React.createClass({
     this.props.dispatch(searchToggle());
   },
 
+  loadMore: function() {
+    this.runSearch(this.state.query, this.state.token);
+  },
+
+  runSearch: function(query, opt_token) {
+    this.setState({
+      loading: true
+    });
+    this.debouncedSearch(query, opt_token);
+  },
+
   handleChange: function(event) {
     let query = event.target.value.trim();
     this.setState({
-      query: query
+      query: query,
+      error: false
     });
     if (!query) {
       // The empty case, reset
-      this.setState({
-        query: '',
-        last: '',
-        token: null,
-        loading: false,
-        results: []
-      });
+      this._finishSearch('', null, []);
     }
     else if (query === this.state.last) {
       // No change from last successful query
@@ -222,15 +235,11 @@ var Search = React.createClass({
     }
     else {
       // Trying to search a new, different query
-      this.setState({
-        loading: true
-      });
-      this.debouncedSearch(query);
+      this.runSearch(query);
     }
   },
 
   playResult: function(id, type) {
-    console.log("-->> PLAY RESULT:", id, type);
     if (!this.state.loading) {
       this.props.dispatch(playNow(id, type));
       this.props.slidr.slide('video-player');
@@ -238,7 +247,6 @@ var Search = React.createClass({
   },
 
   queueResult: function(id, type) {
-    console.log("-->> QUEUE RESULT:", id, type);
     if (!this.state.loading) {
       this.props.dispatch(queueNext(id, type), playCurrent());
     }
@@ -271,6 +279,7 @@ var Search = React.createClass({
             <div className={classNames("search-results", {
               disabled: this.state.loading
             })}>
+              {this.state.error ? <div className="search-error">An error occured.</div> : null}
               {this.state.results.map((r) => {
                 let playHandler = this.playResult.bind(this, r.id, r.type);
                 let queueHandler = this.queueResult.bind(this, r.id, r.type);
@@ -278,6 +287,7 @@ var Search = React.createClass({
                   <div key={r.id} className="search-result">
                     <div className="media-thumbnail">
                       <img src={r.thumbnail}/>
+                      <div className="media-duration">{r.duration}</div>
                       <div className="media-overlay">
                         <div className="media-action" onClick={queueHandler}>
                           <span className="ion-ios-list"></span>
@@ -292,11 +302,18 @@ var Search = React.createClass({
                     <div className="media-title">
                       <a href={"https://www.youtube.com/watch?v=" + r.id} target="_blank">{r.title}</a>
                     </div>
-                    <div className="media-channel">{r.channelTitle} - {r.duration}</div>
-                    <div className="media-duration">{r.viewCount} - {r.publishedAt}</div>
+                    <div className="media-statistics">
+                      <span className="media-channel">{r.channelTitle ? r.channelTitle : <span className="unknown">unknown</span>}</span>
+                    </div>
+                    <div className="media-statistics">{r.viewCount} views  ·  {r.publishedAt}</div>
                   </div>
                 );
               })}
+              {this.state.results.length && this.state.token ?
+                <div className="search-result search-more">
+                  <span onClick={this.loadMore}>Load more...</span>
+                </div>
+              : null}
             </div>
           </div>
         </div>

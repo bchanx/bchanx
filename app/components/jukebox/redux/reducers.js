@@ -257,15 +257,22 @@ let current = function(state, action, controls, playlists) {
       });
 
     case QUEUE_NEXT:
-      let newQueue = state.queue.slice();
-      newQueue.push({
-        mediaId: action.mediaId,
-        mediaType: action.mediaType
-      });
+      if (state.mediaId !== action.mediaId &&
+          state.mediaType !== action.mediaType &&
+          !state.queue.filter(s => {
+            return s.mediaId === action.mediaId && s.mediaType === action.mediaType;
+          }).length) {
+        let newQueue = state.queue.slice();
+        newQueue.push({
+          mediaId: action.mediaId,
+          mediaType: action.mediaType
+        });
 
-      return update(state, {
-        queue: newQueue
-      });
+        return update(state, {
+          queue: newQueue
+        });
+      }
+      return state;
 
     case SELECT_PLAYLIST:
       let currentPlaylist = action.playlist || 0;

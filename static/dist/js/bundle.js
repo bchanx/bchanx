@@ -1032,6 +1032,10 @@ var _classnames = require('classnames');
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
+var _moment = require('moment');
+
+var _moment2 = _interopRequireDefault(_moment);
+
 var _reactScriptLoader = require('react-script-loader');
 
 var _actions = require('./redux/actions');
@@ -1062,6 +1066,7 @@ var Search = _react2.default.createClass({
       last: '',
       token: null,
       loading: false,
+      error: false,
       results: []
     };
   },
@@ -1080,7 +1085,7 @@ var Search = _react2.default.createClass({
 
   _cache: {},
 
-  _addToCache: function _addToCache(query, token, results) {
+  _addToCache: function _addToCache(query, token, results, error) {
     if (!this._cache[query]) {
       this._cache[query] = {};
     }
@@ -1089,6 +1094,39 @@ var Search = _react2.default.createClass({
       this._cache[query].results = [];
     }
     this._cache[query].results = this._cache[query].results.concat(results);
+    this._cache[query].error = error;
+  },
+
+  _finishSearch: function _finishSearch(query, token, results, opt_error) {
+    this._addToCache(query, token, results, !!opt_error);
+    this.setState({
+      query: query,
+      last: query,
+      token: token,
+      loading: false,
+      error: !!opt_error,
+      results: this._cache[query].results
+    });
+  },
+
+  _formatTime: function _formatTime(timestamp) {
+    var m = _moment2.default.duration(timestamp);
+    var seconds = String(m.asSeconds() % 60);
+    var minutes = String(Math.floor(m.asMinutes() % 60));
+    var hours = String(Math.floor(m.asHours() % 60));
+    return [hours, minutes, seconds].map(function (x) {
+      return x.length === 1 ? '0' + x : x;
+    }).join(':').replace(/^[0:]+/g, '');
+  },
+
+  _formatViews: function _formatViews(views) {
+    var result = [];
+    while (views.length > 3) {
+      result.push(views.slice(-3));
+      views = views.slice(0, -3);
+    }
+    result.push(views);
+    return result.reverse().join(',');
   },
 
   _getVideoDetails: function _getVideoDetails(query, token, items) {
@@ -1101,7 +1139,6 @@ var Search = _react2.default.createClass({
           return item.id;
         }).join(', ')
       }).then(function (response) {
-        console.log("-->> video response:", response);
         if (query !== _this.state.query) {
           // Query is no longer the latest, ignore
           return;
@@ -1114,33 +1151,20 @@ var Search = _react2.default.createClass({
               type: _actionTypes.TYPES.YOUTUBE,
               title: items[idx].snippet.title,
               thumbnail: items[idx].snippet.thumbnails.medium.url,
-              duration: item.contentDetails.duration,
+              duration: _this._formatTime(item.contentDetails.duration),
               channelTitle: items[idx].snippet.channelTitle,
               description: items[idx].snippet.description,
-              publishedAt: items[idx].snippet.publishedAt,
-              viewCount: item.statistics.viewCount
+              publishedAt: (0, _moment2.default)(items[idx].snippet.publishedAt).fromNow(),
+              viewCount: _this._formatViews(item.statistics.viewCount)
             };
           });
-          _this._addToCache(query, token, formatted);
-          _this.setState({
-            query: query,
-            last: query,
-            loading: false,
-            token: token,
-            results: formatted
-          });
+          _this._finishSearch(query, token, formatted);
         } else {
-          // Uh.. something went wrong
-          _this.setState({
-            query: query,
-            last: query,
-            loading: false,
-            token: null,
-            results: []
-          });
+          // We reached the end
+          _this._finishSearch(query, null, []);
         }
       }, function (error) {
-        console.log("-->> video error:", error);
+        _this._finishSearch(query, null, [], true);
       });
     }
   },
@@ -1148,12 +1172,9 @@ var Search = _react2.default.createClass({
   _search: function _search(query, opt_token) {
     var _this2 = this;
 
-    // TODO: paginated search
-    console.log("-->> perform search!!", query, 'state:', this.state.query, 'token:', opt_token, 'cache:', this._cache);
     if (this._youtube) {
       if (!query) {
         // Empty query, do nothing
-        console.log("-->> do nothing..");
         return;
       } else if (query === this.state.last && !opt_token) {
         // Exact same as our last query, do nothing
@@ -1166,27 +1187,26 @@ var Search = _react2.default.createClass({
         var _cache$query = this._cache[query];
         var token = _cache$query.token;
         var results = _cache$query.results;
+        var error = _cache$query.error;
 
-        console.log("-->> CACHE HIT!!", token, results);
         return this.setState({
           query: query,
           last: query,
-          loading: false,
           token: token,
+          loading: false,
+          error: error,
           results: results
         });
       }
 
-      console.log("-->> NOW actually perform!!:", query);
       this._youtube.search.list({
-        maxResults: 5,
+        maxResults: opt_token ? 10 : 9,
         pageToken: opt_token,
         part: 'snippet',
         q: query,
         type: 'video'
       }).then(function (response) {
-        console.log("-->> query response:", response);
-        var token = response && response.result && response.result.nextPageToken || '';
+        var token = response && response.result && response.result.nextPageToken || null;
         if (response && response.result && response.result.items && response.result.items.length) {
           var items = response.result.items.map(function (item) {
             return {
@@ -1197,17 +1217,10 @@ var Search = _react2.default.createClass({
           _this2._getVideoDetails(query, token, items);
         } else {
           // Empty result, return
-          _this2.setState({
-            query: query,
-            last: query,
-            loading: false,
-            token: token,
-            results: []
-          });
+          _this2._finishSearch(query, token, []);
         }
       }, function (error) {
-        // TODO: error handling (take out 'snippet')
-        console.log("-->> query error:", error);
+        _this2._finishSearch(query, null, [], true);
       });
     }
   },
@@ -1242,20 +1255,26 @@ var Search = _react2.default.createClass({
     this.props.dispatch((0, _actions.searchToggle)());
   },
 
+  loadMore: function loadMore() {
+    this.runSearch(this.state.query, this.state.token);
+  },
+
+  runSearch: function runSearch(query, opt_token) {
+    this.setState({
+      loading: true
+    });
+    this.debouncedSearch(query, opt_token);
+  },
+
   handleChange: function handleChange(event) {
     var query = event.target.value.trim();
     this.setState({
-      query: query
+      query: query,
+      error: false
     });
     if (!query) {
       // The empty case, reset
-      this.setState({
-        query: '',
-        last: '',
-        token: null,
-        loading: false,
-        results: []
-      });
+      this._finishSearch('', null, []);
     } else if (query === this.state.last) {
       // No change from last successful query
       return this.setState({
@@ -1263,15 +1282,11 @@ var Search = _react2.default.createClass({
       });
     } else {
       // Trying to search a new, different query
-      this.setState({
-        loading: true
-      });
-      this.debouncedSearch(query);
+      this.runSearch(query);
     }
   },
 
   playResult: function playResult(id, type) {
-    console.log("-->> PLAY RESULT:", id, type);
     if (!this.state.loading) {
       this.props.dispatch((0, _actions.playNow)(id, type));
       this.props.slidr.slide('video-player');
@@ -1279,7 +1294,6 @@ var Search = _react2.default.createClass({
   },
 
   queueResult: function queueResult(id, type) {
-    console.log("-->> QUEUE RESULT:", id, type);
     if (!this.state.loading) {
       this.props.dispatch((0, _actions.queueNext)(id, type), (0, _actions.playCurrent)());
     }
@@ -1327,6 +1341,11 @@ var Search = _react2.default.createClass({
             { className: (0, _classnames2.default)("search-results", {
                 disabled: this.state.loading
               }) },
+            this.state.error ? _react2.default.createElement(
+              'div',
+              { className: 'search-error' },
+              'An error occured.'
+            ) : null,
             this.state.results.map(function (r) {
               var playHandler = _this4.playResult.bind(_this4, r.id, r.type);
               var queueHandler = _this4.queueResult.bind(_this4, r.id, r.type);
@@ -1337,6 +1356,11 @@ var Search = _react2.default.createClass({
                   'div',
                   { className: 'media-thumbnail' },
                   _react2.default.createElement('img', { src: r.thumbnail }),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'media-duration' },
+                    r.duration
+                  ),
                   _react2.default.createElement(
                     'div',
                     { className: 'media-overlay' },
@@ -1373,20 +1397,35 @@ var Search = _react2.default.createClass({
                 ),
                 _react2.default.createElement(
                   'div',
-                  { className: 'media-channel' },
-                  r.channelTitle,
-                  ' - ',
-                  r.duration
+                  { className: 'media-statistics' },
+                  _react2.default.createElement(
+                    'span',
+                    { className: 'media-channel' },
+                    r.channelTitle ? r.channelTitle : _react2.default.createElement(
+                      'span',
+                      { className: 'unknown' },
+                      'unknown'
+                    )
+                  )
                 ),
                 _react2.default.createElement(
                   'div',
-                  { className: 'media-duration' },
+                  { className: 'media-statistics' },
                   r.viewCount,
-                  ' - ',
+                  ' views  ·  ',
                   r.publishedAt
                 )
               );
-            })
+            }),
+            this.state.results.length && this.state.token ? _react2.default.createElement(
+              'div',
+              { className: 'search-result search-more' },
+              _react2.default.createElement(
+                'span',
+                { onClick: this.loadMore },
+                'Load more...'
+              )
+            ) : null
           )
         )
       )
@@ -1396,7 +1435,7 @@ var Search = _react2.default.createClass({
 
 exports.default = Search;
 
-},{"./Common":5,"./redux/actionTypes":18,"./redux/actions":19,"classnames":"classnames","react":"react","react-script-loader":"react-script-loader","react-timer-mixin":"react-timer-mixin"}],14:[function(require,module,exports){
+},{"./Common":5,"./redux/actionTypes":18,"./redux/actions":19,"classnames":"classnames","moment":"moment","react":"react","react-script-loader":"react-script-loader","react-timer-mixin":"react-timer-mixin"}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2207,15 +2246,20 @@ var current = function current(state, action, controls, playlists) {
       });
 
     case _actionTypes.QUEUE_NEXT:
-      var newQueue = state.queue.slice();
-      newQueue.push({
-        mediaId: action.mediaId,
-        mediaType: action.mediaType
-      });
+      if (state.mediaId !== action.mediaId && state.mediaType !== action.mediaType && !state.queue.filter(function (s) {
+        return s.mediaId === action.mediaId && s.mediaType === action.mediaType;
+      }).length) {
+        var newQueue = state.queue.slice();
+        newQueue.push({
+          mediaId: action.mediaId,
+          mediaType: action.mediaType
+        });
 
-      return update(state, {
-        queue: newQueue
-      });
+        return update(state, {
+          queue: newQueue
+        });
+      }
+      return state;
 
     case _actionTypes.SELECT_PLAYLIST:
       var currentPlaylist = action.playlist || 0;
