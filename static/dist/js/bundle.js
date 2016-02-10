@@ -298,13 +298,13 @@ var Controls = _react2.default.createClass({
 
   componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
     var mediaValid = nextProps.current.mediaId && nextProps.current.mediaType !== _actionTypes.TYPES.UNKNOWN;
-    var endReached = !nextProps.current.queue.length && (!nextProps.current.order.length || nextProps.current.index === nextProps.current.order.length);
+    var endReached = !mediaValid && !nextProps.current.queue.length && (!nextProps.current.order.length || nextProps.current.index === nextProps.current.order.length);
 
     // Now set the control states
     this.setState({
       playPauseDisabled: !mediaValid || nextProps.current.isInvalid || nextProps.overlay.show,
       previousDisabled: nextProps.current.isQueue || !nextProps.current.index,
-      nextDisabled: !mediaValid && endReached,
+      nextDisabled: endReached,
       repeatDisabled: endReached || nextProps.current.isInvalid || nextProps.overlay.show,
       shuffleDisabled: nextProps.current.isInvalid || nextProps.overlay.show || !nextProps.current.order.length
     });
@@ -1078,6 +1078,19 @@ var Search = _react2.default.createClass({
     // Google JS script failed
   },
 
+  _cache: {},
+
+  _addToCache: function _addToCache(query, token, results) {
+    if (!this._cache[query]) {
+      this._cache[query] = {};
+    }
+    this._cache[query].token = token;
+    if (!this._cache[query].results) {
+      this._cache[query].results = [];
+    }
+    this._cache[query].results = this._cache[query].results.concat(results);
+  },
+
   _getVideoDetails: function _getVideoDetails(query, token, items) {
     var _this = this;
 
@@ -1100,7 +1113,7 @@ var Search = _react2.default.createClass({
               id: item.id,
               type: _actionTypes.TYPES.YOUTUBE,
               title: items[idx].snippet.title,
-              thumbnail: items[idx].snippet.thumbnails.default.url,
+              thumbnail: items[idx].snippet.thumbnails.medium.url,
               duration: item.contentDetails.duration,
               channelTitle: items[idx].snippet.channelTitle,
               description: items[idx].snippet.description,
@@ -1108,6 +1121,7 @@ var Search = _react2.default.createClass({
               viewCount: item.statistics.viewCount
             };
           });
+          _this._addToCache(query, token, formatted);
           _this.setState({
             query: query,
             last: query,
@@ -1135,7 +1149,7 @@ var Search = _react2.default.createClass({
     var _this2 = this;
 
     // TODO: paginated search
-    console.log("-->> perform search!!", query, 'state:', this.state.query);
+    console.log("-->> perform search!!", query, 'state:', this.state.query, 'token:', opt_token, 'cache:', this._cache);
     if (this._youtube) {
       if (!query) {
         // Empty query, do nothing
@@ -1147,6 +1161,20 @@ var Search = _react2.default.createClass({
       } else if (query !== this.state.query) {
         // Query is no longer the latest, ignore
         return;
+      } else if (this._cache[query] && !opt_token) {
+        // Return from cache
+        var _cache$query = this._cache[query];
+        var token = _cache$query.token;
+        var results = _cache$query.results;
+
+        console.log("-->> CACHE HIT!!", token, results);
+        return this.setState({
+          query: query,
+          last: query,
+          loading: false,
+          token: token,
+          results: results
+        });
       }
 
       console.log("-->> NOW actually perform!!:", query);
@@ -1244,13 +1272,17 @@ var Search = _react2.default.createClass({
 
   playResult: function playResult(id, type) {
     console.log("-->> PLAY RESULT:", id, type);
-    this.props.dispatch((0, _actions.playNow)(id, type));
-    this.props.slidr.slide('video-player');
+    if (!this.state.loading) {
+      this.props.dispatch((0, _actions.playNow)(id, type));
+      this.props.slidr.slide('video-player');
+    }
   },
 
   queueResult: function queueResult(id, type) {
     console.log("-->> QUEUE RESULT:", id, type);
-    this.props.dispatch((0, _actions.queueNext)(id, type));
+    if (!this.state.loading) {
+      this.props.dispatch((0, _actions.queueNext)(id, type), (0, _actions.playCurrent)());
+    }
   },
 
   render: function render() {
@@ -1292,21 +1324,43 @@ var Search = _react2.default.createClass({
           ),
           _react2.default.createElement(
             'div',
-            { className: 'search-options' },
-            'Results:'
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'search-results' },
+            { className: (0, _classnames2.default)("search-results", {
+                disabled: this.state.loading
+              }) },
             this.state.results.map(function (r) {
-              var onClickHandler = _this4.playResult.bind(_this4, r.id, r.type);
+              var playHandler = _this4.playResult.bind(_this4, r.id, r.type);
+              var queueHandler = _this4.queueResult.bind(_this4, r.id, r.type);
               return _react2.default.createElement(
                 'div',
-                { key: r.id, className: 'search-result', onClick: onClickHandler },
+                { key: r.id, className: 'search-result' },
                 _react2.default.createElement(
                   'div',
                   { className: 'media-thumbnail' },
-                  _react2.default.createElement('img', { src: r.thumbnail })
+                  _react2.default.createElement('img', { src: r.thumbnail }),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'media-overlay' },
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'media-action', onClick: queueHandler },
+                      _react2.default.createElement('span', { className: 'ion-ios-list' }),
+                      _react2.default.createElement(
+                        'div',
+                        { className: 'media-action-text' },
+                        '+ QUEUE'
+                      )
+                    ),
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'media-action', onClick: playHandler },
+                      _react2.default.createElement('span', { className: 'ion-ios-play' }),
+                      _react2.default.createElement(
+                        'div',
+                        { className: 'media-action-text' },
+                        'PLAY'
+                      )
+                    )
+                  )
                 ),
                 _react2.default.createElement(
                   'div',

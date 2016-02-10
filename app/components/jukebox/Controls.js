@@ -26,13 +26,13 @@ var Controls = React.createClass({
 
   componentWillReceiveProps: function(nextProps) {
     let mediaValid = nextProps.current.mediaId && nextProps.current.mediaType !== TYPES.UNKNOWN;
-    let endReached = !nextProps.current.queue.length && (!nextProps.current.order.length || nextProps.current.index === nextProps.current.order.length);
+    let endReached = !mediaValid && !nextProps.current.queue.length && (!nextProps.current.order.length || nextProps.current.index === nextProps.current.order.length);
 
     // Now set the control states
     this.setState({
       playPauseDisabled: !mediaValid || nextProps.current.isInvalid || nextProps.overlay.show,
       previousDisabled: nextProps.current.isQueue || !nextProps.current.index,
-      nextDisabled: !mediaValid && endReached,
+      nextDisabled: endReached,
       repeatDisabled: endReached || nextProps.current.isInvalid || nextProps.overlay.show,
       shuffleDisabled: nextProps.current.isInvalid || nextProps.overlay.show || !nextProps.current.order.length
     });
