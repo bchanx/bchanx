@@ -19,7 +19,7 @@ var MediaList = React.createClass({
         {this.props.current.order.map((p, idx) => {
           return (
             <div key={idx} className="media-item">
-              {idx}. {p.mediaType} - {p.mediaId} {this.props.current.mediaId === p.mediaId ? '*' : ''}
+              {idx}. {p.type} - {p.id} {this.props.current.media.id === p.id ? '*' : ''}
             </div>
           );
         })}

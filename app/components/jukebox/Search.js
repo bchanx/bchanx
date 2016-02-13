@@ -104,8 +104,8 @@ var Search = React.createClass({
               id: item.id,
               type: TYPES.YOUTUBE,
               title: items[idx].snippet.title,
-              thumbnail: items[idx].snippet.thumbnails.medium.url,
               duration: this._formatTime(item.contentDetails.duration),
+              thumbnail: items[idx].snippet.thumbnails.medium.url,
               channelTitle: items[idx].snippet.channelTitle,
               description: items[idx].snippet.description,
               publishedAt: moment(items[idx].snippet.publishedAt).fromNow(),
@@ -239,16 +239,16 @@ var Search = React.createClass({
     }
   },
 
-  playResult: function(id, type) {
+  playResult: function(id, type, title, duration) {
     if (!this.state.loading) {
-      this.props.dispatch(playNow(id, type));
+      this.props.dispatch(playNow(id, type, title, duration));
       this.props.slidr.slide('video-player');
     }
   },
 
-  queueResult: function(id, type) {
+  queueResult: function(id, type, title, duration) {
     if (!this.state.loading) {
-      this.props.dispatch(queueNext(id, type), playCurrent());
+      this.props.dispatch(queueNext(id, type, title, duration), playCurrent());
     }
   },
 
@@ -281,19 +281,19 @@ var Search = React.createClass({
             })}>
               {this.state.error ? <div className="search-error">An error occured.</div> : null}
               {this.state.results.map((r) => {
-                let playHandler = this.playResult.bind(this, r.id, r.type);
-                let queueHandler = this.queueResult.bind(this, r.id, r.type);
+                let playHandler = this.playResult.bind(this, r.id, r.type, r.title, r.duration);
+                let queueHandler = this.queueResult.bind(this, r.id, r.type, r.title, r.duration);
                 return (
                   <div key={r.id} className="search-result">
                     <div className="media-thumbnail">
                       <img src={r.thumbnail}/>
                       <div className="media-duration">{r.duration}</div>
                       <div className="media-overlay">
-                        <div className="media-action" onClick={queueHandler}>
-                          <span className="ion-ios-list"></span>
+                        <div className="media-action queue" onClick={queueHandler}>
+                          <span className="ion-ios-timer"></span>
                           <div className="media-action-text">+ QUEUE</div>
                         </div>
-                        <div className="media-action" onClick={playHandler}>
+                        <div className="media-action play" onClick={playHandler}>
                           <span className="ion-ios-play"></span>
                           <div className="media-action-text">PLAY</div>
                         </div>

@@ -297,7 +297,7 @@ var Controls = _react2.default.createClass({
   },
 
   componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-    var mediaValid = nextProps.current.mediaId && nextProps.current.mediaType !== _actionTypes.TYPES.UNKNOWN;
+    var mediaValid = nextProps.current.media.id && nextProps.current.media.type !== _actionTypes.TYPES.UNKNOWN;
     var endReached = !mediaValid && !nextProps.current.queue.length && (!nextProps.current.order.length || nextProps.current.index === nextProps.current.order.length);
 
     // Now set the control states
@@ -348,7 +348,7 @@ var Controls = _react2.default.createClass({
     return _react2.default.createElement(
       'div',
       { className: (0, _classnames2.default)("controls", {
-          hidden: this.props.current.mediaType === _actionTypes.TYPES.UNKNOWN && !this.props.current.isQueue && this.props.current.playlist === null
+          hidden: this.props.current.media.type === _actionTypes.TYPES.UNKNOWN && !this.props.current.isQueue && this.props.current.playlist === null
         }) },
       _react2.default.createElement(
         'div',
@@ -459,12 +459,16 @@ var Jukebox = _react2.default.createClass({
         isInvalid: false,
         playStates: [],
         isQueue: false,
-        mediaId: null,
-        mediaType: _actionTypes.TYPES.UNKNOWN,
         playlist: null,
         index: null,
         order: [],
-        queue: []
+        queue: [],
+        media: {
+          id: null,
+          type: _actionTypes.TYPES.UNKNOWN,
+          title: '',
+          duration: ''
+        }
       },
       controls: {
         play: false,
@@ -486,7 +490,32 @@ var Jukebox = _react2.default.createClass({
         name: 'EDM',
         created: Date.now(),
         modified: Date.now(),
-        media: ["0:JbH_Vn5pq8I", "0:Csm3BX30jZQ", "0:Rhm_-gMbTGU", "0:cERIwGKSU1A", "0:XWBEbR47Kwc"]
+        media: [{
+          id: "JbH_Vn5pq8I",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'Hey there!',
+          duration: '3:22'
+        }, {
+          id: "Csm3BX30jZQ",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'yo yo',
+          duration: '1:23'
+        }, {
+          id: "Rhm_-gMbTGU",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'hi',
+          duration: '3:33'
+        }, {
+          id: "cERIwGKSU1A",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'fourth',
+          duration: '4:44'
+        }, {
+          id: "XWBEbR47Kwc",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'fifth',
+          duration: '5:55'
+        }]
       }]
     };
   },
@@ -652,11 +681,11 @@ var MediaList = _react2.default.createClass({
           { key: idx, className: 'media-item' },
           idx,
           '. ',
-          p.mediaType,
+          p.type,
           ' - ',
-          p.mediaId,
+          p.id,
           ' ',
-          _this.props.current.mediaId === p.mediaId ? '*' : ''
+          _this.props.current.media.id === p.id ? '*' : ''
         );
       })
     );
@@ -780,7 +809,7 @@ var None = _react2.default.createClass({
     return _react2.default.createElement(
       'div',
       { className: (0, _classnames2.default)("video-none", {
-          hidden: this.props.current.mediaType !== _actionTypes.TYPES.UNKNOWN
+          hidden: this.props.current.media.type !== _actionTypes.TYPES.UNKNOWN
         }) },
       message
     );
@@ -1150,8 +1179,8 @@ var Search = _react2.default.createClass({
               id: item.id,
               type: _actionTypes.TYPES.YOUTUBE,
               title: items[idx].snippet.title,
-              thumbnail: items[idx].snippet.thumbnails.medium.url,
               duration: _this._formatTime(item.contentDetails.duration),
+              thumbnail: items[idx].snippet.thumbnails.medium.url,
               channelTitle: items[idx].snippet.channelTitle,
               description: items[idx].snippet.description,
               publishedAt: (0, _moment2.default)(items[idx].snippet.publishedAt).fromNow(),
@@ -1286,16 +1315,16 @@ var Search = _react2.default.createClass({
     }
   },
 
-  playResult: function playResult(id, type) {
+  playResult: function playResult(id, type, title, duration) {
     if (!this.state.loading) {
-      this.props.dispatch((0, _actions.playNow)(id, type));
+      this.props.dispatch((0, _actions.playNow)(id, type, title, duration));
       this.props.slidr.slide('video-player');
     }
   },
 
-  queueResult: function queueResult(id, type) {
+  queueResult: function queueResult(id, type, title, duration) {
     if (!this.state.loading) {
-      this.props.dispatch((0, _actions.queueNext)(id, type), (0, _actions.playCurrent)());
+      this.props.dispatch((0, _actions.queueNext)(id, type, title, duration), (0, _actions.playCurrent)());
     }
   },
 
@@ -1347,8 +1376,8 @@ var Search = _react2.default.createClass({
               'An error occured.'
             ) : null,
             this.state.results.map(function (r) {
-              var playHandler = _this4.playResult.bind(_this4, r.id, r.type);
-              var queueHandler = _this4.queueResult.bind(_this4, r.id, r.type);
+              var playHandler = _this4.playResult.bind(_this4, r.id, r.type, r.title, r.duration);
+              var queueHandler = _this4.queueResult.bind(_this4, r.id, r.type, r.title, r.duration);
               return _react2.default.createElement(
                 'div',
                 { key: r.id, className: 'search-result' },
@@ -1366,8 +1395,8 @@ var Search = _react2.default.createClass({
                     { className: 'media-overlay' },
                     _react2.default.createElement(
                       'div',
-                      { className: 'media-action', onClick: queueHandler },
-                      _react2.default.createElement('span', { className: 'ion-ios-list' }),
+                      { className: 'media-action queue', onClick: queueHandler },
+                      _react2.default.createElement('span', { className: 'ion-ios-timer' }),
                       _react2.default.createElement(
                         'div',
                         { className: 'media-action-text' },
@@ -1376,7 +1405,7 @@ var Search = _react2.default.createClass({
                     ),
                     _react2.default.createElement(
                       'div',
-                      { className: 'media-action', onClick: playHandler },
+                      { className: 'media-action play', onClick: playHandler },
                       _react2.default.createElement('span', { className: 'ion-ios-play' }),
                       _react2.default.createElement(
                         'div',
@@ -1547,14 +1576,14 @@ var Video = _react2.default.createClass({
   },
 
   playNow: function playNow() {
-    this.props.dispatch((0, _actions.playNow)('-_PIGQjrnjI', _actionTypes.TYPES.YOUTUBE));
+    this.props.dispatch((0, _actions.playNow)('-_PIGQjrnjI', _actionTypes.TYPES.YOUTUBE, 'play test', '3:22'));
   },
 
   // Error: cERIwGKSU1A
   // Valid: OoDHA8dy7JM
   // Terminated: XWBEbR47Kwc
   queueNext: function queueNext() {
-    this.props.dispatch((0, _actions.queueNext)('OoDHA8dy7JM', _actionTypes.TYPES.YOUTUBE), (0, _actions.playCurrent)());
+    this.props.dispatch((0, _actions.queueNext)('OoDHA8dy7JM', _actionTypes.TYPES.YOUTUBE, 'queue test', '3:22'), (0, _actions.playCurrent)());
   },
 
   render: function render() {
@@ -1717,9 +1746,9 @@ var YouTube = _react2.default.createClass({
 
   componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
     if (this._youtube) {
-      if (nextProps.current.mediaType === _actionTypes.TYPES.YOUTUBE) {
-        if (nextProps.current.mediaId !== this.props.current.mediaId) {
-          this._youtube.loadVideoById(nextProps.current.mediaId);
+      if (nextProps.current.media.type === _actionTypes.TYPES.YOUTUBE) {
+        if (nextProps.current.media.id !== this.props.current.media.id) {
+          this._youtube.loadVideoById(nextProps.current.media.id);
         }
       } else if (this.props.current.isPlaying) {
         this._youtube.pauseVideo();
@@ -1737,7 +1766,7 @@ var YouTube = _react2.default.createClass({
   },
 
   componentDidUpdate: function componentDidUpdate() {
-    if (this.props.current.mediaType === _actionTypes.TYPES.YOUTUBE) {
+    if (this.props.current.media.type === _actionTypes.TYPES.YOUTUBE) {
       var _props;
 
       var dispatchQueue = [];
@@ -1821,7 +1850,7 @@ var YouTube = _react2.default.createClass({
     return _react2.default.createElement(
       'div',
       { className: (0, _classnames2.default)("youtube", {
-          hidden: this.props.current.mediaType !== _actionTypes.TYPES.YOUTUBE
+          hidden: this.props.current.media.type !== _actionTypes.TYPES.YOUTUBE
         }) },
       _react2.default.createElement('div', { id: 'youtube-iframe' })
     );
@@ -1967,12 +1996,12 @@ function playCurrent() {
   return { type: _actionTypes.PLAY_CURRENT };
 }
 
-function playNow(mediaId, mediaType) {
-  return { type: _actionTypes.PLAY_NOW, mediaId: mediaId, mediaType: mediaType };
+function playNow(id, type, title, duration) {
+  return { type: _actionTypes.PLAY_NOW, media: { id: id, type: type, title: title, duration: duration } };
 }
 
-function queueNext(mediaId, mediaType) {
-  return { type: _actionTypes.QUEUE_NEXT, mediaId: mediaId, mediaType: mediaType };
+function queueNext(id, type, title, duration) {
+  return { type: _actionTypes.QUEUE_NEXT, media: { id: id, type: type, title: title, duration: duration } };
 }
 
 function selectPlaylist(index) {
@@ -1981,8 +2010,6 @@ function selectPlaylist(index) {
 
 },{"./actionTypes":18}],20:[function(require,module,exports){
 'use strict';
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -2079,19 +2106,6 @@ var shuffle = function shuffle(list) {
   return order;
 };
 
-var getVideoMetadata = function getVideoMetadata(video) {
-  var mediaType = _actionTypes.TYPES.UNKNOWN;
-  var mediaId = null;
-  if (video) {
-    var meta = video.split(':');
-    if (meta.length === 2) {
-      mediaType = meta[0];
-      mediaId = meta[1];
-    }
-  }
-  return [mediaId, mediaType];
-};
-
 var current = function current(state, action, controls, playlists) {
   switch (action.type) {
     case _actionTypes.INVALID:
@@ -2111,26 +2125,15 @@ var current = function current(state, action, controls, playlists) {
       if (!state.isPlaying) {
         // If no song is playing, load the next song in queue
         if (state.queue.length) {
-          var _state$queue$shift = state.queue.shift();
-
-          var mediaId = _state$queue$shift.mediaId;
-          var mediaType = _state$queue$shift.mediaType;
-
           return update(state, {
-            mediaId: mediaId,
-            mediaType: mediaType,
+            media: state.queue.shift(),
             isQueue: true
           });
         }
         // Nothing in queue, load the current indexed track
         else if (state.order[state.index]) {
-            var _state$order$state$in = state.order[state.index];
-            var mediaId = _state$order$state$in.mediaId;
-            var mediaType = _state$order$state$in.mediaType;
-
             return update(state, {
-              mediaId: mediaId,
-              mediaType: mediaType,
+              media: state.order[state.index],
               isQueue: false
             });
           }
@@ -2140,28 +2143,17 @@ var current = function current(state, action, controls, playlists) {
     case _actionTypes.PLAY_NEXT:
       if (state.queue.length) {
         // Play next in queue
-
-        var _state$queue$shift2 = state.queue.shift();
-
-        var mediaId = _state$queue$shift2.mediaId;
-        var mediaType = _state$queue$shift2.mediaType;
-
         return update(state, {
-          mediaId: mediaId,
-          mediaType: mediaType,
+          media: state.queue.shift(),
           isQueue: true
         });
       } else if (state.index !== null) {
         // Play next in playlist
         var nextIndex = Math.min(state.index + 1, state.order.length);
         if (nextIndex <= state.order.length - 1) {
-          var _state$order$nextInde = state.order[nextIndex];
-          var mediaId = _state$order$nextInde.mediaId;
-          var mediaType = _state$order$nextInde.mediaType;
 
           return update(state, {
-            mediaId: mediaId,
-            mediaType: mediaType,
+            media: state.order[nextIndex],
             index: nextIndex,
             isQueue: false
           });
@@ -2169,16 +2161,24 @@ var current = function current(state, action, controls, playlists) {
 
         // Else just update the index so PLAY_PREV works properly
         return update(state, {
-          mediaId: null,
-          mediaType: _actionTypes.TYPES.UNKNOWN,
+          media: {
+            id: null,
+            type: _actionTypes.TYPES.UNKNOWN,
+            title: '',
+            duration: ''
+          },
           index: nextIndex
         });
       }
 
       // Nothing to play next
       return update(state, {
-        mediaId: null,
-        mediaType: _actionTypes.TYPES.UNKNOWN
+        media: {
+          id: null,
+          type: _actionTypes.TYPES.UNKNOWN,
+          title: '',
+          duration: ''
+        }
       });
 
     case _actionTypes.PLAY_PREV:
@@ -2186,13 +2186,9 @@ var current = function current(state, action, controls, playlists) {
         // We don't allow going back in the queue
         var prevIndex = Math.min(state.index - 1, state.order.length - 1);
         if (prevIndex >= 0) {
-          var _state$order$prevInde = state.order[prevIndex];
-          var mediaId = _state$order$prevInde.mediaId;
-          var mediaType = _state$order$prevInde.mediaType;
 
           return update(state, {
-            mediaId: mediaId,
-            mediaType: mediaType,
+            media: state.order[prevIndex],
             index: prevIndex
           });
         }
@@ -2211,26 +2207,14 @@ var current = function current(state, action, controls, playlists) {
     case _actionTypes.SHUFFLE:
       if (state.playlist !== null) {
         var newOrder = playlists[state.playlist] && playlists[state.playlist].media || [];
-        var currentVideo = state.mediaType + ':' + state.mediaId;
         if (!controls.shuffle) {
           // If shuffle was previously off, then it means we need to shuffle
           newOrder = shuffle(newOrder);
         }
         // If we were previously at the end of the list, keep it there
-        var newIndex = state.index >= newOrder.length ? newOrder.length : Math.max(newOrder.indexOf(currentVideo), 0);
-        newOrder = newOrder.map(function (video) {
-          var _getVideoMetadata = getVideoMetadata(video);
-
-          var _getVideoMetadata2 = _slicedToArray(_getVideoMetadata, 2);
-
-          var mediaId = _getVideoMetadata2[0];
-          var mediaType = _getVideoMetadata2[1];
-
-          return {
-            mediaId: mediaId,
-            mediaType: mediaType
-          };
-        });
+        var newIndex = state.index >= newOrder.length ? newOrder.length : Math.max(newOrder.map(function (x) {
+          return x.type + ':' + x.id;
+        }).indexOf(state.media.type + ':' + state.media.id), 0);
 
         return update(state, {
           index: newIndex,
@@ -2241,19 +2225,15 @@ var current = function current(state, action, controls, playlists) {
 
     case _actionTypes.PLAY_NOW:
       return update(state, {
-        mediaId: action.mediaId,
-        mediaType: action.mediaType
+        media: action.media
       });
 
     case _actionTypes.QUEUE_NEXT:
-      if (state.mediaId !== action.mediaId && state.mediaType !== action.mediaType && !state.queue.filter(function (s) {
-        return s.mediaId === action.mediaId && s.mediaType === action.mediaType;
+      if (!(state.media.id === action.media.id && state.media.type === action.media.type) && !state.queue.filter(function (s) {
+        return s.id === action.media.id && s.type === action.media.type;
       }).length) {
         var newQueue = state.queue.slice();
-        newQueue.push({
-          mediaId: action.mediaId,
-          mediaType: action.mediaType
-        });
+        newQueue.push(action.media);
 
         return update(state, {
           queue: newQueue
@@ -2267,19 +2247,6 @@ var current = function current(state, action, controls, playlists) {
       if (controls.shuffle) {
         playlistOrder = shuffle(playlistOrder);
       }
-      playlistOrder = playlistOrder.map(function (video) {
-        var _getVideoMetadata3 = getVideoMetadata(video);
-
-        var _getVideoMetadata4 = _slicedToArray(_getVideoMetadata3, 2);
-
-        var mediaId = _getVideoMetadata4[0];
-        var mediaType = _getVideoMetadata4[1];
-
-        return {
-          mediaId: mediaId,
-          mediaType: mediaType
-        };
-      });
 
       return update(state, {
         playlist: currentPlaylist,

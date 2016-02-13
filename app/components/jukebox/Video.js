@@ -17,14 +17,14 @@ var Video = React.createClass({
   },
 
   playNow: function() {
-    this.props.dispatch(playNow('-_PIGQjrnjI', TYPES.YOUTUBE));
+    this.props.dispatch(playNow('-_PIGQjrnjI', TYPES.YOUTUBE, 'play test', '3:22'));
   },
 
   // Error: cERIwGKSU1A
   // Valid: OoDHA8dy7JM
   // Terminated: XWBEbR47Kwc
   queueNext: function() {
-    this.props.dispatch(queueNext('OoDHA8dy7JM', TYPES.YOUTUBE), playCurrent());
+    this.props.dispatch(queueNext('OoDHA8dy7JM', TYPES.YOUTUBE, 'queue test', '3:22'), playCurrent());
   },
 
   render: function() {

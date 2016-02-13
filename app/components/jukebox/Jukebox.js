@@ -20,12 +20,16 @@ var Jukebox = React.createClass({
         isInvalid: false,
         playStates: [],
         isQueue: false,
-        mediaId: null,
-        mediaType: TYPES.UNKNOWN,
         playlist: null,
         index: null,
         order: [],
-        queue: []
+        queue: [],
+        media: {
+          id: null,
+          type: TYPES.UNKNOWN,
+          title: '',
+          duration: ''
+        },
       },
       controls: {
         play: false,
@@ -47,13 +51,32 @@ var Jukebox = React.createClass({
         name: 'EDM',
         created: Date.now(),
         modified: Date.now(),
-        media: [
-          "0:JbH_Vn5pq8I",
-          "0:Csm3BX30jZQ",
-          "0:Rhm_-gMbTGU",
-          "0:cERIwGKSU1A",
-          "0:XWBEbR47Kwc"
-        ]
+        media: [{
+          id: "JbH_Vn5pq8I",
+          type: TYPES.YOUTUBE,
+          title: 'Hey there!',
+          duration: '3:22'
+        }, {
+          id: "Csm3BX30jZQ",
+          type: TYPES.YOUTUBE,
+          title: 'yo yo',
+          duration: '1:23'
+        }, {
+          id: "Rhm_-gMbTGU",
+          type: TYPES.YOUTUBE,
+          title: 'hi',
+          duration: '3:33'
+        }, {
+          id: "cERIwGKSU1A",
+          type: TYPES.YOUTUBE,
+          title: 'fourth',
+          duration: '4:44'
+        }, {
+          id: "XWBEbR47Kwc",
+          type: TYPES.YOUTUBE,
+          title: 'fifth',
+          duration: '5:55'
+        }]
       }]
     };
   },

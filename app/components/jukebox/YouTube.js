@@ -36,9 +36,9 @@ var YouTube = React.createClass({
 
   componentWillReceiveProps: function(nextProps) {
     if (this._youtube) {
-      if (nextProps.current.mediaType === TYPES.YOUTUBE) {
-        if (nextProps.current.mediaId !== this.props.current.mediaId) {
-          this._youtube.loadVideoById(nextProps.current.mediaId);
+      if (nextProps.current.media.type === TYPES.YOUTUBE) {
+        if (nextProps.current.media.id !== this.props.current.media.id) {
+          this._youtube.loadVideoById(nextProps.current.media.id);
         }
       }
       else if (this.props.current.isPlaying) {
@@ -60,7 +60,7 @@ var YouTube = React.createClass({
   },
 
   componentDidUpdate: function() {
-    if (this.props.current.mediaType === TYPES.YOUTUBE) {
+    if (this.props.current.media.type === TYPES.YOUTUBE) {
       let dispatchQueue = [];
       if (this.props.controls.play) {
         this._youtube.playVideo();
@@ -143,7 +143,7 @@ var YouTube = React.createClass({
   render: function() {
     return (
       <div className={classNames("youtube", {
-        hidden: this.props.current.mediaType !== TYPES.YOUTUBE
+        hidden: this.props.current.media.type !== TYPES.YOUTUBE
       })}>
         <div id="youtube-iframe"></div>
       

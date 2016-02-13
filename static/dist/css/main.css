@@ -757,12 +757,12 @@ input:focus {
   color: #9de3b1;
   border-color: #9de3b1;
 }
-.media-action span[class^="ion-ios-list"] {
-  font-size: 27px;
-  margin-top: -1px;
+.media-action.queue span[class^="ion-ios-"] {
+  font-size: 28px;
+  margin-top: -4px;
   margin-bottom: -1px;
 }
-.media-action span[class^="ion-ios-play"] {
+.media-action.play span[class^="ion-ios-"] {
   font-size: 34px;
   margin-top: -6px;
   margin-left: 2px;

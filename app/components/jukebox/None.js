@@ -51,7 +51,7 @@ var None = React.createClass({
     }
     return (
       <div className={classNames("video-none", {
-        hidden: this.props.current.mediaType !== TYPES.UNKNOWN
+        hidden: this.props.current.media.type !== TYPES.UNKNOWN
       })}>
         {message}
       </div>

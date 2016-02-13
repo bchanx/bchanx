@@ -25,7 +25,7 @@ var Controls = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps) {
-    let mediaValid = nextProps.current.mediaId && nextProps.current.mediaType !== TYPES.UNKNOWN;
+    let mediaValid = nextProps.current.media.id && nextProps.current.media.type !== TYPES.UNKNOWN;
     let endReached = !mediaValid && !nextProps.current.queue.length && (!nextProps.current.order.length || nextProps.current.index === nextProps.current.order.length);
 
     // Now set the control states
@@ -75,7 +75,7 @@ var Controls = React.createClass({
   render: function() {
     return (
       <div className={classNames("controls", {
-        hidden: this.props.current.mediaType === TYPES.UNKNOWN && !this.props.current.isQueue && this.props.current.playlist === null
+        hidden: this.props.current.media.type === TYPES.UNKNOWN && !this.props.current.isQueue && this.props.current.playlist === null
       })}>
         <div className={classNames("play-pause-button", {
           disabled: this.state.playPauseDisabled

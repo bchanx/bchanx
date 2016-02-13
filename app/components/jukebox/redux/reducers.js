@@ -111,19 +111,6 @@ let shuffle = function(list) {
   return order;
 };
 
-let getVideoMetadata = function(video) {
-  let mediaType = TYPES.UNKNOWN;
-  let mediaId = null;
-  if (video) {
-    let meta = video.split(':');
-    if (meta.length === 2) {
-      mediaType = meta[0];
-      mediaId = meta[1];
-    }
-  }
-  return [ mediaId, mediaType ];
-};
-
 let current = function(state, action, controls, playlists) {
   switch (action.type) {
     case INVALID:
@@ -143,19 +130,15 @@ let current = function(state, action, controls, playlists) {
       if (!state.isPlaying) {
         // If no song is playing, load the next song in queue
         if (state.queue.length) {
-          let { mediaId, mediaType } = state.queue.shift();
           return update(state, {
-            mediaId: mediaId,
-            mediaType: mediaType,
+            media: state.queue.shift(),
             isQueue: true
           });
         }
         // Nothing in queue, load the current indexed track
         else if (state.order[state.index]) {
-          let { mediaId, mediaType } = state.order[state.index];
           return update(state, {
-            mediaId: mediaId,
-            mediaType: mediaType,
+            media: state.order[state.index],
             isQueue: false
           });
         }
@@ -165,10 +148,8 @@ let current = function(state, action, controls, playlists) {
     case PLAY_NEXT:
       if (state.queue.length) {
         // Play next in queue
-        let { mediaId, mediaType } = state.queue.shift();
         return update(state, {
-          mediaId: mediaId,
-          mediaType: mediaType,
+          media: state.queue.shift(),
           isQueue: true
         });
       }
@@ -176,11 +157,9 @@ let current = function(state, action, controls, playlists) {
         // Play next in playlist
         let nextIndex = Math.min(state.index + 1, state.order.length);
         if (nextIndex <= state.order.length - 1) {
-          let { mediaId, mediaType } = state.order[nextIndex];
 
           return update(state, {
-            mediaId: mediaId,
-            mediaType: mediaType,
+            media: state.order[nextIndex],
             index: nextIndex,
             isQueue: false
           });
@@ -188,16 +167,24 @@ let current = function(state, action, controls, playlists) {
 
         // Else just update the index so PLAY_PREV works properly
         return update(state, {
-          mediaId: null,
-          mediaType: TYPES.UNKNOWN,
+          media: {
+            id: null,
+            type: TYPES.UNKNOWN,
+            title: '',
+            duration: ''
+          },
           index: nextIndex
         });
       }
 
       // Nothing to play next
       return update(state, {
-        mediaId: null,
-        mediaType: TYPES.UNKNOWN
+        media: {
+          id: null,
+          type: TYPES.UNKNOWN,
+          title: '',
+          duration: ''
+        }
       });
 
     case PLAY_PREV:
@@ -205,11 +192,9 @@ let current = function(state, action, controls, playlists) {
         // We don't allow going back in the queue
         let prevIndex = Math.min(state.index - 1, state.order.length - 1);
         if (prevIndex >= 0) {
-          let { mediaId, mediaType } = state.order[prevIndex];
 
           return update(state, {
-            mediaId: mediaId,
-            mediaType: mediaType,
+            media: state.order[prevIndex],
             index: prevIndex
           });
         }
@@ -228,20 +213,12 @@ let current = function(state, action, controls, playlists) {
     case SHUFFLE:
       if (state.playlist !== null) {
         let newOrder = playlists[state.playlist] && playlists[state.playlist].media || [];
-        let currentVideo = state.mediaType + ':' + state.mediaId;
         if (!controls.shuffle) {
           // If shuffle was previously off, then it means we need to shuffle 
           newOrder = shuffle(newOrder);
         }
         // If we were previously at the end of the list, keep it there
-        let newIndex = (state.index >= newOrder.length) ? newOrder.length : Math.max(newOrder.indexOf(currentVideo), 0);
-        newOrder = newOrder.map(video => {
-          let [ mediaId, mediaType ] = getVideoMetadata(video);
-          return {
-            mediaId: mediaId,
-            mediaType: mediaType
-          };
-        });
+        let newIndex = (state.index >= newOrder.length) ? newOrder.length : Math.max(newOrder.map(x => x.type + ':' + x.id).indexOf(state.media.type + ':' + state.media.id), 0);
 
         return update(state, {
           index: newIndex,
@@ -252,21 +229,17 @@ let current = function(state, action, controls, playlists) {
 
     case PLAY_NOW:
       return update(state, {
-        mediaId: action.mediaId,
-        mediaType: action.mediaType
+        media: action.media
       });
 
     case QUEUE_NEXT:
-      if (state.mediaId !== action.mediaId &&
-          state.mediaType !== action.mediaType &&
+      if (!(state.media.id === action.media.id &&
+          state.media.type === action.media.type) &&
           !state.queue.filter(s => {
-            return s.mediaId === action.mediaId && s.mediaType === action.mediaType;
+            return s.id === action.media.id && s.type === action.media.type;
           }).length) {
         let newQueue = state.queue.slice();
-        newQueue.push({
-          mediaId: action.mediaId,
-          mediaType: action.mediaType
-        });
+        newQueue.push(action.media);
 
         return update(state, {
           queue: newQueue
@@ -280,13 +253,6 @@ let current = function(state, action, controls, playlists) {
       if (controls.shuffle) {
         playlistOrder = shuffle(playlistOrder);
       }
-      playlistOrder = playlistOrder.map(video => {
-        let [ mediaId, mediaType ] = getVideoMetadata(video);
-        return {
-          mediaId: mediaId,
-          mediaType: mediaType
-        };
-      });
 
       return update(state, {
         playlist: currentPlaylist,

@@ -79,12 +79,12 @@ export function playCurrent() {
   return { type: PLAY_CURRENT };
 }
 
-export function playNow(mediaId, mediaType) {
-  return { type: PLAY_NOW, mediaId: mediaId, mediaType: mediaType };
+export function playNow(id, type, title, duration) {
+  return { type: PLAY_NOW, media: { id: id, type: type, title: title, duration: duration } };
 }
 
-export function queueNext(mediaId, mediaType) {
-  return { type: QUEUE_NEXT, mediaId: mediaId, mediaType: mediaType };
+export function queueNext(id, type, title, duration) {
+  return { type: QUEUE_NEXT, media: { id: id, type: type, title: title, duration: duration } };
 }
 
 export function selectPlaylist(index) {
