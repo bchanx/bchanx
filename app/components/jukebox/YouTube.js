@@ -1,12 +1,14 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import ReactTimerMixin from 'react-timer-mixin';
 import { ReactScriptLoaderMixin } from 'react-script-loader';
 import classNames from 'classnames';
 import { TYPES } from './redux/actionTypes';
-import { play, pause, nowPlaying, playNext, invalid, showOverlay, hideOverlay } from './redux/actions';
+import { play, pause, nowPlaying, playNext, invalid, showOverlay, hideOverlay, fullscreen } from './redux/actions';
 
 var YouTube = React.createClass({
 
-  mixins: [ReactScriptLoaderMixin],
+  mixins: [ReactScriptLoaderMixin, ReactTimerMixin],
 
   getDefaultProps: function() {
     return {
@@ -28,8 +30,31 @@ var YouTube = React.createClass({
     // Script failed
   },
 
+  _timer: null,
+
+  monitorFullScreen: function() {
+    return this.setInterval(() => {
+      if (this.props.current.media.type === TYPES.YOUTUBE) {
+        let iframe = ReactDOM.findDOMNode(this).childNodes[0];
+        if (iframe) {
+          let isFullscreen = (window.innerWidth === iframe.scrollWidth && window.innerHeight === iframe.scrollHeight);
+          this.props.dispatch(fullscreen(isFullscreen));
+        }
+      }
+      else {
+        this.clearInterval(this._timer);
+        this._timer = null;
+      }
+    }, 1000);
+  },
+
   componentDidMount: function() {
     window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady;
+  },
+
+  componentWillUnmount: function() {
+    this.clearInterval(this._timer);
+    this._timer = null;
   },
 
   _youtube: null,
@@ -37,6 +62,9 @@ var YouTube = React.createClass({
   componentWillReceiveProps: function(nextProps) {
     if (this._youtube) {
       if (nextProps.current.media.type === TYPES.YOUTUBE) {
+        if (!this._timer) {
+          this._timer = this.monitorFullScreen();
+        }
         if (nextProps.current.media.id !== this.props.current.media.id) {
           this._youtube.loadVideoById(nextProps.current.media.id);
         }
@@ -74,7 +102,12 @@ var YouTube = React.createClass({
       if (this._isInvalid()) {
         if (!this.props.current.isInvalid) {
           dispatchQueue.push(invalid(true));
-          dispatchQueue.push(showOverlay(5, playNext()));
+          if (!this.props.current.isFullscreen) {
+            dispatchQueue.push(showOverlay(5, playNext()));
+          }
+          else {
+            dispatchQueue.push(playNext());
+          }
         }
       }
       else {
@@ -129,7 +162,12 @@ var YouTube = React.createClass({
         this._youtube.playVideo();
       }
       else {
-        dispatchQueue.push(showOverlay(5, playNext()));
+        if (!this.props.current.isFullscreen) {
+          dispatchQueue.push(showOverlay(5, playNext()));
+        }
+        else {
+          dispatchQueue.push(playNext());
+        }
       }
     }
 
@@ -145,7 +183,7 @@ var YouTube = React.createClass({
       <div className={classNames("youtube", {
         hidden: this.props.current.media.type !== TYPES.YOUTUBE
       })}>
-        <div id="youtube-iframe"></div>
+        <div id="youtube-iframe" ref="ytiframe"></div>
       
       </div>
     );

@@ -5,6 +5,7 @@ import {
   SHUFFLE,
   PLAYLIST,
   INVALID,
+  FULLSCREEN,
   NOW_PLAYING,
   PLAY_NEXT,
   QUEUE_NEXT,
@@ -118,6 +119,11 @@ let current = function(state, action, controls, playlists) {
         isInvalid: action.status
       });
 
+    case FULLSCREEN:
+      return update(state, {
+        isFullscreen: action.status
+      });
+
     case NOW_PLAYING:
       let newPlayStates = state.playStates.slice(state.playStates.length >= 3 ? 1 : 0, state.playStates.length);
       newPlayStates.push(action.state);
@@ -136,11 +142,15 @@ let current = function(state, action, controls, playlists) {
           });
         }
         // Nothing in queue, load the current indexed track
-        else if (state.order[state.index]) {
-          return update(state, {
-            media: state.order[state.index],
-            isQueue: false
-          });
+        else {
+          let index = Math.max(0, state.index);
+          if (state.order[index]) {
+            return update(state, {
+              media: state.order[index],
+              index: index,
+              isQueue: false
+            });
+          }
         }
       }
       return state;
@@ -256,7 +266,7 @@ let current = function(state, action, controls, playlists) {
 
       return update(state, {
         playlist: currentPlaylist,
-        index: 0,
+        index: -1,
         order: playlistOrder
       });
 

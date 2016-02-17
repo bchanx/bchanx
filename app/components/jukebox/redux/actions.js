@@ -5,6 +5,7 @@ import {
   SHUFFLE,
   PLAYLIST,
   INVALID,
+  FULLSCREEN,
   SHOW_OVERLAY,
   HIDE_OVERLAY,
   SEARCH_TOGGLE,
@@ -41,6 +42,10 @@ export function playlist() {
 
 export function invalid(status) {
   return { type: INVALID, status: !!status };
+}
+
+export function fullscreen(status) {
+  return { type: FULLSCREEN, status: !!status };
 }
 
 export function showOverlay(duration, action) {

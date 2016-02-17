@@ -3,7 +3,7 @@ import None from './None';
 import YouTube from './YouTube';
 import Overlay from './Overlay';
 import { TYPES } from './redux/actionTypes';
-import { playNow, playCurrent, queueNext } from './redux/actions';
+import { playNow, playCurrent, queueNext, fullscreen } from './redux/actions';
 
 var Video = React.createClass({
   getDefaultProps: function() {
@@ -15,6 +15,27 @@ var Video = React.createClass({
       dispatch: null
     };
   },
+
+  exitFullscreen: function() {
+    if (document.exitFullScreen) {
+      document.exitFullScreen();
+    }
+    else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    }
+    else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+    this.props.dispatch(fullscreen(false));
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    if (nextProps.current.media.type === TYPES.UNKNOWN && nextProps.current.isFullscreen) {
+      // No video playing, make sure fullscreen is reset
+      this.exitFullscreen();
+    }
+  },
+
 
   playNow: function() {
     this.props.dispatch(playNow('-_PIGQjrnjI', TYPES.YOUTUBE, 'play test', '3:22'));

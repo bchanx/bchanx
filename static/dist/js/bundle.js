@@ -1575,6 +1575,24 @@ var Video = _react2.default.createClass({
     };
   },
 
+  exitFullscreen: function exitFullscreen() {
+    if (document.exitFullScreen) {
+      document.exitFullScreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+    this.props.dispatch((0, _actions.fullscreen)(false));
+  },
+
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+    if (nextProps.current.media.type === _actionTypes.TYPES.UNKNOWN && nextProps.current.isFullscreen) {
+      // No video playing, make sure fullscreen is reset
+      this.exitFullscreen();
+    }
+  },
+
   playNow: function playNow() {
     this.props.dispatch((0, _actions.playNow)('-_PIGQjrnjI', _actionTypes.TYPES.YOUTUBE, 'play test', '3:22'));
   },
@@ -1701,6 +1719,14 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _reactTimerMixin = require('react-timer-mixin');
+
+var _reactTimerMixin2 = _interopRequireDefault(_reactTimerMixin);
+
 var _reactScriptLoader = require('react-script-loader');
 
 var _classnames = require('classnames');
@@ -1716,7 +1742,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var YouTube = _react2.default.createClass({
   displayName: 'YouTube',
 
-  mixins: [_reactScriptLoader.ReactScriptLoaderMixin],
+  mixins: [_reactScriptLoader.ReactScriptLoaderMixin, _reactTimerMixin2.default],
 
   getDefaultProps: function getDefaultProps() {
     return {
@@ -1738,8 +1764,32 @@ var YouTube = _react2.default.createClass({
     // Script failed
   },
 
+  _timer: null,
+
+  monitorFullScreen: function monitorFullScreen() {
+    var _this = this;
+
+    return this.setInterval(function () {
+      if (_this.props.current.media.type === _actionTypes.TYPES.YOUTUBE) {
+        var iframe = _reactDom2.default.findDOMNode(_this).childNodes[0];
+        if (iframe) {
+          var isFullscreen = window.innerWidth === iframe.scrollWidth && window.innerHeight === iframe.scrollHeight;
+          _this.props.dispatch((0, _actions.fullscreen)(isFullscreen));
+        }
+      } else {
+        _this.clearInterval(_this._timer);
+        _this._timer = null;
+      }
+    }, 1000);
+  },
+
   componentDidMount: function componentDidMount() {
     window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady;
+  },
+
+  componentWillUnmount: function componentWillUnmount() {
+    this.clearInterval(this._timer);
+    this._timer = null;
   },
 
   _youtube: null,
@@ -1747,6 +1797,9 @@ var YouTube = _react2.default.createClass({
   componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
     if (this._youtube) {
       if (nextProps.current.media.type === _actionTypes.TYPES.YOUTUBE) {
+        if (!this._timer) {
+          this._timer = this.monitorFullScreen();
+        }
         if (nextProps.current.media.id !== this.props.current.media.id) {
           this._youtube.loadVideoById(nextProps.current.media.id);
         }
@@ -1781,7 +1834,11 @@ var YouTube = _react2.default.createClass({
       if (this._isInvalid()) {
         if (!this.props.current.isInvalid) {
           dispatchQueue.push((0, _actions.invalid)(true));
-          dispatchQueue.push((0, _actions.showOverlay)(5, (0, _actions.playNext)()));
+          if (!this.props.current.isFullscreen) {
+            dispatchQueue.push((0, _actions.showOverlay)(5, (0, _actions.playNext)()));
+          } else {
+            dispatchQueue.push((0, _actions.playNext)());
+          }
         }
       } else {
         if (this.props.current.isInvalid) {
@@ -1835,7 +1892,11 @@ var YouTube = _react2.default.createClass({
       if (this.props.controls.repeat) {
         this._youtube.playVideo();
       } else {
-        dispatchQueue.push((0, _actions.showOverlay)(5, (0, _actions.playNext)()));
+        if (!this.props.current.isFullscreen) {
+          dispatchQueue.push((0, _actions.showOverlay)(5, (0, _actions.playNext)()));
+        } else {
+          dispatchQueue.push((0, _actions.playNext)());
+        }
       }
     }
 
@@ -1852,14 +1913,14 @@ var YouTube = _react2.default.createClass({
       { className: (0, _classnames2.default)("youtube", {
           hidden: this.props.current.media.type !== _actionTypes.TYPES.YOUTUBE
         }) },
-      _react2.default.createElement('div', { id: 'youtube-iframe' })
+      _react2.default.createElement('div', { id: 'youtube-iframe', ref: 'ytiframe' })
     );
   }
 });
 
 exports.default = YouTube;
 
-},{"./redux/actionTypes":18,"./redux/actions":19,"classnames":"classnames","react":"react","react-script-loader":"react-script-loader"}],18:[function(require,module,exports){
+},{"./redux/actionTypes":18,"./redux/actions":19,"classnames":"classnames","react":"react","react-dom":"react-dom","react-script-loader":"react-script-loader","react-timer-mixin":"react-timer-mixin"}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1882,6 +1943,7 @@ var HIDE_OVERLAY = exports.HIDE_OVERLAY = 'HIDE_OVERLAY';
 
 // Current
 var INVALID = exports.INVALID = 'INVALID';
+var FULLSCREEN = exports.FULLSCREEN = 'FULLSCREEN';
 var NOW_PLAYING = exports.NOW_PLAYING = 'NOW_PLAYING';
 var PLAY_NEXT = exports.PLAY_NEXT = 'PLAY_NEXT';
 var PLAY_PREV = exports.PLAY_PREV = 'PLAY_PREV';
@@ -1921,6 +1983,7 @@ exports.repeat = repeat;
 exports.shuffle = shuffle;
 exports.playlist = playlist;
 exports.invalid = invalid;
+exports.fullscreen = fullscreen;
 exports.showOverlay = showOverlay;
 exports.hideOverlay = hideOverlay;
 exports.searchToggle = searchToggle;
@@ -1958,6 +2021,10 @@ function playlist() {
 
 function invalid(status) {
   return { type: _actionTypes.INVALID, status: !!status };
+}
+
+function fullscreen(status) {
+  return { type: _actionTypes.FULLSCREEN, status: !!status };
 }
 
 function showOverlay(duration, action) {
@@ -2113,6 +2180,11 @@ var current = function current(state, action, controls, playlists) {
         isInvalid: action.status
       });
 
+    case _actionTypes.FULLSCREEN:
+      return update(state, {
+        isFullscreen: action.status
+      });
+
     case _actionTypes.NOW_PLAYING:
       var newPlayStates = state.playStates.slice(state.playStates.length >= 3 ? 1 : 0, state.playStates.length);
       newPlayStates.push(action.state);
@@ -2131,11 +2203,15 @@ var current = function current(state, action, controls, playlists) {
           });
         }
         // Nothing in queue, load the current indexed track
-        else if (state.order[state.index]) {
-            return update(state, {
-              media: state.order[state.index],
-              isQueue: false
-            });
+        else {
+            var index = Math.max(0, state.index);
+            if (state.order[index]) {
+              return update(state, {
+                media: state.order[index],
+                index: index,
+                isQueue: false
+              });
+            }
           }
       }
       return state;
@@ -2250,7 +2326,7 @@ var current = function current(state, action, controls, playlists) {
 
       return update(state, {
         playlist: currentPlaylist,
-        index: 0,
+        index: -1,
         order: playlistOrder
       });
 

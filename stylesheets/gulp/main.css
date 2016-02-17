@@ -704,12 +704,15 @@ input:focus {
   background-color: inherit;
   color: #f8f8f8;
 }
+.media-title:hover {
+  color: #9de3b1;
+}
 .media-title a {
-  color: #f8f8f8;
+  color: inherit;
 }
 .media-title:before {
   content: "…";
-  right: 3px;
+  right: 7px;
   top: 19px;
   color: inherit;
   background-color: inherit;
