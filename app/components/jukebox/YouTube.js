@@ -38,7 +38,9 @@ var YouTube = React.createClass({
         let iframe = ReactDOM.findDOMNode(this).childNodes[0];
         if (iframe) {
           let isFullscreen = (window.innerWidth === iframe.scrollWidth && window.innerHeight === iframe.scrollHeight);
-          this.props.dispatch(fullscreen(isFullscreen));
+          if (isFullscreen !== this.props.current.isFullscreen) {
+            this.props.dispatch(fullscreen(isFullscreen));
+          }
         }
       }
       else {
@@ -148,7 +150,7 @@ var YouTube = React.createClass({
   onPlayerStateChange: function(event) {
     let dispatchQueue = [nowPlaying(event.data === YT.PlayerState.PLAYING, event.data)];
 
-    if (event.data === YT.PlayerState.PLAYING && this.props.current.index === this.props.current.order.length) {
+    if (event.data === YT.PlayerState.PLAYING && this.props.current.media.type === TYPES.UNKNOWN) {
       // We reach this state by clicking really fast
       this._youtube.pauseVideo();
     }
@@ -183,7 +185,7 @@ var YouTube = React.createClass({
       <div className={classNames("youtube", {
         hidden: this.props.current.media.type !== TYPES.YOUTUBE
       })}>
-        <div id="youtube-iframe" ref="ytiframe"></div>
+        <div id="youtube-iframe"></div>
       
       </div>
     );

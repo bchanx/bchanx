@@ -1774,7 +1774,9 @@ var YouTube = _react2.default.createClass({
         var iframe = _reactDom2.default.findDOMNode(_this).childNodes[0];
         if (iframe) {
           var isFullscreen = window.innerWidth === iframe.scrollWidth && window.innerHeight === iframe.scrollHeight;
-          _this.props.dispatch((0, _actions.fullscreen)(isFullscreen));
+          if (isFullscreen !== _this.props.current.isFullscreen) {
+            _this.props.dispatch((0, _actions.fullscreen)(isFullscreen));
+          }
         }
       } else {
         _this.clearInterval(_this._timer);
@@ -1880,7 +1882,7 @@ var YouTube = _react2.default.createClass({
 
     var dispatchQueue = [(0, _actions.nowPlaying)(event.data === YT.PlayerState.PLAYING, event.data)];
 
-    if (event.data === YT.PlayerState.PLAYING && this.props.current.index === this.props.current.order.length) {
+    if (event.data === YT.PlayerState.PLAYING && this.props.current.media.type === _actionTypes.TYPES.UNKNOWN) {
       // We reach this state by clicking really fast
       this._youtube.pauseVideo();
     }
@@ -1913,7 +1915,7 @@ var YouTube = _react2.default.createClass({
       { className: (0, _classnames2.default)("youtube", {
           hidden: this.props.current.media.type !== _actionTypes.TYPES.YOUTUBE
         }) },
-      _react2.default.createElement('div', { id: 'youtube-iframe', ref: 'ytiframe' })
+      _react2.default.createElement('div', { id: 'youtube-iframe' })
     );
   }
 });
