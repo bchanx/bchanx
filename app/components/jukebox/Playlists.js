@@ -13,10 +13,8 @@ var Playlists = React.createClass({
   },
 
   loadPlaylist: function(index) {
-    console.log("-->> playlist clicked!", index);
     this.props.dispatch(selectPlaylist(index), playCurrent());
     if (this.props.slidr) {
-      console.log("-->> SLIDE!!");
       this.props.slidr.slide('video-player');
     }
   },

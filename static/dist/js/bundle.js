@@ -1002,10 +1002,8 @@ var Playlists = _react2.default.createClass({
   },
 
   loadPlaylist: function loadPlaylist(index) {
-    console.log("-->> playlist clicked!", index);
     this.props.dispatch((0, _actions.selectPlaylist)(index), (0, _actions.playCurrent)());
     if (this.props.slidr) {
-      console.log("-->> SLIDE!!");
       this.props.slidr.slide('video-player');
     }
   },
