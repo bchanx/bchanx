@@ -40,6 +40,11 @@ const VENDOR_DEPS = [
 
 ///// STYLESHEETS /////
 
+var handleError = function(err) {
+  console.log(err.toString());
+  this.emit('end');
+};
+
 var normalize = function(str) {
   return str.replace(/\//g, '-');
 };
@@ -51,6 +56,7 @@ gulp.task('stylus', function() {
   var stylusStream = STYLUS.map(function(s) {
     return gulp.src('stylesheets/stylus/' + s + '.styl')
       .pipe(stylus())
+      .on('error', handleError)
       .pipe(rename(normalize(s) + '.css'))
       .pipe(gulp.dest('stylesheets/gulp'));
   });

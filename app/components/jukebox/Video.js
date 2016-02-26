@@ -2,7 +2,7 @@ import React from 'react';
 import None from './None';
 import YouTube from './YouTube';
 import Overlay from './Overlay';
-import { TYPES } from './redux/actionTypes';
+import { TYPES, SOURCES } from './redux/actionTypes';
 import { playNow, playCurrent, queueNext, fullscreen } from './redux/actions';
 
 var Video = React.createClass({
@@ -38,7 +38,7 @@ var Video = React.createClass({
 
 
   playNow: function() {
-    this.props.dispatch(playNow('-_PIGQjrnjI', TYPES.YOUTUBE, 'play test', '3:22'));
+    this.props.dispatch(playNow('-_PIGQjrnjI', TYPES.YOUTUBE, 'play test', '3:22', SOURCES.SEARCH));
   },
 
   // Error: cERIwGKSU1A

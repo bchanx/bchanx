@@ -21,7 +21,8 @@ import {
   SEARCH_FOCUS,
   SHOW_OVERLAY,
   HIDE_OVERLAY,
-  TYPES
+  TYPES,
+  SOURCES
 } from './actionTypes';
 
 let update = function(state, updated) {
@@ -138,7 +139,7 @@ let current = function(state, action, controls, playlists) {
         if (state.queue.length) {
           return update(state, {
             media: state.queue.shift(),
-            isQueue: true
+            source: SOURCES.QUEUE
           });
         }
         // Nothing in queue, load the current indexed track
@@ -148,7 +149,7 @@ let current = function(state, action, controls, playlists) {
             return update(state, {
               media: state.order[index],
               index: index,
-              isQueue: false
+              source: SOURCES.PLAYLIST
             });
           }
         }
@@ -156,56 +157,52 @@ let current = function(state, action, controls, playlists) {
       return state;
 
     case PLAY_NEXT:
+      let nextIndex = state.index;
+      if (state.index !== null && state.source === SOURCES.PLAYLIST) {
+        // If we're currently playing from a playlist, update the index
+        nextIndex = Math.min(state.index + 1, state.order.length);
+      }
+
       if (state.queue.length) {
         // Play next in queue
         return update(state, {
           media: state.queue.shift(),
-          isQueue: true
-        });
-      }
-      else if (state.index !== null) {
-        // Play next in playlist
-        let nextIndex = Math.min(state.index + 1, state.order.length);
-        if (nextIndex <= state.order.length - 1) {
-
-          return update(state, {
-            media: state.order[nextIndex],
-            index: nextIndex,
-            isQueue: false
-          });
-        }
-
-        // Else just update the index so PLAY_PREV works properly
-        return update(state, {
-          media: {
-            id: null,
-            type: TYPES.UNKNOWN,
-            title: '',
-            duration: ''
-          },
+          source: SOURCES.QUEUE,
           index: nextIndex
         });
       }
+      else if (state.index !== null) {
+        // Play next in playlist.
+        if (nextIndex <= state.order.length - 1) {
+          return update(state, {
+            media: state.order[nextIndex],
+            index: nextIndex,
+            source: SOURCES.PLAYLIST
+          });
+        }
+      }
 
-      // Nothing to play next
+      // Else just update the index so PLAY_PREV works properly
       return update(state, {
         media: {
           id: null,
           type: TYPES.UNKNOWN,
           title: '',
           duration: ''
-        }
+        },
+        index: nextIndex
       });
 
     case PLAY_PREV:
-      if (!state.isQueue && state.index !== null) {
+      if (state.source !== SOURCES.QUEUE && state.index !== null) {
         // We don't allow going back in the queue
         let prevIndex = Math.min(state.index - 1, state.order.length - 1);
         if (prevIndex >= 0) {
 
           return update(state, {
             media: state.order[prevIndex],
-            index: prevIndex
+            index: prevIndex,
+            isPlaylist: true
           });
         }
       }
@@ -221,8 +218,8 @@ let current = function(state, action, controls, playlists) {
       return state;
 
     case SHUFFLE:
-      if (state.playlist !== null) {
-        let newOrder = playlists[state.playlist] && playlists[state.playlist].media || [];
+      if (state.playlist.index !== null) {
+        let newOrder = playlists[state.playlist.index] && playlists[state.playlist.index].media || [];
         if (!controls.shuffle) {
           // If shuffle was previously off, then it means we need to shuffle 
           newOrder = shuffle(newOrder);
@@ -239,7 +236,8 @@ let current = function(state, action, controls, playlists) {
 
     case PLAY_NOW:
       return update(state, {
-        media: action.media
+        media: action.media,
+        source: action.source
       });
 
     case QUEUE_NEXT:
@@ -258,14 +256,19 @@ let current = function(state, action, controls, playlists) {
       return state;
 
     case SELECT_PLAYLIST:
-      let currentPlaylist = action.playlist || 0;
-      let playlistOrder = playlists[currentPlaylist] && playlists[currentPlaylist].media || [];
+      let playlistIndex = action.playlist || 0;
+      let playlist = playlists[playlistIndex] || {};
+      let playlistOrder = playlist.media || [];
+      let playlistName = playlist.name || '';
       if (controls.shuffle) {
         playlistOrder = shuffle(playlistOrder);
       }
 
       return update(state, {
-        playlist: currentPlaylist,
+        playlist: {
+          index: playlistIndex,
+          name: playlistName
+        },
         index: -1,
         order: playlistOrder
       });

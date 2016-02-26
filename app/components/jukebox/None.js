@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { TYPES } from './redux/actionTypes';
+import { TYPES, SOURCES } from './redux/actionTypes';
 import { searchFocus, restartPlaylist, playCurrent } from './redux/actions';
 
 var None = React.createClass({
@@ -26,7 +26,7 @@ var None = React.createClass({
 
   render: function() {
     let message;
-    if (this.props.current.playlist !== null) {
+    if (this.props.current.playlist.index !== null) {
       message = (
         <div>
           You've reached the end of the playlist!
@@ -35,7 +35,7 @@ var None = React.createClass({
           <span className="action" onClick={this.triggerRestart}>Restart</span> this playlist, choose <span className="action" onClick={this.triggerPlaylist}>another</span>, or <span className="action" onClick={this.triggerSearch}>search</span> a video.</div>
       );
     }
-    else if (this.props.current.isQueue) {
+    else if (this.props.current.source === SOURCES.QUEUE) {
       message = (
         <div>
           You've reached the end of the queue!

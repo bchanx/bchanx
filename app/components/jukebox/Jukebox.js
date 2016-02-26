@@ -5,7 +5,7 @@ import Playlists from './Playlists';
 import VideoPlayer from './VideoPlayer';
 import Search from './Search';
 import Slidr from './Slidr';
-import { TYPES } from './redux/actionTypes';
+import { TYPES, SOURCES } from './redux/actionTypes';
 import reducer from './redux/reducers';
 
 var Jukebox = React.createClass({
@@ -18,10 +18,14 @@ var Jukebox = React.createClass({
       current: {
         isPlaying: false,
         isInvalid: false,
+        isFullscreen: false,
+        source: SOURCES.UNKNOWN,
         playStates: [],
-        isQueue: false,
-        playlist: null,
         index: null,
+        playlist: {
+          index: null,
+          name: ''
+        },
         order: [],
         queue: [],
         media: {

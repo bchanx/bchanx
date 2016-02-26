@@ -18,6 +18,12 @@ var YouTube = React.createClass({
     };
   },
 
+  getInitialState: function() {
+    return {
+      ready: false
+    };
+  },
+
   getScriptURL: function() {
     return 'http://www.youtube.com/iframe_api';
   },
@@ -62,7 +68,7 @@ var YouTube = React.createClass({
   _youtube: null,
 
   componentWillReceiveProps: function(nextProps) {
-    if (this._youtube) {
+    if (this.state.ready) {
       if (nextProps.current.media.type === TYPES.YOUTUBE) {
         if (!this._timer) {
           this._timer = this.monitorFullScreen();
@@ -145,6 +151,9 @@ var YouTube = React.createClass({
   onPlayerReady: function(event) {
     // TODO: set volume to 100
     event.target.setVolume(0);
+    this.setState({
+      ready: true
+    });
   },
 
   onPlayerStateChange: function(event) {

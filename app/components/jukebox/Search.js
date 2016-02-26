@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import moment from 'moment';
 import { ReactScriptLoaderMixin } from 'react-script-loader';
 import { searchToggle, searchFocus, playNow, queueNext, playCurrent } from './redux/actions';
-import { TYPES } from './redux/actionTypes';
+import { TYPES, SOURCES } from './redux/actionTypes';
 import { Debounce } from './Common';
 
 var Search = React.createClass({
@@ -106,7 +106,7 @@ var Search = React.createClass({
               title: items[idx].snippet.title,
               duration: this._formatTime(item.contentDetails.duration),
               thumbnail: items[idx].snippet.thumbnails.medium.url,
-              channelTitle: items[idx].snippet.channelTitle,
+              artist: items[idx].snippet.channelTitle,
               description: items[idx].snippet.description,
               publishedAt: moment(items[idx].snippet.publishedAt).fromNow(),
               viewCount: this._formatViews(item.statistics.viewCount)
@@ -241,7 +241,7 @@ var Search = React.createClass({
 
   playResult: function(id, type, title, duration) {
     if (!this.state.loading) {
-      this.props.dispatch(playNow(id, type, title, duration));
+      this.props.dispatch(playNow(id, type, title, duration, SOURCES.SEARCH));
       this.props.slidr.slide('video-player');
     }
   },
@@ -267,7 +267,7 @@ var Search = React.createClass({
                 className="search-input"
                 type="text"
                 ref="searchInput"
-                placeholder="Enter search here..."
+                placeholder="Search for..."
                 onChange={this.handleChange}
                 />
               <div className={classNames("search-loading", {
@@ -277,6 +277,7 @@ var Search = React.createClass({
               </div>
             </div>
             <div className={classNames("search-results", {
+              hidden: !this.state.last,
               disabled: this.state.loading
             })}>
               {this.state.error ? <div className="search-error">An error occured.</div> : null}
@@ -285,30 +286,36 @@ var Search = React.createClass({
                 let queueHandler = this.queueResult.bind(this, r.id, r.type, r.title, r.duration);
                 return (
                   <div key={r.id} className="search-result">
-                    <div className="media-thumbnail">
+                    <div className="search-result-thumbnail">
                       <img src={r.thumbnail}/>
-                      <div className="media-duration">{r.duration}</div>
-                      <div className="media-overlay">
-                        <div className="media-action queue" onClick={queueHandler}>
+                      <div className="search-result-duration">{r.duration}</div>
+                      <div className="search-result-overlay">
+                        <div className="search-result-action queue" onClick={queueHandler}>
                           <span className="ion-ios-timer"></span>
-                          <div className="media-action-text">+ QUEUE</div>
+                          <div className="search-result-action-text">+ QUEUE</div>
                         </div>
-                        <div className="media-action play" onClick={playHandler}>
+                        <div className="search-result-action play" onClick={playHandler}>
                           <span className="ion-ios-play"></span>
-                          <div className="media-action-text">PLAY</div>
+                          <div className="search-result-action-text">PLAY</div>
                         </div>
                       </div>
                     </div>
-                    <div className="media-title">
+                    <div className="search-result-title">
                       <a href={"https://www.youtube.com/watch?v=" + r.id} target="_blank">{r.title}</a>
                     </div>
-                    <div className="media-statistics">
-                      <span className="media-channel">{r.channelTitle ? r.channelTitle : <span className="unknown">unknown</span>}</span>
+                    <div className="search-result-statistics">
+                      <span className={classNames("search-result-artist", {
+                        unknown: !r.artist
+                      })}>{r.artist || 'unknown'}</span>
                     </div>
-                    <div className="media-statistics">{r.viewCount} views  ·  {r.publishedAt}</div>
+                    <div className="search-result-statistics">{r.viewCount} views  ·  {r.publishedAt}</div>
                   </div>
                 );
               })}
+              {!this.state.results.length ?
+                <div className="search-none">
+                  <span>No results found.</span>
+                </div> : null}
               {this.state.results.length && this.state.token ?
                 <div className="search-result search-more">
                   <span onClick={this.loadMore}>Load more...</span>

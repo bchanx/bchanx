@@ -9,6 +9,7 @@ input
   color: $gray1
   border: $border
   padding: 0 10px
+  font-weight: 400
   width: 100%
   height: 40px
   &:focus
@@ -59,8 +60,9 @@ input
       left: -50px
     &.right
       right: -50px
-  &.video-not-showing .video-player .playlist
+  &.video-not-showing .video-player .media-list
     max-height: 0
+    overflow: hidden
 
 .playlists
   border: $border
@@ -114,7 +116,7 @@ input
 .overlay
   width: $jukebox-width
   height: $jukebox-height
-  background: rgba(34, 34, 34, 0.93);
+  background: rgba(26, 26, 26, 0.93);
   position: absolute
   top: 0
   left: 0
@@ -211,12 +213,107 @@ input
       opacity: 0.05
 
 .media-list
-  border: $border
   margin-top: 10px
-  width: $jukebox-width
-  flex-shrink: 0
   &.hidden
     display: none
+
+.media-search
+  position: relative
+  .ion-ios-settings
+    position: absolute
+    left: 0
+    width: 45px
+    height: 40px
+    font-size: 18px
+    line-height: 43px
+    text-align: center
+
+.media-search-input
+  padding-left: 40px
+
+.media-group
+  margin-top: 20px
+  &.queue
+    padding: 15px 20px
+    margin: 20px -20px
+    background-color: $gray10
+    .media-items
+      width: 680px
+      margin: 0 -20px
+    .media-item
+      padding: 5px 30px
+    &.noresults
+      background-color: inherit
+
+.media-group-name
+  margin-bottom: 5px
+  font-size: 12px
+  font-weight: 600
+  letter-spacing: 1.5px
+  padding-left: 42px
+  text-transform: uppercase
+  color: $green-lightest
+  text-decoration: underline
+  &.hidden
+    opacity: 0.2
+    color: $gray6
+
+.media-items
+  width: $jukebox-width
+  flex-shrink: 0
+
+.media-item
+  cursor: pointer
+  display: flex
+  flex-direction: row
+  padding: 5px 10px
+  border-bottom: 1px $gray9 dashed
+  opacity: 0.8
+  &.active
+    opacity: 1
+    background-color: $gray10
+    font-weight: 400
+    color: $green
+    border-left: 3px $green solid
+    padding-left: 7px
+    &:hover
+      color: $green-light
+      border-left-color: $green-light
+  &.played
+    opacity: 0.2
+    font-style: italic
+    border-bottom-color: transparent;
+    color: $gray6
+    background-color: inherit !important
+    text-decoration: line-through
+  &:hover
+    opacity: 1
+    background-color: $gray8
+    text-decoration: none !important
+  &.hidden
+    opacity: 0.2
+    color: $gray6
+    pointer-events: none
+
+.media-number
+  width: 25px
+  padding-top: 1px
+  margin-right: 7px
+  font-size: 12px
+  flex-shrink: 0
+  text-align: center
+  align-self: center
+
+.media-title
+  flex-grow: 1
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+
+.media-duration
+  margin-left: 10px
+  text-align: right
+  flex-shrink: 0
 
 .action
   color: $green

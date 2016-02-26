@@ -36,6 +36,14 @@ export const TYPES = {
   YOUTUBE: '0'
 };
 
+// Media sources
+export const SOURCES = {
+  UNKNOWN: -1,
+  PLAYLIST: 0,
+  QUEUE: 1,
+  SEARCH: 2
+};
+
 // YT.PlayerState.UNSTARTED (-1)
 // YT.PlayerState.ENDED (0)
 // YT.PlayerState.PLAYING (1)

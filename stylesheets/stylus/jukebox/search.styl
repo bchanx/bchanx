@@ -57,8 +57,6 @@ $search-max-height = "calc(100vh - (2 * %s))" % $jukebox-padding
   flex-direction: column
   overflow: hidden
   visibility: hidden
-  padding: 1px
-  margin: -1px
   max-height: 0
   max-width: 0
 
@@ -69,7 +67,6 @@ $search-max-height = "calc(100vh - (2 * %s))" % $jukebox-padding
 
 .search-input
   padding-right: 40px
-  font-weight: 400
 
 .search-loading
   position: absolute
@@ -99,6 +96,8 @@ $search-max-height = "calc(100vh - (2 * %s))" % $jukebox-padding
   &.disabled
     opacity: 0.7
     pointer-events: none
+  &.hidden
+    display: none
 
 .search-error
   align-self: center
@@ -117,12 +116,12 @@ $search-max-height = "calc(100vh - (2 * %s))" % $jukebox-padding
   &:nth-child(2n)
     margin-left: 0
   &:hover
-    .media-title a
+    .search-result-title a
       text-decoration: underline
-    .media-overlay
+    .search-result-overlay
       visibility: visible
 
-.media-thumbnail
+.search-result-thumbnail
   width: 100%
   height: 120px
   position: relative
@@ -130,7 +129,7 @@ $search-max-height = "calc(100vh - (2 * %s))" % $jukebox-padding
     width: 107%
     margin-left: -7px
 
-.media-duration
+.search-result-duration
   position: absolute
   bottom: 3px
   right: 3px
@@ -141,7 +140,7 @@ $search-max-height = "calc(100vh - (2 * %s))" % $jukebox-padding
   opacity: 0.9
   padding: 2px 5px
 
-.media-overlay
+.search-result-overlay
   visibility: hidden
   position: absolute
   width: 100%
@@ -154,7 +153,7 @@ $search-max-height = "calc(100vh - (2 * %s))" % $jukebox-padding
   justify-content: center
   align-items: center
 
-.media-action
+.search-result-action
   width: 37%
   height: 80%
   flex-shrink: 0
@@ -177,11 +176,11 @@ $search-max-height = "calc(100vh - (2 * %s))" % $jukebox-padding
     margin-left: 2px
     margin-bottom: -4px
 
-.media-action-text
+.search-result-action-text
   font-size: 8px
   font-weight: 400
 
-.media-title
+.search-result-title
   max-height: 34px
   font-size: 14px
   line-height: 16px
@@ -211,17 +210,16 @@ $search-max-height = "calc(100vh - (2 * %s))" % $jukebox-padding
     position: absolute
     background-color: inherit
 
-.media-statistics
+.search-result-statistics
   height: 12px
   padding: 0 5px
   color: $gray6
   font-size: 10px
 
-.media-channel
+.search-result-artist
   color: $gray3
-
-.media-unknown
-  font-style: italic
+  &.unknown
+    font-style: italic
 
 .search-more
   display: flex
@@ -233,6 +231,16 @@ $search-max-height = "calc(100vh - (2 * %s))" % $jukebox-padding
     font-weight: 400
     &:hover
       color: $green-light
+
+.search-none
+  font-style: italic
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 100%
+  color: $gray6
+  span
+    margin-top: -20px
 
 
 @media screen and (max-width: 1261px)

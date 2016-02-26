@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { TYPES } from './redux/actionTypes';
+import { TYPES, SOURCES } from './redux/actionTypes';
 import { play, pause, repeat, shuffle, playlist, playNext, playPrev, hideOverlay } from './redux/actions';
 
 var Controls = React.createClass({
@@ -31,7 +31,7 @@ var Controls = React.createClass({
     // Now set the control states
     this.setState({
       playPauseDisabled: !mediaValid || nextProps.current.isInvalid || nextProps.overlay.show,
-      previousDisabled: nextProps.current.isQueue || !nextProps.current.index,
+      previousDisabled: nextProps.current.source === SOURCES.QUEUE || !nextProps.current.index,
       nextDisabled: endReached,
       repeatDisabled: endReached || nextProps.current.isInvalid || nextProps.overlay.show,
       shuffleDisabled: nextProps.current.isInvalid || nextProps.overlay.show || !nextProps.current.order.length
@@ -75,7 +75,7 @@ var Controls = React.createClass({
   render: function() {
     return (
       <div className={classNames("controls", {
-        hidden: this.props.current.media.type === TYPES.UNKNOWN && !this.props.current.isQueue && this.props.current.playlist === null
+        hidden: this.props.current.media.type === TYPES.UNKNOWN && this.props.current.source === SOURCES.UNKNOWN
       })}>
         <div className={classNames("play-pause-button", {
           disabled: this.state.playPauseDisabled
