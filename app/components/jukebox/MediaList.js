@@ -21,7 +21,8 @@ var MediaList = React.createClass({
 
   handleChange: function(event) {
     this.setState({
-      value: event.target.value.toLowerCase()
+      value: event.target.value,
+      search: event.target.value.toLowerCase()
     });
   },
 
@@ -29,14 +30,24 @@ var MediaList = React.createClass({
     this.props.dispatch(playNow(id, type, artist, title, duration, source));
   },
 
+  clearSearch: function() {
+    this.setState({
+      value: '',
+      search: ''
+    });
+  },
+
   render: function() {
-    let hasNowPlaying = this.props.current.media.title.toLowerCase().indexOf(this.state.value) >= 0;
-    let hasQueue = this.props.current.queue.filter(x => {
-      return x.title.toLowerCase().indexOf(this.state.value) >= 0;
+    let queueMatches = this.props.current.queue.filter(x => {
+      return x.title.toLowerCase().indexOf(this.state.search) >= 0;
     }).length;
-    let hasPlaylist = this.props.current.order.filter(x => {
-      return x.title.toLowerCase().indexOf(this.state.value) >= 0
+
+    let playlistMatches = this.props.current.order.filter(x => {
+      return x.title.toLowerCase().indexOf(this.state.search) >= 0
     }).length;
+
+    let totalMatches = queueMatches + playlistMatches;
+
     return (
       <div className={classNames("media-list", {
         hidden: this.props.current.source === SOURCES.UNKNOWN
@@ -44,13 +55,16 @@ var MediaList = React.createClass({
 
         {this.props.current.queue.length || this.props.current.order.length ?
           <div className="media-search">
-            <span className="ion-ios-settings"></span>
+            <div className="media-search-icon ion-ios-settings"></div>
             <input
               className="media-search-input"
               type="text"
-              placeholder="Filter playlist..."
+              placeholder="Find from playlist..."
+              value={this.state.value}
               onChange={this.handleChange}
               />
+            {this.state.search ? <div className="media-search-count">{totalMatches || 'No'} Match{totalMatches === 1 ? '' : 'es'}</div> : null}
+            {this.state.search ? <div className="media-search-clear ion-ios-close-empty" onClick={this.clearSearch}></div> : null}
           </div> : null}
 
         {this.props.current.queue.length ?
@@ -59,7 +73,7 @@ var MediaList = React.createClass({
             type={SOURCES.QUEUE}
             playlist={this.props.current.queue}
             current={this.props.current}
-            search={this.state.value}
+            search={this.state.search}
             /> : null}
 
         {this.props.current.order.length ?
@@ -68,7 +82,7 @@ var MediaList = React.createClass({
             type={SOURCES.PLAYLIST}
             playlist={this.props.current.order}
             current={this.props.current}
-            search={this.state.value}
+            search={this.state.search}
             /> : null}
 
       </div>

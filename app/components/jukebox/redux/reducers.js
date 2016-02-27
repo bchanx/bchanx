@@ -138,7 +138,7 @@ let current = function(state, action, controls, playlists) {
         // If no song is playing, load the next song in queue
         if (state.queue.length) {
           return update(state, {
-            media: state.queue.shift(),
+            media: state.queue[0],
             source: SOURCES.QUEUE
           });
         }
@@ -163,10 +163,18 @@ let current = function(state, action, controls, playlists) {
         nextIndex = Math.min(state.index + 1, state.order.length);
       }
 
+      if (state.queue.length &&
+          state.source === SOURCES.QUEUE &&
+          state.media.type === state.queue[0].type &&
+          state.media.id === state.queue[0].id) {
+          // If we just finished something in the queue, pop it off
+          state.queue.shift();
+      }
+
       if (state.queue.length) {
         // Play next in queue
         return update(state, {
-          media: state.queue.shift(),
+          media: state.queue[0],
           source: SOURCES.QUEUE,
           index: nextIndex
         });
@@ -235,10 +243,51 @@ let current = function(state, action, controls, playlists) {
       return state;
 
     case PLAY_NOW:
-      return update(state, {
-        media: action.media,
-        source: action.source
-      });
+      if (action.source === SOURCES.QUEUE) {
+        // If it exists in the queue, remove
+        let queueIndex = -1;
+        let queueExists = state.queue.filter((q, idx) => {
+          if (q.type === action.media.type && q.id === action.media.id) {
+            queueIndex = idx;
+            return true;
+          }
+          return false;
+        });
+
+        let newQueue = state.queue.slice();
+        if (queueExists.length) {
+          newQueue = newQueue.slice(0, queueIndex).concat(newQueue.slice(queueIndex + 1));
+        }
+
+        // Now add newest media to top of the queue
+        newQueue = [action.media].concat(newQueue);
+        return update(state, {
+          media: action.media,
+          source: action.source,
+          queue: newQueue
+        });
+      }
+      else if (action.source === SOURCES.PLAYLIST) {
+        // Just update media and index
+        let playlistIndex = -1;
+        let playlistExists = state.order.filter((o, idx) => {
+          if (o.type === action.media.type && o.id === action.media.id) {
+            playlistIndex = idx;
+            return true;
+          }
+          return false;
+        });
+
+        if (playlistExists.length) {
+          return update(state, {
+            media: action.media,
+            source: action.source,
+            index: playlistIndex
+          });
+        }
+      }
+
+      return state;
 
     case QUEUE_NEXT:
       if (!(state.media.id === action.media.id &&

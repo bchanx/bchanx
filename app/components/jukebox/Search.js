@@ -241,7 +241,7 @@ var Search = React.createClass({
 
   playResult: function(id, type, title, duration) {
     if (!this.state.loading) {
-      this.props.dispatch(playNow(id, type, title, duration, SOURCES.SEARCH));
+      this.props.dispatch(playNow(id, type, title, duration, SOURCES.QUEUE));
       this.props.slidr.slide('video-player');
     }
   },

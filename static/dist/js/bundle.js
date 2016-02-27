@@ -678,11 +678,15 @@ var MediaGroup = _react2.default.createClass({
   render: function render() {
     var _this = this;
 
-    var hasResults = false;
+    var searchMatches = false;
+    var mediaUnplayed = false;
     var filteredPlaylist = this.props.playlist.slice().map(function (p, idx) {
       var hidden = p.title.toLowerCase().indexOf(_this.props.search) < 0;
-      hasResults = hasResults || !hidden;
+      var played = _this.props.type === _actionTypes.SOURCES.PLAYLIST ? idx < _this.props.current.index : false;
+      searchMatches = searchMatches || !hidden;
+      mediaUnplayed = mediaUnplayed || !played;
       p.hidden = hidden;
+      p.played = played;
       p.idx = idx;
       return p;
     }).sort(function (a, b) {
@@ -691,9 +695,9 @@ var MediaGroup = _react2.default.createClass({
       return _react2.default.createElement(
         'div',
         { key: p.type + '_' + p.id, className: (0, _classnames2.default)("media-item", {
-            active: _this.props.current.media.id === p.id,
+            active: _this.props.current.source === _this.props.type && _this.props.current.media.id === p.id,
             hidden: p.hidden,
-            played: !_this.props.search && _this.props.type === _actionTypes.SOURCES.PLAYLIST ? p.idx < _this.props.current.index : false
+            played: !_this.props.search && p.played
           }) },
         _react2.default.createElement(
           'div',
@@ -717,12 +721,12 @@ var MediaGroup = _react2.default.createClass({
       'div',
       { className: (0, _classnames2.default)("media-group", {
           queue: this.props.type === _actionTypes.SOURCES.QUEUE,
-          noresults: !hasResults
+          noresults: !searchMatches
         }) },
       _react2.default.createElement(
         'div',
         { className: (0, _classnames2.default)("media-group-name", {
-            hidden: !hasResults || this.props.current.media.type === _actionTypes.TYPES.UNKNOWN && (!this.props.search || this.props.search && !hasResults)
+            hidden: !(this.props.search && searchMatches || !this.props.search && mediaUnplayed)
           }) },
         this.props.name
       ),
@@ -779,7 +783,8 @@ var MediaList = _react2.default.createClass({
 
   handleChange: function handleChange(event) {
     this.setState({
-      value: event.target.value.toLowerCase()
+      value: event.target.value,
+      search: event.target.value.toLowerCase()
     });
   },
 
@@ -787,16 +792,26 @@ var MediaList = _react2.default.createClass({
     this.props.dispatch(playNow(id, type, artist, title, duration, source));
   },
 
+  clearSearch: function clearSearch() {
+    this.setState({
+      value: '',
+      search: ''
+    });
+  },
+
   render: function render() {
     var _this = this;
 
-    var hasNowPlaying = this.props.current.media.title.toLowerCase().indexOf(this.state.value) >= 0;
-    var hasQueue = this.props.current.queue.filter(function (x) {
-      return x.title.toLowerCase().indexOf(_this.state.value) >= 0;
+    var queueMatches = this.props.current.queue.filter(function (x) {
+      return x.title.toLowerCase().indexOf(_this.state.search) >= 0;
     }).length;
-    var hasPlaylist = this.props.current.order.filter(function (x) {
-      return x.title.toLowerCase().indexOf(_this.state.value) >= 0;
+
+    var playlistMatches = this.props.current.order.filter(function (x) {
+      return x.title.toLowerCase().indexOf(_this.state.search) >= 0;
     }).length;
+
+    var totalMatches = queueMatches + playlistMatches;
+
     return _react2.default.createElement(
       'div',
       { className: (0, _classnames2.default)("media-list", {
@@ -805,27 +820,36 @@ var MediaList = _react2.default.createClass({
       this.props.current.queue.length || this.props.current.order.length ? _react2.default.createElement(
         'div',
         { className: 'media-search' },
-        _react2.default.createElement('span', { className: 'ion-ios-settings' }),
+        _react2.default.createElement('div', { className: 'media-search-icon ion-ios-settings' }),
         _react2.default.createElement('input', {
           className: 'media-search-input',
           type: 'text',
-          placeholder: 'Filter playlist...',
+          placeholder: 'Find from playlist...',
+          value: this.state.value,
           onChange: this.handleChange
-        })
+        }),
+        this.state.search ? _react2.default.createElement(
+          'div',
+          { className: 'media-search-count' },
+          totalMatches || 'No',
+          ' Match',
+          totalMatches === 1 ? '' : 'es'
+        ) : null,
+        this.state.search ? _react2.default.createElement('div', { className: 'media-search-clear ion-ios-close-empty', onClick: this.clearSearch }) : null
       ) : null,
       this.props.current.queue.length ? _react2.default.createElement(_MediaGroup2.default, {
         name: 'queue',
         type: _actionTypes.SOURCES.QUEUE,
         playlist: this.props.current.queue,
         current: this.props.current,
-        search: this.state.value
+        search: this.state.search
       }) : null,
       this.props.current.order.length ? _react2.default.createElement(_MediaGroup2.default, {
         name: this.props.current.playlist.name,
         type: _actionTypes.SOURCES.PLAYLIST,
         playlist: this.props.current.order,
         current: this.props.current,
-        search: this.state.value
+        search: this.state.search
       }) : null
     );
   }
@@ -1454,7 +1478,7 @@ var Search = _react2.default.createClass({
 
   playResult: function playResult(id, type, title, duration) {
     if (!this.state.loading) {
-      this.props.dispatch((0, _actions.playNow)(id, type, title, duration, _actionTypes.SOURCES.SEARCH));
+      this.props.dispatch((0, _actions.playNow)(id, type, title, duration, _actionTypes.SOURCES.QUEUE));
       this.props.slidr.slide('video-player');
     }
   },
@@ -1739,7 +1763,7 @@ var Video = _react2.default.createClass({
   },
 
   playNow: function playNow() {
-    this.props.dispatch((0, _actions.playNow)('-_PIGQjrnjI', _actionTypes.TYPES.YOUTUBE, 'play test', '3:22', _actionTypes.SOURCES.SEARCH));
+    this.props.dispatch((0, _actions.playNow)('-_PIGQjrnjI', _actionTypes.TYPES.YOUTUBE, 'play test', '3:22', _actionTypes.SOURCES.QUEUE));
   },
 
   // Error: cERIwGKSU1A
@@ -2117,15 +2141,14 @@ var DELETE_PLAYLIST = exports.DELETE_PLAYLIST = 'DELETE_PLAYLIST';
 // Media types
 var TYPES = exports.TYPES = {
   UNKNOWN: '-1',
-  YOUTUBE: '0'
+  YOUTUBE: '1'
 };
 
 // Media sources
 var SOURCES = exports.SOURCES = {
   UNKNOWN: -1,
-  PLAYLIST: 0,
-  QUEUE: 1,
-  SEARCH: 2
+  PLAYLIST: 1,
+  QUEUE: 2
 };
 
 // YT.PlayerState.UNSTARTED (-1)
@@ -2227,8 +2250,8 @@ function playCurrent() {
   return { type: _actionTypes.PLAY_CURRENT };
 }
 
-function playNow(id, type, title, duration) {
-  return { type: _actionTypes.PLAY_NOW, media: { id: id, type: type, title: title, duration: duration } };
+function playNow(id, type, title, duration, source) {
+  return { type: _actionTypes.PLAY_NOW, media: { id: id, type: type, title: title, duration: duration }, source: source };
 }
 
 function queueNext(id, type, title, duration) {
@@ -2362,7 +2385,7 @@ var current = function current(state, action, controls, playlists) {
         // If no song is playing, load the next song in queue
         if (state.queue.length) {
           return update(state, {
-            media: state.queue.shift(),
+            media: state.queue[0],
             source: _actionTypes.SOURCES.QUEUE
           });
         }
@@ -2387,10 +2410,15 @@ var current = function current(state, action, controls, playlists) {
         nextIndex = Math.min(state.index + 1, state.order.length);
       }
 
+      if (state.queue.length && state.source === _actionTypes.SOURCES.QUEUE && state.media.type === state.queue[0].type && state.media.id === state.queue[0].id) {
+        // If we just finished something in the queue, pop it off
+        state.queue.shift();
+      }
+
       if (state.queue.length) {
         // Play next in queue
         return update(state, {
-          media: state.queue.shift(),
+          media: state.queue[0],
           source: _actionTypes.SOURCES.QUEUE,
           index: nextIndex
         });
@@ -2460,10 +2488,50 @@ var current = function current(state, action, controls, playlists) {
       return state;
 
     case _actionTypes.PLAY_NOW:
-      return update(state, {
-        media: action.media,
-        source: action.source
-      });
+      if (action.source === _actionTypes.SOURCES.QUEUE) {
+        // If it exists in the queue, remove
+        var queueIndex = -1;
+        var queueExists = state.queue.filter(function (q, idx) {
+          if (q.type === action.media.type && q.id === action.media.id) {
+            queueIndex = idx;
+            return true;
+          }
+          return false;
+        });
+
+        var newQueue = state.queue.slice();
+        if (queueExists.length) {
+          newQueue = newQueue.slice(0, queueIndex).concat(newQueue.slice(queueIndex + 1));
+        }
+
+        // Now add newest media to top of the queue
+        newQueue = [action.media].concat(newQueue);
+        return update(state, {
+          media: action.media,
+          source: action.source,
+          queue: newQueue
+        });
+      } else if (action.source === _actionTypes.SOURCES.PLAYLIST) {
+        // Just update media and index
+        var _playlistIndex = -1;
+        var playlistExists = state.order.filter(function (o, idx) {
+          if (o.type === action.media.type && o.id === action.media.id) {
+            _playlistIndex = idx;
+            return true;
+          }
+          return false;
+        });
+
+        if (playlistExists.length) {
+          return update(state, {
+            media: action.media,
+            source: action.source,
+            index: _playlistIndex
+          });
+        }
+      }
+
+      return state;
 
     case _actionTypes.QUEUE_NEXT:
       if (!(state.media.id === action.media.id && state.media.type === action.media.type) && !state.queue.filter(function (s) {

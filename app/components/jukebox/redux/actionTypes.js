@@ -33,15 +33,14 @@ export const DELETE_PLAYLIST = 'DELETE_PLAYLIST';
 // Media types
 export const TYPES = {
   UNKNOWN: '-1',
-  YOUTUBE: '0'
+  YOUTUBE: '1'
 };
 
 // Media sources
 export const SOURCES = {
   UNKNOWN: -1,
-  PLAYLIST: 0,
-  QUEUE: 1,
-  SEARCH: 2
+  PLAYLIST: 1,
+  QUEUE: 2
 };
 
 // YT.PlayerState.UNSTARTED (-1)

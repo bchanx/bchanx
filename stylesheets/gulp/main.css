@@ -414,17 +414,49 @@ input:focus {
 .media-search {
   position: relative;
 }
-.media-search .ion-ios-settings {
+.media-search-icon {
   position: absolute;
   left: 0;
-  width: 45px;
+  width: 40px;
   height: 40px;
+  padding-left: 5px;
   font-size: 18px;
   line-height: 43px;
   text-align: center;
+  pointer-events: none;
 }
 .media-search-input {
   padding-left: 40px;
+  padding-right: 120px;
+}
+.media-search-input:focus + .media-search-count {
+  color: #9de3b1;
+}
+.media-search-count {
+  position: absolute;
+  top: 0;
+  right: 40px;
+  line-height: 40px;
+  font-size: 14px;
+  font-style: italic;
+  color: #505050;
+  pointer-events: none;
+}
+.media-search-clear {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 30px;
+  margin: 5px 10px;
+  font-size: 30px;
+  line-height: 32px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0.8;
+}
+.media-search-clear:hover {
+  opacity: 1;
 }
 .media-group {
   margin-top: 20px;
@@ -440,6 +472,9 @@ input:focus {
 }
 .media-group.queue .media-item {
   padding: 5px 30px;
+}
+.media-group.queue .media-item.active {
+  padding-left: 27px;
 }
 .media-group.queue.noresults {
   background-color: inherit;
