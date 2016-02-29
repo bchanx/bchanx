@@ -26,10 +26,6 @@ var MediaList = React.createClass({
     });
   },
 
-  onClick: function(id, type, artist, title, duration, source) {
-    this.props.dispatch(playNow(id, type, artist, title, duration, source));
-  },
-
   clearSearch: function() {
     this.setState({
       value: '',
@@ -74,6 +70,7 @@ var MediaList = React.createClass({
             playlist={this.props.current.queue}
             current={this.props.current}
             search={this.state.search}
+            dispatch={this.props.dispatch}
             /> : null}
 
         {this.props.current.order.length ?
@@ -83,6 +80,7 @@ var MediaList = React.createClass({
             playlist={this.props.current.order}
             current={this.props.current}
             search={this.state.search}
+            dispatch={this.props.dispatch}
             /> : null}
 
       </div>

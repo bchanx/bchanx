@@ -37,7 +37,12 @@ var Video = React.createClass({
   },
 
   playNow: function() {
-    this.props.dispatch(playNow('-_PIGQjrnjI', TYPES.YOUTUBE, 'play test', '3:22', SOURCES.QUEUE));
+    this.props.dispatch(playNow({
+      id: '-_PIGQjrnjI',
+      type: TYPES.YOUTUBE,
+      title: 'play test',
+      duration: '3:22'
+    }, SOURCES.QUEUE));
   },
 
   // Error: cERIwGKSU1A

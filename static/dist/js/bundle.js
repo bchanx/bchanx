@@ -660,6 +660,8 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 var _actionTypes = require('./redux/actionTypes');
 
+var _actions = require('./redux/actions');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var MediaGroup = _react2.default.createClass({
@@ -671,8 +673,13 @@ var MediaGroup = _react2.default.createClass({
       type: _actionTypes.SOURCES.UNKNOWN,
       playlist: [],
       current: {},
-      search: ''
+      search: '',
+      dispatch: null
     };
+  },
+
+  playMedia: function playMedia(media) {
+    this.props.dispatch((0, _actions.playNow)(media, this.props.type));
   },
 
   render: function render() {
@@ -680,25 +687,31 @@ var MediaGroup = _react2.default.createClass({
 
     var searchMatches = false;
     var mediaUnplayed = false;
-    var filteredPlaylist = this.props.playlist.slice().map(function (p, idx) {
+    var filteredPlaylist = this.props.playlist.map(function (p, idx) {
       var hidden = p.title.toLowerCase().indexOf(_this.props.search) < 0;
       var played = _this.props.type === _actionTypes.SOURCES.PLAYLIST ? idx < _this.props.current.index : false;
       searchMatches = searchMatches || !hidden;
       mediaUnplayed = mediaUnplayed || !played;
-      p.hidden = hidden;
-      p.played = played;
-      p.idx = idx;
-      return p;
+      return {
+        id: p.id,
+        type: p.type,
+        title: p.title,
+        duration: p.duration,
+        hidden: hidden,
+        played: played,
+        idx: idx
+      };
     }).sort(function (a, b) {
       return !a.hidden ? -1 : !b.hidden ? 1 : 0;
     }).map(function (p) {
+      var onClickHandler = _this.playMedia.bind(_this, p);
       return _react2.default.createElement(
         'div',
         { key: p.type + '_' + p.id, className: (0, _classnames2.default)("media-item", {
             active: _this.props.current.source === _this.props.type && _this.props.current.media.id === p.id,
             hidden: p.hidden,
             played: !_this.props.search && p.played
-          }) },
+          }), onClick: onClickHandler },
         _react2.default.createElement(
           'div',
           { className: 'media-number' },
@@ -741,7 +754,7 @@ var MediaGroup = _react2.default.createClass({
 
 exports.default = MediaGroup;
 
-},{"./redux/actionTypes":19,"classnames":"classnames","react":"react"}],9:[function(require,module,exports){
+},{"./redux/actionTypes":19,"./redux/actions":20,"classnames":"classnames","react":"react"}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -786,10 +799,6 @@ var MediaList = _react2.default.createClass({
       value: event.target.value,
       search: event.target.value.toLowerCase()
     });
-  },
-
-  onClick: function onClick(id, type, artist, title, duration, source) {
-    this.props.dispatch(playNow(id, type, artist, title, duration, source));
   },
 
   clearSearch: function clearSearch() {
@@ -842,14 +851,16 @@ var MediaList = _react2.default.createClass({
         type: _actionTypes.SOURCES.QUEUE,
         playlist: this.props.current.queue,
         current: this.props.current,
-        search: this.state.search
+        search: this.state.search,
+        dispatch: this.props.dispatch
       }) : null,
       this.props.current.order.length ? _react2.default.createElement(_MediaGroup2.default, {
         name: this.props.current.playlist.name,
         type: _actionTypes.SOURCES.PLAYLIST,
         playlist: this.props.current.order,
         current: this.props.current,
-        search: this.state.search
+        search: this.state.search,
+        dispatch: this.props.dispatch
       }) : null
     );
   }
@@ -1476,9 +1487,9 @@ var Search = _react2.default.createClass({
     }
   },
 
-  playResult: function playResult(id, type, title, duration) {
+  playResult: function playResult(media) {
     if (!this.state.loading) {
-      this.props.dispatch((0, _actions.playNow)(id, type, title, duration, _actionTypes.SOURCES.QUEUE));
+      this.props.dispatch((0, _actions.playNow)(media, _actionTypes.SOURCES.QUEUE));
       this.props.slidr.slide('video-player');
     }
   },
@@ -1538,7 +1549,7 @@ var Search = _react2.default.createClass({
               'An error occured.'
             ) : null,
             this.state.results.map(function (r) {
-              var playHandler = _this4.playResult.bind(_this4, r.id, r.type, r.title, r.duration);
+              var playHandler = _this4.playResult.bind(_this4, r);
               var queueHandler = _this4.queueResult.bind(_this4, r.id, r.type, r.title, r.duration);
               return _react2.default.createElement(
                 'div',
@@ -1763,7 +1774,12 @@ var Video = _react2.default.createClass({
   },
 
   playNow: function playNow() {
-    this.props.dispatch((0, _actions.playNow)('-_PIGQjrnjI', _actionTypes.TYPES.YOUTUBE, 'play test', '3:22', _actionTypes.SOURCES.QUEUE));
+    this.props.dispatch((0, _actions.playNow)({
+      id: '-_PIGQjrnjI',
+      type: _actionTypes.TYPES.YOUTUBE,
+      title: 'play test',
+      duration: '3:22'
+    }, _actionTypes.SOURCES.QUEUE));
   },
 
   // Error: cERIwGKSU1A
@@ -2250,8 +2266,8 @@ function playCurrent() {
   return { type: _actionTypes.PLAY_CURRENT };
 }
 
-function playNow(id, type, title, duration, source) {
-  return { type: _actionTypes.PLAY_NOW, media: { id: id, type: type, title: title, duration: duration }, source: source };
+function playNow(media, source) {
+  return { type: _actionTypes.PLAY_NOW, media: { id: media.id, type: media.type, title: media.title, duration: media.duration }, source: source };
 }
 
 function queueNext(id, type, title, duration) {
@@ -2424,6 +2440,7 @@ var current = function current(state, action, controls, playlists) {
         });
       } else if (state.index !== null) {
         // Play next in playlist.
+        nextIndex = Math.max(nextIndex, 0);
         if (nextIndex <= state.order.length - 1) {
           return update(state, {
             media: state.order[nextIndex],

@@ -265,16 +265,19 @@ input
 .media-group
   margin-top: 20px
   &.queue
-    padding: 15px 20px
+    padding: 12px 20px
     margin: 20px -20px
     background-color: $gray10
     .media-items
       width: 680px
       margin: 0 -20px
     .media-item
-      padding: 5px 30px
+      padding-left: 30px
+      padding-right: 30px
       &.active
         padding-left: 27px
+      &:hover
+        background-color: $gray8
     &.noresults
       background-color: inherit
 
@@ -299,7 +302,7 @@ input
   cursor: pointer
   display: flex
   flex-direction: row
-  padding: 5px 10px
+  padding: 7px 10px
   border-bottom: 1px $gray9 dashed
   opacity: 0.8
   &.active
@@ -321,12 +324,14 @@ input
     text-decoration: line-through
   &:hover
     opacity: 1
-    background-color: $gray8
+    background-color: $gray10
     text-decoration: none !important
   &.hidden
     opacity: 0.2
     color: $gray6
     pointer-events: none
+  &:last-of-type
+    border-bottom-color: transparent
 
 .media-number
   width: 25px
@@ -345,6 +350,7 @@ input
 
 .media-duration
   margin-left: 10px
+  margin-right: 6px
   text-align: right
   flex-shrink: 0
 

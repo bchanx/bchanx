@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { TYPES, SOURCES } from './redux/actionTypes';
+import { playNow } from './redux/actions';
 
 var MediaGroup = React.createClass({
 
@@ -10,31 +11,42 @@ var MediaGroup = React.createClass({
       type: SOURCES.UNKNOWN,
       playlist: [],
       current: {},
-      search: ''
+      search: '',
+      dispatch: null
     };
+  },
+
+  playMedia: function(media) {
+    this.props.dispatch(playNow(media, this.props.type));
   },
 
   render: function() {
     let searchMatches = false;
     let mediaUnplayed = false;
-    let filteredPlaylist = this.props.playlist.slice().map((p, idx) => {
+    let filteredPlaylist = this.props.playlist.map((p, idx) => {
       let hidden = p.title.toLowerCase().indexOf(this.props.search) < 0;
       let played = this.props.type === SOURCES.PLAYLIST ? idx < this.props.current.index : false;
       searchMatches = searchMatches || !hidden;
       mediaUnplayed = mediaUnplayed || !played;
-      p.hidden = hidden;
-      p.played = played;
-      p.idx = idx;
-      return p;
+      return {
+        id: p.id,
+        type: p.type,
+        title: p.title,
+        duration: p.duration,
+        hidden: hidden,
+        played: played,
+        idx: idx
+      };
     }).sort((a, b) => {
       return !a.hidden ? -1 : !b.hidden ? 1 : 0;
     }).map(p => {
+      let onClickHandler = this.playMedia.bind(this, p);
       return (
         <div key={p.type + '_' + p.id} className={classNames("media-item", {
           active: this.props.current.source === this.props.type && this.props.current.media.id === p.id,
           hidden: p.hidden,
           played: !this.props.search && p.played
-        })}>
+        })} onClick={onClickHandler}>
           <div className="media-number">{p.idx + 1}</div>
           <div className="media-title">{p.title}</div>
           <div className="media-duration">{p.duration}</div>

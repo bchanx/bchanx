@@ -181,6 +181,7 @@ let current = function(state, action, controls, playlists) {
       }
       else if (state.index !== null) {
         // Play next in playlist.
+        nextIndex = Math.max(nextIndex, 0);
         if (nextIndex <= state.order.length - 1) {
           return update(state, {
             media: state.order[nextIndex],

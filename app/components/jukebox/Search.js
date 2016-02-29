@@ -239,9 +239,9 @@ var Search = React.createClass({
     }
   },
 
-  playResult: function(id, type, title, duration) {
+  playResult: function(media) {
     if (!this.state.loading) {
-      this.props.dispatch(playNow(id, type, title, duration, SOURCES.QUEUE));
+      this.props.dispatch(playNow(media, SOURCES.QUEUE));
       this.props.slidr.slide('video-player');
     }
   },
@@ -282,7 +282,7 @@ var Search = React.createClass({
             })}>
               {this.state.error ? <div className="search-error">An error occured.</div> : null}
               {this.state.results.map((r) => {
-                let playHandler = this.playResult.bind(this, r.id, r.type, r.title, r.duration);
+                let playHandler = this.playResult.bind(this, r);
                 let queueHandler = this.queueResult.bind(this, r.id, r.type, r.title, r.duration);
                 return (
                   <div key={r.id} className="search-result">

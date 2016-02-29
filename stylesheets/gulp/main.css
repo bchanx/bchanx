@@ -462,7 +462,7 @@ input:focus {
   margin-top: 20px;
 }
 .media-group.queue {
-  padding: 15px 20px;
+  padding: 12px 20px;
   margin: 20px -20px;
   background-color: #222;
 }
@@ -471,10 +471,14 @@ input:focus {
   margin: 0 -20px;
 }
 .media-group.queue .media-item {
-  padding: 5px 30px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 .media-group.queue .media-item.active {
   padding-left: 27px;
+}
+.media-group.queue .media-item:hover {
+  background-color: #333;
 }
 .media-group.queue.noresults {
   background-color: inherit;
@@ -501,7 +505,7 @@ input:focus {
   cursor: pointer;
   display: flex;
   flex-direction: row;
-  padding: 5px 10px;
+  padding: 7px 10px;
   border-bottom: 1px #2a2a2a dashed;
   opacity: 0.8;
 }
@@ -527,13 +531,16 @@ input:focus {
 }
 .media-item:hover {
   opacity: 1;
-  background-color: #333;
+  background-color: #222;
   text-decoration: none !important;
 }
 .media-item.hidden {
   opacity: 0.2;
   color: #808080;
   pointer-events: none;
+}
+.media-item:last-of-type {
+  border-bottom-color: transparent;
 }
 .media-number {
   width: 25px;
@@ -552,6 +559,7 @@ input:focus {
 }
 .media-duration {
   margin-left: 10px;
+  margin-right: 6px;
   text-align: right;
   flex-shrink: 0;
 }
