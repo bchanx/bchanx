@@ -192,6 +192,22 @@ input:focus {
   outline: 1px #9de3b1 dashed;
   outline-offset: -1px;
 }
+input+ .search-clear {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 30px;
+  margin: 5px 10px;
+  font-size: 30px;
+  line-height: 32px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0.8;
+}
+input+ .search-clear:hover {
+  opacity: 1;
+}
 .jukebox-container {
   width: 100%;
   height: 100%;
@@ -441,22 +457,6 @@ input:focus {
   font-style: italic;
   color: #505050;
   pointer-events: none;
-}
-.media-search-clear {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 20px;
-  height: 30px;
-  margin: 5px 10px;
-  font-size: 30px;
-  line-height: 32px;
-  text-align: center;
-  cursor: pointer;
-  opacity: 0.8;
-}
-.media-search-clear:hover {
-  opacity: 1;
 }
 .media-group {
   margin-top: 20px;
@@ -728,9 +728,6 @@ input:focus {
   padding-top: 6px;
   width: 40px;
   height: 40px;
-}
-.search-loading.hidden {
-  display: none;
 }
 .search-results {
   margin-top: 20px;

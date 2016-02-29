@@ -844,7 +844,7 @@ var MediaList = _react2.default.createClass({
           ' Match',
           totalMatches === 1 ? '' : 'es'
         ) : null,
-        this.state.search ? _react2.default.createElement('div', { className: 'media-search-clear ion-ios-close-empty', onClick: this.clearSearch }) : null
+        this.state.search ? _react2.default.createElement('div', { className: 'search-clear ion-ios-close-empty', onClick: this.clearSearch }) : null
       ) : null,
       this.props.current.queue.length ? _react2.default.createElement(_MediaGroup2.default, {
         name: 'queue',
@@ -1468,8 +1468,10 @@ var Search = _react2.default.createClass({
   },
 
   handleChange: function handleChange(event) {
-    var query = event.target.value.trim();
+    var value = event.target.value;
+    var query = value.trim();
     this.setState({
+      value: value,
       query: query,
       error: false
     });
@@ -1500,6 +1502,14 @@ var Search = _react2.default.createClass({
     }
   },
 
+  clearSearch: function clearSearch() {
+    this.handleChange({
+      target: {
+        value: ''
+      }
+    });
+  },
+
   render: function render() {
     var _this4 = this;
 
@@ -1527,15 +1537,15 @@ var Search = _react2.default.createClass({
               type: 'text',
               ref: 'searchInput',
               placeholder: 'Search for...',
+              value: this.state.value,
               onChange: this.handleChange
             }),
-            _react2.default.createElement(
+            this.state.loading ? _react2.default.createElement(
               'div',
-              { className: (0, _classnames2.default)("search-loading", {
-                  hidden: !this.state.loading
-                }) },
+              { className: 'search-loading' },
               _react2.default.createElement('span', { className: 'loading-spinner ion-load-c' })
-            )
+            ) : null,
+            this.state.value && !this.state.loading ? _react2.default.createElement('div', { className: 'search-clear ion-ios-close-empty', onClick: this.clearSearch }) : null
           ),
           _react2.default.createElement(
             'div',

@@ -60,7 +60,7 @@ var MediaList = React.createClass({
               onChange={this.handleChange}
               />
             {this.state.search ? <div className="media-search-count">{totalMatches || 'No'} Match{totalMatches === 1 ? '' : 'es'}</div> : null}
-            {this.state.search ? <div className="media-search-clear ion-ios-close-empty" onClick={this.clearSearch}></div> : null}
+            {this.state.search ? <div className="search-clear ion-ios-close-empty" onClick={this.clearSearch}></div> : null}
           </div> : null}
 
         {this.props.current.queue.length ?

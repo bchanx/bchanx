@@ -218,8 +218,10 @@ var Search = React.createClass({
   },
 
   handleChange: function(event) {
-    let query = event.target.value.trim();
+    let value = event.target.value;
+    let query = value.trim();
     this.setState({
+      value: value,
       query: query,
       error: false
     });
@@ -252,6 +254,14 @@ var Search = React.createClass({
     }
   },
 
+  clearSearch: function() {
+    this.handleChange({
+      target: {
+        value: ''
+      }
+    });
+  },
+
   render: function() {
     return (
       <div className={classNames("search-container", this.props.className, {
@@ -268,13 +278,15 @@ var Search = React.createClass({
                 type="text"
                 ref="searchInput"
                 placeholder="Search for..."
+                value={this.state.value}
                 onChange={this.handleChange}
                 />
-              <div className={classNames("search-loading", {
-                hidden: !this.state.loading
-              })}>
-                <span className="loading-spinner ion-load-c"></span>
-              </div>
+              {this.state.loading ? 
+                <div className="search-loading">
+                  <span className="loading-spinner ion-load-c"></span>
+                </div> : null}
+              {this.state.value && !this.state.loading ?
+                <div className="search-clear ion-ios-close-empty" onClick={this.clearSearch}></div> : null}
             </div>
             <div className={classNames("search-results", {
               hidden: !this.state.last,

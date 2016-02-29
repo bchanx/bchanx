@@ -15,6 +15,20 @@ input
   &:focus
     outline: 1px $green-light dashed
     outline-offset: -1px
+  &+ .search-clear
+    position: absolute
+    top: 0
+    right: 0
+    width: 20px
+    height: 30px
+    margin: 5px 10px
+    font-size: 30px
+    line-height: 32px
+    text-align: center
+    cursor: pointer
+    opacity: 0.8
+    &:hover
+      opacity: 1
 
 .jukebox-container
   width: 100%
@@ -246,21 +260,6 @@ input
   font-style: italic
   color: $gray7
   pointer-events: none
-
-.media-search-clear
-  position: absolute
-  top: 0
-  right: 0
-  width: 20px
-  height: 30px
-  margin: 5px 10px
-  font-size: 30px
-  line-height: 32px
-  text-align: center
-  cursor: pointer
-  opacity: 0.8
-  &:hover
-    opacity: 1
 
 .media-group
   margin-top: 20px
