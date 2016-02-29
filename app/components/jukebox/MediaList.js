@@ -46,7 +46,7 @@ var MediaList = React.createClass({
 
     return (
       <div className={classNames("media-list", {
-        hidden: this.props.current.source === SOURCES.UNKNOWN
+        hidden: this.props.current.source === SOURCES.UNKNOWN || !this.props.controls.playlist
       })}>
 
         {this.props.current.queue.length || this.props.current.order.length ?

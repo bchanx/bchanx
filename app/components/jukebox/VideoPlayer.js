@@ -2,6 +2,7 @@ import React from 'react';
 import Video from './Video';
 import Controls from './Controls';
 import MediaList from './MediaList';
+import NowPlaying from './NowPlaying';
 
 var VideoPlayer = React.createClass({
   getDefaultProps: function() {
@@ -28,6 +29,11 @@ var VideoPlayer = React.createClass({
           current={this.props.current}
           controls={this.props.controls}
           overlay={this.props.overlay}
+          dispatch={this.props.dispatch}
+          />
+        <NowPlaying
+          current={this.props.current}
+          controls={this.props.controls}
           dispatch={this.props.dispatch}
           />
         <MediaList

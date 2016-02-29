@@ -403,7 +403,7 @@ var Controls = _react2.default.createClass({
 
 exports.default = Controls;
 
-},{"./redux/actionTypes":19,"./redux/actions":20,"classnames":"classnames","react":"react"}],7:[function(require,module,exports){
+},{"./redux/actionTypes":20,"./redux/actions":21,"classnames":"classnames","react":"react"}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -643,7 +643,7 @@ var Jukebox = _react2.default.createClass({
 
 exports.default = Jukebox;
 
-},{"./Playlists":13,"./Search":14,"./Slidr":15,"./VideoPlayer":17,"./redux/actionTypes":19,"./redux/reducers":21,"classnames":"classnames","react":"react","react-timer-mixin":"react-timer-mixin"}],8:[function(require,module,exports){
+},{"./Playlists":14,"./Search":15,"./Slidr":16,"./VideoPlayer":18,"./redux/actionTypes":20,"./redux/reducers":22,"classnames":"classnames","react":"react","react-timer-mixin":"react-timer-mixin"}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -754,7 +754,7 @@ var MediaGroup = _react2.default.createClass({
 
 exports.default = MediaGroup;
 
-},{"./redux/actionTypes":19,"./redux/actions":20,"classnames":"classnames","react":"react"}],9:[function(require,module,exports){
+},{"./redux/actionTypes":20,"./redux/actions":21,"classnames":"classnames","react":"react"}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -824,7 +824,7 @@ var MediaList = _react2.default.createClass({
     return _react2.default.createElement(
       'div',
       { className: (0, _classnames2.default)("media-list", {
-          hidden: this.props.current.source === _actionTypes.SOURCES.UNKNOWN
+          hidden: this.props.current.source === _actionTypes.SOURCES.UNKNOWN || !this.props.controls.playlist
         }) },
       this.props.current.queue.length || this.props.current.order.length ? _react2.default.createElement(
         'div',
@@ -868,7 +868,7 @@ var MediaList = _react2.default.createClass({
 
 exports.default = MediaList;
 
-},{"./MediaGroup":8,"./redux/actionTypes":19,"classnames":"classnames","react":"react"}],10:[function(require,module,exports){
+},{"./MediaGroup":8,"./redux/actionTypes":20,"classnames":"classnames","react":"react"}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -992,7 +992,65 @@ var None = _react2.default.createClass({
 
 exports.default = None;
 
-},{"./redux/actionTypes":19,"./redux/actions":20,"classnames":"classnames","react":"react"}],11:[function(require,module,exports){
+},{"./redux/actionTypes":20,"./redux/actions":21,"classnames":"classnames","react":"react"}],11:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _actionTypes = require('./redux/actionTypes');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var NowPlaying = _react2.default.createClass({
+  displayName: 'NowPlaying',
+
+  getDefaultProps: function getDefaultProps() {
+    return {
+      current: {},
+      controls: {},
+      dispatch: null
+    };
+  },
+
+  render: function render() {
+    return _react2.default.createElement(
+      'div',
+      { className: (0, _classnames2.default)("now-playing", {
+          invisible: this.props.controls.playlist,
+          hidden: this.props.current.media.type === _actionTypes.TYPES.UNKNOWN
+        }) },
+      _react2.default.createElement('div', { className: 'now-playing-icon ion-ios-volume-high' }),
+      _react2.default.createElement(
+        'div',
+        { className: 'now-playing-display' },
+        _react2.default.createElement(
+          'div',
+          { className: 'now-playing-name' },
+          'now playing:'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'now-playing-title' },
+          this.props.current.media.title
+        )
+      )
+    );
+  }
+});
+
+exports.default = NowPlaying;
+
+},{"./redux/actionTypes":20,"classnames":"classnames","react":"react"}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1115,7 +1173,7 @@ var Overlay = _react2.default.createClass({
 
 exports.default = Overlay;
 
-},{"./OverlayLoading":12,"./redux/actions":20,"classnames":"classnames","react":"react","react-timer-mixin":"react-timer-mixin"}],12:[function(require,module,exports){
+},{"./OverlayLoading":13,"./redux/actions":21,"classnames":"classnames","react":"react","react-timer-mixin":"react-timer-mixin"}],13:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1148,7 +1206,7 @@ var OverlayLoading = _react2.default.createClass({
 
 exports.default = OverlayLoading;
 
-},{"react":"react"}],13:[function(require,module,exports){
+},{"react":"react"}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1214,7 +1272,7 @@ var Playlists = _react2.default.createClass({
 
 exports.default = Playlists;
 
-},{"./redux/actions":20,"react":"react"}],14:[function(require,module,exports){
+},{"./redux/actions":21,"react":"react"}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1654,7 +1712,7 @@ var Search = _react2.default.createClass({
 
 exports.default = Search;
 
-},{"./Common":5,"./redux/actionTypes":19,"./redux/actions":20,"classnames":"classnames","moment":"moment","react":"react","react-script-loader":"react-script-loader","react-timer-mixin":"react-timer-mixin"}],15:[function(require,module,exports){
+},{"./Common":5,"./redux/actionTypes":20,"./redux/actions":21,"classnames":"classnames","moment":"moment","react":"react","react-script-loader":"react-script-loader","react-timer-mixin":"react-timer-mixin"}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1723,7 +1781,7 @@ var Slidr = _react2.default.createClass({
 
 exports.default = Slidr;
 
-},{"react":"react","react-script-loader":"react-script-loader"}],16:[function(require,module,exports){
+},{"react":"react","react-script-loader":"react-script-loader"}],17:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1837,7 +1895,7 @@ var Video = _react2.default.createClass({
 
 exports.default = Video;
 
-},{"./None":10,"./Overlay":11,"./YouTube":18,"./redux/actionTypes":19,"./redux/actions":20,"react":"react"}],17:[function(require,module,exports){
+},{"./None":10,"./Overlay":12,"./YouTube":19,"./redux/actionTypes":20,"./redux/actions":21,"react":"react"}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1859,6 +1917,10 @@ var _Controls2 = _interopRequireDefault(_Controls);
 var _MediaList = require('./MediaList');
 
 var _MediaList2 = _interopRequireDefault(_MediaList);
+
+var _NowPlaying = require('./NowPlaying');
+
+var _NowPlaying2 = _interopRequireDefault(_NowPlaying);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1892,6 +1954,11 @@ var VideoPlayer = _react2.default.createClass({
         overlay: this.props.overlay,
         dispatch: this.props.dispatch
       }),
+      _react2.default.createElement(_NowPlaying2.default, {
+        current: this.props.current,
+        controls: this.props.controls,
+        dispatch: this.props.dispatch
+      }),
       _react2.default.createElement(_MediaList2.default, {
         current: this.props.current,
         controls: this.props.controls,
@@ -1903,7 +1970,7 @@ var VideoPlayer = _react2.default.createClass({
 
 exports.default = VideoPlayer;
 
-},{"./Controls":6,"./MediaList":9,"./Video":16,"react":"react"}],18:[function(require,module,exports){
+},{"./Controls":6,"./MediaList":9,"./NowPlaying":11,"./Video":17,"react":"react"}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2126,7 +2193,7 @@ var YouTube = _react2.default.createClass({
 
 exports.default = YouTube;
 
-},{"./redux/actionTypes":19,"./redux/actions":20,"classnames":"classnames","react":"react","react-dom":"react-dom","react-script-loader":"react-script-loader","react-timer-mixin":"react-timer-mixin"}],19:[function(require,module,exports){
+},{"./redux/actionTypes":20,"./redux/actions":21,"classnames":"classnames","react":"react","react-dom":"react-dom","react-script-loader":"react-script-loader","react-timer-mixin":"react-timer-mixin"}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2184,7 +2251,7 @@ var SOURCES = exports.SOURCES = {
 // YT.PlayerState.BUFFERING (3)
 // YT.PlayerState.CUED (5)
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2288,7 +2355,7 @@ function selectPlaylist(index) {
   return { type: _actionTypes.SELECT_PLAYLIST, playlist: index };
 }
 
-},{"./actionTypes":19}],21:[function(require,module,exports){
+},{"./actionTypes":20}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2616,7 +2683,7 @@ function reducer() {
   };
 }
 
-},{"./actionTypes":19}],22:[function(require,module,exports){
+},{"./actionTypes":20}],23:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -2649,7 +2716,7 @@ _reactDom2.default.render(_react2.default.createElement(
   (0, _routes2.default)()
 ), document.getElementById('app'));
 
-},{"./routes":23,"history/lib/createBrowserHistory":30,"react":"react","react-dom":"react-dom","react-router":"react-router"}],23:[function(require,module,exports){
+},{"./routes":24,"history/lib/createBrowserHistory":31,"react":"react","react-dom":"react-dom","react-router":"react-router"}],24:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2685,7 +2752,7 @@ var _Jukebox2 = _interopRequireDefault(_Jukebox);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"./components/App":1,"./components/Home":3,"./components/jukebox/Jukebox":7,"react":"react","react-router":"react-router"}],24:[function(require,module,exports){
+},{"./components/App":1,"./components/Home":3,"./components/jukebox/Jukebox":7,"react":"react","react-router":"react-router"}],25:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -2778,7 +2845,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 /**
  * Indicates that navigation was caused by a call to history.push.
  */
@@ -2810,7 +2877,7 @@ exports['default'] = {
   REPLACE: REPLACE,
   POP: POP
 };
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -2837,7 +2904,7 @@ function loopAsync(turns, work, callback) {
 
   next();
 }
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 (function (process){
 /*eslint-disable no-empty */
 'use strict';
@@ -2908,7 +2975,7 @@ function readState(key) {
   return null;
 }
 }).call(this,require('_process'))
-},{"_process":24,"warning":42}],28:[function(require,module,exports){
+},{"_process":25,"warning":43}],29:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -2989,13 +3056,13 @@ function supportsGoWithoutReloadUsingHash() {
   var ua = navigator.userAgent;
   return ua.indexOf('Firefox') === -1;
 }
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
 var canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
 exports.canUseDOM = canUseDOM;
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -3176,7 +3243,7 @@ function createBrowserHistory() {
 exports['default'] = createBrowserHistory;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"./Actions":25,"./DOMStateStorage":27,"./DOMUtils":28,"./ExecutionEnvironment":29,"./createDOMHistory":31,"./parsePath":36,"_process":24,"invariant":41}],31:[function(require,module,exports){
+},{"./Actions":26,"./DOMStateStorage":28,"./DOMUtils":29,"./ExecutionEnvironment":30,"./createDOMHistory":32,"./parsePath":37,"_process":25,"invariant":42}],32:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -3219,7 +3286,7 @@ function createDOMHistory(options) {
 exports['default'] = createDOMHistory;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"./DOMUtils":28,"./ExecutionEnvironment":29,"./createHistory":32,"_process":24,"invariant":41}],32:[function(require,module,exports){
+},{"./DOMUtils":29,"./ExecutionEnvironment":30,"./createHistory":33,"_process":25,"invariant":42}],33:[function(require,module,exports){
 //import warning from 'warning'
 'use strict';
 
@@ -3511,7 +3578,7 @@ function createHistory() {
 
 exports['default'] = createHistory;
 module.exports = exports['default'];
-},{"./Actions":25,"./AsyncUtils":26,"./createLocation":33,"./deprecate":34,"./parsePath":36,"./runTransitionHook":37,"deep-equal":38}],33:[function(require,module,exports){
+},{"./Actions":26,"./AsyncUtils":27,"./createLocation":34,"./deprecate":35,"./parsePath":37,"./runTransitionHook":38,"deep-equal":39}],34:[function(require,module,exports){
 //import warning from 'warning'
 'use strict';
 
@@ -3566,7 +3633,7 @@ function createLocation() {
 
 exports['default'] = createLocation;
 module.exports = exports['default'];
-},{"./Actions":25,"./parsePath":36}],34:[function(require,module,exports){
+},{"./Actions":26,"./parsePath":37}],35:[function(require,module,exports){
 //import warning from 'warning'
 
 "use strict";
@@ -3582,7 +3649,7 @@ function deprecate(fn) {
 
 exports["default"] = deprecate;
 module.exports = exports["default"];
-},{}],35:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -3596,7 +3663,7 @@ function extractPath(string) {
 
 exports["default"] = extractPath;
 module.exports = exports["default"];
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -3643,7 +3710,7 @@ function parsePath(path) {
 exports['default'] = parsePath;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"./extractPath":35,"_process":24,"warning":42}],37:[function(require,module,exports){
+},{"./extractPath":36,"_process":25,"warning":43}],38:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -3670,7 +3737,7 @@ function runTransitionHook(hook, location, callback) {
 exports['default'] = runTransitionHook;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"_process":24,"warning":42}],38:[function(require,module,exports){
+},{"_process":25,"warning":43}],39:[function(require,module,exports){
 var pSlice = Array.prototype.slice;
 var objectKeys = require('./lib/keys.js');
 var isArguments = require('./lib/is_arguments.js');
@@ -3766,7 +3833,7 @@ function objEquiv(a, b, opts) {
   return typeof a === typeof b;
 }
 
-},{"./lib/is_arguments.js":39,"./lib/keys.js":40}],39:[function(require,module,exports){
+},{"./lib/is_arguments.js":40,"./lib/keys.js":41}],40:[function(require,module,exports){
 var supportsArgumentsClass = (function(){
   return Object.prototype.toString.call(arguments)
 })() == '[object Arguments]';
@@ -3788,7 +3855,7 @@ function unsupported(object){
     false;
 };
 
-},{}],40:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 exports = module.exports = typeof Object.keys === 'function'
   ? Object.keys : shim;
 
@@ -3799,7 +3866,7 @@ function shim (obj) {
   return keys;
 }
 
-},{}],41:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -3854,7 +3921,7 @@ var invariant = function(condition, format, a, b, c, d, e, f) {
 module.exports = invariant;
 
 }).call(this,require('_process'))
-},{"_process":24}],42:[function(require,module,exports){
+},{"_process":25}],43:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -3918,4 +3985,4 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = warning;
 
 }).call(this,require('_process'))
-},{"_process":24}]},{},[22]);
+},{"_process":25}]},{},[23]);

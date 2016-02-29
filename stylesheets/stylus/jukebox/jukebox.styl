@@ -2,12 +2,12 @@ $jukebox-width = 640px
 $jukebox-height = 360px
 $jukebox-margin = 60px
 $jukebox-padding = 100px
-$border = 1px $gray7 dashed
+$jukebox-border = 1px $gray7 dashed
 
 input
   background: transparent
   color: $gray1
-  border: $border
+  border: $jukebox-border
   padding: 0 10px
   font-weight: 400
   width: 100%
@@ -15,7 +15,7 @@ input
   &:focus
     outline: 1px $green-light dashed
     outline-offset: -1px
-  &+ .search-clear
+  &~ .search-clear
     position: absolute
     top: 0
     right: 0
@@ -79,7 +79,7 @@ input
     overflow: hidden
 
 .playlists
-  border: $border
+  border: $jukebox-border
   padding: 20px 0
   width: $jukebox-width
   max-height: $jukebox-height
@@ -110,7 +110,7 @@ input
   position: relative
 
 .video-none
-  border: $border
+  border: $jukebox-border
   width: $jukebox-width
   height: $jukebox-height
   visibility: visible
@@ -248,7 +248,7 @@ input
 .media-search-input
   padding-left: 40px
   padding-right: 120px
-  &:focus + .media-search-count
+  &:focus ~ .media-search-count
     color: $green-light
 
 .media-search-count
@@ -316,7 +316,6 @@ input
       border-left-color: $green-light
   &.played
     opacity: 0.2
-    font-style: italic
     border-bottom-color: transparent;
     color: $gray6
     background-color: inherit !important
@@ -360,14 +359,59 @@ input
   &:hover
     color: $green-light
 
-.click
-  position: absolute
-  top: -30px
-  cursor: pointer
+.now-playing
+  display: flex
+  flex-direction: row
+  align-items: center
+  justify-content: center
+  opacity: 1
+  transition: opacity 0.1s ease-in
+  height: 40px
   width: 100%
-  > div
-    display: inline-block
-    margin-right: 10px
+  padding: 10px 15px
+  margin-top: 10px
+  &.invisible
+    position: absolute
+    pointer-events: none
+    opacity: 0
+    transition: opacity 0.2s ease-out
+  &.hidden
+    display: none
+
+.now-playing-icon
+  font-size: 24px
+  display: inline-block
+  margin-left: -1px
+  margin-right: 11px
+  margin-top: 1px
+  flex-shrink: 0
+  color: $gray6
+
+.now-playing-display
+  flex-shrink: 0
+  display: flex
+  flex-direction: row
+  max-width: calc(100% - 25px)
+
+.now-playing-name
+  font-size: 12px
+  letter-spacing: 1.5px
+  text-transform: uppercase
+  display: flex
+  color: $gray6
+  align-items: center
+  margin-top: -1px
+  margin-right: 8px
+  flex-shrink: 0
+
+.now-playing-title
+  margin-top: -3px
+  font-weight: 400
+  color: $green-light
+  flex-grow: 1
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
 
 .loading-spinner
   font-size: 22px
@@ -377,3 +421,12 @@ input
 @keyframes loading
   0% { transform: rotateZ(0) }
   100% { transform: rotateZ(359deg) }
+
+.click
+  position: absolute
+  top: -30px
+  cursor: pointer
+  width: 100%
+  > div
+    display: inline-block
+    margin-right: 10px
