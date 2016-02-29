@@ -1317,7 +1317,7 @@ var Search = _react2.default.createClass({
     var hours = String(Math.floor(m.asHours() % 60));
     return [hours, minutes, seconds].map(function (x) {
       return x.length === 1 ? '0' + x : x;
-    }).join(':').replace(/^[0:]+/g, '');
+    }).join(':').replace(/^[0:]+(.*?\d:\d{2})$/g, '$1');
   },
 
   _formatViews: function _formatViews(views) {

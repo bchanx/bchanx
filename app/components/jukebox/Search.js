@@ -74,7 +74,7 @@ var Search = React.createClass({
     let seconds = String(m.asSeconds() % 60);
     let minutes = String(Math.floor(m.asMinutes() % 60));
     let hours = String(Math.floor(m.asHours() % 60));
-    return [hours, minutes, seconds].map(x => x.length === 1 ? '0' + x : x).join(':').replace(/^[0:]+/g, '');
+    return [hours, minutes, seconds].map(x => x.length === 1 ? '0' + x : x).join(':').replace(/^[0:]+(.*?\d:\d{2})$/g, '$1');
   },
 
   _formatViews: function(views) {
