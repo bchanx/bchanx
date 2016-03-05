@@ -20,7 +20,8 @@ var Controls = React.createClass({
       previousDisabled: false,
       nextDisabled: false,
       repeatDisabled: false,
-      shuffleDisabled: false
+      shuffleDisabled: false,
+      playlistDisabled: false
     };
   },
 
@@ -34,7 +35,8 @@ var Controls = React.createClass({
       previousDisabled: nextProps.current.source === SOURCES.QUEUE || !nextProps.current.index,
       nextDisabled: endReached,
       repeatDisabled: endReached || nextProps.current.isInvalid || nextProps.overlay.show,
-      shuffleDisabled: nextProps.current.isInvalid || nextProps.overlay.show || !nextProps.current.order.length
+      shuffleDisabled: nextProps.current.isInvalid || nextProps.overlay.show || !nextProps.current.order.length,
+      playlistDisabled: !(nextProps.current.order.length || nextProps.current.queue.length)
     });
   },
 
@@ -69,7 +71,9 @@ var Controls = React.createClass({
   },
 
   playlist: function() {
-    this.props.dispatch(playlist());
+    if (!this.state.playlistDisabled) {
+      this.props.dispatch(playlist());
+    }
   },
 
   render: function() {
@@ -108,7 +112,8 @@ var Controls = React.createClass({
           <span className="ion-ios-shuffle-strong"></span>
         </div>
         <div className={classNames("playlist-button", {
-          active: this.props.controls.playlist
+          active: this.props.controls.playlist,
+          disabled: this.state.playlistDisabled
         })} onClick={this.playlist}>
           <span className="ion-ios-list-outline"></span>
         </div>

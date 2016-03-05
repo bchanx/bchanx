@@ -37,9 +37,13 @@ var MediaGroup = React.createClass({
         played: played,
         idx: idx
       };
-    }).sort((a, b) => {
-      return !a.hidden ? -1 : !b.hidden ? 1 : 0;
-    }).map(p => {
+    });
+    
+    filteredPlaylist.sort((a, b) => {
+      return a.hidden && !b.hidden ? 1 : !a.hidden && b.hidden ? -1 : a.idx - b.idx;
+    });
+    
+    filteredPlaylist = filteredPlaylist.map(p => {
       let onClickHandler = this.playMedia.bind(this, p);
       return (
         <div key={p.type + '_' + p.id} className={classNames("media-item", {

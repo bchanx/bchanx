@@ -292,7 +292,8 @@ var Controls = _react2.default.createClass({
       previousDisabled: false,
       nextDisabled: false,
       repeatDisabled: false,
-      shuffleDisabled: false
+      shuffleDisabled: false,
+      playlistDisabled: false
     };
   },
 
@@ -306,7 +307,8 @@ var Controls = _react2.default.createClass({
       previousDisabled: nextProps.current.source === _actionTypes.SOURCES.QUEUE || !nextProps.current.index,
       nextDisabled: endReached,
       repeatDisabled: endReached || nextProps.current.isInvalid || nextProps.overlay.show,
-      shuffleDisabled: nextProps.current.isInvalid || nextProps.overlay.show || !nextProps.current.order.length
+      shuffleDisabled: nextProps.current.isInvalid || nextProps.overlay.show || !nextProps.current.order.length,
+      playlistDisabled: !(nextProps.current.order.length || nextProps.current.queue.length)
     });
   },
 
@@ -341,7 +343,9 @@ var Controls = _react2.default.createClass({
   },
 
   playlist: function playlist() {
-    this.props.dispatch((0, _actions.playlist)());
+    if (!this.state.playlistDisabled) {
+      this.props.dispatch((0, _actions.playlist)());
+    }
   },
 
   render: function render() {
@@ -393,7 +397,8 @@ var Controls = _react2.default.createClass({
       _react2.default.createElement(
         'div',
         { className: (0, _classnames2.default)("playlist-button", {
-            active: this.props.controls.playlist
+            active: this.props.controls.playlist,
+            disabled: this.state.playlistDisabled
           }), onClick: this.playlist },
         _react2.default.createElement('span', { className: 'ion-ios-list-outline' })
       )
@@ -519,6 +524,81 @@ var Jukebox = _react2.default.createClass({
           type: _actionTypes.TYPES.YOUTUBE,
           title: 'fifth',
           duration: '5:55'
+        }, {
+          id: "2EaE0_gQLw0",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'fourth',
+          duration: '4:44'
+        }, {
+          id: "Qsy7kJyizoc",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'fourth',
+          duration: '4:44'
+        }, {
+          id: "Vsy1URDYK88",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'fourth',
+          duration: '4:44'
+        }, {
+          id: "nT3pHuebr4U",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'fourth',
+          duration: '4:44'
+        }, {
+          id: "hT_nvWreIhg",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'fourth',
+          duration: '4:44'
+        }, {
+          id: "OIRE6iw-ws4",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'fourth',
+          duration: '4:44'
+        }, {
+          id: "WFkCO4jVRg4",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'fourth',
+          duration: '4:44'
+        }, {
+          id: "uJorl7V3uNk",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'fourth',
+          duration: '4:44'
+        }, {
+          id: "qXuuh49aF1M",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'fourth',
+          duration: '4:44'
+        }, {
+          id: "YaikPv034Hc",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'fourth',
+          duration: '4:44'
+        }, {
+          id: "m4RbODbWRVI",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'fourth',
+          duration: '4:44'
+        }, {
+          id: "BwWzSyxNc9I",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'fourth',
+          duration: '4:44'
+        }, {
+          id: "wxvz_w2JUkU",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'fourth',
+          duration: '4:44'
+        }, {
+          id: "OPf0YbXqDm0",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'fourth',
+          duration: '4:44'
+        }, {
+          id: "WoCfFoQeWoU",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'fourth',
+          duration: '4:44'
         }]
       }]
     };
@@ -701,9 +781,13 @@ var MediaGroup = _react2.default.createClass({
         played: played,
         idx: idx
       };
-    }).sort(function (a, b) {
-      return !a.hidden ? -1 : !b.hidden ? 1 : 0;
-    }).map(function (p) {
+    });
+
+    filteredPlaylist.sort(function (a, b) {
+      return a.hidden && !b.hidden ? 1 : !a.hidden && b.hidden ? -1 : a.idx - b.idx;
+    });
+
+    filteredPlaylist = filteredPlaylist.map(function (p) {
       var onClickHandler = _this.playMedia.bind(_this, p);
       return _react2.default.createElement(
         'div',
