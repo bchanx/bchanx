@@ -102,6 +102,32 @@ input
   width: $jukebox-width
   padding-bottom: 100px
   border-bottom: 0px transparent solid
+  &.sticky
+    .video-controller
+      background-color: $black
+      position: fixed
+      position: sticky
+      top: -100px
+      z-index: 1
+      transform: translateZ(0)
+      &:after
+        display: block
+
+.video-controller
+  padding-top: 10px
+  width: $jukebox-width + 40px
+  margin-left: -20px
+  padding-left: 20px
+  padding-right: 20px
+  &:after
+    position: absolute
+    left: 0
+    bottom: -20px
+    background: linear-gradient($black, $black 30%, transparent)
+    content: ""
+    width: 100%
+    height: 20px
+    display: none
 
 .video
   width: $jukebox-width
@@ -201,8 +227,8 @@ input
     max-height: 0
 
 .controls
-  margin-top: 10px
   width: $jukebox-width
+  height: 40px
   display: flex
   flex-direction: row
   flex-shrink: 0
@@ -212,6 +238,7 @@ input
     display: none
   div[class*="-button"]
     flex-shrink: 0
+    align-self: center
     padding: 3px 10px
     margin: 0 3px
     cursor: pointer
@@ -225,14 +252,31 @@ input
         color: $green-light
     &.disabled
       opacity: 0.05
+      cursor: initial
 
 .media-list
-  margin-top: 10px
+  width: $jukebox-width + 40px
+  margin-left: -20px
   &.hidden
     display: none
 
 .media-search
+  margin-top: 10px
   position: relative
+
+.media-search,
+.media-list
+  opacity: 1
+  max-height: 9999px
+  transition: opacity 0.2s ease-out, max-height 0.2s ease-out
+  &.invisible
+    max-height: 0
+    overflow: hidden
+    pointer-events: none
+    opacity: 0
+    transition: opacity 0.2s ease-in, max-height 0.2s ease-in
+
+    
 
 .media-search-icon
   position: absolute
@@ -262,14 +306,14 @@ input
   pointer-events: none
 
 .media-group
-  margin-top: 20px
+  margin: 20px 20px 0
   &.queue
-    padding: 12px 20px
-    margin: 20px -20px
+    margin-left: 0
+    margin-right: 0
+    padding: 12px 0
     background-color: $gray10
-    .media-items
-      width: 680px
-      margin: 0 -20px
+    .media-group-name
+      padding-left: 62px
     .media-item
       padding-left: 30px
       padding-right: 30px
@@ -289,12 +333,15 @@ input
   text-transform: uppercase
   color: $green-lightest
   text-decoration: underline
+  opacity: 1
+  max-height: 15px
   &.hidden
-    opacity: 0.2
-    color: $gray6
+    opacity: 0
+    max-height: 0
+    transition: opacity 0.2s ease-out, max-height 0.1s ease-out 0.1s
 
 .media-items
-  width: $jukebox-width
+  width: 100%
   flex-shrink: 0
 
 .media-item
@@ -304,6 +351,7 @@ input
   padding: 7px 10px
   border-bottom: 1px $gray9 dashed
   opacity: 0.8
+  max-height: 38px
   &.active
     opacity: 1
     background-color: $gray10
@@ -325,6 +373,12 @@ input
     background-color: $gray10
     text-decoration: none !important
   &.hidden
+    max-height: 0
+    overflow: hidden
+    transition: max-height 0.2s ease-out, opacity 0.2s ease-out, color 0.2s ease-out, padding 0.1s ease-out 0.1s
+    padding-top: 0
+    padding-bottom: 0
+    border-bottom: none
     opacity: 0.2
     color: $gray6
     pointer-events: none
@@ -368,13 +422,7 @@ input
   transition: opacity 0.1s ease-in
   height: 40px
   width: 100%
-  padding: 10px 15px
-  margin-top: 10px
-  &.invisible
-    position: absolute
-    pointer-events: none
-    opacity: 0
-    transition: opacity 0.2s ease-out
+  padding: 15px 15px 5px
   &.hidden
     display: none
 
@@ -412,6 +460,8 @@ input
   overflow: hidden
   text-overflow: ellipsis
   white-space: nowrap
+  .none
+    color: $gray6
 
 .loading-spinner
   font-size: 22px

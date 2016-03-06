@@ -6,6 +6,7 @@ import {
   PLAYLIST,
   INVALID,
   FULLSCREEN,
+  VIDEO_SHOWING,
   NOW_PLAYING,
   PLAY_NEXT,
   QUEUE_NEXT,
@@ -123,6 +124,11 @@ let current = function(state, action, controls, playlists) {
     case FULLSCREEN:
       return update(state, {
         isFullscreen: action.status
+      });
+
+    case VIDEO_SHOWING:
+      return update(state, {
+        isVideoShowing: action.status
       });
 
     case NOW_PLAYING:

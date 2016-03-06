@@ -16,6 +16,7 @@ export const HIDE_OVERLAY = 'HIDE_OVERLAY';
 // Current
 export const INVALID = 'INVALID';
 export const FULLSCREEN = 'FULLSCREEN';
+export const VIDEO_SHOWING = 'VIDEO_SHOWING';
 export const NOW_PLAYING = 'NOW_PLAYING';
 export const PLAY_NEXT = 'PLAY_NEXT';
 export const PLAY_PREV = 'PLAY_PREV';

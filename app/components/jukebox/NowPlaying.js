@@ -15,13 +15,12 @@ var NowPlaying = React.createClass({
   render: function() {
     return (
       <div className={classNames("now-playing", {
-        invisible: this.props.controls.playlist,
-        hidden: this.props.current.media.type === TYPES.UNKNOWN
+        hidden: this.props.current.media.type === TYPES.UNKNOWN && !this.props.current.order.length
       })}>
         <div className="now-playing-icon ion-ios-volume-high"></div>
         <div className="now-playing-display">
           <div className="now-playing-name">now playing:</div>
-          <div className="now-playing-title">{this.props.current.media.title}</div>
+          <div className="now-playing-title">{this.props.current.media.title || <span className="none">—</span>}</div>
         </div>
       </div>
     );

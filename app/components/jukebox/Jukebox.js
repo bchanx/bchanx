@@ -6,6 +6,7 @@ import VideoPlayer from './VideoPlayer';
 import Search from './Search';
 import Slidr from './Slidr';
 import { TYPES, SOURCES } from './redux/actionTypes';
+import { videoShowing } from './redux/actions';
 import reducer from './redux/reducers';
 
 var Jukebox = React.createClass({
@@ -14,11 +15,11 @@ var Jukebox = React.createClass({
 
   getInitialState: function() {
     return {
-      videoShowing: true,
       current: {
         isPlaying: false,
         isInvalid: false,
         isFullscreen: false,
+        isVideoShowing: true,
         source: SOURCES.UNKNOWN,
         playStates: [],
         index: null,
@@ -195,14 +196,10 @@ var Jukebox = React.createClass({
     if (!this.slidr.timer) {
       this.slidr.timer = this.setTimeout(() => {
         if (e.out.slidr === 'video-player') {
-          this.forceUpdate({
-            videoShowing: false
-          });
+          this.dispatch(videoShowing(false));
         }
         else if (e.in.slidr === 'video-player') {
-          this.forceUpdate({
-            videoShowing: true
-          });
+          this.dispatch(videoShowing(true));
         }
         this.slidr.timer = null;
       }, 100);
@@ -236,7 +233,7 @@ var Jukebox = React.createClass({
         <div className={classNames("jukebox", {
           active: this.slidr.loaded
         })}>
-          <Slidr id="jukebox-slidr" className={this.state.videoShowing ? '' : 'video-not-showing'} onLoaded={this.slidrCreate}>
+          <Slidr id="jukebox-slidr" className={this.state.current.isVideoShowing ? '' : 'video-not-showing'} onLoaded={this.slidrCreate}>
             <Playlists
               current={this.state.current}
               playlists={this.state.playlists}

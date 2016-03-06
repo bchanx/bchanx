@@ -6,6 +6,7 @@ import {
   PLAYLIST,
   INVALID,
   FULLSCREEN,
+  VIDEO_SHOWING,
   SHOW_OVERLAY,
   HIDE_OVERLAY,
   SEARCH_TOGGLE,
@@ -46,6 +47,10 @@ export function invalid(status) {
 
 export function fullscreen(status) {
   return { type: FULLSCREEN, status: !!status };
+}
+
+export function videoShowing(status) {
+  return { type: VIDEO_SHOWING, status: !!status };
 }
 
 export function showOverlay(duration, action) {

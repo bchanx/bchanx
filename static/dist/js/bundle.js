@@ -344,7 +344,7 @@ var Controls = _react2.default.createClass({
 
   playlist: function playlist() {
     if (!this.state.playlistDisabled) {
-      this.props.dispatch((0, _actions.playlist)());
+      this.props.dispatch((0, _actions.playlist)(), (0, _actions.videoShowing)(true));
     }
   },
 
@@ -408,7 +408,7 @@ var Controls = _react2.default.createClass({
 
 exports.default = Controls;
 
-},{"./redux/actionTypes":20,"./redux/actions":21,"classnames":"classnames","react":"react"}],7:[function(require,module,exports){
+},{"./redux/actionTypes":21,"./redux/actions":22,"classnames":"classnames","react":"react"}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -445,6 +445,8 @@ var _Slidr2 = _interopRequireDefault(_Slidr);
 
 var _actionTypes = require('./redux/actionTypes');
 
+var _actions = require('./redux/actions');
+
 var _reducers = require('./redux/reducers');
 
 var _reducers2 = _interopRequireDefault(_reducers);
@@ -458,11 +460,11 @@ var Jukebox = _react2.default.createClass({
 
   getInitialState: function getInitialState() {
     return {
-      videoShowing: true,
       current: {
         isPlaying: false,
         isInvalid: false,
         isFullscreen: false,
+        isVideoShowing: true,
         source: _actionTypes.SOURCES.UNKNOWN,
         playStates: [],
         index: null,
@@ -649,13 +651,9 @@ var Jukebox = _react2.default.createClass({
     if (!this.slidr.timer) {
       this.slidr.timer = this.setTimeout(function () {
         if (e.out.slidr === 'video-player') {
-          _this2.forceUpdate({
-            videoShowing: false
-          });
+          _this2.dispatch((0, _actions.videoShowing)(false));
         } else if (e.in.slidr === 'video-player') {
-          _this2.forceUpdate({
-            videoShowing: true
-          });
+          _this2.dispatch((0, _actions.videoShowing)(true));
         }
         _this2.slidr.timer = null;
       }, 100);
@@ -694,7 +692,7 @@ var Jukebox = _react2.default.createClass({
           }) },
         _react2.default.createElement(
           _Slidr2.default,
-          { id: 'jukebox-slidr', className: this.state.videoShowing ? '' : 'video-not-showing', onLoaded: this.slidrCreate },
+          { id: 'jukebox-slidr', className: this.state.current.isVideoShowing ? '' : 'video-not-showing', onLoaded: this.slidrCreate },
           _react2.default.createElement(_Playlists2.default, {
             current: this.state.current,
             playlists: this.state.playlists,
@@ -723,7 +721,7 @@ var Jukebox = _react2.default.createClass({
 
 exports.default = Jukebox;
 
-},{"./Playlists":14,"./Search":15,"./Slidr":16,"./VideoPlayer":18,"./redux/actionTypes":20,"./redux/reducers":22,"classnames":"classnames","react":"react","react-timer-mixin":"react-timer-mixin"}],8:[function(require,module,exports){
+},{"./Playlists":15,"./Search":16,"./Slidr":17,"./VideoPlayer":19,"./redux/actionTypes":21,"./redux/actions":22,"./redux/reducers":23,"classnames":"classnames","react":"react","react-timer-mixin":"react-timer-mixin"}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -783,10 +781,6 @@ var MediaGroup = _react2.default.createClass({
       };
     });
 
-    filteredPlaylist.sort(function (a, b) {
-      return a.hidden && !b.hidden ? 1 : !a.hidden && b.hidden ? -1 : a.idx - b.idx;
-    });
-
     filteredPlaylist = filteredPlaylist.map(function (p) {
       var onClickHandler = _this.playMedia.bind(_this, p);
       return _react2.default.createElement(
@@ -838,7 +832,7 @@ var MediaGroup = _react2.default.createClass({
 
 exports.default = MediaGroup;
 
-},{"./redux/actionTypes":20,"./redux/actions":21,"classnames":"classnames","react":"react"}],9:[function(require,module,exports){
+},{"./redux/actionTypes":21,"./redux/actions":22,"classnames":"classnames","react":"react"}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -868,74 +862,24 @@ var MediaList = _react2.default.createClass({
     return {
       current: {},
       controls: {},
+      search: '',
       dispatch: null
     };
   },
 
-  getInitialState: function getInitialState() {
-    return {
-      value: ''
-    };
-  },
-
-  handleChange: function handleChange(event) {
-    this.setState({
-      value: event.target.value,
-      search: event.target.value.toLowerCase()
-    });
-  },
-
-  clearSearch: function clearSearch() {
-    this.setState({
-      value: '',
-      search: ''
-    });
-  },
-
   render: function render() {
-    var _this = this;
-
-    var queueMatches = this.props.current.queue.filter(function (x) {
-      return x.title.toLowerCase().indexOf(_this.state.search) >= 0;
-    }).length;
-
-    var playlistMatches = this.props.current.order.filter(function (x) {
-      return x.title.toLowerCase().indexOf(_this.state.search) >= 0;
-    }).length;
-
-    var totalMatches = queueMatches + playlistMatches;
-
     return _react2.default.createElement(
       'div',
       { className: (0, _classnames2.default)("media-list", {
-          hidden: this.props.current.source === _actionTypes.SOURCES.UNKNOWN || !this.props.controls.playlist
+          invisible: !this.props.controls.playlist,
+          hidden: this.props.current.source === _actionTypes.SOURCES.UNKNOWN
         }) },
-      this.props.current.queue.length || this.props.current.order.length ? _react2.default.createElement(
-        'div',
-        { className: 'media-search' },
-        _react2.default.createElement('div', { className: 'media-search-icon ion-ios-settings' }),
-        _react2.default.createElement('input', {
-          className: 'media-search-input',
-          type: 'text',
-          placeholder: 'Find from playlist...',
-          value: this.state.value,
-          onChange: this.handleChange
-        }),
-        this.state.search ? _react2.default.createElement(
-          'div',
-          { className: 'media-search-count' },
-          totalMatches || 'No',
-          ' Match',
-          totalMatches === 1 ? '' : 'es'
-        ) : null,
-        this.state.search ? _react2.default.createElement('div', { className: 'search-clear ion-ios-close-empty', onClick: this.clearSearch }) : null
-      ) : null,
       this.props.current.queue.length ? _react2.default.createElement(_MediaGroup2.default, {
         name: 'queue',
         type: _actionTypes.SOURCES.QUEUE,
         playlist: this.props.current.queue,
         current: this.props.current,
-        search: this.state.search,
+        search: this.props.search,
         dispatch: this.props.dispatch
       }) : null,
       this.props.current.order.length ? _react2.default.createElement(_MediaGroup2.default, {
@@ -943,7 +887,7 @@ var MediaList = _react2.default.createClass({
         type: _actionTypes.SOURCES.PLAYLIST,
         playlist: this.props.current.order,
         current: this.props.current,
-        search: this.state.search,
+        search: this.props.search,
         dispatch: this.props.dispatch
       }) : null
     );
@@ -952,7 +896,88 @@ var MediaList = _react2.default.createClass({
 
 exports.default = MediaList;
 
-},{"./MediaGroup":8,"./redux/actionTypes":20,"classnames":"classnames","react":"react"}],10:[function(require,module,exports){
+},{"./MediaGroup":8,"./redux/actionTypes":21,"classnames":"classnames","react":"react"}],10:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var MediaSearch = _react2.default.createClass({
+  displayName: 'MediaSearch',
+
+  getDefaultProps: function getDefaultProps() {
+    return {
+      current: {},
+      controls: {},
+      value: '',
+      search: '',
+      updateSearch: null
+    };
+  },
+
+  handleChange: function handleChange(event) {
+    this.props.updateSearch(event.target.value);
+  },
+
+  clearSearch: function clearSearch() {
+    this.props.updateSearch('');
+    this.refs.mediaSearchInput.focus();
+  },
+
+  render: function render() {
+    var _this = this;
+
+    var queueMatches = this.props.current.queue.filter(function (x) {
+      return x.title.toLowerCase().indexOf(_this.props.search) >= 0;
+    }).length;
+
+    var playlistMatches = this.props.current.order.filter(function (x) {
+      return x.title.toLowerCase().indexOf(_this.props.search) >= 0;
+    }).length;
+
+    var totalMatches = queueMatches + playlistMatches;
+
+    return _react2.default.createElement(
+      'div',
+      { className: (0, _classnames2.default)("media-search", {
+          hidden: !(this.props.current.queue.length || this.props.current.order.length),
+          invisible: !this.props.controls.playlist
+        }) },
+      _react2.default.createElement('div', { className: 'media-search-icon ion-ios-settings' }),
+      _react2.default.createElement('input', {
+        ref: 'mediaSearchInput',
+        className: 'media-search-input',
+        type: 'text',
+        placeholder: 'Find from playlist...',
+        value: this.props.value,
+        onChange: this.handleChange
+      }),
+      this.props.search ? _react2.default.createElement(
+        'div',
+        { className: 'media-search-count' },
+        totalMatches || 'No',
+        ' Match',
+        totalMatches === 1 ? '' : 'es'
+      ) : null,
+      this.props.search ? _react2.default.createElement('div', { className: 'search-clear ion-ios-close-empty', onClick: this.clearSearch }) : null
+    );
+  }
+});
+
+exports.default = MediaSearch;
+
+},{"classnames":"classnames","react":"react"}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1076,7 +1101,7 @@ var None = _react2.default.createClass({
 
 exports.default = None;
 
-},{"./redux/actionTypes":20,"./redux/actions":21,"classnames":"classnames","react":"react"}],11:[function(require,module,exports){
+},{"./redux/actionTypes":21,"./redux/actions":22,"classnames":"classnames","react":"react"}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1110,8 +1135,7 @@ var NowPlaying = _react2.default.createClass({
     return _react2.default.createElement(
       'div',
       { className: (0, _classnames2.default)("now-playing", {
-          invisible: this.props.controls.playlist,
-          hidden: this.props.current.media.type === _actionTypes.TYPES.UNKNOWN
+          hidden: this.props.current.media.type === _actionTypes.TYPES.UNKNOWN && !this.props.current.order.length
         }) },
       _react2.default.createElement('div', { className: 'now-playing-icon ion-ios-volume-high' }),
       _react2.default.createElement(
@@ -1125,7 +1149,11 @@ var NowPlaying = _react2.default.createClass({
         _react2.default.createElement(
           'div',
           { className: 'now-playing-title' },
-          this.props.current.media.title
+          this.props.current.media.title || _react2.default.createElement(
+            'span',
+            { className: 'none' },
+            '—'
+          )
         )
       )
     );
@@ -1134,7 +1162,7 @@ var NowPlaying = _react2.default.createClass({
 
 exports.default = NowPlaying;
 
-},{"./redux/actionTypes":20,"classnames":"classnames","react":"react"}],12:[function(require,module,exports){
+},{"./redux/actionTypes":21,"classnames":"classnames","react":"react"}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1257,7 +1285,7 @@ var Overlay = _react2.default.createClass({
 
 exports.default = Overlay;
 
-},{"./OverlayLoading":13,"./redux/actions":21,"classnames":"classnames","react":"react","react-timer-mixin":"react-timer-mixin"}],13:[function(require,module,exports){
+},{"./OverlayLoading":14,"./redux/actions":22,"classnames":"classnames","react":"react","react-timer-mixin":"react-timer-mixin"}],14:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1290,7 +1318,7 @@ var OverlayLoading = _react2.default.createClass({
 
 exports.default = OverlayLoading;
 
-},{"react":"react"}],14:[function(require,module,exports){
+},{"react":"react"}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1356,7 +1384,7 @@ var Playlists = _react2.default.createClass({
 
 exports.default = Playlists;
 
-},{"./redux/actions":21,"react":"react"}],15:[function(require,module,exports){
+},{"./redux/actions":22,"react":"react"}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1796,7 +1824,7 @@ var Search = _react2.default.createClass({
 
 exports.default = Search;
 
-},{"./Common":5,"./redux/actionTypes":20,"./redux/actions":21,"classnames":"classnames","moment":"moment","react":"react","react-script-loader":"react-script-loader","react-timer-mixin":"react-timer-mixin"}],16:[function(require,module,exports){
+},{"./Common":5,"./redux/actionTypes":21,"./redux/actions":22,"classnames":"classnames","moment":"moment","react":"react","react-script-loader":"react-script-loader","react-timer-mixin":"react-timer-mixin"}],17:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1865,7 +1893,7 @@ var Slidr = _react2.default.createClass({
 
 exports.default = Slidr;
 
-},{"react":"react","react-script-loader":"react-script-loader"}],17:[function(require,module,exports){
+},{"react":"react","react-script-loader":"react-script-loader"}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1979,7 +2007,7 @@ var Video = _react2.default.createClass({
 
 exports.default = Video;
 
-},{"./None":10,"./Overlay":12,"./YouTube":19,"./redux/actionTypes":20,"./redux/actions":21,"react":"react"}],18:[function(require,module,exports){
+},{"./None":11,"./Overlay":13,"./YouTube":20,"./redux/actionTypes":21,"./redux/actions":22,"react":"react"}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1989,6 +2017,14 @@ Object.defineProperty(exports, "__esModule", {
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactTimerMixin = require('react-timer-mixin');
+
+var _reactTimerMixin2 = _interopRequireDefault(_reactTimerMixin);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
 
 var _Video = require('./Video');
 
@@ -2002,6 +2038,10 @@ var _MediaList = require('./MediaList');
 
 var _MediaList2 = _interopRequireDefault(_MediaList);
 
+var _MediaSearch = require('./MediaSearch');
+
+var _MediaSearch2 = _interopRequireDefault(_MediaSearch);
+
 var _NowPlaying = require('./NowPlaying');
 
 var _NowPlaying2 = _interopRequireDefault(_NowPlaying);
@@ -2010,6 +2050,25 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var VideoPlayer = _react2.default.createClass({
   displayName: 'VideoPlayer',
+
+  mixins: [_reactTimerMixin2.default],
+
+  componentDidMount: function componentDidMount() {
+    var _this = this;
+
+    this.setState({
+      isChrome: !!window.chrome
+    });
+    this.setInterval(function () {
+      var video = _this.refs.videoPlayer.children[0];
+      if (video) {
+        var bottom = video.getBoundingClientRect().bottom;
+        _this.setState({
+          sticky: -bottom
+        });
+      }
+    }, 0);
+  },
 
   getDefaultProps: function getDefaultProps() {
     return {
@@ -2021,10 +2080,28 @@ var VideoPlayer = _react2.default.createClass({
     };
   },
 
+  getInitialState: function getInitialState() {
+    return {
+      isChrome: false,
+      sticky: 0,
+      value: '',
+      search: ''
+    };
+  },
+
+  updateSearch: function updateSearch(value) {
+    this.setState({
+      value: value,
+      search: value.toLowerCase()
+    });
+  },
+
   render: function render() {
     return _react2.default.createElement(
       'div',
-      { className: 'video-player', 'data-slidr': 'video-player' },
+      { 'data-slidr': 'video-player', ref: 'videoPlayer', className: (0, _classnames2.default)("video-player", {
+          sticky: this.state.sticky > 0
+        }) },
       _react2.default.createElement(_Video2.default, {
         current: this.props.current,
         controls: this.props.controls,
@@ -2032,20 +2109,33 @@ var VideoPlayer = _react2.default.createClass({
         slidr: this.props.slidr,
         dispatch: this.props.dispatch
       }),
-      _react2.default.createElement(_Controls2.default, {
-        current: this.props.current,
-        controls: this.props.controls,
-        overlay: this.props.overlay,
-        dispatch: this.props.dispatch
-      }),
-      _react2.default.createElement(_NowPlaying2.default, {
-        current: this.props.current,
-        controls: this.props.controls,
-        dispatch: this.props.dispatch
-      }),
+      _react2.default.createElement(
+        'div',
+        { className: 'video-controller',
+          style: this.state.isChrome && this.state.sticky > 0 ? { paddingTop: '200px', top: 170 + this.state.sticky + 'px' } : null },
+        _react2.default.createElement(_Controls2.default, {
+          current: this.props.current,
+          controls: this.props.controls,
+          overlay: this.props.overlay,
+          dispatch: this.props.dispatch
+        }),
+        _react2.default.createElement(_NowPlaying2.default, {
+          current: this.props.current,
+          controls: this.props.controls,
+          dispatch: this.props.dispatch
+        }),
+        _react2.default.createElement(_MediaSearch2.default, {
+          current: this.props.current,
+          controls: this.props.controls,
+          value: this.state.value,
+          search: this.state.search,
+          updateSearch: this.updateSearch
+        })
+      ),
       _react2.default.createElement(_MediaList2.default, {
         current: this.props.current,
         controls: this.props.controls,
+        search: this.state.search,
         dispatch: this.props.dispatch
       })
     );
@@ -2054,7 +2144,7 @@ var VideoPlayer = _react2.default.createClass({
 
 exports.default = VideoPlayer;
 
-},{"./Controls":6,"./MediaList":9,"./NowPlaying":11,"./Video":17,"react":"react"}],19:[function(require,module,exports){
+},{"./Controls":6,"./MediaList":9,"./MediaSearch":10,"./NowPlaying":12,"./Video":18,"classnames":"classnames","react":"react","react-timer-mixin":"react-timer-mixin"}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2277,7 +2367,7 @@ var YouTube = _react2.default.createClass({
 
 exports.default = YouTube;
 
-},{"./redux/actionTypes":20,"./redux/actions":21,"classnames":"classnames","react":"react","react-dom":"react-dom","react-script-loader":"react-script-loader","react-timer-mixin":"react-timer-mixin"}],20:[function(require,module,exports){
+},{"./redux/actionTypes":21,"./redux/actions":22,"classnames":"classnames","react":"react","react-dom":"react-dom","react-script-loader":"react-script-loader","react-timer-mixin":"react-timer-mixin"}],21:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2301,6 +2391,7 @@ var HIDE_OVERLAY = exports.HIDE_OVERLAY = 'HIDE_OVERLAY';
 // Current
 var INVALID = exports.INVALID = 'INVALID';
 var FULLSCREEN = exports.FULLSCREEN = 'FULLSCREEN';
+var VIDEO_SHOWING = exports.VIDEO_SHOWING = 'VIDEO_SHOWING';
 var NOW_PLAYING = exports.NOW_PLAYING = 'NOW_PLAYING';
 var PLAY_NEXT = exports.PLAY_NEXT = 'PLAY_NEXT';
 var PLAY_PREV = exports.PLAY_PREV = 'PLAY_PREV';
@@ -2335,7 +2426,7 @@ var SOURCES = exports.SOURCES = {
 // YT.PlayerState.BUFFERING (3)
 // YT.PlayerState.CUED (5)
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2348,6 +2439,7 @@ exports.shuffle = shuffle;
 exports.playlist = playlist;
 exports.invalid = invalid;
 exports.fullscreen = fullscreen;
+exports.videoShowing = videoShowing;
 exports.showOverlay = showOverlay;
 exports.hideOverlay = hideOverlay;
 exports.searchToggle = searchToggle;
@@ -2389,6 +2481,10 @@ function invalid(status) {
 
 function fullscreen(status) {
   return { type: _actionTypes.FULLSCREEN, status: !!status };
+}
+
+function videoShowing(status) {
+  return { type: _actionTypes.VIDEO_SHOWING, status: !!status };
 }
 
 function showOverlay(duration, action) {
@@ -2439,7 +2535,7 @@ function selectPlaylist(index) {
   return { type: _actionTypes.SELECT_PLAYLIST, playlist: index };
 }
 
-},{"./actionTypes":20}],22:[function(require,module,exports){
+},{"./actionTypes":21}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2547,6 +2643,11 @@ var current = function current(state, action, controls, playlists) {
     case _actionTypes.FULLSCREEN:
       return update(state, {
         isFullscreen: action.status
+      });
+
+    case _actionTypes.VIDEO_SHOWING:
+      return update(state, {
+        isVideoShowing: action.status
       });
 
     case _actionTypes.NOW_PLAYING:
@@ -2767,7 +2868,7 @@ function reducer() {
   };
 }
 
-},{"./actionTypes":20}],23:[function(require,module,exports){
+},{"./actionTypes":21}],24:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -2800,7 +2901,7 @@ _reactDom2.default.render(_react2.default.createElement(
   (0, _routes2.default)()
 ), document.getElementById('app'));
 
-},{"./routes":24,"history/lib/createBrowserHistory":31,"react":"react","react-dom":"react-dom","react-router":"react-router"}],24:[function(require,module,exports){
+},{"./routes":25,"history/lib/createBrowserHistory":32,"react":"react","react-dom":"react-dom","react-router":"react-router"}],25:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2836,7 +2937,7 @@ var _Jukebox2 = _interopRequireDefault(_Jukebox);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"./components/App":1,"./components/Home":3,"./components/jukebox/Jukebox":7,"react":"react","react-router":"react-router"}],25:[function(require,module,exports){
+},{"./components/App":1,"./components/Home":3,"./components/jukebox/Jukebox":7,"react":"react","react-router":"react-router"}],26:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -2929,7 +3030,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 /**
  * Indicates that navigation was caused by a call to history.push.
  */
@@ -2961,7 +3062,7 @@ exports['default'] = {
   REPLACE: REPLACE,
   POP: POP
 };
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -2988,7 +3089,7 @@ function loopAsync(turns, work, callback) {
 
   next();
 }
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 (function (process){
 /*eslint-disable no-empty */
 'use strict';
@@ -3059,7 +3160,7 @@ function readState(key) {
   return null;
 }
 }).call(this,require('_process'))
-},{"_process":25,"warning":43}],29:[function(require,module,exports){
+},{"_process":26,"warning":44}],30:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -3140,13 +3241,13 @@ function supportsGoWithoutReloadUsingHash() {
   var ua = navigator.userAgent;
   return ua.indexOf('Firefox') === -1;
 }
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
 var canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
 exports.canUseDOM = canUseDOM;
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -3327,7 +3428,7 @@ function createBrowserHistory() {
 exports['default'] = createBrowserHistory;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"./Actions":26,"./DOMStateStorage":28,"./DOMUtils":29,"./ExecutionEnvironment":30,"./createDOMHistory":32,"./parsePath":37,"_process":25,"invariant":42}],32:[function(require,module,exports){
+},{"./Actions":27,"./DOMStateStorage":29,"./DOMUtils":30,"./ExecutionEnvironment":31,"./createDOMHistory":33,"./parsePath":38,"_process":26,"invariant":43}],33:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -3370,7 +3471,7 @@ function createDOMHistory(options) {
 exports['default'] = createDOMHistory;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"./DOMUtils":29,"./ExecutionEnvironment":30,"./createHistory":33,"_process":25,"invariant":42}],33:[function(require,module,exports){
+},{"./DOMUtils":30,"./ExecutionEnvironment":31,"./createHistory":34,"_process":26,"invariant":43}],34:[function(require,module,exports){
 //import warning from 'warning'
 'use strict';
 
@@ -3662,7 +3763,7 @@ function createHistory() {
 
 exports['default'] = createHistory;
 module.exports = exports['default'];
-},{"./Actions":26,"./AsyncUtils":27,"./createLocation":34,"./deprecate":35,"./parsePath":37,"./runTransitionHook":38,"deep-equal":39}],34:[function(require,module,exports){
+},{"./Actions":27,"./AsyncUtils":28,"./createLocation":35,"./deprecate":36,"./parsePath":38,"./runTransitionHook":39,"deep-equal":40}],35:[function(require,module,exports){
 //import warning from 'warning'
 'use strict';
 
@@ -3717,7 +3818,7 @@ function createLocation() {
 
 exports['default'] = createLocation;
 module.exports = exports['default'];
-},{"./Actions":26,"./parsePath":37}],35:[function(require,module,exports){
+},{"./Actions":27,"./parsePath":38}],36:[function(require,module,exports){
 //import warning from 'warning'
 
 "use strict";
@@ -3733,7 +3834,7 @@ function deprecate(fn) {
 
 exports["default"] = deprecate;
 module.exports = exports["default"];
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -3747,7 +3848,7 @@ function extractPath(string) {
 
 exports["default"] = extractPath;
 module.exports = exports["default"];
-},{}],37:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -3794,7 +3895,7 @@ function parsePath(path) {
 exports['default'] = parsePath;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"./extractPath":36,"_process":25,"warning":43}],38:[function(require,module,exports){
+},{"./extractPath":37,"_process":26,"warning":44}],39:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -3821,7 +3922,7 @@ function runTransitionHook(hook, location, callback) {
 exports['default'] = runTransitionHook;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"_process":25,"warning":43}],39:[function(require,module,exports){
+},{"_process":26,"warning":44}],40:[function(require,module,exports){
 var pSlice = Array.prototype.slice;
 var objectKeys = require('./lib/keys.js');
 var isArguments = require('./lib/is_arguments.js');
@@ -3917,7 +4018,7 @@ function objEquiv(a, b, opts) {
   return typeof a === typeof b;
 }
 
-},{"./lib/is_arguments.js":40,"./lib/keys.js":41}],40:[function(require,module,exports){
+},{"./lib/is_arguments.js":41,"./lib/keys.js":42}],41:[function(require,module,exports){
 var supportsArgumentsClass = (function(){
   return Object.prototype.toString.call(arguments)
 })() == '[object Arguments]';
@@ -3939,7 +4040,7 @@ function unsupported(object){
     false;
 };
 
-},{}],41:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 exports = module.exports = typeof Object.keys === 'function'
   ? Object.keys : shim;
 
@@ -3950,7 +4051,7 @@ function shim (obj) {
   return keys;
 }
 
-},{}],42:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -4005,7 +4106,7 @@ var invariant = function(condition, format, a, b, c, d, e, f) {
 module.exports = invariant;
 
 }).call(this,require('_process'))
-},{"_process":25}],43:[function(require,module,exports){
+},{"_process":26}],44:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -4069,4 +4170,4 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = warning;
 
 }).call(this,require('_process'))
-},{"_process":25}]},{},[23]);
+},{"_process":26}]},{},[24]);

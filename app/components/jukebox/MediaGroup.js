@@ -39,10 +39,6 @@ var MediaGroup = React.createClass({
       };
     });
     
-    filteredPlaylist.sort((a, b) => {
-      return a.hidden && !b.hidden ? 1 : !a.hidden && b.hidden ? -1 : a.idx - b.idx;
-    });
-    
     filteredPlaylist = filteredPlaylist.map(p => {
       let onClickHandler = this.playMedia.bind(this, p);
       return (

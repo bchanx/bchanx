@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { TYPES, SOURCES } from './redux/actionTypes';
-import { play, pause, repeat, shuffle, playlist, playNext, playPrev, hideOverlay } from './redux/actions';
+import { play, pause, repeat, shuffle, playlist, playNext, playPrev, hideOverlay, videoShowing } from './redux/actions';
 
 var Controls = React.createClass({
 
@@ -72,7 +72,7 @@ var Controls = React.createClass({
 
   playlist: function() {
     if (!this.state.playlistDisabled) {
-      this.props.dispatch(playlist());
+      this.props.dispatch(playlist(), videoShowing(true));
     }
   },
 
