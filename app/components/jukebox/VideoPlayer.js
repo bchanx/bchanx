@@ -54,7 +54,8 @@ var VideoPlayer = React.createClass({
   render: function() {
     return (
       <div data-slidr="video-player" ref="videoPlayer" className={classNames("video-player", {
-        sticky: this.state.sticky > 0
+        sticky: this.state.sticky > 0,
+        'is-chrome': this.state.isChrome
       })}>
         <Video
           current={this.props.current}

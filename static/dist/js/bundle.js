@@ -2100,7 +2100,8 @@ var VideoPlayer = _react2.default.createClass({
     return _react2.default.createElement(
       'div',
       { 'data-slidr': 'video-player', ref: 'videoPlayer', className: (0, _classnames2.default)("video-player", {
-          sticky: this.state.sticky > 0
+          sticky: this.state.sticky > 0,
+          'is-chrome': this.state.isChrome
         }) },
       _react2.default.createElement(_Video2.default, {
         current: this.props.current,
