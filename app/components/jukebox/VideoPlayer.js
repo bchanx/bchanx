@@ -22,7 +22,7 @@ var VideoPlayer = React.createClass({
           sticky: -bottom
         });
       }
-    }, 0);
+    }, window.chrome ? undefined : 0);
   },
 
   getDefaultProps: function() {

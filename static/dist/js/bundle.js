@@ -289,9 +289,9 @@ var Controls = _react2.default.createClass({
   getInitialState: function getInitialState() {
     return {
       playPauseDisabled: false,
+      muteDisabled: false,
       previousDisabled: false,
       nextDisabled: false,
-      muteDisabled: false,
       repeatDisabled: false,
       shuffleDisabled: false,
       playlistDisabled: false
@@ -305,9 +305,9 @@ var Controls = _react2.default.createClass({
     // Now set the control states
     this.setState({
       playPauseDisabled: !mediaValid || nextProps.current.isInvalid || nextProps.overlay.show,
+      muteDisabled: endReached,
       previousDisabled: nextProps.current.source === _actionTypes.SOURCES.QUEUE || !nextProps.current.index,
       nextDisabled: endReached,
-      muteDisabled: endReached,
       repeatDisabled: endReached || nextProps.current.isInvalid || nextProps.overlay.show,
       shuffleDisabled: nextProps.current.isInvalid || nextProps.overlay.show || !nextProps.current.order.length,
       playlistDisabled: !(nextProps.current.order.length || nextProps.current.queue.length)
@@ -320,6 +320,12 @@ var Controls = _react2.default.createClass({
     }
   },
 
+  mute: function mute() {
+    if (!this.state.muteDisabled) {
+      this.props.dispatch(this.props.current.isMuted ? (0, _actions.unmute)(true) : (0, _actions.mute)(true));
+    }
+  },
+
   previous: function previous() {
     if (!this.state.previousDisabled) {
       this.props.dispatch((0, _actions.hideOverlay)(), (0, _actions.playPrev)());
@@ -329,13 +335,6 @@ var Controls = _react2.default.createClass({
   next: function next() {
     if (!this.state.nextDisabled) {
       this.props.dispatch((0, _actions.hideOverlay)(), (0, _actions.playNext)());
-    }
-  },
-
-  mute: function mute() {
-    if (!this.state.muteDisabled) {
-      console.log("-->> currently muted?", this.props.current.isMuted);
-      this.props.dispatch(this.props.current.isMuted ? (0, _actions.unmute)(true) : (0, _actions.mute)(true));
     }
   },
 
@@ -375,6 +374,16 @@ var Controls = _react2.default.createClass({
       ),
       _react2.default.createElement(
         'div',
+        { className: (0, _classnames2.default)("mute-button", {
+            disabled: this.state.muteDisabled
+          }), onClick: this.mute },
+        _react2.default.createElement('span', { className: (0, _classnames2.default)({
+            'ion-android-volume-up': !this.props.current.isMuted,
+            'ion-android-volume-off': this.props.current.isMuted
+          }) })
+      ),
+      _react2.default.createElement(
+        'div',
         { className: (0, _classnames2.default)("prev-button", {
             disabled: this.state.previousDisabled
           }), onClick: this.previous },
@@ -386,16 +395,6 @@ var Controls = _react2.default.createClass({
             disabled: this.state.nextDisabled
           }), onClick: this.next },
         _react2.default.createElement('span', { className: 'ion-ios-skipforward' })
-      ),
-      _react2.default.createElement(
-        'div',
-        { className: (0, _classnames2.default)("mute-button", {
-            disabled: this.state.muteDisabled
-          }), onClick: this.mute },
-        _react2.default.createElement('span', { className: (0, _classnames2.default)({
-            'ion-android-volume-up': !this.props.current.isMuted,
-            'ion-android-volume-off': this.props.current.isMuted
-          }) })
       ),
       _react2.default.createElement(
         'div',
@@ -2089,7 +2088,7 @@ var VideoPlayer = _react2.default.createClass({
           sticky: -bottom
         });
       }
-    }, 0);
+    }, window.chrome ? undefined : 0);
   },
 
   getDefaultProps: function getDefaultProps() {
