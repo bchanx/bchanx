@@ -4,7 +4,7 @@ import ReactTimerMixin from 'react-timer-mixin';
 import { ReactScriptLoaderMixin } from 'react-script-loader';
 import classNames from 'classnames';
 import { TYPES } from './redux/actionTypes';
-import { play, pause, nowPlaying, playNext, invalid, showOverlay, hideOverlay, fullscreen } from './redux/actions';
+import { play, pause, mute, unmute, nowPlaying, playNext, invalid, showOverlay, hideOverlay, fullscreen, audioMuted } from './redux/actions';
 
 var YouTube = React.createClass({
 
@@ -76,6 +76,13 @@ var YouTube = React.createClass({
         if (nextProps.current.media.id !== this.props.current.media.id) {
           this._youtube.loadVideoById(nextProps.current.media.id);
         }
+
+        if (nextProps.current.isMuted && !this._youtube.isMuted()) {
+          this.props.dispatch(audioMuted(false));
+        }
+        if (!nextProps.current.isMuted && this._youtube.isMuted()) {
+          this.props.dispatch(audioMuted(true));
+        }
       }
       else if (this.props.current.isPlaying) {
         this._youtube.pauseVideo();
@@ -98,6 +105,8 @@ var YouTube = React.createClass({
   componentDidUpdate: function() {
     if (this.props.current.media.type === TYPES.YOUTUBE) {
       let dispatchQueue = [];
+
+      // Check playback state
       if (this.props.controls.play) {
         this._youtube.playVideo();
         dispatchQueue.push(play(false));
@@ -106,6 +115,17 @@ var YouTube = React.createClass({
         this._youtube.pauseVideo();
         dispatchQueue.push(pause(false));
       }
+
+      // Check volume
+      if (this.props.controls.mute) {
+        this._youtube.mute();
+        dispatchQueue.push(mute(false), audioMuted(true));
+      }
+      else if (this.props.controls.unmute) {
+        this._youtube.unMute();
+        dispatchQueue.push(unmute(false), audioMuted(false));
+      }
+
       // Check whether the current state is valid
       if (this._isInvalid()) {
         if (!this.props.current.isInvalid) {
@@ -120,8 +140,7 @@ var YouTube = React.createClass({
       }
       else {
         if (this.props.current.isInvalid) {
-          dispatchQueue.push(invalid(false));
-          dispatchQueue.push(hideOverlay());
+          dispatchQueue.push(invalid(false), hideOverlay());
         }
       }
       this.props.dispatch(...dispatchQueue);
@@ -149,11 +168,11 @@ var YouTube = React.createClass({
   },
 
   onPlayerReady: function(event) {
-    // TODO: set volume to 100
-    event.target.setVolume(0);
+    event.target.setVolume(100);
     this.setState({
       ready: true
     });
+    this.props.dispatch(mute(true));
   },
 
   onPlayerStateChange: function(event) {

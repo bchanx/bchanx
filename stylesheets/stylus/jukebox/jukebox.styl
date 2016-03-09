@@ -105,14 +105,15 @@ input
   &.sticky
     .video-controller
       background-color: $black
-      position: fixed
-      position: sticky
-      top: -100px
-      z-index: 1
-      transform: translateZ(0)
       &:after
         display: block
+    .now-playing
+      padding-top: 5px
+    .controls
+      padding-top: 10px
     &.is-chrome
+      .video-controller
+        position: fixed
       .media-list
         padding-top: 140px
 
@@ -122,6 +123,10 @@ input
   margin-left: -20px
   padding-left: 20px
   padding-right: 20px
+  position: sticky
+  top: -100px
+  z-index: 1
+  transform: translateZ(0)
   &:after
     position: absolute
     left: 0
@@ -266,6 +271,8 @@ input
 .media-search
   margin-top: 10px
   position: relative
+  &.hidden
+    display: none
 
 .media-search,
 .media-list

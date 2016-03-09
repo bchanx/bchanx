@@ -291,6 +291,7 @@ var Controls = _react2.default.createClass({
       playPauseDisabled: false,
       previousDisabled: false,
       nextDisabled: false,
+      muteDisabled: false,
       repeatDisabled: false,
       shuffleDisabled: false,
       playlistDisabled: false
@@ -306,6 +307,7 @@ var Controls = _react2.default.createClass({
       playPauseDisabled: !mediaValid || nextProps.current.isInvalid || nextProps.overlay.show,
       previousDisabled: nextProps.current.source === _actionTypes.SOURCES.QUEUE || !nextProps.current.index,
       nextDisabled: endReached,
+      muteDisabled: endReached,
       repeatDisabled: endReached || nextProps.current.isInvalid || nextProps.overlay.show,
       shuffleDisabled: nextProps.current.isInvalid || nextProps.overlay.show || !nextProps.current.order.length,
       playlistDisabled: !(nextProps.current.order.length || nextProps.current.queue.length)
@@ -327,6 +329,13 @@ var Controls = _react2.default.createClass({
   next: function next() {
     if (!this.state.nextDisabled) {
       this.props.dispatch((0, _actions.hideOverlay)(), (0, _actions.playNext)());
+    }
+  },
+
+  mute: function mute() {
+    if (!this.state.muteDisabled) {
+      console.log("-->> currently muted?", this.props.current.isMuted);
+      this.props.dispatch(this.props.current.isMuted ? (0, _actions.unmute)(true) : (0, _actions.mute)(true));
     }
   },
 
@@ -377,6 +386,16 @@ var Controls = _react2.default.createClass({
             disabled: this.state.nextDisabled
           }), onClick: this.next },
         _react2.default.createElement('span', { className: 'ion-ios-skipforward' })
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: (0, _classnames2.default)("mute-button", {
+            disabled: this.state.muteDisabled
+          }), onClick: this.mute },
+        _react2.default.createElement('span', { className: (0, _classnames2.default)({
+            'ion-android-volume-up': !this.props.current.isMuted,
+            'ion-android-volume-off': this.props.current.isMuted
+          }) })
       ),
       _react2.default.createElement(
         'div',
@@ -462,6 +481,7 @@ var Jukebox = _react2.default.createClass({
     return {
       current: {
         isPlaying: false,
+        isMuted: false,
         isInvalid: false,
         isFullscreen: false,
         isVideoShowing: true,
@@ -484,6 +504,8 @@ var Jukebox = _react2.default.createClass({
       controls: {
         play: false,
         pause: false,
+        mute: false,
+        unmute: false,
         repeat: false,
         shuffle: true,
         playlist: false
@@ -2248,6 +2270,13 @@ var YouTube = _react2.default.createClass({
         if (nextProps.current.media.id !== this.props.current.media.id) {
           this._youtube.loadVideoById(nextProps.current.media.id);
         }
+
+        if (nextProps.current.isMuted && !this._youtube.isMuted()) {
+          this.props.dispatch((0, _actions.audioMuted)(false));
+        }
+        if (!nextProps.current.isMuted && this._youtube.isMuted()) {
+          this.props.dispatch((0, _actions.audioMuted)(true));
+        }
       } else if (this.props.current.isPlaying) {
         this._youtube.pauseVideo();
       }
@@ -2268,6 +2297,8 @@ var YouTube = _react2.default.createClass({
       var _props;
 
       var dispatchQueue = [];
+
+      // Check playback state
       if (this.props.controls.play) {
         this._youtube.playVideo();
         dispatchQueue.push((0, _actions.play)(false));
@@ -2275,6 +2306,16 @@ var YouTube = _react2.default.createClass({
         this._youtube.pauseVideo();
         dispatchQueue.push((0, _actions.pause)(false));
       }
+
+      // Check volume
+      if (this.props.controls.mute) {
+        this._youtube.mute();
+        dispatchQueue.push((0, _actions.mute)(false), (0, _actions.audioMuted)(true));
+      } else if (this.props.controls.unmute) {
+        this._youtube.unMute();
+        dispatchQueue.push((0, _actions.unmute)(false), (0, _actions.audioMuted)(false));
+      }
+
       // Check whether the current state is valid
       if (this._isInvalid()) {
         if (!this.props.current.isInvalid) {
@@ -2287,8 +2328,7 @@ var YouTube = _react2.default.createClass({
         }
       } else {
         if (this.props.current.isInvalid) {
-          dispatchQueue.push((0, _actions.invalid)(false));
-          dispatchQueue.push((0, _actions.hideOverlay)());
+          dispatchQueue.push((0, _actions.invalid)(false), (0, _actions.hideOverlay)());
         }
       }
       (_props = this.props).dispatch.apply(_props, dispatchQueue);
@@ -2316,11 +2356,11 @@ var YouTube = _react2.default.createClass({
   },
 
   onPlayerReady: function onPlayerReady(event) {
-    // TODO: set volume to 100
-    event.target.setVolume(0);
+    event.target.setVolume(100);
     this.setState({
       ready: true
     });
+    this.props.dispatch((0, _actions.mute)(true));
   },
 
   onPlayerStateChange: function onPlayerStateChange(event) {
@@ -2377,6 +2417,8 @@ Object.defineProperty(exports, "__esModule", {
 // Controls
 var PLAY = exports.PLAY = 'PLAY';
 var PAUSE = exports.PAUSE = 'PAUSE';
+var MUTE = exports.MUTE = 'MUTE';
+var UNMUTE = exports.UNMUTE = 'UNMUTE';
 var REPEAT = exports.REPEAT = 'REPEAT';
 var SHUFFLE = exports.SHUFFLE = 'SHUFFLE';
 var PLAYLIST = exports.PLAYLIST = 'PLAYLIST';
@@ -2392,6 +2434,7 @@ var HIDE_OVERLAY = exports.HIDE_OVERLAY = 'HIDE_OVERLAY';
 // Current
 var INVALID = exports.INVALID = 'INVALID';
 var FULLSCREEN = exports.FULLSCREEN = 'FULLSCREEN';
+var AUDIO_MUTED = exports.AUDIO_MUTED = 'AUDIO_MUTED';
 var VIDEO_SHOWING = exports.VIDEO_SHOWING = 'VIDEO_SHOWING';
 var NOW_PLAYING = exports.NOW_PLAYING = 'NOW_PLAYING';
 var PLAY_NEXT = exports.PLAY_NEXT = 'PLAY_NEXT';
@@ -2435,11 +2478,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.play = play;
 exports.pause = pause;
+exports.mute = mute;
+exports.unmute = unmute;
 exports.repeat = repeat;
 exports.shuffle = shuffle;
 exports.playlist = playlist;
 exports.invalid = invalid;
 exports.fullscreen = fullscreen;
+exports.audioMuted = audioMuted;
 exports.videoShowing = videoShowing;
 exports.showOverlay = showOverlay;
 exports.hideOverlay = hideOverlay;
@@ -2464,6 +2510,14 @@ function pause(status) {
   return { type: _actionTypes.PAUSE, status: !!status };
 }
 
+function mute(status) {
+  return { type: _actionTypes.MUTE, statue: !!status };
+}
+
+function unmute(status) {
+  return { type: _actionTypes.UNMUTE, statue: !!status };
+}
+
 function repeat() {
   return { type: _actionTypes.REPEAT };
 }
@@ -2482,6 +2536,10 @@ function invalid(status) {
 
 function fullscreen(status) {
   return { type: _actionTypes.FULLSCREEN, status: !!status };
+}
+
+function audioMuted(status) {
+  return { type: _actionTypes.AUDIO_MUTED, status: !!status };
 }
 
 function videoShowing(status) {
@@ -2562,6 +2620,16 @@ var controls = function controls(state, action) {
         pause: action.status
       });
 
+    case _actionTypes.MUTE:
+      return update(state, {
+        mute: !state.mute
+      });
+
+    case _actionTypes.UNMUTE:
+      return update(state, {
+        unmute: !state.unmute
+      });
+
     case _actionTypes.REPEAT:
       return update(state, {
         repeat: !state.repeat
@@ -2639,6 +2707,11 @@ var current = function current(state, action, controls, playlists) {
     case _actionTypes.INVALID:
       return update(state, {
         isInvalid: action.status
+      });
+
+    case _actionTypes.AUDIO_MUTED:
+      return update(state, {
+        isMuted: action.status
       });
 
     case _actionTypes.FULLSCREEN:

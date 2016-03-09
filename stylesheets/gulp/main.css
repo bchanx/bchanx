@@ -291,14 +291,18 @@ input~ .search-clear:hover {
 }
 .video-player.sticky .video-controller {
   background-color: #111;
-  position: fixed;
-  position: sticky;
-  top: -100px;
-  z-index: 1;
-  transform: translateZ(0);
 }
 .video-player.sticky .video-controller:after {
   display: block;
+}
+.video-player.sticky .now-playing {
+  padding-top: 5px;
+}
+.video-player.sticky .controls {
+  padding-top: 10px;
+}
+.video-player.sticky.is-chrome .video-controller {
+  position: fixed;
 }
 .video-player.sticky.is-chrome .media-list {
   padding-top: 140px;
@@ -309,6 +313,10 @@ input~ .search-clear:hover {
   margin-left: -20px;
   padding-left: 20px;
   padding-right: 20px;
+  position: sticky;
+  top: -100px;
+  z-index: 1;
+  transform: translateZ(0);
 }
 .video-controller:after {
   position: absolute;
@@ -464,6 +472,9 @@ input~ .search-clear:hover {
 .media-search {
   margin-top: 10px;
   position: relative;
+}
+.media-search.hidden {
+  display: none;
 }
 .media-search,
 .media-list {

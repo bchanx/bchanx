@@ -1,11 +1,14 @@
 import {
   PLAY,
   PAUSE,
+  MUTE,
+  UNMUTE,
   REPEAT,
   SHUFFLE,
   PLAYLIST,
   INVALID,
   FULLSCREEN,
+  AUDIO_MUTED,
   VIDEO_SHOWING,
   SHOW_OVERLAY,
   HIDE_OVERLAY,
@@ -29,6 +32,14 @@ export function pause(status) {
   return { type: PAUSE, status: !!status };
 }
 
+export function mute(status) {
+  return { type: MUTE, statue: !!status };
+}
+
+export function unmute(status) {
+  return { type: UNMUTE, statue: !!status };
+}
+
 export function repeat() {
   return { type: REPEAT };
 }
@@ -47,6 +58,10 @@ export function invalid(status) {
 
 export function fullscreen(status) {
   return { type: FULLSCREEN, status: !!status };
+}
+
+export function audioMuted(status) {
+  return { type: AUDIO_MUTED, status: !!status };
 }
 
 export function videoShowing(status) {

@@ -1,11 +1,14 @@
 import {
   PLAY,
   PAUSE,
+  MUTE,
+  UNMUTE,
   REPEAT,
   SHUFFLE,
   PLAYLIST,
   INVALID,
   FULLSCREEN,
+  AUDIO_MUTED,
   VIDEO_SHOWING,
   NOW_PLAYING,
   PLAY_NEXT,
@@ -40,6 +43,16 @@ let controls = function(state, action) {
     case PAUSE:
       return update(state, {
         pause: action.status
+      });
+
+    case MUTE:
+      return update(state, {
+        mute: !state.mute
+      });
+
+    case UNMUTE:
+      return update(state, {
+        unmute: !state.unmute
       });
 
     case REPEAT:
@@ -119,6 +132,11 @@ let current = function(state, action, controls, playlists) {
     case INVALID:
       return update(state, {
         isInvalid: action.status
+      });
+
+    case AUDIO_MUTED:
+      return update(state, {
+        isMuted: action.status
       });
 
     case FULLSCREEN:

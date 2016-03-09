@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { TYPES, SOURCES } from './redux/actionTypes';
-import { play, pause, repeat, shuffle, playlist, playNext, playPrev, hideOverlay, videoShowing } from './redux/actions';
+import { play, pause, mute, unmute, repeat, shuffle, playlist, playNext, playPrev, hideOverlay, videoShowing } from './redux/actions';
 
 var Controls = React.createClass({
 
@@ -19,6 +19,7 @@ var Controls = React.createClass({
       playPauseDisabled: false,
       previousDisabled: false,
       nextDisabled: false,
+      muteDisabled: false,
       repeatDisabled: false,
       shuffleDisabled: false,
       playlistDisabled: false
@@ -34,6 +35,7 @@ var Controls = React.createClass({
       playPauseDisabled: !mediaValid || nextProps.current.isInvalid || nextProps.overlay.show,
       previousDisabled: nextProps.current.source === SOURCES.QUEUE || !nextProps.current.index,
       nextDisabled: endReached,
+      muteDisabled: endReached,
       repeatDisabled: endReached || nextProps.current.isInvalid || nextProps.overlay.show,
       shuffleDisabled: nextProps.current.isInvalid || nextProps.overlay.show || !nextProps.current.order.length,
       playlistDisabled: !(nextProps.current.order.length || nextProps.current.queue.length)
@@ -55,6 +57,13 @@ var Controls = React.createClass({
   next: function() {
     if (!this.state.nextDisabled) {
       this.props.dispatch(hideOverlay(), playNext());
+    }
+  },
+
+  mute: function() {
+    if (!this.state.muteDisabled) {
+      console.log("-->> currently muted?", this.props.current.isMuted);
+      this.props.dispatch(this.props.current.isMuted ? unmute(true) : mute(true));
     }
   },
 
@@ -98,6 +107,14 @@ var Controls = React.createClass({
           disabled: this.state.nextDisabled
         })} onClick={this.next}>
           <span className="ion-ios-skipforward"></span>
+        </div>
+        <div className={classNames("mute-button", {
+          disabled: this.state.muteDisabled
+        })} onClick={this.mute}>
+          <span className={classNames({
+            'ion-android-volume-up': !this.props.current.isMuted,
+            'ion-android-volume-off': this.props.current.isMuted
+          })}></span>
         </div>
         <div className={classNames("repeat-button", {
           active: this.props.controls.repeat,

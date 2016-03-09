@@ -1,6 +1,8 @@
 // Controls
 export const PLAY = 'PLAY';
 export const PAUSE = 'PAUSE';
+export const MUTE = 'MUTE';
+export const UNMUTE = 'UNMUTE';
 export const REPEAT = 'REPEAT';
 export const SHUFFLE = 'SHUFFLE';
 export const PLAYLIST = 'PLAYLIST';
@@ -16,6 +18,7 @@ export const HIDE_OVERLAY = 'HIDE_OVERLAY';
 // Current
 export const INVALID = 'INVALID';
 export const FULLSCREEN = 'FULLSCREEN';
+export const AUDIO_MUTED = 'AUDIO_MUTED';
 export const VIDEO_SHOWING = 'VIDEO_SHOWING';
 export const NOW_PLAYING = 'NOW_PLAYING';
 export const PLAY_NEXT = 'PLAY_NEXT';

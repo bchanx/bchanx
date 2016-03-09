@@ -17,6 +17,7 @@ var Jukebox = React.createClass({
     return {
       current: {
         isPlaying: false,
+        isMuted: false,
         isInvalid: false,
         isFullscreen: false,
         isVideoShowing: true,
@@ -39,6 +40,8 @@ var Jukebox = React.createClass({
       controls: {
         play: false,
         pause: false,
+        mute: false,
+        unmute: false,
         repeat: false,
         shuffle: true,
         playlist: false
