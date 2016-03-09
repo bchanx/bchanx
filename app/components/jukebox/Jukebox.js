@@ -56,6 +56,21 @@ var Jukebox = React.createClass({
         focus: false
       },
       playlists: [{
+        name: 'Number two',
+        created: Date.now(),
+        modified: Date.now(),
+        media: [{
+          id: "m4RbODbWRVI",
+          type: TYPES.YOUTUBE,
+          title: 'fourth',
+          duration: '4:44'
+        }, {
+          id: "BwWzSyxNc9I",
+          type: TYPES.YOUTUBE,
+          title: 'fourth',
+          duration: '4:44'
+        }]
+      }, {
         name: 'EDM',
         created: Date.now(),
         modified: Date.now(),
@@ -135,16 +150,6 @@ var Jukebox = React.createClass({
           title: 'fourth',
           duration: '4:44'
         }, {
-          id: "m4RbODbWRVI",
-          type: TYPES.YOUTUBE,
-          title: 'fourth',
-          duration: '4:44'
-        }, {
-          id: "BwWzSyxNc9I",
-          type: TYPES.YOUTUBE,
-          title: 'fourth',
-          duration: '4:44'
-        }, {
           id: "wxvz_w2JUkU",
           type: TYPES.YOUTUBE,
           title: 'fourth',
@@ -216,12 +221,11 @@ var Jukebox = React.createClass({
         overflow: true,
         controls: 'border',
         keyboard: true,
-        theme: '#f0f0f0',
+        theme: '#e8e8e8',
         before: this.slidrHandler,
         after: this.slidrHandler
       }).add('h', ['playlists', 'video-player', 'playlists'])
-        .add('v', ['playlists', 'video-player', 'playlists'])
-        .start('video-player');
+        .start('playlists');
       this.setTimeout(() => {
         this.slidr.loaded = true;
         this._shouldUpdate = true;

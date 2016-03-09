@@ -80,15 +80,44 @@ input
 
 .playlists
   border: $jukebox-border
-  padding: 20px 0
   width: $jukebox-width
-  max-height: $jukebox-height
+  min-height: 100px
+  overflow-y: scroll
+  max-height: calc(100vh - 200px)
+
+.playlists-content
+  padding: 15px 0
+  border-bottom: $jukebox-border
+
+.playlists-group-name
+  margin-bottom: 7px
+  font-size: 12px
+  font-weight: 600
+  letter-spacing: 1.5px
+  padding-left: 20px
+  text-transform: uppercase
+  color: $green-lightest
+  text-decoration: underline
+  opacity: 1
+  max-height: 15px
 
 .playlist-item
   cursor: pointer
-  padding: 2px 20px
+  padding: 5px 20px
+  opacity: 0.8
+  &.active
+    opacity: 1
+    font-weight: 400
+    border-left: 3px $green solid
+    padding-left: 17px
+    background-color: $gray10
+    color: $green
+    &:hover
+      color: $green-light
+      border-left-color: $green-light
   &:hover
-    background-color: $gray8
+    opacity: 1
+    background-color: $gray10
 
 .playlist-name
   display: inline-block
@@ -285,8 +314,6 @@ input
     pointer-events: none
     opacity: 0
     transition: opacity 0.2s ease-in, max-height 0.2s ease-in
-
-    
 
 .media-search-icon
   position: absolute

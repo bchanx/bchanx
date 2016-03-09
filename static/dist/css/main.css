@@ -296,16 +296,47 @@ input~ .search-clear:hover {
 }
 .playlists {
   border: 1px #505050 dashed;
-  padding: 20px 0;
   width: 640px;
-  max-height: 360px;
+  min-height: 100px;
+  overflow-y: scroll;
+  max-height: calc(100vh - 200px);
+}
+.playlists-content {
+  padding: 15px 0;
+  border-bottom: 1px #505050 dashed;
+}
+.playlists-group-name {
+  margin-bottom: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  padding-left: 20px;
+  text-transform: uppercase;
+  color: #def6e5;
+  text-decoration: underline;
+  opacity: 1;
+  max-height: 15px;
 }
 .playlist-item {
   cursor: pointer;
-  padding: 2px 20px;
+  padding: 5px 20px;
+  opacity: 0.8;
+}
+.playlist-item.active {
+  opacity: 1;
+  font-weight: 400;
+  border-left: 3px #5cd17d solid;
+  padding-left: 17px;
+  background-color: #222;
+  color: #5cd17d;
+}
+.playlist-item.active:hover {
+  color: #9de3b1;
+  border-left-color: #9de3b1;
 }
 .playlist-item:hover {
-  background-color: #333;
+  opacity: 1;
+  background-color: #222;
 }
 .playlist-name {
   display: inline-block;

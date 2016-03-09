@@ -48,12 +48,21 @@ var YouTube = React.createClass({
             this.props.dispatch(fullscreen(isFullscreen));
           }
         }
+
+        if (this._youtube) {
+          if (this._youtube.isMuted() && !this.props.current.isMuted) {
+            this.props.dispatch(audioMuted(true));
+          }
+          else if (!this._youtube.isMuted() && this.props.current.isMuted) {
+            this.props.dispatch(audioMuted(false));
+          }
+        }
       }
       else {
         this.clearInterval(this._timer);
         this._timer = null;
       }
-    }, 1000);
+    }, 250);
   },
 
   componentDidMount: function() {
@@ -75,13 +84,6 @@ var YouTube = React.createClass({
         }
         if (nextProps.current.media.id !== this.props.current.media.id) {
           this._youtube.loadVideoById(nextProps.current.media.id);
-        }
-
-        if (nextProps.current.isMuted && !this._youtube.isMuted()) {
-          this.props.dispatch(audioMuted(false));
-        }
-        if (!nextProps.current.isMuted && this._youtube.isMuted()) {
-          this.props.dispatch(audioMuted(true));
         }
       }
       else if (this.props.current.isPlaying) {
@@ -214,7 +216,6 @@ var YouTube = React.createClass({
         hidden: this.props.current.media.type !== TYPES.YOUTUBE
       })}>
         <div id="youtube-iframe"></div>
-      
       </div>
     );
   }

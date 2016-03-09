@@ -11,18 +11,21 @@ var VideoPlayer = React.createClass({
   mixins: [ReactTimerMixin],
 
   componentDidMount: function() {
+    let isChrome = !!window.chrome;
     this.setState({
-      isChrome: !!window.chrome
+      isChrome: isChrome
     });
     this.setInterval(() => {
       let video = this.refs.videoPlayer.children[0];
       if (video) {
         let bottom = video.getBoundingClientRect().bottom;
-        this.setState({
-          sticky: -bottom
-        });
+        if (this.state.sticky + bottom) {
+          this.setState({
+            sticky: -bottom
+          });
+        }
       }
-    }, window.chrome ? undefined : 0);
+    }, isChrome ? undefined : 0);
   },
 
   getDefaultProps: function() {

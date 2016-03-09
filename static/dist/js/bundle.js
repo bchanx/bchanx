@@ -519,6 +519,21 @@ var Jukebox = _react2.default.createClass({
         focus: false
       },
       playlists: [{
+        name: 'Number two',
+        created: Date.now(),
+        modified: Date.now(),
+        media: [{
+          id: "m4RbODbWRVI",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'fourth',
+          duration: '4:44'
+        }, {
+          id: "BwWzSyxNc9I",
+          type: _actionTypes.TYPES.YOUTUBE,
+          title: 'fourth',
+          duration: '4:44'
+        }]
+      }, {
         name: 'EDM',
         created: Date.now(),
         modified: Date.now(),
@@ -594,16 +609,6 @@ var Jukebox = _react2.default.createClass({
           duration: '4:44'
         }, {
           id: "YaikPv034Hc",
-          type: _actionTypes.TYPES.YOUTUBE,
-          title: 'fourth',
-          duration: '4:44'
-        }, {
-          id: "m4RbODbWRVI",
-          type: _actionTypes.TYPES.YOUTUBE,
-          title: 'fourth',
-          duration: '4:44'
-        }, {
-          id: "BwWzSyxNc9I",
           type: _actionTypes.TYPES.YOUTUBE,
           title: 'fourth',
           duration: '4:44'
@@ -690,10 +695,10 @@ var Jukebox = _react2.default.createClass({
         overflow: true,
         controls: 'border',
         keyboard: true,
-        theme: '#f0f0f0',
+        theme: '#e8e8e8',
         before: this.slidrHandler,
         after: this.slidrHandler
-      }).add('h', ['playlists', 'video-player', 'playlists']).add('v', ['playlists', 'video-player', 'playlists']).start('video-player');
+      }).add('h', ['playlists', 'video-player', 'playlists']).start('playlists');
       this.setTimeout(function () {
         _this3.slidr.loaded = true;
         _this3._shouldUpdate = true;
@@ -1350,6 +1355,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
 var _actions = require('./redux/actions');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -1376,11 +1385,13 @@ var Playlists = _react2.default.createClass({
   render: function render() {
     var _this = this;
 
-    var playlists = this.props.playlists.map(function (p, idx) {
+    var sharedPlaylists = this.props.playlists.map(function (p, idx) {
       var onClickHandler = _this.loadPlaylist.bind(_this, idx);
       return _react2.default.createElement(
         'div',
-        { key: idx, className: 'playlist-item', onClick: onClickHandler },
+        { key: idx, className: (0, _classnames2.default)("playlist-item", {
+            active: idx === _this.props.current.playlist.index && p.name === _this.props.current.playlist.name
+          }), onClick: onClickHandler },
         _react2.default.createElement(
           'div',
           { className: 'playlist-name' },
@@ -1398,14 +1409,37 @@ var Playlists = _react2.default.createClass({
     return _react2.default.createElement(
       'div',
       { className: 'playlists', 'data-slidr': 'playlists' },
-      playlists
+      _react2.default.createElement(
+        'div',
+        { className: 'playlists-content shared' },
+        _react2.default.createElement(
+          'div',
+          { className: 'playlists-group-name' },
+          'Shared Playlists'
+        ),
+        sharedPlaylists
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'playlists-content local' },
+        _react2.default.createElement(
+          'div',
+          { className: 'playlists-group-name' },
+          'Local Playlists'
+        ),
+        _react2.default.createElement(
+          'span',
+          null,
+          'local...'
+        )
+      )
     );
   }
 });
 
 exports.default = Playlists;
 
-},{"./redux/actions":22,"react":"react"}],16:[function(require,module,exports){
+},{"./redux/actions":22,"classnames":"classnames","react":"react"}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2077,18 +2111,21 @@ var VideoPlayer = _react2.default.createClass({
   componentDidMount: function componentDidMount() {
     var _this = this;
 
+    var isChrome = !!window.chrome;
     this.setState({
-      isChrome: !!window.chrome
+      isChrome: isChrome
     });
     this.setInterval(function () {
       var video = _this.refs.videoPlayer.children[0];
       if (video) {
         var bottom = video.getBoundingClientRect().bottom;
-        _this.setState({
-          sticky: -bottom
-        });
+        if (_this.state.sticky + bottom) {
+          _this.setState({
+            sticky: -bottom
+          });
+        }
       }
-    }, window.chrome ? undefined : 0);
+    }, isChrome ? undefined : 0);
   },
 
   getDefaultProps: function getDefaultProps() {
@@ -2242,11 +2279,19 @@ var YouTube = _react2.default.createClass({
             _this.props.dispatch((0, _actions.fullscreen)(isFullscreen));
           }
         }
+
+        if (_this._youtube) {
+          if (_this._youtube.isMuted() && !_this.props.current.isMuted) {
+            _this.props.dispatch((0, _actions.audioMuted)(true));
+          } else if (!_this._youtube.isMuted() && _this.props.current.isMuted) {
+            _this.props.dispatch((0, _actions.audioMuted)(false));
+          }
+        }
       } else {
         _this.clearInterval(_this._timer);
         _this._timer = null;
       }
-    }, 1000);
+    }, 250);
   },
 
   componentDidMount: function componentDidMount() {
@@ -2268,13 +2313,6 @@ var YouTube = _react2.default.createClass({
         }
         if (nextProps.current.media.id !== this.props.current.media.id) {
           this._youtube.loadVideoById(nextProps.current.media.id);
-        }
-
-        if (nextProps.current.isMuted && !this._youtube.isMuted()) {
-          this.props.dispatch((0, _actions.audioMuted)(false));
-        }
-        if (!nextProps.current.isMuted && this._youtube.isMuted()) {
-          this.props.dispatch((0, _actions.audioMuted)(true));
         }
       } else if (this.props.current.isPlaying) {
         this._youtube.pauseVideo();
@@ -2907,14 +2945,20 @@ var current = function current(state, action, controls, playlists) {
         playlistOrder = shuffle(playlistOrder);
       }
 
-      return update(state, {
+      var updated = {
         playlist: {
           index: playlistIndex,
           name: playlistName
         },
         index: -1,
         order: playlistOrder
-      });
+      };
+
+      if (state.source === _actionTypes.SOURCES.PLAYLIST) {
+        updated.isPlaying = false;
+      }
+
+      return update(state, updated);
 
     default:
       return state;

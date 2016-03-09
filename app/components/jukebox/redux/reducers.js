@@ -117,10 +117,10 @@ let search = function(state, action) {
 };
 
 let shuffle = function(list) {
-  var order = list.slice(0);
-  for (var i = order.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    var tmp = order[i];
+  let order = list.slice(0);
+  for (let i = order.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    let tmp = order[i];
     order[i] = order[j];
     order[j] = tmp;
   }
@@ -338,14 +338,20 @@ let current = function(state, action, controls, playlists) {
         playlistOrder = shuffle(playlistOrder);
       }
 
-      return update(state, {
+      let updated = {
         playlist: {
           index: playlistIndex,
           name: playlistName
         },
         index: -1,
         order: playlistOrder
-      });
+      };
+
+      if (state.source === SOURCES.PLAYLIST) {
+        updated.isPlaying = false;  
+      }
+
+      return update(state, updated);
 
     default:
       return state;
