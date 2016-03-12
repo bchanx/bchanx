@@ -19,7 +19,7 @@ var VideoPlayer = React.createClass({
       let video = this.refs.videoPlayer.children[0];
       if (video) {
         let bottom = video.getBoundingClientRect().bottom;
-        if (this.state.sticky + bottom) {
+        if (this.state.sticky + bottom !== 0) {
           this.setState({
             sticky: -bottom
           });
@@ -34,7 +34,8 @@ var VideoPlayer = React.createClass({
       controls: {},
       overlay: {},
       slidr: null,
-      dispatch: null
+      dispatch: null,
+      stickyOffset: 25
     };
   },
 
@@ -54,10 +55,47 @@ var VideoPlayer = React.createClass({
     });
   },
 
+  getStickyStyling: function() {
+    let stickyStyling = {};
+    let stickyThreshold = this.state.sticky + this.props.stickyOffset;
+
+    if (stickyThreshold > 0) {
+      stickyStyling.controls = {
+        marginTop: -Math.min(stickyThreshold, 10) + 'px',
+        marginBottom: ((stickyThreshold <= 10) ? stickyThreshold : Math.max(0, (20 - stickyThreshold))) + 'px'
+      };
+      stickyStyling.nowPlaying = {
+        paddingBottom: Math.min(5 + (stickyThreshold <= 10 ? 2 * stickyThreshold : 10 + stickyThreshold), 35) + 'px'
+      };
+      if (this.state.isChrome) {
+        // Chrome, Opera
+        stickyStyling.videoController = {
+          paddingTop: (Math.min(stickyThreshold, 200 - 10) + 10) + 'px',
+          top: (200 - 10 - Math.min(stickyThreshold, 200 - 10) + 170 + 25 + this.state.sticky) + 'px'
+        };
+      }
+      else {
+        // Safari, Mozilla
+        let offsetPadding = Math.min(stickyThreshold, this.props.stickyOffset);
+        stickyStyling.videoController = {
+          paddingTop: (offsetPadding + 10) + 'px',
+          top: (-100 - offsetPadding) + 'px'
+        };
+        stickyStyling.mediaList = {
+          marginTop: -offsetPadding + 'px'
+        };
+      }
+    }
+    return stickyStyling;
+  },
+
   render: function() {
+    let stickyThreshold = this.state.sticky + this.props.stickyOffset;
+    let stickyStyling = this.getStickyStyling();
+
     return (
       <div data-slidr="video-player" ref="videoPlayer" className={classNames("video-player", {
-        sticky: this.state.sticky > 0,
+        sticky: stickyThreshold > 0,
         'is-chrome': this.state.isChrome
       })}>
         <Video
@@ -68,14 +106,16 @@ var VideoPlayer = React.createClass({
           dispatch={this.props.dispatch}
           />
         <div className="video-controller"
-          style={this.state.isChrome && this.state.sticky > 0 ? {paddingTop: '200px', top: (170 + this.state.sticky) + 'px'} : null}>
+          style={stickyStyling.videoController}>
           <Controls
+            style={stickyStyling.controls}
             current={this.props.current}
             controls={this.props.controls}
             overlay={this.props.overlay}
             dispatch={this.props.dispatch}
             />
           <NowPlaying
+            style={stickyStyling.nowPlaying}
             current={this.props.current}
             controls={this.props.controls}
             dispatch={this.props.dispatch}
@@ -89,6 +129,7 @@ var VideoPlayer = React.createClass({
             />
         </div>
         <MediaList
+          style={stickyStyling.mediaList}
           current={this.props.current}
           controls={this.props.controls}
           search={this.state.search}

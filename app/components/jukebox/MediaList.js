@@ -7,6 +7,7 @@ var MediaList = React.createClass({
 
   getDefaultProps: function() {
     return {
+      style: null,
       current: {},
       controls: {},
       search: '',
@@ -19,7 +20,7 @@ var MediaList = React.createClass({
       <div className={classNames("media-list", {
         invisible: !this.props.controls.playlist,
         hidden: this.props.current.source === SOURCES.UNKNOWN
-      })}>
+      })} style={this.props.style}>
 
         {this.props.current.queue.length ?
           <MediaGroup

@@ -6,6 +6,7 @@ var NowPlaying = React.createClass({
 
   getDefaultProps: function() {
     return {
+      style: null,
       current: {},
       controls: {},
       dispatch: null
@@ -16,7 +17,7 @@ var NowPlaying = React.createClass({
     return (
       <div className={classNames("now-playing", {
         hidden: this.props.current.media.type === TYPES.UNKNOWN && !this.props.current.order.length
-      })}>
+      })} style={this.props.style}>
         <div className="now-playing-icon ion-ios-volume-high"></div>
         <div className="now-playing-display">
           <div className="now-playing-name">now playing:</div>

@@ -1,7 +1,7 @@
 $jukebox-width = 640px
 $jukebox-height = 360px
 $jukebox-margin = 60px
-$jukebox-padding = 100px
+$jukebox-padding = 125px
 $jukebox-border = 1px $gray7 dashed
 
 input
@@ -79,7 +79,6 @@ input
     overflow: hidden
 
 .playlists
-  border: $jukebox-border
   width: $jukebox-width
   min-height: 100px
   overflow-y: scroll
@@ -87,14 +86,17 @@ input
 
 .playlists-content
   padding: 15px 0
-  border-bottom: $jukebox-border
+  &.global
+    background-color: $gray10
+  &.local
+    margin-top: 10px
 
 .playlists-group-name
   margin-bottom: 7px
   font-size: 12px
   font-weight: 600
   letter-spacing: 1.5px
-  padding-left: 20px
+  padding-left: 30px
   text-transform: uppercase
   color: $green-lightest
   text-decoration: underline
@@ -103,43 +105,53 @@ input
 
 .playlist-item
   cursor: pointer
-  padding: 5px 20px
+  padding: 7px 30px
   opacity: 0.8
+  line-height: 18px
+  margin-bottom: 2px
+  &:last-of-type
+    margin-bottom: 0
+  &:hover
   &.active
     opacity: 1
-    font-weight: 400
-    border-left: 3px $green solid
-    padding-left: 17px
     background-color: $gray10
+    padding-left: 27px
+  &:hover
+    border-left: 3px $gray4 solid
+  &.active
+    border-left: 3px $green solid
+    font-weight: 400
     color: $green
     &:hover
       color: $green-light
       border-left-color: $green-light
-  &:hover
-    opacity: 1
-    background-color: $gray10
 
 .playlist-name
   display: inline-block
   font-weight: 400
+  max-width: 515px
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+  vertical-align: middle
 
 .playlist-length
+  font-weight: 300
   display: inline-block
-  margin-left: 3px
+  margin-left: 10px
+  vertical-align: middle
+  letter-spacing: 2px
+  font-size: 12px
 
 .video-player
   width: $jukebox-width
-  padding-bottom: 100px
+  padding-bottom: $jukebox-padding
   border-bottom: 0px transparent solid
   &.sticky
     .video-controller
       background-color: $black
       &:after
         display: block
-    .now-playing
-      padding-top: 5px
-    .controls
-      padding-top: 10px
     &.is-chrome
       .video-controller
         position: fixed
@@ -342,25 +354,6 @@ input
   color: $gray7
   pointer-events: none
 
-.media-group
-  margin: 20px 20px 0
-  &.queue
-    margin-left: 0
-    margin-right: 0
-    padding: 12px 0
-    background-color: $gray10
-    .media-group-name
-      padding-left: 62px
-    .media-item
-      padding-left: 30px
-      padding-right: 30px
-      &.active
-        padding-left: 27px
-      &:hover
-        background-color: $gray8
-    &.noresults
-      background-color: inherit
-
 .media-group-name
   margin-bottom: 5px
   font-size: 12px
@@ -387,7 +380,7 @@ input
   flex-direction: row
   padding: 7px 10px
   border-bottom: 1px $gray9 dashed
-  opacity: 0.8
+  opacity: 0.7
   max-height: 38px
   &.active
     opacity: 1
@@ -405,9 +398,13 @@ input
     color: $gray6
     background-color: inherit !important
     text-decoration: line-through
+    &:hover
+      opacity: 0.65
+      border-left-color: $gray7
   &:hover
     opacity: 1
-    background-color: $gray10
+    border-left: 3px $gray5 solid
+    padding-left: 7px
     text-decoration: none !important
   &.hidden
     max-height: 0
@@ -421,6 +418,32 @@ input
     pointer-events: none
   &:last-of-type
     border-bottom-color: transparent
+
+.media-group
+  margin: 20px 20px 0
+  &.queue
+    margin-left: 0
+    margin-right: 0
+    padding: 12px 0
+    background-color: $gray10
+    .media-group-name
+      padding-left: 62px
+    .media-item
+      padding-left: 30px
+      padding-right: 30px
+      opacity: 0.75
+      &.active
+        opacity: 1
+        padding-left: 27px
+        border-left-color: $green
+        &:hover
+          border-left-color: $green-light
+      &:hover
+        opacity: 1
+        padding-left: 27px
+        border-left-color: $gray4
+    &.noresults
+      background-color: inherit
 
 .media-number
   width: 25px

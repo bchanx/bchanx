@@ -279,6 +279,7 @@ var Controls = _react2.default.createClass({
 
   getDefaultProps: function getDefaultProps() {
     return {
+      style: null,
       current: {},
       controls: {},
       overlay: {},
@@ -361,7 +362,7 @@ var Controls = _react2.default.createClass({
       'div',
       { className: (0, _classnames2.default)("controls", {
           hidden: this.props.current.media.type === _actionTypes.TYPES.UNKNOWN && this.props.current.source === _actionTypes.SOURCES.UNKNOWN
-        }) },
+        }), style: this.props.style },
       _react2.default.createElement(
         'div',
         { className: (0, _classnames2.default)("play-pause-button", {
@@ -886,6 +887,7 @@ var MediaList = _react2.default.createClass({
 
   getDefaultProps: function getDefaultProps() {
     return {
+      style: null,
       current: {},
       controls: {},
       search: '',
@@ -899,7 +901,7 @@ var MediaList = _react2.default.createClass({
       { className: (0, _classnames2.default)("media-list", {
           invisible: !this.props.controls.playlist,
           hidden: this.props.current.source === _actionTypes.SOURCES.UNKNOWN
-        }) },
+        }), style: this.props.style },
       this.props.current.queue.length ? _react2.default.createElement(_MediaGroup2.default, {
         name: 'queue',
         type: _actionTypes.SOURCES.QUEUE,
@@ -1151,6 +1153,7 @@ var NowPlaying = _react2.default.createClass({
 
   getDefaultProps: function getDefaultProps() {
     return {
+      style: null,
       current: {},
       controls: {},
       dispatch: null
@@ -1162,7 +1165,7 @@ var NowPlaying = _react2.default.createClass({
       'div',
       { className: (0, _classnames2.default)("now-playing", {
           hidden: this.props.current.media.type === _actionTypes.TYPES.UNKNOWN && !this.props.current.order.length
-        }) },
+        }), style: this.props.style },
       _react2.default.createElement('div', { className: 'now-playing-icon ion-ios-volume-high' }),
       _react2.default.createElement(
         'div',
@@ -1385,7 +1388,7 @@ var Playlists = _react2.default.createClass({
   render: function render() {
     var _this = this;
 
-    var sharedPlaylists = this.props.playlists.map(function (p, idx) {
+    var globalPlaylists = this.props.playlists.map(function (p, idx) {
       var onClickHandler = _this.loadPlaylist.bind(_this, idx);
       return _react2.default.createElement(
         'div',
@@ -1400,9 +1403,9 @@ var Playlists = _react2.default.createClass({
         _react2.default.createElement(
           'div',
           { className: 'playlist-length' },
-          ' (',
+          ' [',
           p.media.length,
-          ')'
+          ' items]'
         )
       );
     });
@@ -1411,13 +1414,13 @@ var Playlists = _react2.default.createClass({
       { className: 'playlists', 'data-slidr': 'playlists' },
       _react2.default.createElement(
         'div',
-        { className: 'playlists-content shared' },
+        { className: 'playlists-content global' },
         _react2.default.createElement(
           'div',
           { className: 'playlists-group-name' },
-          'Shared Playlists'
+          'Global Playlists'
         ),
-        sharedPlaylists
+        globalPlaylists
       ),
       _react2.default.createElement(
         'div',
@@ -2119,7 +2122,7 @@ var VideoPlayer = _react2.default.createClass({
       var video = _this.refs.videoPlayer.children[0];
       if (video) {
         var bottom = video.getBoundingClientRect().bottom;
-        if (_this.state.sticky + bottom) {
+        if (_this.state.sticky + bottom !== 0) {
           _this.setState({
             sticky: -bottom
           });
@@ -2134,7 +2137,8 @@ var VideoPlayer = _react2.default.createClass({
       controls: {},
       overlay: {},
       slidr: null,
-      dispatch: null
+      dispatch: null,
+      stickyOffset: 25
     };
   },
 
@@ -2154,11 +2158,47 @@ var VideoPlayer = _react2.default.createClass({
     });
   },
 
+  getStickyStyling: function getStickyStyling() {
+    var stickyStyling = {};
+    var stickyThreshold = this.state.sticky + this.props.stickyOffset;
+
+    if (stickyThreshold > 0) {
+      stickyStyling.controls = {
+        marginTop: -Math.min(stickyThreshold, 10) + 'px',
+        marginBottom: (stickyThreshold <= 10 ? stickyThreshold : Math.max(0, 20 - stickyThreshold)) + 'px'
+      };
+      stickyStyling.nowPlaying = {
+        paddingBottom: Math.min(5 + (stickyThreshold <= 10 ? 2 * stickyThreshold : 10 + stickyThreshold), 35) + 'px'
+      };
+      if (this.state.isChrome) {
+        // Chrome, Opera
+        stickyStyling.videoController = {
+          paddingTop: Math.min(stickyThreshold, 200 - 10) + 10 + 'px',
+          top: 200 - 10 - Math.min(stickyThreshold, 200 - 10) + 170 + 25 + this.state.sticky + 'px'
+        };
+      } else {
+        // Safari, Mozilla
+        var offsetPadding = Math.min(stickyThreshold, this.props.stickyOffset);
+        stickyStyling.videoController = {
+          paddingTop: offsetPadding + 10 + 'px',
+          top: -100 - offsetPadding + 'px'
+        };
+        stickyStyling.mediaList = {
+          marginTop: -offsetPadding + 'px'
+        };
+      }
+    }
+    return stickyStyling;
+  },
+
   render: function render() {
+    var stickyThreshold = this.state.sticky + this.props.stickyOffset;
+    var stickyStyling = this.getStickyStyling();
+
     return _react2.default.createElement(
       'div',
       { 'data-slidr': 'video-player', ref: 'videoPlayer', className: (0, _classnames2.default)("video-player", {
-          sticky: this.state.sticky > 0,
+          sticky: stickyThreshold > 0,
           'is-chrome': this.state.isChrome
         }) },
       _react2.default.createElement(_Video2.default, {
@@ -2171,14 +2211,16 @@ var VideoPlayer = _react2.default.createClass({
       _react2.default.createElement(
         'div',
         { className: 'video-controller',
-          style: this.state.isChrome && this.state.sticky > 0 ? { paddingTop: '200px', top: 170 + this.state.sticky + 'px' } : null },
+          style: stickyStyling.videoController },
         _react2.default.createElement(_Controls2.default, {
+          style: stickyStyling.controls,
           current: this.props.current,
           controls: this.props.controls,
           overlay: this.props.overlay,
           dispatch: this.props.dispatch
         }),
         _react2.default.createElement(_NowPlaying2.default, {
+          style: stickyStyling.nowPlaying,
           current: this.props.current,
           controls: this.props.controls,
           dispatch: this.props.dispatch
@@ -2192,6 +2234,7 @@ var VideoPlayer = _react2.default.createClass({
         })
       ),
       _react2.default.createElement(_MediaList2.default, {
+        style: stickyStyling.mediaList,
         current: this.props.current,
         controls: this.props.controls,
         search: this.state.search,

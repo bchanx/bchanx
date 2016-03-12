@@ -7,6 +7,7 @@ var Controls = React.createClass({
 
   getDefaultProps: function() {
     return {
+      style: null,
       current: {},
       controls: {},
       overlay: {},
@@ -88,7 +89,7 @@ var Controls = React.createClass({
     return (
       <div className={classNames("controls", {
         hidden: this.props.current.media.type === TYPES.UNKNOWN && this.props.current.source === SOURCES.UNKNOWN
-      })}>
+      })} style={this.props.style}>
         <div className={classNames("play-pause-button", {
           disabled: this.state.playPauseDisabled
         })} onClick={this.playPause}>
