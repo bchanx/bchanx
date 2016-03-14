@@ -61,8 +61,7 @@ var VideoPlayer = React.createClass({
 
     if (stickyThreshold > 0) {
       stickyStyling.controls = {
-        marginTop: -Math.min(stickyThreshold, 10) + 'px',
-        marginBottom: ((stickyThreshold <= 10) ? stickyThreshold : Math.max(0, (20 - stickyThreshold))) + 'px'
+        marginTop: ((stickyThreshold <= 10) ? 0 : -Math.min(stickyThreshold - 10, 10)) + 'px'
       };
       stickyStyling.nowPlaying = {
         paddingBottom: Math.min(5 + (stickyThreshold <= 10 ? 2 * stickyThreshold : 10 + stickyThreshold), 35) + 'px'

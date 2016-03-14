@@ -56,6 +56,9 @@ html {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
+.content::-webkit-scrollbar {
+  display: none;
+}
 #bchanx {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -326,7 +329,6 @@ input~ .search-clear:hover {
   padding: 7px 30px;
   opacity: 0.8;
   line-height: 18px;
-  margin-bottom: 2px;
 }
 .playlist-item:last-of-type {
   margin-bottom: 0;
