@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import ReactTimerMixin from 'react-timer-mixin';
 import { ReactScriptLoaderMixin } from 'react-script-loader';
 import classNames from 'classnames';
-import { TYPES } from './redux/actionTypes';
+import { MEDIA_TYPES } from './redux/actionTypes';
 import { play, pause, mute, unmute, nowPlaying, playNext, invalid, showOverlay, hideOverlay, fullscreen, audioMuted } from './redux/actions';
 
 var YouTube = React.createClass({
@@ -40,7 +40,7 @@ var YouTube = React.createClass({
 
   monitorFullScreen: function() {
     return this.setInterval(() => {
-      if (this.props.current.media.type === TYPES.YOUTUBE) {
+      if (this.props.current.media.type === MEDIA_TYPES.YOUTUBE) {
         let iframe = ReactDOM.findDOMNode(this).childNodes[0];
         if (iframe) {
           let isFullscreen = (window.innerWidth === iframe.scrollWidth && window.innerHeight === iframe.scrollHeight);
@@ -78,7 +78,7 @@ var YouTube = React.createClass({
 
   componentWillReceiveProps: function(nextProps) {
     if (this.state.ready) {
-      if (nextProps.current.media.type === TYPES.YOUTUBE) {
+      if (nextProps.current.media.type === MEDIA_TYPES.YOUTUBE) {
         if (!this._timer) {
           this._timer = this.monitorFullScreen();
         }
@@ -105,7 +105,7 @@ var YouTube = React.createClass({
   },
 
   componentDidUpdate: function() {
-    if (this.props.current.media.type === TYPES.YOUTUBE) {
+    if (this.props.current.media.type === MEDIA_TYPES.YOUTUBE) {
       let dispatchQueue = [];
 
       // Check playback state
@@ -180,7 +180,7 @@ var YouTube = React.createClass({
   onPlayerStateChange: function(event) {
     let dispatchQueue = [nowPlaying(event.data === YT.PlayerState.PLAYING, event.data)];
 
-    if (event.data === YT.PlayerState.PLAYING && this.props.current.media.type === TYPES.UNKNOWN) {
+    if (event.data === YT.PlayerState.PLAYING && this.props.current.media.type === MEDIA_TYPES.UNKNOWN) {
       // We reach this state by clicking really fast
       this._youtube.pauseVideo();
     }
@@ -213,7 +213,7 @@ var YouTube = React.createClass({
   render: function() {
     return (
       <div className={classNames("youtube", {
-        hidden: this.props.current.media.type !== TYPES.YOUTUBE
+        hidden: this.props.current.media.type !== MEDIA_TYPES.YOUTUBE
       })}>
         <div id="youtube-iframe"></div>
       </div>

@@ -21,7 +21,13 @@ import {
   PLAY_CURRENT,
   QUEUE_NEXT,
   SELECT_PLAYLIST,
-  RESTART_PLAYLIST
+  RESTART_PLAYLIST,
+  RESTORE_PLAYLISTS,
+  CREATE_PLAYLIST,
+  DELETE_PLAYLIST,
+  ADD_TO_PLAYLIST,
+  REMOVE_FROM_PLAYLIST,
+  UPDATE_PLAYLIST
 } from './actionTypes';
 
 export function play(status) {
@@ -33,11 +39,11 @@ export function pause(status) {
 }
 
 export function mute(status) {
-  return { type: MUTE, statue: !!status };
+  return { type: MUTE, status: !!status };
 }
 
 export function unmute(status) {
-  return { type: UNMUTE, statue: !!status };
+  return { type: UNMUTE, status: !!status };
 }
 
 export function repeat() {
@@ -112,6 +118,30 @@ export function queueNext(id, type, title, duration) {
   return { type: QUEUE_NEXT, media: { id: id, type: type, title: title, duration: duration } };
 }
 
-export function selectPlaylist(index) {
-  return { type: SELECT_PLAYLIST, playlist: index };
+export function selectPlaylist(playlistType, index) {
+  return { type: SELECT_PLAYLIST, playlistType: playlistType, index: index };
+}
+
+export function restorePlaylists(playlistType, playlists) {
+  return { type: RESTORE_PLAYLISTS, playlistType: playlistType, playlists: playlists };
+}
+
+export function createPlaylist(playlistType, name) {
+  return { type: CREATE_PLAYLIST, playlistType: playlistType, name: name };
+}
+
+export function deletePlaylist(playlistType, index) {
+  return { type: DELETE_PLAYLIST, playlistType: playlistType, index: index };
+}
+
+export function addToPlaylist(playlistType, index, media) {
+  return { type: DELETE_PLAYLIST, playlistType: playlistType, index: index, media: media };
+}
+
+export function removeFromPlaylist(playlistType, index, mediaIndex) {
+  return { type: DELETE_PLAYLIST, playlistType: playlistType, index: index, mediaIndex: mediaIndex };
+}
+
+export function updatePlaylist(playlistType, index, name) {
+  return { type: UPDATE_PLAYLIST, playlistType: playlistType, index: index, name: name };
 }

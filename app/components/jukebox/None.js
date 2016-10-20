@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { TYPES, SOURCES } from './redux/actionTypes';
+import { MEDIA_TYPES, SOURCES } from './redux/actionTypes';
 import { searchFocus, restartPlaylist, playCurrent } from './redux/actions';
 
 var None = React.createClass({
@@ -27,13 +27,25 @@ var None = React.createClass({
   render: function() {
     let message;
     if (this.props.current.playlist.index !== null) {
-      message = (
-        <div>
-          You've reached the end of the playlist!
-          <br/>
-          <br/>
-          <span className="action" onClick={this.triggerRestart}>Restart</span> this playlist, choose <span className="action" onClick={this.triggerPlaylist}>another</span>, or <span className="action" onClick={this.triggerSearch}>search</span> a video.</div>
-      );
+      if (!this.props.current.order.length) {
+        message = (
+          <div>
+            This playlist is empty!
+            <br/>
+            <br/>
+            <span className="action" onClick={this.triggerSearch}>Search</span> for videos to add, or select another <span className="action" onClick={this.triggerPlaylist}>playlist</span>.
+          </div>
+        );
+      }
+      else {
+        message = (
+          <div>
+            You've reached the end of the playlist!
+            <br/>
+            <br/>
+            <span className="action" onClick={this.triggerRestart}>Restart</span> this playlist, choose <span className="action" onClick={this.triggerPlaylist}>another</span>, or <span className="action" onClick={this.triggerSearch}>search</span> a video.</div>
+        );
+      }
     }
     else if (this.props.current.source === SOURCES.QUEUE) {
       message = (
@@ -51,7 +63,7 @@ var None = React.createClass({
     }
     return (
       <div className={classNames("video-none", {
-        hidden: this.props.current.media.type !== TYPES.UNKNOWN
+        hidden: this.props.current.media.type !== MEDIA_TYPES.UNKNOWN
       })}>
         {message}
       </div>

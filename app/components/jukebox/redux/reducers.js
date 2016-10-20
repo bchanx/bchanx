@@ -18,19 +18,43 @@ import {
   PLAY_CURRENT,
   RESTART_PLAYLIST,
   SELECT_PLAYLIST,
+  RESTORE_PLAYLISTS,
+  CREATE_PLAYLIST,
+  DELETE_PLAYLIST,
   ADD_TO_PLAYLIST,
   REMOVE_FROM_PLAYLIST,
-  DELETE_PLAYLIST,
+  UPDATE_PLAYLIST,
   SEARCH_TOGGLE,
   SEARCH_FOCUS,
   SHOW_OVERLAY,
   HIDE_OVERLAY,
-  TYPES,
-  SOURCES
+  MEDIA_TYPES,
+  SOURCES,
+  PLAYLIST_ACTIONS
 } from './actionTypes';
 
 let update = function(state, updated) {
   return Object.assign({}, state, updated);
+};
+
+let KEY_CONSTANTS = {
+  values: 'abcdefghijklmnopqrstuvwxyz1234567890',
+  length: 6
+};
+
+let generatePlaylistKey = function(playlists) {
+  let existingKeys = playlists.map(p => p.key);
+  let newKeys = [];
+  while (!newKeys.length) {
+    for (let i = 0; i < KEY_CONSTANTS.length; i++) {
+      newKeys.push(KEY_CONSTANTS.values[Math.floor(Math.random() * KEY_CONSTANTS.values.length)]);
+    }
+    let newKey = newKeys.join('').toUpperCase();
+    if (existingKeys.indexOf(newKey) < 0) {
+      return newKey;
+    }
+    newKeys.length = 0;
+  }
 };
 
 let controls = function(state, action) {
@@ -47,12 +71,12 @@ let controls = function(state, action) {
 
     case MUTE:
       return update(state, {
-        mute: !state.mute
+        mute: action.status
       });
 
     case UNMUTE:
       return update(state, {
-        unmute: !state.unmute
+        unmute: action.status
       });
 
     case REPEAT:
@@ -219,7 +243,7 @@ let current = function(state, action, controls, playlists) {
       return update(state, {
         media: {
           id: null,
-          type: TYPES.UNKNOWN,
+          type: MEDIA_TYPES.UNKNOWN,
           title: '',
           duration: ''
         },
@@ -252,7 +276,9 @@ let current = function(state, action, controls, playlists) {
 
     case SHUFFLE:
       if (state.playlist.index !== null) {
-        let newOrder = playlists[state.playlist.index] && playlists[state.playlist.index].media || [];
+        let newOrder = playlists[state.playlist.type] &&
+          playlists[state.playlist.type][state.playlist.index] &&
+          playlists[state.playlist.type][state.playlist.index].media || [];
         if (!controls.shuffle) {
           // If shuffle was previously off, then it means we need to shuffle 
           newOrder = shuffle(newOrder);
@@ -330,8 +356,9 @@ let current = function(state, action, controls, playlists) {
       return state;
 
     case SELECT_PLAYLIST:
-      let playlistIndex = action.playlist || 0;
-      let playlist = playlists[playlistIndex] || {};
+      let playlistType = action.playlistType;
+      let playlistIndex = action.index || 0;
+      let playlist = playlists[playlistType] && playlists[playlistType][playlistIndex] || {};
       let playlistOrder = playlist.media || [];
       let playlistName = playlist.name || '';
       if (controls.shuffle) {
@@ -340,6 +367,7 @@ let current = function(state, action, controls, playlists) {
 
       let updated = {
         playlist: {
+          type: playlistType,
           index: playlistIndex,
           name: playlistName
         },
@@ -348,6 +376,8 @@ let current = function(state, action, controls, playlists) {
       };
 
       if (state.source === SOURCES.PLAYLIST) {
+        // If we're currently in a playlist already, reset the isPlaying
+        // flag in order for playCurrent() to trigger a new song.
         updated.isPlaying = false;  
       }
 
@@ -359,10 +389,56 @@ let current = function(state, action, controls, playlists) {
 };
 
 let playlists = function(state, action) {
+  let playlists;
+  let playlist;
   switch (action.type) {
+    case RESTORE_PLAYLISTS:
+      playlists = action.playlists;
+      break;
+    case CREATE_PLAYLIST:
+      playlists = state[action.playlistType].slice();
+      playlists.push({
+        name: action.name,
+        key: generatePlaylistKey(state[action.playlistType]),
+        created: Date.now(),
+        modified: Date.now(),
+        media: []
+      });
+      break;
+    case DELETE_PLAYLIST:
+      playlists = state[action.playlistType].slice();
+      playlists.splice(action.index, 1);
+      break;
+    case ADD_TO_PLAYLIST:
+      playlists = state[action.playlistType].slice();
+      playlist = playlists[action.index];
+      playlist.media.push(action.media);
+      playlist.modified = Date.now();
+      break;
+    case REMOVE_FROM_PLAYLIST:
+      playlists = state[action.playlistType].slice();
+      playlist = playlists[action.index];
+      playlist.media.splice(action.mediaIndex, 1);
+      playlist.modified = Date.now();
+      break;
+    case UPDATE_PLAYLIST:
+      playlists = state[action.playlistType].slice();
+      playlist = playlists[action.index];
+      playlist.name = action.name;
+      playlist.modified = Date.now();
+      break;
     default:
       return state;
   }
+
+  console.log("-->> CURRENT state:", state);
+  console.log("-->> UPDATED STATE:", update(state, {
+    [action.playlistType]: playlists
+  }));
+
+  return update(state, {
+    [action.playlistType]: playlists
+  });
 };
 
 export default function reducer(state = {}, action) {

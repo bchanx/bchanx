@@ -2,7 +2,7 @@ import React from 'react';
 import None from './None';
 import YouTube from './YouTube';
 import Overlay from './Overlay';
-import { TYPES, SOURCES } from './redux/actionTypes';
+import { MEDIA_TYPES, SOURCES } from './redux/actionTypes';
 import { playNow, playCurrent, queueNext, fullscreen } from './redux/actions';
 
 var Video = React.createClass({
@@ -30,7 +30,7 @@ var Video = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps) {
-    if (nextProps.current.media.type === TYPES.UNKNOWN && nextProps.current.isFullscreen) {
+    if (nextProps.current.media.type === MEDIA_TYPES.UNKNOWN && nextProps.current.isFullscreen) {
       // No video playing, make sure fullscreen is reset
       this.exitFullscreen();
     }
@@ -39,7 +39,7 @@ var Video = React.createClass({
   playNow: function() {
     this.props.dispatch(playNow({
       id: '-_PIGQjrnjI',
-      type: TYPES.YOUTUBE,
+      type: MEDIA_TYPES.YOUTUBE,
       title: 'play test',
       duration: '3:22'
     }, SOURCES.QUEUE));
@@ -49,7 +49,7 @@ var Video = React.createClass({
   // Valid: OoDHA8dy7JM
   // Terminated: XWBEbR47Kwc
   queueNext: function() {
-    this.props.dispatch(queueNext('OoDHA8dy7JM', TYPES.YOUTUBE, 'queue test', '3:22'), playCurrent());
+    this.props.dispatch(queueNext('OoDHA8dy7JM', MEDIA_TYPES.YOUTUBE, 'queue test', '3:22'), playCurrent());
   },
 
   render: function() {

@@ -31,7 +31,7 @@ var Slidr = React.createClass({
   },
 
   componentDidUpdate: function() {
-    if (!this.state.callback && this.props.onLoaded) {
+    if (this.state.loaded && !this.state.callback && this.props.onLoaded) {
       this.props.onLoaded(window.slidr);
       this.setState({
         callback: true

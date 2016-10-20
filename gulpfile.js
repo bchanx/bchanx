@@ -33,6 +33,7 @@ const VENDOR_DEPS = [
   'react-select',
   'react-timer-mixin',
   'react-script-loader',
+  'react-localstorage',
   'classnames',
   'superagent',
   'moment'

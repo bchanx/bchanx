@@ -5,7 +5,7 @@ import Playlists from './Playlists';
 import VideoPlayer from './VideoPlayer';
 import Search from './Search';
 import Slidr from './Slidr';
-import { TYPES, SOURCES } from './redux/actionTypes';
+import { MEDIA_TYPES, SOURCES, PLAYLIST_TYPES } from './redux/actionTypes';
 import { videoShowing } from './redux/actions';
 import reducer from './redux/reducers';
 
@@ -25,6 +25,7 @@ var Jukebox = React.createClass({
         playStates: [],
         index: null,
         playlist: {
+          type: PLAYLIST_TYPES.UNKNOWN,
           index: null,
           name: ''
         },
@@ -32,7 +33,7 @@ var Jukebox = React.createClass({
         queue: [],
         media: {
           id: null,
-          type: TYPES.UNKNOWN,
+          type: MEDIA_TYPES.UNKNOWN,
           title: '',
           duration: ''
         },
@@ -55,117 +56,120 @@ var Jukebox = React.createClass({
         expand: false,
         focus: false
       },
-      playlists: [{
-        name: 'Number two',
-        created: Date.now(),
-        modified: Date.now(),
-        media: [{
-          id: "m4RbODbWRVI",
-          type: TYPES.YOUTUBE,
-          title: 'fourth',
-          duration: '4:44'
+      playlists: {
+        global: [{
+          name: 'Number two',
+          created: Date.now(),
+          modified: Date.now(),
+          media: [{
+            id: "m4RbODbWRVI",
+            type: MEDIA_TYPES.YOUTUBE,
+            title: 'fourth',
+            duration: '4:44'
+          }, {
+            id: "BwWzSyxNc9I",
+            type: MEDIA_TYPES.YOUTUBE,
+            title: 'fourth',
+            duration: '4:44'
+          }]
         }, {
-          id: "BwWzSyxNc9I",
-          type: TYPES.YOUTUBE,
-          title: 'fourth',
-          duration: '4:44'
-        }]
-      }, {
-        name: 'EDM',
-        created: Date.now(),
-        modified: Date.now(),
-        media: [{
-          id: "JbH_Vn5pq8I",
-          type: TYPES.YOUTUBE,
-          title: 'Hey there!',
-          duration: '3:22'
-        }, {
-          id: "Csm3BX30jZQ",
-          type: TYPES.YOUTUBE,
-          title: 'yo yo',
-          duration: '1:23'
-        }, {
-          id: "Rhm_-gMbTGU",
-          type: TYPES.YOUTUBE,
-          title: 'hi',
-          duration: '3:33'
-        }, {
-          id: "cERIwGKSU1A",
-          type: TYPES.YOUTUBE,
-          title: 'fourth',
-          duration: '4:44'
-        }, {
-          id: "XWBEbR47Kwc",
-          type: TYPES.YOUTUBE,
-          title: 'fifth',
-          duration: '5:55'
-        }, {
-          id: "2EaE0_gQLw0",
-          type: TYPES.YOUTUBE,
-          title: 'fourth',
-          duration: '4:44'
-        }, {
-          id: "Qsy7kJyizoc",
-          type: TYPES.YOUTUBE,
-          title: 'fourth',
-          duration: '4:44'
-        }, {
-          id: "Vsy1URDYK88",
-          type: TYPES.YOUTUBE,
-          title: 'fourth',
-          duration: '4:44'
-        }, {
-          id: "nT3pHuebr4U",
-          type: TYPES.YOUTUBE,
-          title: 'fourth',
-          duration: '4:44'
-        }, {
-          id: "hT_nvWreIhg",
-          type: TYPES.YOUTUBE,
-          title: 'fourth',
-          duration: '4:44'
-        }, {
-          id: "OIRE6iw-ws4",
-          type: TYPES.YOUTUBE,
-          title: 'fourth',
-          duration: '4:44'
-        }, {
-          id: "WFkCO4jVRg4",
-          type: TYPES.YOUTUBE,
-          title: 'fourth',
-          duration: '4:44'
-        }, {
-          id: "uJorl7V3uNk",
-          type: TYPES.YOUTUBE,
-          title: 'fourth',
-          duration: '4:44'
-        }, {
-          id: "qXuuh49aF1M",
-          type: TYPES.YOUTUBE,
-          title: 'fourth',
-          duration: '4:44'
-        }, {
-          id: "YaikPv034Hc",
-          type: TYPES.YOUTUBE,
-          title: 'fourth',
-          duration: '4:44'
-        }, {
-          id: "wxvz_w2JUkU",
-          type: TYPES.YOUTUBE,
-          title: 'fourth',
-          duration: '4:44'
-        }, {
-          id: "OPf0YbXqDm0",
-          type: TYPES.YOUTUBE,
-          title: 'fourth',
-          duration: '4:44'
-        }, {
-          id: "WoCfFoQeWoU",
-          type: TYPES.YOUTUBE,
-          title: 'fourth',
-          duration: '4:44'
-        }]
-      }]
+          name: 'EDM',
+          created: Date.now(),
+          modified: Date.now(),
+          media: [{
+            id: "JbH_Vn5pq8I",
+            type: MEDIA_TYPES.YOUTUBE,
+            title: 'Hey there!',
+            duration: '3:22'
+          }, {
+            id: "Csm3BX30jZQ",
+            type: MEDIA_TYPES.YOUTUBE,
+            title: 'yo yo',
+            duration: '1:23'
+          }, {
+            id: "Rhm_-gMbTGU",
+            type: MEDIA_TYPES.YOUTUBE,
+            title: 'hi',
+            duration: '3:33'
+          }, {
+            id: "cERIwGKSU1A",
+            type: MEDIA_TYPES.YOUTUBE,
+            title: 'fourth',
+            duration: '4:44'
+          }, {
+            id: "XWBEbR47Kwc",
+            type: MEDIA_TYPES.YOUTUBE,
+            title: 'fifth',
+            duration: '5:55'
+          }, {
+            id: "2EaE0_gQLw0",
+            type: MEDIA_TYPES.YOUTUBE,
+            title: 'fourth',
+            duration: '4:44'
+          }, {
+            id: "Qsy7kJyizoc",
+            type: MEDIA_TYPES.YOUTUBE,
+            title: 'fourth',
+            duration: '4:44'
+          }, {
+            id: "Vsy1URDYK88",
+            type: MEDIA_TYPES.YOUTUBE,
+            title: 'fourth',
+            duration: '4:44'
+          }, {
+            id: "nT3pHuebr4U",
+            type: MEDIA_TYPES.YOUTUBE,
+            title: 'fourth',
+            duration: '4:44'
+          }, {
+            id: "hT_nvWreIhg",
+            type: MEDIA_TYPES.YOUTUBE,
+            title: 'fourth',
+            duration: '4:44'
+          }, {
+            id: "OIRE6iw-ws4",
+            type: MEDIA_TYPES.YOUTUBE,
+            title: 'fourth',
+            duration: '4:44'
+          }, {
+            id: "WFkCO4jVRg4",
+            type: MEDIA_TYPES.YOUTUBE,
+            title: 'fourth',
+            duration: '4:44'
+          }, {
+            id: "uJorl7V3uNk",
+            type: MEDIA_TYPES.YOUTUBE,
+            title: 'fourth',
+            duration: '4:44'
+          }, {
+            id: "qXuuh49aF1M",
+            type: MEDIA_TYPES.YOUTUBE,
+            title: 'fourth',
+            duration: '4:44'
+          }, {
+            id: "YaikPv034Hc",
+            type: MEDIA_TYPES.YOUTUBE,
+            title: 'fourth',
+            duration: '4:44'
+          }, {
+            id: "wxvz_w2JUkU",
+            type: MEDIA_TYPES.YOUTUBE,
+            title: 'fourth',
+            duration: '4:44'
+          }, {
+            id: "OPf0YbXqDm0",
+            type: MEDIA_TYPES.YOUTUBE,
+            title: 'fourth',
+            duration: '4:44'
+          }, {
+            id: "WoCfFoQeWoU",
+            type: MEDIA_TYPES.YOUTUBE,
+            title: 'fourth',
+            duration: '4:44'
+          }]
+        }],
+        personal: []
+      }
     };
   },
 
@@ -220,7 +224,7 @@ var Jukebox = React.createClass({
         transition: 'cube',
         overflow: true,
         controls: 'border',
-        keyboard: true,
+        keyboard: false,
         theme: '#e8e8e8',
         before: this.slidrHandler,
         after: this.slidrHandler
@@ -259,6 +263,7 @@ var Jukebox = React.createClass({
         <Search className={classNames({
           active: this.slidr.loaded
         })}
+          current={this.state.current}
           search={this.state.search}
           slidr={this.slidr.ref}
           dispatch={this.dispatch}

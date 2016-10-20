@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import moment from 'moment';
 import { ReactScriptLoaderMixin } from 'react-script-loader';
 import { searchToggle, searchFocus, playNow, queueNext, playCurrent } from './redux/actions';
-import { TYPES, SOURCES } from './redux/actionTypes';
+import { MEDIA_TYPES, SOURCES } from './redux/actionTypes';
 import { Debounce } from './Common';
 
 var Search = React.createClass({
@@ -13,6 +13,7 @@ var Search = React.createClass({
 
   getDefaultProps: function() {
     return {
+      current: {},
       search: {},
       className: '',
       slidr: null,
@@ -102,7 +103,7 @@ var Search = React.createClass({
           let formatted = response.result.items.map((item, idx) => {
             return {
               id: item.id,
-              type: TYPES.YOUTUBE,
+              type: MEDIA_TYPES.YOUTUBE,
               title: items[idx].snippet.title,
               duration: this._formatTime(item.contentDetails.duration),
               thumbnail: items[idx].snippet.thumbnails.medium.url,
@@ -251,6 +252,9 @@ var Search = React.createClass({
   queueResult: function(id, type, title, duration) {
     if (!this.state.loading) {
       this.props.dispatch(queueNext(id, type, title, duration), playCurrent());
+      if (!this.props.current.isPlaying) {
+        this.props.slidr.slide('video-player');
+      }
     }
   },
 

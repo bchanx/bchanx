@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { TYPES, SOURCES } from './redux/actionTypes';
+import { SOURCES } from './redux/actionTypes';
 import { playNow } from './redux/actions';
 
 var MediaGroup = React.createClass({

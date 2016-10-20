@@ -204,14 +204,14 @@ html {
 input {
   background: transparent;
   color: #f8f8f8;
-  border: 1px #505050 dashed;
+  border: 1px #505050 solid;
   padding: 0 10px;
   font-weight: 400;
   width: 100%;
   height: 40px;
 }
 input:focus {
-  outline: 1px #9de3b1 dashed;
+  outline: 1px #9de3b1 solid;
   outline-offset: -1px;
 }
 input~ .search-clear {
@@ -230,6 +230,24 @@ input~ .search-clear {
 input~ .search-clear:hover {
   opacity: 1;
 }
+input::-webkit-input-placeholder {
+  color: #808080;
+}
+input::-moz-placeholder {
+  color: #808080;
+}
+input:-ms-input-placeholder {
+  color: #808080;
+}
+input::placeholder {
+  color: #808080;
+}
+input::-webkit-input-placeholder {
+  color: #808080;
+}
+input::-ms-input-placeholder {
+  color: #808080;
+}
 .jukebox-container {
   width: 100%;
   height: 100%;
@@ -241,9 +259,6 @@ input~ .search-clear:hover {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
   overflow-y: scroll;
   position: relative;
 }
@@ -298,21 +313,37 @@ input~ .search-clear:hover {
   overflow: hidden;
 }
 .playlists {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   width: 640px;
-  min-height: 100px;
-  overflow-y: scroll;
+  min-height: 200px;
   max-height: calc(100vh - 200px);
 }
 .playlists-content {
   padding: 15px 0;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
 .playlists-content.global {
-  background-color: #222;
+  min-height: 100px;
 }
-.playlists-content.local {
-  margin-top: 10px;
+.playlists-content.personal {
+  min-height: 129px;
+  border-top: 1px #2a2a2a dashed;
+  padding-top: 20px;
 }
 .playlists-group-name {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
   margin-bottom: 7px;
   font-size: 12px;
   font-weight: 600;
@@ -324,23 +355,63 @@ input~ .search-clear:hover {
   opacity: 1;
   max-height: 15px;
 }
+.playlist-items {
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-height: 34px;
+  overflow-y: scroll;
+}
+.playlist-items::-webkit-scrollbar {
+  display: none;
+}
+.playlist-items.create {
+  -webkit-flex-grow: initial;
+  -ms-flex-positive: initial;
+  flex-grow: initial;
+  min-height: initial;
+}
 .playlist-item {
   cursor: pointer;
-  padding: 7px 30px;
+  padding: 3px 30px;
   opacity: 0.8;
-  line-height: 18px;
+  line-height: 26px;
+  margin-bottom: 2px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 .playlist-item:last-of-type {
   margin-bottom: 0;
 }
 .playlist-item:hover,
-.playlist-item.active {
+.playlist-item.active,
+.playlist-item.editing,
+.playlist-item.deleting {
   opacity: 1;
   background-color: #222;
   padding-left: 27px;
 }
+.playlist-item.editing {
+  border-left: 3px #222 solid;
+  padding-left: 17px;
+  padding-top: 1px;
+  padding-bottom: 2px;
+}
+.playlist-item.deleting {
+  padding-left: 30px;
+}
+.playlist-item.deleting:hover {
+  padding-left: 27px;
+}
 .playlist-item:hover {
   border-left: 3px #b0b0b0 solid;
+}
+.playlist-item:hover .playlist-actions {
+  opacity: 1;
 }
 .playlist-item.active {
   border-left: 3px #5cd17d solid;
@@ -351,10 +422,21 @@ input~ .search-clear:hover {
   color: #9de3b1;
   border-left-color: #9de3b1;
 }
+.playlist-item.placeholder {
+  font-style: italic;
+  opacity: 1;
+  color: #808080;
+  cursor: initial;
+  font-size: 14px;
+}
+.playlist-item.placeholder:hover {
+  background-color: initial;
+  padding-left: 30px;
+  border-left: none;
+}
 .playlist-name {
   display: inline-block;
   font-weight: 400;
-  max-width: 515px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -367,6 +449,80 @@ input~ .search-clear:hover {
   vertical-align: middle;
   letter-spacing: 2px;
   font-size: 12px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 76px;
+}
+.playlist-meta {
+  overflow: hidden;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.playlist-actions {
+  margin-left: 10px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  opacity: 0;
+  width: 80px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  font-size: 12px;
+}
+.playlist-actions.editing,
+.playlist-actions.deleting {
+  opacity: 1;
+}
+.playlist-actions div[class$="-mode"] {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.playlist-actions div[class^="playlist-"] {
+  margin-left: 10px;
+}
+.playlist-actions div[class^="playlist-"]:first-of-type {
+  margin-left: 0;
+}
+.playlist-create {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 0 20px;
+  margin-top: 2px;
+}
+.playlist-create .action {
+  margin-left: 10px;
+  font-size: 12px;
+}
+.playlist-create-input {
+  width: 50%;
+  height: 30px;
+  margin-right: 3px;
+  padding-left: 9px;
+}
+.playlist-edit-input {
+  height: 29px;
+  width: 99%;
+  padding-left: 9px;
 }
 .video-player {
   width: 640px;
@@ -386,7 +542,6 @@ input~ .search-clear:hover {
   padding-top: 140px;
 }
 .video-controller {
-  padding-top: 10px;
   width: 680px;
   margin-left: -20px;
   padding-left: 20px;
@@ -417,7 +572,7 @@ input~ .search-clear:hover {
   position: relative;
 }
 .video-none {
-  border: 1px #505050 dashed;
+  border: 1px #505050 solid;
   width: 640px;
   height: 360px;
   visibility: visible;
@@ -532,14 +687,12 @@ input~ .search-clear:hover {
   max-height: 0;
 }
 .controls {
+  margin-top: 10px;
   width: 640px;
   height: 40px;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -620,9 +773,6 @@ input~ .search-clear:hover {
   padding-left: 40px;
   padding-right: 120px;
 }
-.media-search-input:focus ~ .media-search-count {
-  color: #9de3b1;
-}
 .media-search-count {
   position: absolute;
   top: 0;
@@ -630,7 +780,7 @@ input~ .search-clear:hover {
   line-height: 40px;
   font-size: 14px;
   font-style: italic;
-  color: #505050;
+  color: #9de3b1;
   pointer-events: none;
 }
 .media-group-name {
@@ -661,9 +811,6 @@ input~ .search-clear:hover {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
   padding: 7px 10px;
   border-bottom: 1px #2a2a2a dashed;
   opacity: 0.7;
@@ -782,13 +929,22 @@ input~ .search-clear:hover {
 .action:hover {
   color: #9de3b1;
 }
+.action.danger {
+  color: #ff4136;
+}
+.action.danger:hover {
+  color: #ff8d86;
+}
+.action.default {
+  color: #b0b0b0;
+}
+.action.default:hover {
+  color: #e8e8e8;
+}
 .now-playing {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
@@ -822,9 +978,6 @@ input~ .search-clear:hover {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
   max-width: calc(100% - 25px);
 }
 .now-playing-name {

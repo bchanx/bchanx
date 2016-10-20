@@ -2,7 +2,7 @@ $jukebox-width = 640px
 $jukebox-height = 360px
 $jukebox-margin = 60px
 $jukebox-padding = 125px
-$jukebox-border = 1px $gray7 dashed
+$jukebox-border = 1px $gray7 solid
 
 input
   background: transparent
@@ -13,7 +13,7 @@ input
   width: 100%
   height: 40px
   &:focus
-    outline: 1px $green-light dashed
+    outline: 1px $green-light solid
     outline-offset: -1px
   &~ .search-clear
     position: absolute
@@ -29,6 +29,12 @@ input
     opacity: 0.8
     &:hover
       opacity: 1
+  &::placeholder
+    color: $gray6
+  &::-webkit-input-placeholder
+    color: $gray6
+  &::-ms-input-placeholder
+    color: $gray6
 
 .jukebox-container
   width: 100%
@@ -39,7 +45,6 @@ input
   color: $gray1
   padding: $jukebox-padding 0
   display: flex
-  flex-direction: row
   overflow-y: scroll
   position: relative
   &::-webkit-scrollbar
@@ -79,19 +84,25 @@ input
     overflow: hidden
 
 .playlists
+  display: flex
+  flex-direction: column
   width: $jukebox-width
-  min-height: 100px
-  overflow-y: scroll
+  min-height: 200px
   max-height: calc(100vh - 200px)
 
 .playlists-content
   padding: 15px 0
+  display: flex
+  flex-direction: column
   &.global
-    background-color: $gray10
-  &.local
-    margin-top: 10px
+    min-height: 100px
+  &.personal
+    min-height: 129px
+    border-top: 1px $gray9 dashed
+    padding-top: 20px
 
 .playlists-group-name
+  flex-shrink: 0
   margin-bottom: 7px
   font-size: 12px
   font-weight: 600
@@ -103,20 +114,46 @@ input
   opacity: 1
   max-height: 15px
 
+.playlist-items
+  flex-grow: 1
+  min-height: 34px
+  overflow-y: scroll
+  &::-webkit-scrollbar
+    display: none
+  &.create
+    flex-grow: initial
+    min-height: initial
+
 .playlist-item
   cursor: pointer
-  padding: 7px 30px
+  padding: 3px 30px
   opacity: 0.8
-  line-height: 18px
+  line-height: 26px
+  margin-bottom: 2px
+  display: flex
+  align-items: center
   &:last-of-type
     margin-bottom: 0
   &:hover
   &.active
+  &.editing
+  &.deleting
     opacity: 1
     background-color: $gray10
     padding-left: 27px
+  &.editing
+    border-left: 3px $gray10 solid
+    padding-left: 17px
+    padding-top: 1px
+    padding-bottom: 2px
+  &.deleting
+    padding-left: 30px
+    &:hover
+      padding-left: 27px
   &:hover
     border-left: 3px $gray4 solid
+    .playlist-actions
+      opacity: 1
   &.active
     border-left: 3px $green solid
     font-weight: 400
@@ -124,11 +161,20 @@ input
     &:hover
       color: $green-light
       border-left-color: $green-light
+  &.placeholder
+    font-style: italic
+    opacity: 1
+    color: $gray6
+    cursor: initial
+    font-size: 14px
+    &:hover
+      background-color: initial
+      padding-left: 30px
+      border-left: none
 
 .playlist-name
   display: inline-block
   font-weight: 400
-  max-width: 515px
   overflow: hidden
   text-overflow: ellipsis
   white-space: nowrap
@@ -141,6 +187,53 @@ input
   vertical-align: middle
   letter-spacing: 2px
   font-size: 12px
+  flex-shrink: 0
+  width: 76px
+
+.playlist-meta
+  overflow: hidden
+  flex-grow: 1
+  display: flex
+  align-items: center
+
+.playlist-actions
+  margin-left: 10px
+  flex-shrink: 0
+  opacity: 0
+  width: 80px
+  display: flex
+  justify-content: flex-end
+  font-size: 12px
+  &.editing
+  &.deleting
+    opacity: 1
+  div[class$="-mode"]
+    display: flex
+  div[class^="playlist-"]
+    margin-left: 10px
+    &:first-of-type
+      margin-left: 0
+
+.playlist-create
+  flex-shrink: 0
+  display: flex
+  align-items: center
+  margin: 0 20px
+  margin-top: 2px
+  .action
+    margin-left: 10px
+    font-size: 12px
+
+.playlist-create-input
+  width: 50%
+  height: 30px
+  margin-right: 3px
+  padding-left: 9px
+
+.playlist-edit-input
+  height: 29px
+  width: 99%
+  padding-left: 9px
 
 .video-player
   width: $jukebox-width
@@ -158,7 +251,6 @@ input
         padding-top: 140px
 
 .video-controller
-  padding-top: 10px
   width: $jukebox-width + 40px
   margin-left: -20px
   padding-left: 20px
@@ -275,10 +367,10 @@ input
     max-height: 0
 
 .controls
+  margin-top: 10px
   width: $jukebox-width
   height: 40px
   display: flex
-  flex-direction: row
   flex-shrink: 0
   justify-content: center;
   font-size: 1.4em
@@ -340,8 +432,6 @@ input
 .media-search-input
   padding-left: 40px
   padding-right: 120px
-  &:focus ~ .media-search-count
-    color: $green-light
 
 .media-search-count
   position: absolute
@@ -350,7 +440,7 @@ input
   line-height: 40px
   font-size: 14px
   font-style: italic
-  color: $gray7
+  color: $green-light
   pointer-events: none
 
 .media-group-name
@@ -376,7 +466,6 @@ input
 .media-item
   cursor: pointer
   display: flex
-  flex-direction: row
   padding: 7px 10px
   border-bottom: 1px $gray9 dashed
   opacity: 0.7
@@ -471,10 +560,17 @@ input
   font-weight: 400
   &:hover
     color: $green-light
+  &.danger
+    color: $red
+    &:hover
+      color: $red-light
+  &.default
+    color: $gray4
+    &:hover
+      color: $gray3
 
 .now-playing
   display: flex
-  flex-direction: row
   align-items: center
   justify-content: center
   opacity: 1
@@ -497,7 +593,6 @@ input
 .now-playing-display
   flex-shrink: 0
   display: flex
-  flex-direction: row
   max-width: calc(100% - 25px)
 
 .now-playing-name

@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { TYPES } from './redux/actionTypes';
+import { MEDIA_TYPES } from './redux/actionTypes';
 
 var NowPlaying = React.createClass({
 
@@ -16,7 +16,7 @@ var NowPlaying = React.createClass({
   render: function() {
     return (
       <div className={classNames("now-playing", {
-        hidden: this.props.current.media.type === TYPES.UNKNOWN && !this.props.current.order.length
+        hidden: this.props.current.media.type === MEDIA_TYPES.UNKNOWN && !this.props.current.order.length
       })} style={this.props.style}>
         <div className="now-playing-icon ion-ios-volume-high"></div>
         <div className="now-playing-display">

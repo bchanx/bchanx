@@ -30,12 +30,15 @@ export const SELECT_PLAYLIST = 'SELECT_PLAYLIST';
 export const RESTART_PLAYLIST = 'RESTART_PLAYLIST';
 
 // Playlist
+export const RESTORE_PLAYLISTS = 'RESTORE_PLAYLISTS';
+export const CREATE_PLAYLIST = 'CREATE_PLAYLIST';
+export const DELETE_PLAYLIST = 'DELETE_PLAYLIST';
 export const ADD_TO_PLAYLIST = 'ADD_TO_PLAYLIST';
 export const REMOVE_FROM_PLAYLIST = 'REMOVE_FROM_PLAYLIST';
-export const DELETE_PLAYLIST = 'DELETE_PLAYLIST';
+export const UPDATE_PLAYLIST = 'UPDATE_PLAYLIST';
 
 // Media types
-export const TYPES = {
+export const MEDIA_TYPES = {
   UNKNOWN: '-1',
   YOUTUBE: '1'
 };
@@ -45,6 +48,13 @@ export const SOURCES = {
   UNKNOWN: -1,
   PLAYLIST: 1,
   QUEUE: 2
+};
+
+// Playlist types
+export const PLAYLIST_TYPES = {
+  UNKNOWN: 'unknown',
+  GLOBAL: 'global',
+  PERSONAL: 'personal'
 };
 
 // YT.PlayerState.UNSTARTED (-1)

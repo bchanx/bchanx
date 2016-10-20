@@ -11293,6 +11293,7 @@ body {
   height: 100vh;
   max-height: 1000px;
   position: relative;
+  margin: 0 auto;
   display: -webkit-flex;
   display: -moz-flex;
   display: -ms-flexbox;

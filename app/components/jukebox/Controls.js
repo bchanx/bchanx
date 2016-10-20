@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { TYPES, SOURCES } from './redux/actionTypes';
+import { MEDIA_TYPES, SOURCES } from './redux/actionTypes';
 import { play, pause, mute, unmute, repeat, shuffle, playlist, playNext, playPrev, hideOverlay, videoShowing } from './redux/actions';
 
 var Controls = React.createClass({
@@ -28,7 +28,7 @@ var Controls = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps) {
-    let mediaValid = nextProps.current.media.id && nextProps.current.media.type !== TYPES.UNKNOWN;
+    let mediaValid = nextProps.current.media.id && nextProps.current.media.type !== MEDIA_TYPES.UNKNOWN;
     let endReached = !mediaValid && !nextProps.current.queue.length && (!nextProps.current.order.length || nextProps.current.index === nextProps.current.order.length);
 
     // Now set the control states
@@ -88,7 +88,7 @@ var Controls = React.createClass({
   render: function() {
     return (
       <div className={classNames("controls", {
-        hidden: this.props.current.media.type === TYPES.UNKNOWN && this.props.current.source === SOURCES.UNKNOWN
+        hidden: this.props.current.media.type === MEDIA_TYPES.UNKNOWN && this.props.current.source === SOURCES.UNKNOWN
       })} style={this.props.style}>
         <div className={classNames("play-pause-button", {
           disabled: this.state.playPauseDisabled
