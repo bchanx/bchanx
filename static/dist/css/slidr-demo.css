@@ -831,7 +831,6 @@ hr {
   height: 12px;
   left: 69px;
   top: 69px;
-  -webkit-transform: rotate(23deg);
   transform: rotate(23deg);
 }
 .logo-github-large .ear-one-none {
@@ -845,7 +844,6 @@ hr {
   height: 12px;
   left: 185px;
   top: 69px;
-  -webkit-transform: rotate(-23deg);
   transform: rotate(-23deg);
 }
 .logo-github-large .ear-two-right {
@@ -895,7 +893,6 @@ hr {
   top: 285px;
 }
 .logo-github-large .tail-end {
-  -webkit-transform: rotate(-35deg);
   transform: rotate(-35deg);
   width: 16px;
   height: 35px;
@@ -918,7 +915,6 @@ hr {
   top: 190px;
 }
 .logo-github-large .tail-end-none {
-  -webkit-transform: rotate(-24deg);
   transform: rotate(-24deg);
   width: 17px;
   height: 48px;
@@ -932,7 +928,6 @@ hr {
   top: 194px;
 }
 .logo-github-large .tail-tip {
-  -webkit-transform: rotate(12deg);
   transform: rotate(12deg);
   width: 20px;
   height: 9px;
@@ -994,7 +989,6 @@ hr {
   height: 2.08px;
   left: 11.96px;
   top: 11.96px;
-  -webkit-transform: rotate(23deg);
   transform: rotate(23deg);
 }
 .logo-github-small .ear-one-none {
@@ -1008,7 +1002,6 @@ hr {
   height: 2.08px;
   left: 32.06666667px;
   top: 11.96px;
-  -webkit-transform: rotate(-23deg);
   transform: rotate(-23deg);
 }
 .logo-github-small .ear-two-right {
@@ -1058,7 +1051,6 @@ hr {
   top: 49.4px;
 }
 .logo-github-small .tail-end {
-  -webkit-transform: rotate(-35deg);
   transform: rotate(-35deg);
   width: 2.77333333px;
   height: 6.06666667px;
@@ -1081,7 +1073,6 @@ hr {
   top: 32.93333333px;
 }
 .logo-github-small .tail-end-none {
-  -webkit-transform: rotate(-24deg);
   transform: rotate(-24deg);
   width: 2.94666667px;
   height: 8.32px;
@@ -1095,7 +1086,6 @@ hr {
   top: 33.62666667px;
 }
 .logo-github-small .tail-tip {
-  -webkit-transform: rotate(12deg);
   transform: rotate(12deg);
   width: 3.46666667px;
   height: 1.56px;
@@ -1164,7 +1154,6 @@ hr {
   height: 50px;
   left: 248px;
   top: 138px;
-  -webkit-transform: rotate(8deg);
   transform: rotate(8deg);
 }
 .logo-facebook-small {
@@ -1215,7 +1204,6 @@ hr {
   height: 8.66666667px;
   left: 42.98666667px;
   top: 23.92px;
-  -webkit-transform: rotate(8deg);
   transform: rotate(8deg);
 }
 .logo-linkedin-actual {
@@ -1382,7 +1370,6 @@ hr {
   background-color: #87C441;
 }
 .logo-evernote-large .head {
-  -webkit-transform: rotate(2deg);
   transform: rotate(2deg);
   border-radius: 0 20% 0 11px;
   width: 71px;
@@ -1392,7 +1379,6 @@ hr {
 }
 .logo-evernote-large .head-top {
   border-radius: 100%;
-  -webkit-transform: rotate(5deg);
   transform: rotate(5deg);
   width: 65px;
   height: 12px;
@@ -1408,7 +1394,6 @@ hr {
 }
 .logo-evernote-large .head-bottom {
   border-radius: 0 0 0 20px;
-  -webkit-transform: rotate(7deg);
   transform: rotate(7deg);
   width: 70px;
   height: 16px;
@@ -1421,7 +1406,6 @@ hr {
   height: 110px;
   left: 181px;
   top: 133px;
-  -webkit-transform: rotate(4deg);
   transform: rotate(4deg);
 }
 .logo-evernote-large .trunk-bottom {
@@ -1461,7 +1445,6 @@ hr {
 }
 .logo-evernote-large .head-none {
   border-radius: 10px 10px 0 0;
-  -webkit-transform: rotate(5deg);
   transform: rotate(5deg);
   width: 19px;
   height: 15px;
@@ -1470,7 +1453,6 @@ hr {
 }
 .logo-evernote-large .eye {
   border-radius: 100% 150% 0 0;
-  -webkit-transform: rotate(5deg);
   transform: rotate(5deg);
   width: 22px;
   height: 5px;
@@ -1478,7 +1460,6 @@ hr {
   top: 145px;
 }
 .logo-evernote-large .ear-flap {
-  -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   width: 33px;
   height: 51px;
@@ -1514,7 +1495,6 @@ hr {
   left: 72px;
 }
 .logo-evernote-large .body-bottom-right {
-  -webkit-transform: rotate(11deg);
   transform: rotate(11deg);
   border-radius: 100% 100% 75% 0;
   width: 18px;
@@ -1523,7 +1503,6 @@ hr {
   left: 132px;
 }
 .logo-evernote-large .body-bottom-left {
-  -webkit-transform: rotate(-11deg);
   transform: rotate(-11deg);
   border-radius: 67% 100% 120% 68%;
   height: 78px;
@@ -1532,7 +1511,6 @@ hr {
   top: 102px;
 }
 .logo-evernote-large .body-bottom {
-  -webkit-transform: rotate(10deg);
   transform: rotate(10deg);
   border-radius: 171% 120% 24px 100%;
   width: 61px;
@@ -1590,7 +1568,6 @@ hr {
   background-color: #87C441;
 }
 .logo-evernote-small .head {
-  -webkit-transform: rotate(2deg);
   transform: rotate(2deg);
   border-radius: 0 20% 0 1.90666667px;
   width: 12.30666667px;
@@ -1600,7 +1577,6 @@ hr {
 }
 .logo-evernote-small .head-top {
   border-radius: 100%;
-  -webkit-transform: rotate(5deg);
   transform: rotate(5deg);
   width: 11.26666667px;
   height: 2.08px;
@@ -1616,7 +1592,6 @@ hr {
 }
 .logo-evernote-small .head-bottom {
   border-radius: 0 0 0 3.46666667px;
-  -webkit-transform: rotate(7deg);
   transform: rotate(7deg);
   width: 12.13333333px;
   height: 2.77333333px;
@@ -1629,7 +1604,6 @@ hr {
   height: 19.06666667px;
   left: 31.37333333px;
   top: 23.05333333px;
-  -webkit-transform: rotate(4deg);
   transform: rotate(4deg);
 }
 .logo-evernote-small .trunk-bottom {
@@ -1669,7 +1643,6 @@ hr {
 }
 .logo-evernote-small .head-none {
   border-radius: 1.73333333px 1.73333333px 0 0;
-  -webkit-transform: rotate(5deg);
   transform: rotate(5deg);
   width: 3.29333333px;
   height: 2.6px;
@@ -1678,7 +1651,6 @@ hr {
 }
 .logo-evernote-small .eye {
   border-radius: 100% 150% 0 0;
-  -webkit-transform: rotate(5deg);
   transform: rotate(5deg);
   width: 3.81333333px;
   height: 0.86666667px;
@@ -1686,7 +1658,6 @@ hr {
   top: 25.13333333px;
 }
 .logo-evernote-small .ear-flap {
-  -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   width: 5.72px;
   height: 8.84px;
@@ -1722,7 +1693,6 @@ hr {
   left: 12.48px;
 }
 .logo-evernote-small .body-bottom-right {
-  -webkit-transform: rotate(11deg);
   transform: rotate(11deg);
   border-radius: 100% 100% 75% 0;
   width: 3.12px;
@@ -1731,7 +1701,6 @@ hr {
   left: 22.88px;
 }
 .logo-evernote-small .body-bottom-left {
-  -webkit-transform: rotate(-11deg);
   transform: rotate(-11deg);
   border-radius: 67% 100% 120% 68%;
   height: 13.52px;
@@ -1740,7 +1709,6 @@ hr {
   top: 17.68px;
 }
 .logo-evernote-small .body-bottom {
-  -webkit-transform: rotate(10deg);
   transform: rotate(10deg);
   border-radius: 171% 120% 4.16px 100%;
   width: 10.57333333px;
@@ -1775,7 +1743,7 @@ hr {
   top: 14.73333333px;
 }
 .logo-dropbox-actual {
-  background: #4b95f4 url('/static/images/logo/dropbox.png') no-repeat 31px 42px;
+  background: #3292f5 url('/static/images/logo/dropbox.png') no-repeat 31px 42px;
   background-size: 80%;
   border-radius: 100%;
   width: 300px;
@@ -1789,7 +1757,7 @@ hr {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .logo-dropbox-large {
-  background-color: #4b95f4;
+  background-color: #3292f5;
   width: 300px;
   height: 300px;
   border-radius: 150px;
@@ -1809,10 +1777,9 @@ hr {
   background-color: #ffffff;
 }
 .logo-dropbox-large div[class*=-none] {
-  background-color: #4b95f4;
+  background-color: #3292f5;
 }
 .logo-dropbox-large .base-left {
-  -webkit-transform: skew(0, 31deg);
   transform: skew(0, 31deg);
   width: 61px;
   height: 79px;
@@ -1820,7 +1787,6 @@ hr {
   top: 153px;
 }
 .logo-dropbox-large .base-right {
-  -webkit-transform: skew(0, -31deg);
   transform: skew(0, -31deg);
   width: 61px;
   height: 79px;
@@ -1835,7 +1801,6 @@ hr {
   top: 171px;
 }
 .logo-dropbox-large .cover-left-none {
-  -webkit-transform: skew(-50deg, 34deg);
   transform: skew(-50deg, 34deg);
   width: 62px;
   height: 40px;
@@ -1843,7 +1808,6 @@ hr {
   top: 152px;
 }
 .logo-dropbox-large .cover-right-none {
-  -webkit-transform: skew(50deg, -34deg);
   transform: skew(50deg, -34deg);
   width: 62px;
   height: 40px;
@@ -1851,7 +1815,6 @@ hr {
   top: 152px;
 }
 .logo-dropbox-large .cover-top {
-  -webkit-transform: skew(51deg, -33deg);
   transform: skew(51deg, -33deg);
   width: 60px;
   height: 37px;
@@ -1859,7 +1822,6 @@ hr {
   top: 79px;
 }
 .logo-dropbox-large .cover-bottom {
-  -webkit-transform: skew(51deg, -33deg);
   transform: skew(51deg, -33deg);
   width: 60px;
   height: 37px;
@@ -1867,7 +1829,6 @@ hr {
   top: 148px;
 }
 .logo-dropbox-large .cover-right {
-  -webkit-transform: skew(-51deg, 33deg);
   transform: skew(-51deg, 33deg);
   width: 60px;
   height: 37px;
@@ -1875,7 +1836,6 @@ hr {
   top: 79px;
 }
 .logo-dropbox-large .cover-left {
-  -webkit-transform: skew(-51deg, 33deg);
   transform: skew(-51deg, 33deg);
   width: 60px;
   height: 37px;
@@ -1883,7 +1843,6 @@ hr {
   top: 148px;
 }
 .logo-dropbox-large .box-none {
-  -webkit-transform: skew(-58deg, 32deg);
   transform: skew(-58deg, 32deg);
   width: 60px;
   height: 38px;
@@ -1891,7 +1850,7 @@ hr {
   top: 113px;
 }
 .logo-dropbox-small {
-  background-color: #4b95f4;
+  background-color: #3292f5;
   width: 52px;
   height: 52px;
   border-radius: 26px;
@@ -1911,10 +1870,9 @@ hr {
   background-color: #ffffff;
 }
 .logo-dropbox-small div[class*=-none] {
-  background-color: #4b95f4;
+  background-color: #3292f5;
 }
 .logo-dropbox-small .base-left {
-  -webkit-transform: skew(0, 31deg);
   transform: skew(0, 31deg);
   width: 10.57333333px;
   height: 13.69333333px;
@@ -1922,7 +1880,6 @@ hr {
   top: 26.52px;
 }
 .logo-dropbox-small .base-right {
-  -webkit-transform: skew(0, -31deg);
   transform: skew(0, -31deg);
   width: 10.57333333px;
   height: 13.69333333px;
@@ -1937,7 +1894,6 @@ hr {
   top: 29.64px;
 }
 .logo-dropbox-small .cover-left-none {
-  -webkit-transform: skew(-50deg, 34deg);
   transform: skew(-50deg, 34deg);
   width: 10.74666667px;
   height: 6.93333333px;
@@ -1945,7 +1901,6 @@ hr {
   top: 26.34666667px;
 }
 .logo-dropbox-small .cover-right-none {
-  -webkit-transform: skew(50deg, -34deg);
   transform: skew(50deg, -34deg);
   width: 10.74666667px;
   height: 6.93333333px;
@@ -1953,7 +1908,6 @@ hr {
   top: 26.34666667px;
 }
 .logo-dropbox-small .cover-top {
-  -webkit-transform: skew(51deg, -33deg);
   transform: skew(51deg, -33deg);
   width: 10.4px;
   height: 6.41333333px;
@@ -1961,7 +1915,6 @@ hr {
   top: 13.69333333px;
 }
 .logo-dropbox-small .cover-bottom {
-  -webkit-transform: skew(51deg, -33deg);
   transform: skew(51deg, -33deg);
   width: 10.4px;
   height: 6.41333333px;
@@ -1969,7 +1922,6 @@ hr {
   top: 25.65333333px;
 }
 .logo-dropbox-small .cover-right {
-  -webkit-transform: skew(-51deg, 33deg);
   transform: skew(-51deg, 33deg);
   width: 10.4px;
   height: 6.41333333px;
@@ -1977,7 +1929,6 @@ hr {
   top: 13.69333333px;
 }
 .logo-dropbox-small .cover-left {
-  -webkit-transform: skew(-51deg, 33deg);
   transform: skew(-51deg, 33deg);
   width: 10.4px;
   height: 6.41333333px;
@@ -1985,7 +1936,6 @@ hr {
   top: 25.65333333px;
 }
 .logo-dropbox-small .box-none {
-  -webkit-transform: skew(-58deg, 32deg);
   transform: skew(-58deg, 32deg);
   width: 10.4px;
   height: 6.58666667px;
@@ -2401,10 +2351,7 @@ hr {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .logo-bchanx .logo-content {
-  transition: -webkit-transform 0.4s ease;
   transition: transform 0.4s ease;
-  transition: transform 0.4s ease, -webkit-transform 0.4s ease;
-  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   width: 80px;
   height: 80px;
@@ -2419,7 +2366,6 @@ hr {
   width: 78px;
   height: 78px;
   border-radius: 50%;
-  -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -2456,7 +2402,6 @@ hr {
   height: 80px;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-transform: translateZ(1px);
   transform: translateZ(1px);
   position: absolute;
 }
@@ -2466,7 +2411,6 @@ hr {
   height: 78px;
 }
 .logo-bchanx:hover .logo-content {
-  -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
 #footer {
@@ -2623,7 +2567,6 @@ a:hover {
     width: 400px;
   }
   #header #header-container #header-logo {
-    -webkit-transform: scale(0.625);
     transform: scale(0.625);
     height: 60px;
   }
@@ -2764,7 +2707,6 @@ a:hover {
   top: 35px;
   right: -40px;
   z-index: 999;
-  -webkit-transform: rotateZ(45deg);
   transform: rotateZ(45deg);
 }
 html {
@@ -2993,7 +2935,6 @@ aside[id="slidr-css-demo-breadcrumbs"] .slidr-breadcrumbs li.active {
   left: 0;
   font-size: 24px;
   z-index: 1;
-  -webkit-transform: translateZ(1px);
   transform: translateZ(1px);
   position: relative;
 }

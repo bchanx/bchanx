@@ -10,12 +10,14 @@
 
 {% block css %}
   <link rel="stylesheet" href="/static/dist/css/lib/github.min.css"/>
-  <link rel="stylesheet" href="/static/dist/css/lib/markdown.css"/>
+  <link rel="stylesheet" href="/static/dist/css/lib/markdown.min.css"/>
   <link rel="stylesheet" href="/static/dist/css/slidr-demo{{min}}.css"/>
 {% endblock %}
 
 {% block header %}
-  {{ header.github("slidr.js", "..add some slide effects.") }}
+  <div id="header">
+    {{ header.github("slidr.js", "..add some slide effects.") }}
+  </div>
 {% endblock %}
 
 {% block body %}
@@ -533,14 +535,16 @@ This software is free to use under the MIT license.
 {% endblock %}
 
 {% block footer %}
-  {{ footer.blog() }}
+  <div id="footer">
+    {{ footer.blog() }}
+  </div>
 {% endblock %}
 
 {% block scripts %}
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
   <script src="/static/dist/js/lib/jquery.min.js"></script>
   <script src="/static/dist/js/lib/marked.min.js"></script>
-  <script src="/static/dist/js/lib/slidr{{min}}.js"></script>
+  <script src="/static/dist/js/lib/slidr.min.js"></script>
   <!--[if lte IE 8]>
     <script>var lteIE8 = true;</script>
   <![endif]-->

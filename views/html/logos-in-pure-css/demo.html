@@ -9,7 +9,9 @@
 {% endblock %}
 
 {% block header %}
-  {{ header.render("Logos In Pure CSS") }}
+  <div id="header">
+    {{ header.render("Logos In Pure CSS") }}
+  </div>
 {% endblock %}
 
 {% block css %}
@@ -75,7 +77,9 @@
 {% endblock %}
 
 {% block footer %}
-  {{ footer.blog() }}
+  <div id="footer">
+    {{ footer.blog() }}
+  </div>
 {% endblock %}
 
 {% block scripts %}

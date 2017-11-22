@@ -1,0 +1,598 @@
+[{
+  "name": "Miracle-",
+  "dateAchieved": "2016-05-10T20:51:01+00:00",
+  "region": "EU",
+  "role": "Mid",
+  "isVerified": true,
+  "social": {
+    "liquipedia": "http://wiki.teamliquid.net/dota2/Miracle-",
+    "dotabuff": "https://www.dotabuff.com/players/105248644",
+    "twitter": "https://twitter.com/Liquid_Miracle"
+  },
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/4ireom/miracle_hit_9k_mmr/"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/2354268232",
+    "hero": "antimage"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=FMle9OH9hR4"
+  }]
+}, {
+  "name": "Arteezy",
+  "dateAchieved": "2016-06-28T22:21:13+00:00",
+  "region": "NA",
+  "role": "Carry",
+  "isVerified": true,
+  "social": {
+    "dotabuff": "https://www.dotabuff.com/players/86745912",
+    "twitter": "https://twitter.com/Arteezy"
+  },
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/4qc688/arteezy_just_hit_9k_mmr/"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/2468602034",
+    "hero": "terrorblade"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=3tE1_Sz98i0"
+  }, {
+    "type": "twitter",
+    "url": "https://twitter.com/claycausin/status/747941469382643716"
+  }]
+}, {
+  "name": "kaka",
+  "dateAchieved": "2016-08-30T13:47:15+00:00",
+  "region": "CN",
+  "role": "Support",
+  "isVerified": true,
+  "social": {
+    "dotabuff": "https://www.dotabuff.com/players/139876032"
+  },
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/50b843/kaka_hits_9k_mmr/"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/2610417124",
+    "hero": "skywrath"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=agNJNZpClcA"
+  }]
+}, {
+  "name": "Ramzes666",
+  "dateAchieved": "2016-08-30T16:34:03+00:00",
+  "region": "CIS",
+  "role": "Carry",
+  "isVerified": true,
+  "social": {
+    "dotabuff": "https://www.dotabuff.com/players/132851371",
+    "twitter": "https://twitter.com/ramzesdoto",
+    "instagram": "https://www.instagram.com/ramzes/"
+  },
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/50c2s2/vpramzes_officially_has_9_0_0_0_matchamking_points/"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/2610851669",
+    "hero": "huskar"
+  }]
+}, {
+  "name": "Sccc",
+  "dateAchieved": "2016-09-04T14:17:38+00:00",
+  "region": "CN",
+  "role": "Mid",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/5146j1/sccc_9000mmr/"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/2621993670",
+    "hero": "puck"
+  }]
+}, {
+  "name": "Paparazi",
+  "dateAchieved": "2016-09-09T13:41:21+00:00",
+  "region": "CN",
+  "role": "Carry",
+  "isVerified": true,
+  "social": {
+    "dotabuff": "https://www.dotabuff.com/players/137193239"
+  },
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/51xh4q/yet_another_9000_mmr_player_paparazi/"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/2632211136",
+    "hero": "tiny"
+  }]
+}, {
+  "name": "ame",
+  "dateAchieved": "sep 10th 2016",
+  "region": "CN",
+  "role": "Carry",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/523nbp/my_last_9k_post_lgdame_the_new_member_in_the_9k/"
+  }]
+}, {
+  "name": "matumbaman",
+  "dateAchieved": "oct 9th 2016",
+  "region": "EU",
+  "role": "Carry",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/56o452/congratulations_to_matumbaman_for_hitting_9000_mmr/"
+  }]
+}, {
+  "name": "sonneiko",
+  "dateAchieved": "nov 3rd 2016",
+  "region": "CIS",
+  "role": "Support",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/5ax2ty/congrats_sonneiko_on_reaching_9000_mmr/"
+  }]
+}, {
+  "name": "gh-god",
+  "dateAchieved": "nov 19th 2016",
+  "region": "EU",
+  "role": "Support",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/5duk0k/ghgod_is_now_9k_mmr/"
+  }]
+}, {
+  "name": "alohadance",
+  "dateAchieved": "dec 26th 2016",
+  "region": "CIS",
+  "role": "Carry",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/5kbkaf/alohadance_9k_pogchamp/"
+  }]
+}, {
+  "name": "limmp",
+  "dateAchieved": "dec 29th 2016",
+  "region": "EU",
+  "role": "Mid",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/5ktm1t/congratulations_to_alimmp_for_getting_9k_mmr/"
+  }]
+}, {
+  "name": "no[o]ne-",
+  "dateAchieved": "jan 13th 2017",
+  "region": "CIS",
+  "role": "Mid",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/5npta7/vpnoone_is_new_9k/"
+  }]
+}, {
+  "name": "midone",
+  "dateAchieved": "feb 9th 2017",
+  "region": "SEA",
+  "role": "Mid",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/5t1sd6/midone_has_just_reached_9k_on_his_stream/"
+  }, {
+    "type": "facebook",
+    "url": "https://www.facebook.com/TeamSecret/videos/1431491756861434"
+  }]
+}, {
+  "name": "forev",
+  "dateAchieved": "feb 11th 2017",
+  "region": "SEA",
+  "role": "Offlane",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/5tebz7/forev_9k/"
+  }]
+}, {
+  "name": "747",
+  "dateAchieved": "feb 25th 2017",
+  "region": "NA",
+  "role": "Mid",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/5w2qx9/747_first_na_servers_only_9k/"
+  }]
+}, {
+  "name": "ana",
+  "dateAchieved": "feb 28th 2017",
+  "region": "EU",
+  "role": "Mid",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/5wkvzc/ana_reached_9k/"
+  }]
+}, {
+  "name": "zhizhizhi",
+  "dateAchieved": "march 16th, 2017",
+  "region": "CN",
+  "role": "Carry",
+  "isVerified": true,
+  "source": [{
+    "type": "facebook",
+    "url": "https://www.facebook.com/ehomecn/posts/623207101214094"
+  }]
+}, {
+  "name": "xcalibur",
+  "dateAchieved": "march 17th, 2017",
+  "region": "EU",
+  "role": "Mid",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/5zzqas/xcalibur_hit_9k_mmr/"
+  }]
+}, {
+  "name": "abed",
+  "dateAchieved": "march 20th, 2017",
+  "region": "SEA",
+  "role": "mid",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/60etoy/congratulations_abed_for_reaching_9k_mmr/"
+  }]
+}, {
+  "name": "ori",
+  "dateAchieved": "march 30th, 2017",
+  "region": "CN",
+  "role": "Mid",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/62ezae/vgs_mid_player_ori_just_reached_9k_mmr/"
+  }]
+}, {
+  "name": "Madara",
+  "dateAchieved": "April 15th, 2017",
+  "region": "EU",
+  "role": "Carry",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/65iu1t/madara_has_joined_the_9k_club/"
+  }, {
+    "type": "twitter",
+    "url": "https://twitter.com/MadaraDotA2/status/853222535709822977"
+  }]
+}, {
+  "name": "inyourdream",
+  "dateAchieved": "april 27th, 2017",
+  "region": "SEA",
+  "role": "Mid",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/67wrks/congrats_to_inyourdream_for_reaching_9k_mmr/"
+  }]
+}, {
+  "name": "Monet",
+  "dateAchieved": "May 16th, 2017",
+  "region": "CN",
+  "role": "Mid",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/6bncjq/youngest_9k_solo_mmr_in_china/"
+  }]
+}, {
+  "name": "Smash",
+  "dateAchieved": "June 5th, 2017",
+  "region": "NA",
+  "role": "Offlane",
+  "isVerified": true,
+  "dotabuff": "118073569",
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/6fgc3p/smash_just_hit_9k_mmr/"
+  }]
+}, {
+  "name": "Alacrity",
+  "dateAchieved": "July 6th, 2017",
+  "region": "SEA",
+  "role": "Mid",
+  "isVerified": true,
+  "source": [{
+    "type": "facebook",
+    "url": "https://www.facebook.com/firedragoonesports/posts/737463539784826"
+  }]
+}, {
+  "name": "CCnC",
+  "dateAchieved": "July 9th, 2017",
+  "region": "NA",
+  "role": "Mid",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/6m9lec/ccnc_hits_9k/"
+  }]
+}, {
+  "name": "S4",
+  "dateAchieved": "June 10th, 2017",
+  "region": "EU",
+  "role": "Offlane",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/6giq5v/s4_is_now_9k/"
+  }, {
+    "type": "twitter",
+    "url": "https://twitter.com/s4dota/status/873704253315067904"
+  }]
+}, {
+  "name": "Vann",
+  "dateAchieved": "July 30th, 2017",
+  "region": "NA",
+  "role": "Carry",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/6qgebh/congratulations_to_vann_for_reaching_9kna_servers/"
+  }]
+}, {
+  "name": "Saksa",
+  "dateAchieved": "August 6th, 2017",
+  "region": "EU",
+  "role": "Support",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/6s3m80/saksa_9k_mmr/"
+  }, {
+    "type": "twitter",
+    "url": "https://twitter.com/Saksadota/status/894403263369420802"
+  }]
+}, {
+  "name": "June",
+  "dateAchieved": "August 9th, 2017",
+  "region": "CN",
+  "role": "Offlane",
+  "isVerified": false,
+  "source": [{
+    "type": "liquipedia",
+    "url": "http://wiki.teamliquid.net/dota2/Leaderboards"
+  }]
+}, {
+  "name": "Old Chicken",
+  "dateAchieved": "Aug 16th, 2017",
+  "region": "CN",
+  "role": "Carry/Mid?",
+  "isVerified": true,
+  "source": [{
+    "type": "twitter",
+    "url": "https://twitter.com/EHOMECN/status/897732247691956225"
+  }]
+}, {
+  "name": "Nine",
+  "dateAchieved": "Aug 23rd, 2017",
+  "region": "EU",
+  "role": "Mid",
+  "isVerified": true,
+  "dotabuff": "94786276",
+  "source": [{
+    "type": "twitter",
+    "url": "https://twitter.com/RAX_Nine/status/900377950784278528"
+  }]
+}, {
+  "name": "Cancel^^",
+  "dateAchieved": "Aug 29th, 2017",
+  "region": "EU",
+  "role": "Mid",
+  "isVerified": true,
+  "source": [{
+    "type": "twitter",
+    "url": "https://twitter.com/canceldota/status/902610126925950976"
+  }]
+}, {
+  "name": "Topson",
+  "dateAchieved": "Aug 31st, 2017",
+  "region": "EU",
+  "role": "Mid",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/6x5d48/congratulations_to_topson_for_reaching_9k_mmr/"
+  }]
+}, {
+  "name": "Cr1t",
+  "dateAchieved": "Sep 1st, 2017",
+  "region": "NA",
+  "role": "Support",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/6xfrws/congratulations_to_cr1t_for_hitting_9k/"
+  }, {
+    "type": "twitter",
+    "url": "https://twitter.com/Cr1tdota/status/903659490704273408"
+  }]
+}, {
+  "name": "Gabbi",
+  "dateAchieved": "Sept 25th, 2017",
+  "region": "SEA",
+  "role": "Mid",
+  "isVerified": true,
+  "source": [{
+    "type": "twitter",
+    "url": "https://twitter.com/gabbidoto/status/912380624035495936"
+  }]
+}, {
+  "name": "Badman",
+  "dateAchieved": "Sept 26th, 2017",
+  "region": "EU",
+  "role": "Carry",
+  "isVerified": true,
+  "source": [{
+    "type": "youtube",
+    "url": "https://youtu.be/LeOiTbKq2Vg?t=895"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3468076996"
+  }]
+}, {
+  "name": "Afoninje",
+  "dateAchieved": "Sept 26th, 2017",
+  "region": "CIS",
+  "role": "Mid",
+  "isVerified": true,
+  "source": [{
+    "type": "twitter",
+    "url": "https://twitter.com/Afoninje/status/912630932938661893"
+  }]
+}, {
+  "name": "Mind_control",
+  "dateAchieved": "Oct 4th, 2017",
+  "region": "EU",
+  "role": "Offlane",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/747tup/congratulations_team_liquid_for_being_the_first_4/"
+  }]
+}, {
+  "name": "Benhur",
+  "dateAchieved": "Oct 5th, 2017",
+  "region": "SEA",
+  "role": "Mid",
+  "isVerified": true,
+  "source": [{
+    "type": "facebook",
+    "url": "https://www.facebook.com/HappyfeetDotA/photos/a.136772986342471.19742.136771886342581/1690108581008896"
+  }]
+}, {
+  "name": "Boboka",
+  "dateAchieved": "Oct 6th 2017",
+  "region": "CN",
+  "role": "Support",
+  "isVerified": false,
+  "source": [{
+    "type": "liquipedia",
+    "url": "http://wiki.teamliquid.net/dota2/Leaderboards"
+  }]
+}, {
+  "name": "Agressif",
+  "dateAchieved": "Oct 16th, 2017",
+  "region": "CN",
+  "role": "Carry",
+  "isVerified": false,
+  "source": [{
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=I4YgtrLG5I8"
+  }]
+}, {
+  "name": "7ckingmad",
+  "dateAchieved": "Oct 21st, 2017",
+  "region": "EU",
+  "role": "?",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/77uy3i/congrats_og7ckngmad_reaching_9k/"
+  }, {
+    "type": "instagram",
+    "url": "https://www.instagram.com/p/BahKyp-l16J/"
+  }]
+}, {
+  "name": "Jabz",
+  "dateAchieved": "Oct 21st, 2017",
+  "region": "SEA",
+  "role": "Support",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/77wkek/congratulations_to_mineskijabz_for_hitting_9k_mmr/"
+  }, {
+    "type": "facebook",
+    "url": "https://www.facebook.com/mineskidota/videos/10156042479396833/"
+  }]
+}, {
+  "name": "DEBIL (nisha)",
+  "dateAchieved": "Oct 24th, 2017",
+  "region": "EU",
+  "role": "?",
+  "isVerified": false,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/78gtyf/who_is_debil_89k_mmr_in_860_games_total/"
+  }]
+}, {
+  "name": "Universe",
+  "dateAchieved": "Oct 28th, 2017",
+  "region": "NA",
+  "role": "Offlane",
+  "isVerified": true,
+  "source": [{
+    "type": "reddit",
+    "url": "https://www.reddit.com/r/DotA2/comments/79d9po/congratulations_to_universe_for_hitting_9k/"
+  }, {
+    "type": "twitter",
+    "url": "https://twitter.com/UniverseDota/status/924413939391152128"
+  }]
+}, {
+  "name": "Bryle",
+  "dateAchieved": "Nov 8th, 2017",
+  "region": "NA",
+  "role": "Mid",
+  "isVerified": true,
+  "source": [{
+    "type": "twitter",
+    "url": "https://twitter.com/bryledota/status/928494391185903621"
+  }]
+}, {
+  "name": "33",
+  "dateAchieved": "Nov 12th, 2017",
+  "region": "EU",
+  "role": "Offlane",
+  "isVerified": true,
+  "source": [{
+    "type": "twitter",
+    "url": "https://twitter.com/33Dota/status/929928424902266880"
+  }]
+}, {
+  "name": "Palantimos",
+  "dateAchieved": "Nov 15th, 2017",
+  "region": "EU",
+  "role": "Carry",
+  "isVerified": false,
+  "dotabuff": "116881520",
+  "source": [{
+    "type": "",
+    "url": ""
+  }]
+}, {
+  "name": "QO",
+  "dateAchieved": "Nov 15th, 2017",
+  "region": "NA",
+  "role": "Mid",
+  "isVerified": false,
+  "dotabuff": "93119769",
+  "source": [{
+    "type": "liquipedia",
+    "url": "http://wiki.teamliquid.net/dota2/Leaderboards"
+  }]
+}]

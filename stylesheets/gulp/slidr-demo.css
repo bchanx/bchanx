@@ -2103,7 +2103,7 @@ hr {
   top: 14.73333333px;
 }
 .logo-dropbox-actual {
-  background: #4b95f4 url('/static/images/logo/dropbox.png') no-repeat 31px 42px;
+  background: #3292f5 url('/static/images/logo/dropbox.png') no-repeat 31px 42px;
   background-size: 80%;
   -webkit-border-radius: 100%;
   -moz-border-radius: 100%;
@@ -2121,7 +2121,7 @@ hr {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .logo-dropbox-large {
-  background-color: #4b95f4;
+  background-color: #3292f5;
   width: 300px;
   height: 300px;
   -webkit-border-radius: 150px;
@@ -2145,7 +2145,7 @@ hr {
   background-color: #ffffff;
 }
 .logo-dropbox-large div[class*=-none] {
-  background-color: #4b95f4;
+  background-color: #3292f5;
 }
 .logo-dropbox-large .base-left {
   -webkit-transform: skew(0, 31deg);
@@ -2231,7 +2231,7 @@ hr {
   top: 113px;
 }
 .logo-dropbox-small {
-  background-color: #4b95f4;
+  background-color: #3292f5;
   width: 52px;
   height: 52px;
   -webkit-border-radius: 26px;
@@ -2255,7 +2255,7 @@ hr {
   background-color: #ffffff;
 }
 .logo-dropbox-small div[class*=-none] {
-  background-color: #4b95f4;
+  background-color: #3292f5;
 }
 .logo-dropbox-small .base-left {
   -webkit-transform: skew(0, 31deg);

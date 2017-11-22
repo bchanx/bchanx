@@ -3,11 +3,11 @@ var config = require('../config');
 var path = require('path');
 var fs = require('fs');
 
-var gameboyCode = function() {
+var gameboyCode = () => {
   var components = ['processor', 'text', 'color', 'cover', 'shapes'];
   var code = {};
-  components.forEach(function(c) {
-    ['html', 'css'].forEach(function(type) {
+  components.forEach((c) => {
+    ['html', 'css'].forEach((type) => {
       if (!code[c]) {
         code[c] = {};
       }
@@ -18,30 +18,34 @@ var gameboyCode = function() {
   return code;
 };
 
-router.get('/animated-gameboy-in-css', function(req, res) {
+router.get('/animated-gameboy-in-css', (req, res) => {
   res.render('animated-gameboy-in-css/demo.html');
 });
 
-router.get('/animated-gameboy-in-css-blog', function(req, res) {
+router.get('/animated-gameboy-in-css-blog', (req, res) => {
   res.render('animated-gameboy-in-css/blog.html', {
     code: gameboyCode()  
   });
 });
 
-router.get('/logos-in-pure-css', function(req, res) {
+router.get('/logos-in-pure-css', (req, res) => {
   res.render('logos-in-pure-css/demo.html');
 });
 
-router.get('/logos-in-pure-css-blog', function(req, res) {
+router.get('/logos-in-pure-css-blog', (req, res) => {
   res.render('logos-in-pure-css/blog.html');
 });
 
-router.get('/logos-in-pure-css-demo', function(req, res) {
+router.get('/logos-in-pure-css-demo', (req, res) => {
   res.redirect('/logos-in-pure-css');
 });
 
-router.get('/slidr', function(req, res) {
+router.get('/slidr', (req, res) => {
   res.render('slidr/demo.html');
+});
+
+router.get('/9kmmr', (req, res) => {
+  res.render('9kmmr/index.html');
 });
 
 module.exports = {

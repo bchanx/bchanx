@@ -595,7 +595,7 @@ hr {
   -ms-border-radius: 100%;
   -o-border-radius: 100%;
   border-radius: 100%;
-  background-color: #ffffff;
+  background-color: #fffff0;
 }
 .logo-twitter-large div[class*=-none] {
   background-color: #00ACED;
@@ -705,7 +705,7 @@ hr {
   -ms-border-radius: 100%;
   -o-border-radius: 100%;
   border-radius: 100%;
-  background-color: #ffffff;
+  background-color: #fffff0;
 }
 .logo-twitter-small div[class*=-none] {
   background-color: #00ACED;
@@ -835,7 +835,7 @@ hr {
   -ms-border-radius: 100%;
   -o-border-radius: 100%;
   border-radius: 100%;
-  background-color: #ffffff;
+  background-color: #fffff0;
 }
 .logo-github-large div[class*=-none] {
   background-color: #171516;
@@ -1026,7 +1026,7 @@ hr {
   -ms-border-radius: 100%;
   -o-border-radius: 100%;
   border-radius: 100%;
-  background-color: #ffffff;
+  background-color: #fffff0;
 }
 .logo-github-small div[class*=-none] {
   background-color: #171516;
@@ -1228,14 +1228,14 @@ hr {
 }
 .logo-facebook-large div {
   position: absolute;
-  background-color: #ffffff;
+  background-color: #fffff0;
 }
 .logo-facebook-large div[class*=-none] {
   background-color: #3B579D;
 }
 .logo-facebook-large .longpiece {
   height: 260px;
-  border: 47px #ffffff solid;
+  border: 47px #fffff0 solid;
   -webkit-border-radius: 55px 0 0 0;
   -moz-border-radius: 55px 0 0 0;
   -ms-border-radius: 55px 0 0 0;
@@ -1291,14 +1291,14 @@ hr {
 }
 .logo-facebook-small div {
   position: absolute;
-  background-color: #ffffff;
+  background-color: #fffff0;
 }
 .logo-facebook-small div[class*=-none] {
   background-color: #3B579D;
 }
 .logo-facebook-small .longpiece {
   height: 45.06666667px;
-  border: 8.14666667px #ffffff solid;
+  border: 8.14666667px #fffff0 solid;
   -webkit-border-radius: 9.53333333px 0 0 0;
   -moz-border-radius: 9.53333333px 0 0 0;
   -ms-border-radius: 9.53333333px 0 0 0;
@@ -1372,7 +1372,7 @@ hr {
 }
 .logo-linkedin-large div {
   position: absolute;
-  background-color: #ffffff;
+  background-color: #fffff0;
 }
 .logo-linkedin-large div[class*=-none] {
   background-color: #007BB6;
@@ -1444,7 +1444,7 @@ hr {
 }
 .logo-linkedin-small div {
   position: absolute;
-  background-color: #ffffff;
+  background-color: #fffff0;
 }
 .logo-linkedin-small div[class*=-none] {
   background-color: #007BB6;
@@ -1534,7 +1534,7 @@ hr {
 }
 .logo-evernote-large div {
   position: absolute;
-  background-color: #ffffff;
+  background-color: #fffff0;
 }
 .logo-evernote-large div[class*=-none] {
   background-color: #87C441;
@@ -1830,7 +1830,7 @@ hr {
 }
 .logo-evernote-small div {
   position: absolute;
-  background-color: #ffffff;
+  background-color: #fffff0;
 }
 .logo-evernote-small div[class*=-none] {
   background-color: #87C441;
@@ -2105,7 +2105,7 @@ hr {
   top: 14.73333333px;
 }
 .logo-dropbox-actual {
-  background: #4b95f4 url('/static/images/logo/dropbox.png') no-repeat 31px 42px;
+  background: #3292f5 url('/static/images/logo/dropbox.png') no-repeat 31px 42px;
   background-size: 80%;
   -webkit-border-radius: 100%;
   -moz-border-radius: 100%;
@@ -2123,7 +2123,7 @@ hr {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .logo-dropbox-large {
-  background-color: #4b95f4;
+  background-color: #3292f5;
   width: 300px;
   height: 300px;
   -webkit-border-radius: 150px;
@@ -2144,10 +2144,10 @@ hr {
 }
 .logo-dropbox-large div {
   position: absolute;
-  background-color: #ffffff;
+  background-color: #fffff0;
 }
 .logo-dropbox-large div[class*=-none] {
-  background-color: #4b95f4;
+  background-color: #3292f5;
 }
 .logo-dropbox-large .base-left {
   -webkit-transform: skew(0, 31deg);
@@ -2233,7 +2233,7 @@ hr {
   top: 113px;
 }
 .logo-dropbox-small {
-  background-color: #4b95f4;
+  background-color: #3292f5;
   width: 52px;
   height: 52px;
   -webkit-border-radius: 26px;
@@ -2254,10 +2254,10 @@ hr {
 }
 .logo-dropbox-small div {
   position: absolute;
-  background-color: #ffffff;
+  background-color: #fffff0;
 }
 .logo-dropbox-small div[class*=-none] {
-  background-color: #4b95f4;
+  background-color: #3292f5;
 }
 .logo-dropbox-small .base-left {
   -webkit-transform: skew(0, 31deg);
@@ -2343,7 +2343,7 @@ hr {
   top: 19.58666667px;
 }
 .logo-apple-actual {
-  background: #ffffff url('/static/images/logo/apple.png') no-repeat 45px 25px;
+  background: #fffff0 url('/static/images/logo/apple.png') no-repeat 45px 25px;
   background-size: 70%;
   border: 2px #808080 dotted;
   -webkit-border-radius: 100%;
@@ -2362,7 +2362,7 @@ hr {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .logo-apple-large {
-  background-color: #ffffff;
+  background-color: #fffff0;
   border: 2px #808080 dotted;
   width: 300px;
   height: 300px;
@@ -2417,7 +2417,7 @@ hr {
   top: 221px;
 }
 .logo-apple-large .blue-none {
-  background-color: #ffffff;
+  background-color: #fffff0;
   -webkit-border-radius: 100%;
   -moz-border-radius: 100%;
   -ms-border-radius: 100%;
@@ -2500,7 +2500,7 @@ hr {
   top: 83px;
 }
 .logo-apple-large .green-none {
-  background-color: #ffffff;
+  background-color: #fffff0;
   -webkit-border-radius: 100%;
   -moz-border-radius: 100%;
   -ms-border-radius: 100%;
@@ -2525,10 +2525,10 @@ hr {
 }
 .logo-apple-large .bottom-left-none {
   background-color: transparent;
-  background-image: -moz-radial-gradient(100% 0, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: -o-radial-gradient(100% 0, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: -webkit-radial-gradient(100% 0, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: radial-gradient(at top right, rgba(0,0,0,0) 70%, #ffffff 0);
+  background-image: -moz-radial-gradient(100% 0, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: -o-radial-gradient(100% 0, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: -webkit-radial-gradient(100% 0, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: radial-gradient(at top right, rgba(0,0,0,0) 70%, #fffff0 0);
   width: 82px;
   height: 146px;
   left: 40px;
@@ -2536,10 +2536,10 @@ hr {
 }
 .logo-apple-large .bottom-right-none {
   background-color: transparent;
-  background-image: -moz-radial-gradient(0 0, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: -o-radial-gradient(0 0, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: -webkit-radial-gradient(0 0, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: radial-gradient(at top left, rgba(0,0,0,0) 70%, #ffffff 0);
+  background-image: -moz-radial-gradient(0 0, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: -o-radial-gradient(0 0, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: -webkit-radial-gradient(0 0, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: radial-gradient(at top left, rgba(0,0,0,0) 70%, #fffff0 0);
   width: 87px;
   height: 155px;
   left: 171px;
@@ -2547,10 +2547,10 @@ hr {
 }
 .logo-apple-large .top-left-none {
   background-color: transparent;
-  background-image: -moz-radial-gradient(100% 100%, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: -o-radial-gradient(100% 100%, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: -webkit-radial-gradient(100% 100%, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: radial-gradient(at bottom right, rgba(0,0,0,0) 70%, #ffffff 0);
+  background-image: -moz-radial-gradient(100% 100%, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: -o-radial-gradient(100% 100%, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: -webkit-radial-gradient(100% 100%, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: radial-gradient(at bottom right, rgba(0,0,0,0) 70%, #fffff0 0);
   width: 61px;
   height: 70px;
   left: 44px;
@@ -2558,17 +2558,17 @@ hr {
 }
 .logo-apple-large .top-right-none {
   background-color: transparent;
-  background-image: -moz-radial-gradient(0 100%, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: -o-radial-gradient(0 100%, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: -webkit-radial-gradient(0 100%, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: radial-gradient(at bottom left, rgba(0,0,0,0) 70%, #ffffff 0);
+  background-image: -moz-radial-gradient(0 100%, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: -o-radial-gradient(0 100%, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: -webkit-radial-gradient(0 100%, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: radial-gradient(at bottom left, rgba(0,0,0,0) 70%, #fffff0 0);
   width: 58px;
   height: 62px;
   left: 191px;
   top: 78px;
 }
 .logo-apple-large .apple-none {
-  background-color: #ffffff;
+  background-color: #fffff0;
   -webkit-border-radius: 100%;
   -moz-border-radius: 100%;
   -ms-border-radius: 100%;
@@ -2580,7 +2580,7 @@ hr {
   top: 99px;
 }
 .logo-apple-small {
-  background-color: #ffffff;
+  background-color: #fffff0;
   border: 2px #808080 dotted;
   width: 52px;
   height: 52px;
@@ -2635,7 +2635,7 @@ hr {
   top: 38.30666667px;
 }
 .logo-apple-small .blue-none {
-  background-color: #ffffff;
+  background-color: #fffff0;
   -webkit-border-radius: 100%;
   -moz-border-radius: 100%;
   -ms-border-radius: 100%;
@@ -2718,7 +2718,7 @@ hr {
   top: 14.38666667px;
 }
 .logo-apple-small .green-none {
-  background-color: #ffffff;
+  background-color: #fffff0;
   -webkit-border-radius: 100%;
   -moz-border-radius: 100%;
   -ms-border-radius: 100%;
@@ -2743,10 +2743,10 @@ hr {
 }
 .logo-apple-small .bottom-left-none {
   background-color: transparent;
-  background-image: -moz-radial-gradient(100% 0, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: -o-radial-gradient(100% 0, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: -webkit-radial-gradient(100% 0, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: radial-gradient(at top right, rgba(0,0,0,0) 70%, #ffffff 0);
+  background-image: -moz-radial-gradient(100% 0, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: -o-radial-gradient(100% 0, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: -webkit-radial-gradient(100% 0, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: radial-gradient(at top right, rgba(0,0,0,0) 70%, #fffff0 0);
   width: 14.21333333px;
   height: 25.30666667px;
   left: 6.93333333px;
@@ -2754,10 +2754,10 @@ hr {
 }
 .logo-apple-small .bottom-right-none {
   background-color: transparent;
-  background-image: -moz-radial-gradient(0 0, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: -o-radial-gradient(0 0, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: -webkit-radial-gradient(0 0, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: radial-gradient(at top left, rgba(0,0,0,0) 70%, #ffffff 0);
+  background-image: -moz-radial-gradient(0 0, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: -o-radial-gradient(0 0, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: -webkit-radial-gradient(0 0, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: radial-gradient(at top left, rgba(0,0,0,0) 70%, #fffff0 0);
   width: 15.08px;
   height: 26.86666667px;
   left: 29.64px;
@@ -2765,10 +2765,10 @@ hr {
 }
 .logo-apple-small .top-left-none {
   background-color: transparent;
-  background-image: -moz-radial-gradient(100% 100%, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: -o-radial-gradient(100% 100%, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: -webkit-radial-gradient(100% 100%, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: radial-gradient(at bottom right, rgba(0,0,0,0) 70%, #ffffff 0);
+  background-image: -moz-radial-gradient(100% 100%, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: -o-radial-gradient(100% 100%, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: -webkit-radial-gradient(100% 100%, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: radial-gradient(at bottom right, rgba(0,0,0,0) 70%, #fffff0 0);
   width: 10.57333333px;
   height: 12.13333333px;
   left: 7.62666667px;
@@ -2776,17 +2776,17 @@ hr {
 }
 .logo-apple-small .top-right-none {
   background-color: transparent;
-  background-image: -moz-radial-gradient(0 100%, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: -o-radial-gradient(0 100%, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: -webkit-radial-gradient(0 100%, ellipse, rgba(0,0,0,0) 70%, #ffffff 0);
-  background-image: radial-gradient(at bottom left, rgba(0,0,0,0) 70%, #ffffff 0);
+  background-image: -moz-radial-gradient(0 100%, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: -o-radial-gradient(0 100%, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: -webkit-radial-gradient(0 100%, ellipse, rgba(0,0,0,0) 70%, #fffff0 0);
+  background-image: radial-gradient(at bottom left, rgba(0,0,0,0) 70%, #fffff0 0);
   width: 10.05333333px;
   height: 10.74666667px;
   left: 33.10666667px;
   top: 13.52px;
 }
 .logo-apple-small .apple-none {
-  background-color: #ffffff;
+  background-color: #fffff0;
   -webkit-border-radius: 100%;
   -moz-border-radius: 100%;
   -ms-border-radius: 100%;
@@ -2891,7 +2891,7 @@ hr {
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   backface-visibility: hidden;
-  background-color: #ffffff;
+  background-color: #fffff0;
   position: absolute;
 }
 .logo-bchanx .logo-content .logo-text .logo-b {
@@ -5782,7 +5782,7 @@ body {
   height: 10px;
   border-radius: 50%;
   background-color: transparent;
-  box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px #ffffff;
+  box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px #fffff0;
 }
 @-moz-keyframes chip-capacitors {
   0% {
@@ -5792,16 +5792,16 @@ body {
     box-shadow: 11px 0 1px transparent;
   }
   13.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px transparent, 31px -35px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px transparent, 31px -35px 1px transparent;
   }
   14.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px transparent;
   }
   15.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px transparent;
   }
   16.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px #ffffff;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px #fffff0;
   }
 }
 @-webkit-keyframes chip-capacitors {
@@ -5812,16 +5812,16 @@ body {
     box-shadow: 11px 0 1px transparent;
   }
   13.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px transparent, 31px -35px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px transparent, 31px -35px 1px transparent;
   }
   14.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px transparent;
   }
   15.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px transparent;
   }
   16.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px #ffffff;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px #fffff0;
   }
 }
 @keyframes chip-capacitors {
@@ -5832,16 +5832,16 @@ body {
     box-shadow: 11px 0 1px transparent;
   }
   13.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px transparent, 31px -35px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px transparent, 31px -35px 1px transparent;
   }
   14.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px transparent;
   }
   15.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px transparent;
   }
   16.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px #ffffff;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px #fffff0;
   }
 }
 @-moz-keyframes chip-capacitors {
@@ -5852,16 +5852,16 @@ body {
     box-shadow: 11px 0 1px transparent;
   }
   13.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px transparent, 31px -35px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px transparent, 31px -35px 1px transparent;
   }
   14.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px transparent;
   }
   15.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px transparent;
   }
   16.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px #ffffff;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px #fffff0;
   }
 }
 @-webkit-keyframes chip-capacitors {
@@ -5872,16 +5872,16 @@ body {
     box-shadow: 11px 0 1px transparent;
   }
   13.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px transparent, 31px -35px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px transparent, 31px -35px 1px transparent;
   }
   14.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px transparent;
   }
   15.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px transparent;
   }
   16.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px #ffffff;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px #fffff0;
   }
 }
 @keyframes chip-capacitors {
@@ -5892,16 +5892,16 @@ body {
     box-shadow: 11px 0 1px transparent;
   }
   13.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px transparent, 31px -35px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px transparent, 31px -35px 1px transparent;
   }
   14.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px transparent;
   }
   15.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px transparent;
   }
   16.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px #ffffff;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px #fffff0;
   }
 }
 #chip-capacitors {
@@ -5918,16 +5918,16 @@ body {
     box-shadow: 11px 0 1px transparent;
   }
   23.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px transparent, 31px -35px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px transparent, 31px -35px 1px transparent;
   }
   24.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px transparent;
   }
   25.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px transparent;
   }
   26.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px #ffffff;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px #fffff0;
   }
 }
 @-webkit-keyframes motherboard-capacitors {
@@ -5938,16 +5938,16 @@ body {
     box-shadow: 11px 0 1px transparent;
   }
   23.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px transparent, 31px -35px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px transparent, 31px -35px 1px transparent;
   }
   24.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px transparent;
   }
   25.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px transparent;
   }
   26.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px #ffffff;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px #fffff0;
   }
 }
 @keyframes motherboard-capacitors {
@@ -5958,16 +5958,16 @@ body {
     box-shadow: 11px 0 1px transparent;
   }
   23.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px transparent, 31px -35px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px transparent, 31px -35px 1px transparent;
   }
   24.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px transparent;
   }
   25.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px transparent;
   }
   26.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px #ffffff;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px #fffff0;
   }
 }
 @-moz-keyframes motherboard-capacitors {
@@ -5978,16 +5978,16 @@ body {
     box-shadow: 11px 0 1px transparent;
   }
   23.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px transparent, 31px -35px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px transparent, 31px -35px 1px transparent;
   }
   24.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px transparent;
   }
   25.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px transparent;
   }
   26.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px #ffffff;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px #fffff0;
   }
 }
 @-webkit-keyframes motherboard-capacitors {
@@ -5998,16 +5998,16 @@ body {
     box-shadow: 11px 0 1px transparent;
   }
   23.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px transparent, 31px -35px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px transparent, 31px -35px 1px transparent;
   }
   24.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px transparent;
   }
   25.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px transparent;
   }
   26.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px #ffffff;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px #fffff0;
   }
 }
 @keyframes motherboard-capacitors {
@@ -6018,16 +6018,16 @@ body {
     box-shadow: 11px 0 1px transparent;
   }
   23.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px transparent, 31px -35px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px transparent, 31px -35px 1px transparent;
   }
   24.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px transparent;
   }
   25.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px transparent;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px transparent;
   }
   26.5% {
-    box-shadow: 11px 0 1px #ffffff, 11px -35px 1px #ffffff, 31px -35px 1px #ffffff, 21px -24px 1px #ffffff, 21px -11px 1px #ffffff;
+    box-shadow: 11px 0 1px #fffff0, 11px -35px 1px #fffff0, 31px -35px 1px #fffff0, 21px -24px 1px #fffff0, 21px -11px 1px #fffff0;
   }
 }
 #motherboard-capacitors {
@@ -6482,14 +6482,14 @@ body {
   left: 3px;
   width: 34px;
   height: 34px;
-  background-color: #ffffff;
+  background-color: #fffff0;
   -webkit-animation: link-port 8s infinite linear, link-port 8s infinite linear;
   animation: link-port 8s infinite linear, link-port 8s infinite linear;
 }
 .circuit {
   z-index: 4;
   position: absolute;
-  box-shadow: inset 0 0 0 1px #ffffff;
+  box-shadow: inset 0 0 0 1px #fffff0;
   border-radius: 50% / 25%;
   opacity: 0.5;
 }
@@ -7334,7 +7334,7 @@ body {
   left: 142px;
   z-index: 4;
   background-color: #222222;
-  color: #ffffff;
+  color: #fffff0;
   font-size: 15px;
   letter-spacing: 3px;
   font-weight: 700;
@@ -8285,7 +8285,7 @@ body {
   height: 170px;
   top: 55px;
   left: 76px;
-  background-color: #ffffff;
+  background-color: #fffff0;
   border: 5px #808080 solid;
   -webkit-animation: whitescreen 8s infinite linear, whitescreen 8s infinite linear;
   animation: whitescreen 8s infinite linear, whitescreen 8s infinite linear;

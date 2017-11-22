@@ -1,0 +1,41 @@
+{% extends "./html/base.html" %}
+{% import "./html/header.html" as header %}
+
+{% block head %}
+  {{ header.meta(title="9k MMR Players in Dota 2", url="http://bchanx.com/9kmmr", responsive="true", notscalable="true") }}
+
+  {#
+  <meta property="og:url" content="http://www.bchanx.com/9kmmr"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="9k MMR Players in Dota 2"/>
+  <meta property="og:description" content="A list of players that achieved the 9k MMR milestone."/>
+  
+  <meta property="og:image" content="http://www.bchanx.com/static/images/gameboy/animated-gameboy-in-css.png"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@bchanx">
+  <meta name="twitter:creator" content="@bchanx">
+  <meta name="twitter:title" content="9k MMR Players in Dota 2">
+  <meta name="twitter:description" content="A list of players that achieved the 9k MMR milestone for Dota 2.">
+  <meta name="twitter:image" content="http://www.bchanx.com/static/images/gameboy/animated-gameboy-in-css.png">
+  #}
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="/static/dist/css/lib/normalize.min.css"/>
+  <link rel="stylesheet" href="/static/dist/css/lib/ionicons.min.css"/>
+  <link rel="stylesheet" href="/static/dist/css/9kmmr{{min}}.css"/>
+{% endblock %}
+
+{% block js %}
+  <script src="/static/dist/js/lib/superagent.min.js"></script>
+  <script src="/static/dist/js/lib/moment.min.js"></script>
+  <script src="/static/dist/js/lib/vue{{min}}.js"></script>
+{% endblock %}
+
+{% block body %}
+  <div id="app"></div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="/static/dist/js/9kmmr.js"></script>
+{% endblock %}

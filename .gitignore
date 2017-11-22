@@ -1,5 +1,9 @@
 node_modules/
 bower_components/
+static/dist/
+stylesheets/gulp
 .DS_Store
 *.sw?
 .env
+npm-debug.log
+server.js

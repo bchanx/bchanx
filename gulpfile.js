@@ -19,14 +19,14 @@ var streamify = require('gulp-streamify');
 var gutil = require('gulp-util');
 var babel = require('gulp-babel');
 var spawn = require('child_process').spawn;
-var config = require('./config');
 
-const ENV = 'development';
-const FONTS_DIR = 'static/fonts';
+var ENV = 'development';
 const DIST_DIR = 'static/dist';
-const CSS_DIR = DIST_DIR + '/css';
 const JS_DIR = DIST_DIR + '/js';
+const CSS_DIR = DIST_DIR + '/css';
 const VENDOR_DEPS = [
+  'classnames',
+  'moment',
   'react',
   'react-dom',
   'react-router',
@@ -34,9 +34,7 @@ const VENDOR_DEPS = [
   'react-timer-mixin',
   'react-script-loader',
   'react-localstorage',
-  'classnames',
-  'superagent',
-  'moment'
+  'superagent'
 ];
 
 ///// STYLESHEETS /////
@@ -51,17 +49,19 @@ var normalize = function(str) {
 };
 
 var STYLUS = [
-  'main'
+  'main',
+  '9kmmr'
 ];
+
 gulp.task('stylus', function() {
-  var stylusStream = STYLUS.map(function(s) {
+  var styls = STYLUS.map(function(s) {
     return gulp.src('stylesheets/stylus/' + s + '.styl')
       .pipe(stylus())
       .on('error', handleError)
       .pipe(rename(normalize(s) + '.css'))
       .pipe(gulp.dest('stylesheets/gulp'));
   });
-  return merge(stylusStream);
+  return merge(styls);
 });
 
 var LESS = [
@@ -72,17 +72,17 @@ var LESS = [
   'slidr/demo'
 ];
 gulp.task('less', function() {
-  var lessStream = LESS.map(function(l) {
+  var lesses = LESS.map(function(l) {
     return gulp.src('stylesheets/less/' + l + '.less')
       .pipe(less())
       .pipe(rename(normalize(l) + '.css'))
       .pipe(gulp.dest('stylesheets/gulp'));
   });
-  return merge(lessStream);
+  return merge(lesses);
 });
 
 gulp.task('css', function() {
-  var cssStream = STYLUS.concat(LESS).map(function(c) {
+  var css = STYLUS.concat(LESS).map(function(c) {
     return gulp.src('stylesheets/gulp/' + normalize(c) + '.css')
       .pipe(autoprefixer({
         browsers: ['last 2 versions'],
@@ -95,18 +95,25 @@ gulp.task('css', function() {
       }))
       .pipe(gulp.dest(CSS_DIR));
   });
-  return merge(cssStream);
+  return merge(css);
 });
 
-gulp.task('fonts', function() {
-  return gulp.src('bower_components/Ionicons/fonts/*')
+gulp.task('others', function() {
+  var fonts = gulp.src('bower_components/Ionicons/fonts/*')
     .pipe(gulp.dest(CSS_DIR + '/fonts'));
+
+  var css = gulp.src('stylesheets/static/markdown.css')
+    .pipe(cssmin())
+    .pipe(rename({
+      extname: '.min.css'
+    }))
+    .pipe(gulp.dest(CSS_DIR + '/lib'));
+
+  return merge(fonts, css);
 });
 
-gulp.task('deps.css', ['fonts'], function() {
-  var dir = CSS_DIR + '/lib';
-
-  // Minify css dependencies
+gulp.task('lib.css', function() {
+  // Copy css dependencies that need to be minified
   var minify = [
     'bower_components/normalize-css/normalize.css',
     'node_modules/highlight.js/styles/solarized-light.css',
@@ -117,55 +124,75 @@ gulp.task('deps.css', ['fonts'], function() {
       .pipe(rename({
         extname: '.min.css'
       }))
-      .pipe(gulp.dest(dir));
+      .pipe(gulp.dest(CSS_DIR + '/lib'));
   });
 
   // Copy other css dependencies
-  var cssStream = [
+  var deps = [
     'bower_components/Ionicons/css/ionicons.min.css'
   ].map(function(css) {
-    return gulp.src(css).pipe(gulp.dest(dir));
+    return gulp.src(css).pipe(gulp.dest(CSS_DIR + '/lib'));
   });
 
-  return merge(cssStream.concat(minify));
+  return merge(minify.concat(deps));
 });
 
-gulp.task('stylesheets', ['deps.css', 'stylus', 'less', 'css']);
+gulp.task('deps.css', ['lib.css', 'others'], function() {
+  var exclude = [
+    'deps.css',
+    'solarized-light.min.css',
+    'github.min.css'
+  ];
+
+  return gulp.src([
+    CSS_DIR + '/lib/*.css',
+  ].concat(exclude.map(function(e) {
+    return '!' + CSS_DIR + '/lib/' + e;
+  })))
+    .pipe(concat('deps.css'))
+    .pipe(gulp.dest(CSS_DIR + '/lib'));   
+});
+
+gulp.task('stylus-less-css', ['stylus', 'less'], function() {
+  gulp.start('css');
+});
+
+gulp.task('stylesheets', ['deps.css', 'stylus-less-css']);
 
 
 ///// SCRIPTS /////
 
 gulp.task('deps.js', function() {
-  var dir = JS_DIR + '/lib';
-
+  // TODO: highlight.js, doesn't work in 9.7.0 so we're using 9.1.0 from cdn
   // Minify js dependencies
   var minify = [
+    'node_modules/superagent/superagent.js',
+    'node_modules/moment/moment.js'
   ].map(function(js) {
     return gulp.src(js)
       .pipe(uglify())
       .pipe(rename({
         extname: '.min.js'
       }))
-      .pipe(gulp.dest(dir));
+      .pipe(gulp.dest(JS_DIR + '/lib'));
   });
 
   // Copy other js dependencies
-  var jsStream = [
+  var deps = [
     'node_modules/marked/marked.min.js',
+    'node_modules/vue/dist/vue.js',
+    'node_modules/vue/dist/vue.min.js',
     'bower_components/slidr/slidr.min.js',
     'bower_components/jquery/dist/jquery.min.js'
-  ].map(function(js) {
-    return gulp.src(js).pipe(gulp.dest(dir));
+  ].map(function(dep) {
+    return gulp.src(dep).pipe(gulp.dest(JS_DIR + '/lib'));
   });
 
-  return merge(jsStream.concat(minify));
+  return merge(minify.concat(deps));
 });
 
-var SCRIPTS = [
-  'main'
-];
 gulp.task('js', function() {
-  var jsStream = [
+  var js = [
     'main'
   ].map(function(s) {
     return gulp.src('scripts/' + s + '.js')
@@ -177,7 +204,17 @@ gulp.task('js', function() {
       }))
       .pipe(gulp.dest(JS_DIR));
   });
-  return merge(jsStream);
+
+  // No minification, just copy
+  var jsCopy = [
+    '9kmmr'
+  ].map(function(s) {
+    return gulp.src('scripts/' + s + '.js')
+      .pipe(rename(normalize(s) + '.js'))
+      .pipe(gulp.dest(JS_DIR));
+  });
+
+  return merge(js.concat(jsCopy));
 });
 
 gulp.task('vendor', function() {
@@ -216,7 +253,9 @@ gulp.task('browserify', function() {
       .transform(babelify, {
         presets: ['es2015', 'react']
       })
-      .transform(envify, config.all(env));
+      .transform(envify, {
+        NODE_ENV: env
+      });
     if (env === 'development') {
       bundler = bundler.on('update', rebundle);
     }
@@ -263,8 +302,8 @@ gulp.task('scripts', ['deps.js', 'js', 'vendor', 'browserify', 'server']);
 ///// WATCH && RUN /////
 
 gulp.task('watch', function() {
-  gulp.watch('stylesheets/stylus/**/*.styl', ['stylus']);
-  gulp.watch('stylesheets/less/**/*.less', ['less']);
+  gulp.watch('stylesheets/stylus/*.*', ['stylus']);
+  gulp.watch('stylesheets/less/*.*', ['less']);
   gulp.watch('stylesheets/gulp/*.css', ['css']);
   gulp.watch('scripts/**/*.js', ['js']);
   gulp.watch('app.js', ['server']);
@@ -274,10 +313,16 @@ gulp.task('start', ['stylesheets', 'scripts', 'watch'], function() {
   nodemon({
     script: 'server.js',
     env: {
-      NODE_ENV: ENV
+      NODE_ENV: process.argv.indexOf('--production') >= 0 ? 'production' : 'development',
+      LOCAL_HOST: true
     },
-    watch: ['routes/', 'models/', 'server.js', JS_DIR + '/bundle.js'],
+    watch: ['routes/', 'server.js', JS_DIR + '/bundle.js'],
   });
+});
+
+gulp.task('build', ['stylesheets', 'scripts'], function() {
+  gutil.log(gutil.colors.green('Build finished!'));
+  process.exit(0);
 });
 
 gulp.task('default', function() {
@@ -286,11 +331,20 @@ gulp.task('default', function() {
     if (process) {
        process.kill();
     }
-    process = spawn('gulp', ['start'], {
+    var flags = ['start'];
+    if (ENV === 'production') {
+      flags.push('--production');
+    }
+    process = spawn('gulp', flags, {
       stdio: 'inherit'
     });
   }
 
   gulp.watch('gulpfile.js', restart);
   restart();
+});
+
+gulp.task('prod', function() {
+  ENV = 'production';
+  gulp.start('default');
 });

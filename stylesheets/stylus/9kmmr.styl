@@ -1,0 +1,141 @@
+// Variables
+$white = #fff
+$gray0 = #f8f8f8
+$gray1 = #f0f0f0
+$gray2 = #e8e8e8
+$gray3 = #d8d8d8
+$gray4 = #c8c8c8
+$gray5 = #b8b8b8
+$gray6 = #a8a8a8
+$gray7 = #999
+$gray8 = #888
+$gray9 = #777
+$gray10 = #666
+$gray11 = #555
+$gray12 = #444
+$gray13 = #333
+$black = #222
+
+$green = #4ca879
+$darkgreen = #308d58
+$lightgreen = #5cd17d
+
+$red = #ff2b2b
+$darkred = #ce1e1e
+$lightred = #ff5b5b
+
+$max-width = 700px
+
+
+// Default overrides
+*
+  -webkit-margin-before: 0em
+  -webkit-margin-after: 0em
+  box-sizing: border-box
+
+html
+  font-size: 16px
+  font-weight: 300
+  color: $black
+  font-family: 'Oxygen', Helvetica, arial, sans-serif
+  background-color: $gray0
+  overflow-y: scroll
+
+body
+  line-height: 1.4
+
+
+// Main grid containers
+.container
+  min-width: 360px
+  max-width: $max-width
+  padding 0 1rem
+  width: 100%
+  min-height: 100vh
+  height: 100%
+  margin: 0 auto
+  display: grid
+  grid-template-areas: "navigation"\
+    "filters"\
+    "results"\
+    "footer"
+  grid-template-rows: 3rem 3rem auto 3rem
+
+.navigation
+  grid-area: navigation
+  padding: 0.75rem 1rem
+
+.filters
+  grid-area: filters
+  background-color: $gray1
+  padding: 0.75rem 51rem
+  margin: 0 -50rem
+
+.results
+  grid-area: results
+  margin: 1.25rem 0
+
+.footer
+  grid-area: footer
+
+
+// Player tiles
+.player-tile
+  border: 1px $gray1 solid
+  background-color: $white
+  margin: 0.75rem 0
+  padding: 0.5rem 1rem
+  box-shadow: 2px 2px 0 $gray2
+  position: relative
+  cursor: pointer
+  &:hover
+    box-shadow: 2px 2px 0 $gray4
+
+.index
+  position: absolute
+  left: -2rem
+  top: 1.1rem
+  width: 20px
+  text-align: right
+  color: $gray3
+
+.name
+  font-size: 1.8rem
+  font-weight: 500
+  letter-spacing: -1px
+
+.date
+  font-size: 0.8rem
+
+.region
+.role
+  border: 1px solid
+  padding: 0 3px
+  border-radius: 2px
+  font-size: 0.75rem
+  font-weight: 600
+  letter-spacing: 1px
+  margin-left: 3px
+
+.region
+  border-color $green
+  color: $lightgreen
+  box-shadow: 1px 1px 0 $darkgreen
+
+.role
+  border-color: $red
+  color: $lightred
+  box-shadow: 1px 1px 0 $darkred
+  text-transform: uppercase
+
+
+// Responsive tweaks
+@media screen and (max-width: $max-width)
+  html
+    font-size: 14px
+  .player-tile
+    margin-left: 1rem
+
+@media screen and (max-width: 400px)
+  html
+    font-size: 12px

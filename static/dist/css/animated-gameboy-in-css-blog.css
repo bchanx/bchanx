@@ -832,7 +832,6 @@ hr {
   height: 12px;
   left: 69px;
   top: 69px;
-  -webkit-transform: rotate(23deg);
   transform: rotate(23deg);
 }
 .logo-github-large .ear-one-none {
@@ -846,7 +845,6 @@ hr {
   height: 12px;
   left: 185px;
   top: 69px;
-  -webkit-transform: rotate(-23deg);
   transform: rotate(-23deg);
 }
 .logo-github-large .ear-two-right {
@@ -896,7 +894,6 @@ hr {
   top: 285px;
 }
 .logo-github-large .tail-end {
-  -webkit-transform: rotate(-35deg);
   transform: rotate(-35deg);
   width: 16px;
   height: 35px;
@@ -919,7 +916,6 @@ hr {
   top: 190px;
 }
 .logo-github-large .tail-end-none {
-  -webkit-transform: rotate(-24deg);
   transform: rotate(-24deg);
   width: 17px;
   height: 48px;
@@ -933,7 +929,6 @@ hr {
   top: 194px;
 }
 .logo-github-large .tail-tip {
-  -webkit-transform: rotate(12deg);
   transform: rotate(12deg);
   width: 20px;
   height: 9px;
@@ -995,7 +990,6 @@ hr {
   height: 2.08px;
   left: 11.96px;
   top: 11.96px;
-  -webkit-transform: rotate(23deg);
   transform: rotate(23deg);
 }
 .logo-github-small .ear-one-none {
@@ -1009,7 +1003,6 @@ hr {
   height: 2.08px;
   left: 32.06666667px;
   top: 11.96px;
-  -webkit-transform: rotate(-23deg);
   transform: rotate(-23deg);
 }
 .logo-github-small .ear-two-right {
@@ -1059,7 +1052,6 @@ hr {
   top: 49.4px;
 }
 .logo-github-small .tail-end {
-  -webkit-transform: rotate(-35deg);
   transform: rotate(-35deg);
   width: 2.77333333px;
   height: 6.06666667px;
@@ -1082,7 +1074,6 @@ hr {
   top: 32.93333333px;
 }
 .logo-github-small .tail-end-none {
-  -webkit-transform: rotate(-24deg);
   transform: rotate(-24deg);
   width: 2.94666667px;
   height: 8.32px;
@@ -1096,7 +1087,6 @@ hr {
   top: 33.62666667px;
 }
 .logo-github-small .tail-tip {
-  -webkit-transform: rotate(12deg);
   transform: rotate(12deg);
   width: 3.46666667px;
   height: 1.56px;
@@ -1165,7 +1155,6 @@ hr {
   height: 50px;
   left: 248px;
   top: 138px;
-  -webkit-transform: rotate(8deg);
   transform: rotate(8deg);
 }
 .logo-facebook-small {
@@ -1216,7 +1205,6 @@ hr {
   height: 8.66666667px;
   left: 42.98666667px;
   top: 23.92px;
-  -webkit-transform: rotate(8deg);
   transform: rotate(8deg);
 }
 .logo-linkedin-actual {
@@ -1383,7 +1371,6 @@ hr {
   background-color: #87C441;
 }
 .logo-evernote-large .head {
-  -webkit-transform: rotate(2deg);
   transform: rotate(2deg);
   border-radius: 0 20% 0 11px;
   width: 71px;
@@ -1393,7 +1380,6 @@ hr {
 }
 .logo-evernote-large .head-top {
   border-radius: 100%;
-  -webkit-transform: rotate(5deg);
   transform: rotate(5deg);
   width: 65px;
   height: 12px;
@@ -1409,7 +1395,6 @@ hr {
 }
 .logo-evernote-large .head-bottom {
   border-radius: 0 0 0 20px;
-  -webkit-transform: rotate(7deg);
   transform: rotate(7deg);
   width: 70px;
   height: 16px;
@@ -1422,7 +1407,6 @@ hr {
   height: 110px;
   left: 181px;
   top: 133px;
-  -webkit-transform: rotate(4deg);
   transform: rotate(4deg);
 }
 .logo-evernote-large .trunk-bottom {
@@ -1462,7 +1446,6 @@ hr {
 }
 .logo-evernote-large .head-none {
   border-radius: 10px 10px 0 0;
-  -webkit-transform: rotate(5deg);
   transform: rotate(5deg);
   width: 19px;
   height: 15px;
@@ -1471,7 +1454,6 @@ hr {
 }
 .logo-evernote-large .eye {
   border-radius: 100% 150% 0 0;
-  -webkit-transform: rotate(5deg);
   transform: rotate(5deg);
   width: 22px;
   height: 5px;
@@ -1479,7 +1461,6 @@ hr {
   top: 145px;
 }
 .logo-evernote-large .ear-flap {
-  -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   width: 33px;
   height: 51px;
@@ -1515,7 +1496,6 @@ hr {
   left: 72px;
 }
 .logo-evernote-large .body-bottom-right {
-  -webkit-transform: rotate(11deg);
   transform: rotate(11deg);
   border-radius: 100% 100% 75% 0;
   width: 18px;
@@ -1524,7 +1504,6 @@ hr {
   left: 132px;
 }
 .logo-evernote-large .body-bottom-left {
-  -webkit-transform: rotate(-11deg);
   transform: rotate(-11deg);
   border-radius: 67% 100% 120% 68%;
   height: 78px;
@@ -1533,7 +1512,6 @@ hr {
   top: 102px;
 }
 .logo-evernote-large .body-bottom {
-  -webkit-transform: rotate(10deg);
   transform: rotate(10deg);
   border-radius: 171% 120% 24px 100%;
   width: 61px;
@@ -1591,7 +1569,6 @@ hr {
   background-color: #87C441;
 }
 .logo-evernote-small .head {
-  -webkit-transform: rotate(2deg);
   transform: rotate(2deg);
   border-radius: 0 20% 0 1.90666667px;
   width: 12.30666667px;
@@ -1601,7 +1578,6 @@ hr {
 }
 .logo-evernote-small .head-top {
   border-radius: 100%;
-  -webkit-transform: rotate(5deg);
   transform: rotate(5deg);
   width: 11.26666667px;
   height: 2.08px;
@@ -1617,7 +1593,6 @@ hr {
 }
 .logo-evernote-small .head-bottom {
   border-radius: 0 0 0 3.46666667px;
-  -webkit-transform: rotate(7deg);
   transform: rotate(7deg);
   width: 12.13333333px;
   height: 2.77333333px;
@@ -1630,7 +1605,6 @@ hr {
   height: 19.06666667px;
   left: 31.37333333px;
   top: 23.05333333px;
-  -webkit-transform: rotate(4deg);
   transform: rotate(4deg);
 }
 .logo-evernote-small .trunk-bottom {
@@ -1670,7 +1644,6 @@ hr {
 }
 .logo-evernote-small .head-none {
   border-radius: 1.73333333px 1.73333333px 0 0;
-  -webkit-transform: rotate(5deg);
   transform: rotate(5deg);
   width: 3.29333333px;
   height: 2.6px;
@@ -1679,7 +1652,6 @@ hr {
 }
 .logo-evernote-small .eye {
   border-radius: 100% 150% 0 0;
-  -webkit-transform: rotate(5deg);
   transform: rotate(5deg);
   width: 3.81333333px;
   height: 0.86666667px;
@@ -1687,7 +1659,6 @@ hr {
   top: 25.13333333px;
 }
 .logo-evernote-small .ear-flap {
-  -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   width: 5.72px;
   height: 8.84px;
@@ -1723,7 +1694,6 @@ hr {
   left: 12.48px;
 }
 .logo-evernote-small .body-bottom-right {
-  -webkit-transform: rotate(11deg);
   transform: rotate(11deg);
   border-radius: 100% 100% 75% 0;
   width: 3.12px;
@@ -1732,7 +1702,6 @@ hr {
   left: 22.88px;
 }
 .logo-evernote-small .body-bottom-left {
-  -webkit-transform: rotate(-11deg);
   transform: rotate(-11deg);
   border-radius: 67% 100% 120% 68%;
   height: 13.52px;
@@ -1741,7 +1710,6 @@ hr {
   top: 17.68px;
 }
 .logo-evernote-small .body-bottom {
-  -webkit-transform: rotate(10deg);
   transform: rotate(10deg);
   border-radius: 171% 120% 4.16px 100%;
   width: 10.57333333px;
@@ -1776,7 +1744,7 @@ hr {
   top: 14.73333333px;
 }
 .logo-dropbox-actual {
-  background: #4b95f4 url('/static/images/logo/dropbox.png') no-repeat 31px 42px;
+  background: #3292f5 url('/static/images/logo/dropbox.png') no-repeat 31px 42px;
   background-size: 80%;
   border-radius: 100%;
   width: 300px;
@@ -1790,7 +1758,7 @@ hr {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .logo-dropbox-large {
-  background-color: #4b95f4;
+  background-color: #3292f5;
   width: 300px;
   height: 300px;
   border-radius: 150px;
@@ -1810,10 +1778,9 @@ hr {
   background-color: #ffffff;
 }
 .logo-dropbox-large div[class*=-none] {
-  background-color: #4b95f4;
+  background-color: #3292f5;
 }
 .logo-dropbox-large .base-left {
-  -webkit-transform: skew(0, 31deg);
   transform: skew(0, 31deg);
   width: 61px;
   height: 79px;
@@ -1821,7 +1788,6 @@ hr {
   top: 153px;
 }
 .logo-dropbox-large .base-right {
-  -webkit-transform: skew(0, -31deg);
   transform: skew(0, -31deg);
   width: 61px;
   height: 79px;
@@ -1836,7 +1802,6 @@ hr {
   top: 171px;
 }
 .logo-dropbox-large .cover-left-none {
-  -webkit-transform: skew(-50deg, 34deg);
   transform: skew(-50deg, 34deg);
   width: 62px;
   height: 40px;
@@ -1844,7 +1809,6 @@ hr {
   top: 152px;
 }
 .logo-dropbox-large .cover-right-none {
-  -webkit-transform: skew(50deg, -34deg);
   transform: skew(50deg, -34deg);
   width: 62px;
   height: 40px;
@@ -1852,7 +1816,6 @@ hr {
   top: 152px;
 }
 .logo-dropbox-large .cover-top {
-  -webkit-transform: skew(51deg, -33deg);
   transform: skew(51deg, -33deg);
   width: 60px;
   height: 37px;
@@ -1860,7 +1823,6 @@ hr {
   top: 79px;
 }
 .logo-dropbox-large .cover-bottom {
-  -webkit-transform: skew(51deg, -33deg);
   transform: skew(51deg, -33deg);
   width: 60px;
   height: 37px;
@@ -1868,7 +1830,6 @@ hr {
   top: 148px;
 }
 .logo-dropbox-large .cover-right {
-  -webkit-transform: skew(-51deg, 33deg);
   transform: skew(-51deg, 33deg);
   width: 60px;
   height: 37px;
@@ -1876,7 +1837,6 @@ hr {
   top: 79px;
 }
 .logo-dropbox-large .cover-left {
-  -webkit-transform: skew(-51deg, 33deg);
   transform: skew(-51deg, 33deg);
   width: 60px;
   height: 37px;
@@ -1884,7 +1844,6 @@ hr {
   top: 148px;
 }
 .logo-dropbox-large .box-none {
-  -webkit-transform: skew(-58deg, 32deg);
   transform: skew(-58deg, 32deg);
   width: 60px;
   height: 38px;
@@ -1892,7 +1851,7 @@ hr {
   top: 113px;
 }
 .logo-dropbox-small {
-  background-color: #4b95f4;
+  background-color: #3292f5;
   width: 52px;
   height: 52px;
   border-radius: 26px;
@@ -1912,10 +1871,9 @@ hr {
   background-color: #ffffff;
 }
 .logo-dropbox-small div[class*=-none] {
-  background-color: #4b95f4;
+  background-color: #3292f5;
 }
 .logo-dropbox-small .base-left {
-  -webkit-transform: skew(0, 31deg);
   transform: skew(0, 31deg);
   width: 10.57333333px;
   height: 13.69333333px;
@@ -1923,7 +1881,6 @@ hr {
   top: 26.52px;
 }
 .logo-dropbox-small .base-right {
-  -webkit-transform: skew(0, -31deg);
   transform: skew(0, -31deg);
   width: 10.57333333px;
   height: 13.69333333px;
@@ -1938,7 +1895,6 @@ hr {
   top: 29.64px;
 }
 .logo-dropbox-small .cover-left-none {
-  -webkit-transform: skew(-50deg, 34deg);
   transform: skew(-50deg, 34deg);
   width: 10.74666667px;
   height: 6.93333333px;
@@ -1946,7 +1902,6 @@ hr {
   top: 26.34666667px;
 }
 .logo-dropbox-small .cover-right-none {
-  -webkit-transform: skew(50deg, -34deg);
   transform: skew(50deg, -34deg);
   width: 10.74666667px;
   height: 6.93333333px;
@@ -1954,7 +1909,6 @@ hr {
   top: 26.34666667px;
 }
 .logo-dropbox-small .cover-top {
-  -webkit-transform: skew(51deg, -33deg);
   transform: skew(51deg, -33deg);
   width: 10.4px;
   height: 6.41333333px;
@@ -1962,7 +1916,6 @@ hr {
   top: 13.69333333px;
 }
 .logo-dropbox-small .cover-bottom {
-  -webkit-transform: skew(51deg, -33deg);
   transform: skew(51deg, -33deg);
   width: 10.4px;
   height: 6.41333333px;
@@ -1970,7 +1923,6 @@ hr {
   top: 25.65333333px;
 }
 .logo-dropbox-small .cover-right {
-  -webkit-transform: skew(-51deg, 33deg);
   transform: skew(-51deg, 33deg);
   width: 10.4px;
   height: 6.41333333px;
@@ -1978,7 +1930,6 @@ hr {
   top: 13.69333333px;
 }
 .logo-dropbox-small .cover-left {
-  -webkit-transform: skew(-51deg, 33deg);
   transform: skew(-51deg, 33deg);
   width: 10.4px;
   height: 6.41333333px;
@@ -1986,7 +1937,6 @@ hr {
   top: 25.65333333px;
 }
 .logo-dropbox-small .box-none {
-  -webkit-transform: skew(-58deg, 32deg);
   transform: skew(-58deg, 32deg);
   width: 10.4px;
   height: 6.58666667px;
@@ -2402,10 +2352,7 @@ hr {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .logo-bchanx .logo-content {
-  transition: -webkit-transform 0.4s ease;
   transition: transform 0.4s ease;
-  transition: transform 0.4s ease, -webkit-transform 0.4s ease;
-  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   width: 80px;
   height: 80px;
@@ -2420,7 +2367,6 @@ hr {
   width: 78px;
   height: 78px;
   border-radius: 50%;
-  -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -2457,7 +2403,6 @@ hr {
   height: 80px;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-transform: translateZ(1px);
   transform: translateZ(1px);
   position: absolute;
 }
@@ -2467,7 +2412,6 @@ hr {
   height: 78px;
 }
 .logo-bchanx:hover .logo-content {
-  -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
 #footer {
@@ -2715,9 +2659,7 @@ html {
   margin-bottom: 5px;
 }
 .social .fb {
-  -webkit-transform: scale(1.35);
   transform: scale(1.35);
-  -webkit-transform-origin: 100% 100%;
   transform-origin: 100% 100%;
   vertical-align: top;
   margin-left: 45px;
@@ -2766,22 +2708,18 @@ b {
   position: relative;
   font-size: 0.65em;
   overflow: hidden;
-  display: -webkit-flex;
   display: -moz-flex;
   display: -ms-flexbox;
   display: -ms-flex;
   display: flex;
-  -webkit-flex-direction: column;
   -moz-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
 }
 .example .demo {
   -ms-flex-shrink: 0;
-  -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  display: -webkit-flex;
   display: -moz-flex;
   display: -ms-flexbox;
   display: -ms-flex;
@@ -2789,7 +2727,6 @@ b {
   position: relative;
   min-height: 100px;
   overflow: hidden;
-  -webkit-justify-content: center;
   -moz-justify-content: center;
   -ms-justify-content: center;
   -ms-flex-pack: center;
@@ -2810,12 +2747,11 @@ b {
 .example .demo-wrapper {
   position: relative;
   -ms-align-self: center;
-  -webkit-align-self: center;
   -ms-flex-item-align: center;
+  -ms-grid-row-align: center;
   align-self: center;
 }
 .example .code {
-  -webkit-flex-grow: 1;
   -moz-flex-grow: 1;
   -ms-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -2899,26 +2835,6 @@ b {
 .color-text .teal {
   color: #01b4dd;
 }
-@-webkit-keyframes processor {
-  0% {
-    width: 0;
-    height: 0;
-    left: 0;
-    top: 0;
-  }
-  24% {
-    width: 0;
-    height: 0;
-    left: 0;
-    top: 0;
-  }
-  28% {
-    width: 56px;
-    height: 56px;
-    left: -28px;
-    top: -28px;
-  }
-}
 @keyframes processor {
   0% {
     width: 0;
@@ -2939,17 +2855,6 @@ b {
     top: -28px;
   }
 }
-@-webkit-keyframes processor-before {
-  0% {
-    width: 0;
-  }
-  32% {
-    width: 0;
-  }
-  44% {
-    width: 50px;
-  }
-}
 @keyframes processor-before {
   0% {
     width: 0;
@@ -2958,17 +2863,6 @@ b {
     width: 0;
   }
   44% {
-    width: 50px;
-  }
-}
-@-webkit-keyframes processor-after {
-  0% {
-    width: 0;
-  }
-  44% {
-    width: 0;
-  }
-  56% {
     width: 50px;
   }
 }
@@ -2995,7 +2889,6 @@ b {
   letter-spacing: 3px;
   font-weight: 700;
   font-family: 'Oxygen', Helvetica, arial, sans-serif;
-  -webkit-animation: processor 3s infinite linear;
   animation: processor 3s infinite linear;
 }
 #processor::before {
@@ -3004,13 +2897,10 @@ b {
   width: 50px;
   overflow: hidden;
   text-shadow: -1px 0 0 #808080;
-  -webkit-transform: rotateZ(-90deg);
   transform: rotateZ(-90deg);
-  -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
   left: 45px;
   bottom: -15px;
-  -webkit-animation: processor-before 3s infinite linear;
   animation: processor-before 3s infinite linear;
 }
 #processor::after {
@@ -3019,62 +2909,11 @@ b {
   width: 50px;
   overflow: hidden;
   text-shadow: -1px 0 0 #808080;
-  -webkit-transform: rotateZ(90deg) rotateY(180deg);
   transform: rotateZ(90deg) rotateY(180deg);
-  -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
   left: 10px;
   top: 50px;
-  -webkit-animation: processor-after 3s infinite linear;
   animation: processor-after 3s infinite linear;
-}
-@-webkit-keyframes screen-gameboy-text {
-  0% {
-    color: #f9e52e;
-    background-position: -120px;
-    opacity: 0;
-  }
-  11.7% {
-    opacity: 0;
-  }
-  12% {
-    color: #f9e52e;
-    background-position: -120px;
-    opacity: 1;
-  }
-  19.5% {
-    color: #f9e52e;
-  }
-  21% {
-    color: #ff0151;
-  }
-  28.5% {
-    color: #ff0151;
-  }
-  30% {
-    color: #ff52e8;
-  }
-  37.5% {
-    color: #ff52e8;
-  }
-  39% {
-    color: #85e367;
-  }
-  46.5% {
-    color: #85e367;
-  }
-  48% {
-    color: #3232fc;
-  }
-  54% {
-    background-position: 130px;
-  }
-  81% {
-    opacity: 1;
-  }
-  96% {
-    opacity: 0;
-  }
 }
 @keyframes screen-gameboy-text {
   0% {
@@ -3136,7 +2975,6 @@ b {
   width: 500px;
   left: -250px;
   top: -22px;
-  -webkit-transform: skew(-5deg);
   transform: skew(-5deg);
   overflow: hidden;
   white-space: nowrap;
@@ -3145,19 +2983,7 @@ b {
   background-position: 130px;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  -webkit-animation: screen-gameboy-text 3s infinite linear;
   animation: screen-gameboy-text 3s infinite linear;
-}
-@-webkit-keyframes glass-color-text {
-  0% {
-    color: transparent;
-  }
-  32% {
-    color: transparent;
-  }
-  36% {
-    color: #ff0151;
-  }
 }
 @keyframes glass-color-text {
   0% {
@@ -3168,22 +2994,6 @@ b {
   }
   36% {
     color: #ff0151;
-  }
-}
-@-webkit-keyframes glass-color-text-before {
-  0% {
-    color: transparent;
-    border-color: transparent;
-  }
-  36% {
-    border-color: transparent;
-  }
-  40% {
-    color: transparent;
-    border-color: #5151dd;
-  }
-  42% {
-    color: #85e367;
   }
 }
 @keyframes glass-color-text-before {
@@ -3200,22 +3010,6 @@ b {
   }
   42% {
     color: #85e367;
-  }
-}
-@-webkit-keyframes glass-color-text-after {
-  0% {
-    color: transparent;
-    border-color: transparent;
-  }
-  42% {
-    border-color: transparent;
-  }
-  46% {
-    color: transparent;
-    border-color: #f9e52e;
-  }
-  50% {
-    color: #01b4dd;
   }
 }
 @keyframes glass-color-text-after {
@@ -3243,7 +3037,6 @@ b {
   font-size: 35px;
   letter-spacing: -2px;
   font-weight: 700;
-  -webkit-animation: glass-color-text 3s infinite linear;
   animation: glass-color-text 3s infinite linear;
 }
 #glass-color-text::before {
@@ -3258,7 +3051,6 @@ b {
   border-radius: 50%;
   width: 10px;
   height: 10px;
-  -webkit-animation: glass-color-text-before 3s infinite linear;
   animation: glass-color-text-before 3s infinite linear;
 }
 #glass-color-text::after {
@@ -3273,54 +3065,7 @@ b {
   border-radius: 50%;
   width: 10px;
   height: 10px;
-  -webkit-animation: glass-color-text-after 3s infinite linear;
   animation: glass-color-text-after 3s infinite linear;
-}
-@-webkit-keyframes cover-vertical {
-  0% {
-    width: 0;
-    height: 0;
-    box-shadow: none;
-  }
-  20% {
-    width: 20px;
-    height: 0;
-  }
-  25.45454545% {
-    height: 25px;
-    box-shadow: 20px 50px #85e367, 40px 50px #85e367, 60px 50px #85e367, 80px 50px #85e367, 100px 50px #85e367, 120px 50px #85e367, 140px 50px #85e367, 160px 50px #85e367, 180px 50px #85e367;
-  }
-  30.90909091% {
-    height: 50px;
-    box-shadow: 20px 25px #85e367, 40px 50px #85e367, 60px 50px #85e367, 80px 50px #85e367, 100px 50px #85e367, 120px 50px #85e367, 140px 50px #85e367, 160px 50px #85e367, 180px 50px #85e367;
-  }
-  36.36363636% {
-    box-shadow: 20px 0 #85e367, 40px 25px #85e367, 60px 50px #85e367, 80px 50px #85e367, 100px 50px #85e367, 120px 50px #85e367, 140px 50px #85e367, 160px 50px #85e367, 180px 50px #85e367;
-  }
-  41.81818182% {
-    box-shadow: 20px 0 #85e367, 40px 0 #85e367, 60px 25px #85e367, 80px 50px #85e367, 100px 50px #85e367, 120px 50px #85e367, 140px 50px #85e367, 160px 50px #85e367, 180px 50px #85e367;
-  }
-  47.27272727% {
-    box-shadow: 20px 0 #85e367, 40px 0 #85e367, 60px 0 #85e367, 80px 25px #85e367, 100px 50px #85e367, 120px 50px #85e367, 140px 50px #85e367, 160px 50px #85e367, 180px 50px #85e367;
-  }
-  52.72727273% {
-    box-shadow: 20px 0 #85e367, 40px 0 #85e367, 60px 0 #85e367, 80px 0 #85e367, 100px 25px #85e367, 120px 50px #85e367, 140px 50px #85e367, 160px 50px #85e367, 180px 50px #85e367;
-  }
-  58.18181818% {
-    box-shadow: 20px 0 #85e367, 40px 0 #85e367, 60px 0 #85e367, 80px 0 #85e367, 100px 0 #85e367, 120px 25px #85e367, 140px 50px #85e367, 160px 50px #85e367, 180px 50px #85e367;
-  }
-  63.63636364% {
-    box-shadow: 20px 0 #85e367, 40px 0 #85e367, 60px 0 #85e367, 80px 0 #85e367, 100px 0 #85e367, 120px 0 #85e367, 140px 25px #85e367, 160px 50px #85e367, 180px 50px #85e367;
-  }
-  69.09090909% {
-    box-shadow: 20px 0 #85e367, 40px 0 #85e367, 60px 0 #85e367, 80px 0 #85e367, 100px 0 #85e367, 120px 0 #85e367, 140px 0 #85e367, 160px 25px #85e367, 180px 50px #85e367;
-  }
-  74.54545455% {
-    box-shadow: 20px 0 #85e367, 40px 0 #85e367, 60px 0 #85e367, 80px 0 #85e367, 100px 0 #85e367, 120px 0 #85e367, 140px 0 #85e367, 160px 0 #85e367, 180px 25px #85e367;
-  }
-  80% {
-    box-shadow: 20px 0 #85e367, 40px 0 #85e367, 60px 0 #85e367, 80px 0 #85e367, 100px 0 #85e367, 120px 0 #85e367, 140px 0 #85e367, 160px 0 #85e367, 180px 0 #85e367;
-  }
 }
 @keyframes cover-vertical {
   0% {
@@ -3374,20 +3119,8 @@ b {
   height: 50px;
   bottom: 0;
   background-color: #85e367;
-  -webkit-animation: cover-vertical 3s infinite linear;
   animation: cover-vertical 3s infinite linear;
   box-shadow: 20px 0 #85e367, 40px 0 #85e367, 60px 0 #85e367, 80px 0 #85e367, 100px 0 #85e367, 120px 0 #85e367, 140px 0 #85e367, 160px 0 #85e367, 180px 0 #85e367;
-}
-@-webkit-keyframes circle-before {
-  0% {
-    height: 100%;
-  }
-  10% {
-    height: 100%;
-  }
-  20% {
-    height: 0%;
-  }
 }
 @keyframes circle-before {
   0% {
@@ -3397,17 +3130,6 @@ b {
     height: 100%;
   }
   20% {
-    height: 0%;
-  }
-}
-@-webkit-keyframes circle-after {
-  0% {
-    height: 100%;
-  }
-  20% {
-    height: 100%;
-  }
-  30% {
     height: 0%;
   }
 }
@@ -3430,7 +3152,6 @@ b {
   height: 80px;
   top: -40px;
   left: -70px;
-  -webkit-transform: rotateZ(-90deg);
   transform: rotateZ(-90deg);
 }
 #circle::before {
@@ -3441,7 +3162,6 @@ b {
   width: 50%;
   height: 0%;
   background-color: #e8e8e8;
-  -webkit-animation: circle-before 3s infinite linear;
   animation: circle-before 3s infinite linear;
 }
 #circle::after {
@@ -3452,26 +3172,7 @@ b {
   width: 50%;
   height: 0%;
   background-color: #e8e8e8;
-  -webkit-animation: circle-after 3s infinite linear;
   animation: circle-after 3s infinite linear;
-}
-@-webkit-keyframes square-before {
-  0% {
-    height: 100%;
-    width: 100%;
-  }
-  40% {
-    height: 100%;
-    width: 100%;
-  }
-  45% {
-    height: 100%;
-    width: 3px;
-  }
-  50% {
-    height: 0;
-    width: 3px;
-  }
 }
 @keyframes square-before {
   0% {
@@ -3487,24 +3188,6 @@ b {
     width: 3px;
   }
   50% {
-    height: 0;
-    width: 3px;
-  }
-}
-@-webkit-keyframes square-after {
-  0% {
-    height: 57px;
-    width: 57px;
-  }
-  50% {
-    height: 57px;
-    width: 57px;
-  }
-  55% {
-    height: 57px;
-    width: 3px;
-  }
-  60% {
     height: 0;
     width: 3px;
   }
@@ -3543,7 +3226,6 @@ b {
   width: 3px;
   height: 0;
   background-color: #e8e8e8;
-  -webkit-animation: square-before 3s infinite linear;
   animation: square-before 3s infinite linear;
 }
 #square::after {
@@ -3554,6 +3236,5 @@ b {
   width: 3px;
   height: 0;
   background-color: #e8e8e8;
-  -webkit-animation: square-after 3s infinite linear;
   animation: square-after 3s infinite linear;
 }

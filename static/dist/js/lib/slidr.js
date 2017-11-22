@@ -1,1 +1,0 @@
-/Users/bchanx/bchanx/slidr/slidr.js

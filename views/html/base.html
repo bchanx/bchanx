@@ -10,9 +10,9 @@
   </head>
 
   <body ontouchstart>
-    <div id="header">{% block header %}{% endblock %}</div>
-    <div id="body" class="clearfix">{% block body %}{% endblock %}</div>
-    <div id="footer">{% block footer %}{% endblock %}</div>
+    {% block header %}{% endblock %}
+    {% block body %}{% endblock %}
+    {% block footer %}{% endblock %}
 
     {% block scripts %}{% endblock %}
 
