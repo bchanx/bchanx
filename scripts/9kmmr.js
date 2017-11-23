@@ -1,4 +1,5 @@
 const DATE_RE = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+\d{2}:\d{2}/;
+const DATE_FORMAT = 'MMMM Do, YYYY';
 
 const SOCIAL_TYPES = {
   liquipedia: 1,
@@ -16,10 +17,9 @@ const SORT_TYPES = {
 };
 
 Vue.component('player-tile', {
-  props: ['player', 'index'],
+  props: ['player', 'filters'],
   template: `
     <div class="player-tile" :class="{ 'not-verified' : !player.isVerified }" @click="hasSource ? showSource() : null">
-      <div class="player-index">{{index}}.</div>
       <div class="player-image" v-if="player.image">
         <img :src="player.image"/>
       </div>
@@ -29,8 +29,8 @@ Vue.component('player-tile', {
           <span class="date">{{dateAchieved}}</span>
         </div>
         <div class="player-metadata">
-          <span class="region">{{player.region}}</span>
-          <span class="role">{{player.role}}</span>
+          <span class="region" :class="{ active: filters.region === player.region }">{{player.region}}</span>
+          <span class="role" :class="{ active: filters.role === player.role }">{{player.role}}</span>
           <span class="social" v-if="socialTypes.length">
             <a :class="socialType" :href="player.social[socialType]" @click.stop v-for="socialType in socialTypes" target="_blank"></a>
           </span>
@@ -40,14 +40,12 @@ Vue.component('player-tile', {
   `,
   computed: {
     dateAchieved: function() {
+      // date should have been sanitized as a moment.js object
       let date = this.player.dateAchieved;
-      if (DATE_RE.test(date)) {
-        let momentized = moment(date);
-        if (momentized.isValid()) {
-          return momentized.format('MMMM Do, YYYY');
-        }
+      if (date && moment.isMoment(date)) {
+        return date.format(DATE_FORMAT);
       }
-      return date;
+      return 'N/A';
     },
     socialTypes: function() {
       return Object.keys(this.player.social || {}).filter(x => !!SOCIAL_TYPES[x]).sort((a, b) => {
@@ -136,17 +134,18 @@ const APP = new Vue({
       </div>
       <div class="results">
         <div v-if="isLoading" class="placeholder">
-          Loading...
+          loading...
         </div>
         <div v-else-if="!players.length" class="placeholder">
-          No player info available.
+          no player info available
         </div>
         <div v-else-if="!filteredPlayers.length" class="placeholder">
-          No player matches found.
+          no player matches found
         </div>
         <div v-else class="player-list">
-          <template v-for="(player, index) in filteredPlayers">
-            <player-tile :player="player" :index="(index + 1)"/>
+          <div class="placeholder">{{!hasSetInputFilters ? 'listing' : 'matching'}} {{filteredPlayers.length}}{{!hasSetInputFilters ? ' total' : ''}} player{{filteredPlayers.length === 1 ? '' : 's'}}</div>
+          <template v-for="player in filteredPlayers">
+            <player-tile :player="player" :filters="filters"/>
           </template>
         </div>
       </div>
@@ -177,13 +176,47 @@ const APP = new Vue({
       .end((err, res) => {
         this.isLoading = false;
         if (!err && res.ok) {
-          // TODO: sort by date and add a global rank
           let players = res.body;
+
           // Sanitize
           players.forEach(p => {
             p.region = (p.region || '').toLowerCase();
             p.role = (p.role || '').toLowerCase();
+            let date = p.dateAchieved;
+            date = DATE_RE.test(date) ? moment(date) : moment(date, DATE_FORMAT);
+            // Default malformed dates to current
+            p.dateAchieved = date.isValid() ? date : moment();
+            p.isVerified = !date.isValid() ? false : !!p.isVerified;
           });
+
+          // Sort by date achieved
+          players = players.sort((a, b) => {
+            let aDate = a.dateAchieved;
+            let bDate = b.dateAchieved;
+            return aDate > bDate ? 1 : aDate < bDate ? -1 : 0;
+          });
+
+          // Add global ranking
+          players.forEach((p, idx) => {
+            p.globalRank = idx + 1;
+          });
+
+          // Now sort by default sorting
+          let sort = this.filters.sort;
+          if (sort !== SORT_TYPES.DATE_ACHIEVED) {
+            players = players.sort((a, b) => {
+              if (sort === SORT_TYPES.ALPHABETICALLY) {
+                return a.name > b.name ? 1 : a.name < b.name ? -1 : 0;
+              }
+              else if (sort === SORT_TYPES.MOST_RECENT) {
+                let aDate = a.dateAchieved;
+                let bDate = b.dateAchieved;
+                return aDate > bDate ? -1 : aDate < bDate ? 1 : 0;
+              }
+            });
+          }
+
+          // Set the list of players
           this.players = players;
         }
       });
@@ -211,6 +244,9 @@ const APP = new Vue({
       let region = this.filters.region;
       let role = this.filters.role;
 
+      // TODO: add sort
+      // let sort = this.filters.sort;
+
       return this.players.filter(p => {
         return (!region || p.region === region) &&
           (!role || p.role === role) &&
@@ -219,6 +255,9 @@ const APP = new Vue({
     },
     hasSetFilters: function() {
       return Object.keys(this.filters).filter(x => x === 'sort' ? this.filters[x] !== SORT_TYPES.DATE_ACHIEVED : !!this.filters[x]).length;
+    },
+    hasSetInputFilters: function() {
+      return Object.keys(this.filters).filter(x => x !== 'sort' && !!this.filters[x]).length;
     },
     regionTypes: function() {
       let players = this.players;

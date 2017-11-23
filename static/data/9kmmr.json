@@ -227,7 +227,7 @@
   }]
 }, {
   "name": "No[o]ne-",
-  "dateAchieved": "jan 13th 2017",
+  "dateAchieved": "2017-01-13T09:48:13+00:00",
   "region": "CIS",
   "role": "Mid",
   "isVerified": true,
@@ -250,7 +250,7 @@
   }]
 }, {
   "name": "MidOne",
-  "dateAchieved": "feb 9th 2017",
+  "dateAchieved": "2017-02-09T18:20:20+00:00",
   "region": "SEA",
   "role": "Mid",
   "isVerified": true,
@@ -292,28 +292,49 @@
     "hero": "timbersaw"
   }]
 }, {
-  "name": "747",
-  "dateAchieved": "feb 25th 2017",
+  "name": "Ryoya",
+  "dateAchieved": "2017-02-25T06:00:46+00:00",
   "region": "NA",
   "role": "Mid",
   "isVerified": true,
+  "social": {
+    "twitter": "https://twitter.com/RyoyaDota",
+    "dotabuff": "https://www.dotabuff.com/players/115141430"
+  },
   "source": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/5w2qx9/747_first_na_servers_only_9k/"
+  }, {
+    "type": "twitter",
+    "url": "https://twitter.com/RyoyaDota/status/835371190420131841"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3019262537",
+    "hero": "magnus"
   }]
 }, {
   "name": "ana",
-  "dateAchieved": "feb 28th 2017",
+  "dateAchieved": "2017-02-28T01:06:03+00:00",
   "region": "EU",
   "role": "Mid",
   "isVerified": true,
+  "social": {
+    "dotabuff": "https://www.dotabuff.com/players/311360822"
+  },
   "source": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/5wkvzc/ana_reached_9k/"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=0gOrOyTxvs0"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3025511400",
+    "hero": "outworld-devourer"
   }]
 }, {
   "name": "zhizhizhi",
-  "dateAchieved": "march 16th, 2017",
+  "dateAchieved": "March 16th, 2017",
   "region": "CN",
   "role": "Carry",
   "isVerified": true,
@@ -323,7 +344,7 @@
   }]
 }, {
   "name": "xcalibur",
-  "dateAchieved": "march 17th, 2017",
+  "dateAchieved": "March 17th, 2017",
   "region": "EU",
   "role": "Mid",
   "isVerified": true,
@@ -333,7 +354,7 @@
   }]
 }, {
   "name": "abed",
-  "dateAchieved": "march 20th, 2017",
+  "dateAchieved": "March 20th, 2017",
   "region": "SEA",
   "role": "mid",
   "isVerified": true,
@@ -343,7 +364,7 @@
   }]
 }, {
   "name": "ori",
-  "dateAchieved": "march 30th, 2017",
+  "dateAchieved": "March 30th, 2017",
   "region": "CN",
   "role": "Mid",
   "isVerified": true,
@@ -366,7 +387,7 @@
   }]
 }, {
   "name": "inyourdream",
-  "dateAchieved": "april 27th, 2017",
+  "dateAchieved": "April 27th, 2017",
   "region": "SEA",
   "role": "Mid",
   "isVerified": true,
@@ -463,7 +484,7 @@
   }]
 }, {
   "name": "Old Chicken",
-  "dateAchieved": "Aug 16th, 2017",
+  "dateAchieved": "August 16th, 2017",
   "region": "CN",
   "role": "Carry",
   "isVerified": true,
@@ -477,7 +498,7 @@
   }]
 }, {
   "name": "Nine",
-  "dateAchieved": "Aug 23rd, 2017",
+  "dateAchieved": "August 23rd, 2017",
   "region": "EU",
   "role": "Mid",
   "isVerified": true,
@@ -488,7 +509,7 @@
   }]
 }, {
   "name": "Cancel^^",
-  "dateAchieved": "Aug 29th, 2017",
+  "dateAchieved": "August 29th, 2017",
   "region": "EU",
   "role": "Mid",
   "isVerified": true,
@@ -498,7 +519,7 @@
   }]
 }, {
   "name": "Topson",
-  "dateAchieved": "Aug 31st, 2017",
+  "dateAchieved": "August 31st, 2017",
   "region": "EU",
   "role": "Mid",
   "isVerified": true,
@@ -508,7 +529,7 @@
   }]
 }, {
   "name": "Cr1t",
-  "dateAchieved": "Sep 1st, 2017",
+  "dateAchieved": "September 1st, 2017",
   "region": "NA",
   "role": "Support",
   "isVerified": true,
@@ -521,7 +542,7 @@
   }]
 }, {
   "name": "Gabbi",
-  "dateAchieved": "Sept 25th, 2017",
+  "dateAchieved": "September 25th, 2017",
   "region": "SEA",
   "role": "Mid",
   "isVerified": true,
@@ -531,7 +552,7 @@
   }]
 }, {
   "name": "Badman",
-  "dateAchieved": "Sept 26th, 2017",
+  "dateAchieved": "September 26th, 2017",
   "region": "EU",
   "role": "Carry",
   "isVerified": true,
@@ -544,7 +565,7 @@
   }]
 }, {
   "name": "Afoninje",
-  "dateAchieved": "Sept 26th, 2017",
+  "dateAchieved": "September 26th, 2017",
   "region": "CIS",
   "role": "Mid",
   "isVerified": true,
@@ -554,7 +575,7 @@
   }]
 }, {
   "name": "Mind_control",
-  "dateAchieved": "Oct 4th, 2017",
+  "dateAchieved": "October 4th, 2017",
   "region": "EU",
   "role": "Offlane",
   "isVerified": true,
@@ -564,7 +585,7 @@
   }]
 }, {
   "name": "Benhur",
-  "dateAchieved": "Oct 5th, 2017",
+  "dateAchieved": "October 5th, 2017",
   "region": "SEA",
   "role": "Mid",
   "isVerified": true,
@@ -574,7 +595,7 @@
   }]
 }, {
   "name": "Boboka",
-  "dateAchieved": "Oct 6th 2017",
+  "dateAchieved": "October 6th 2017",
   "region": "CN",
   "role": "Support",
   "isVerified": false,
@@ -584,7 +605,7 @@
   }]
 }, {
   "name": "Agressif",
-  "dateAchieved": "Oct 16th, 2017",
+  "dateAchieved": "October 16th, 2017",
   "region": "CN",
   "role": "Carry",
   "isVerified": false,
@@ -594,7 +615,7 @@
   }]
 }, {
   "name": "7ckingmad",
-  "dateAchieved": "Oct 21st, 2017",
+  "dateAchieved": "October 21st, 2017",
   "region": "EU",
   "role": "Coach",
   "isVerified": true,
@@ -611,7 +632,7 @@
   }]
 }, {
   "name": "Jabz",
-  "dateAchieved": "Oct 21st, 2017",
+  "dateAchieved": "October 21st, 2017",
   "region": "SEA",
   "role": "Support",
   "isVerified": true,
@@ -624,7 +645,7 @@
   }]
 }, {
   "name": "Nisha",
-  "dateAchieved": "Oct 24th, 2017",
+  "dateAchieved": "October 24th, 2017",
   "region": "EU",
   "role": "Mid",
   "isVerified": false,
@@ -638,7 +659,7 @@
   }]
 }, {
   "name": "Universe",
-  "dateAchieved": "Oct 28th, 2017",
+  "dateAchieved": "October 28th, 2017",
   "region": "NA",
   "role": "Offlane",
   "isVerified": true,
@@ -651,7 +672,7 @@
   }]
 }, {
   "name": "Bryle",
-  "dateAchieved": "Nov 8th, 2017",
+  "dateAchieved": "November 8th, 2017",
   "region": "NA",
   "role": "Mid",
   "isVerified": true,
@@ -661,7 +682,7 @@
   }]
 }, {
   "name": "33",
-  "dateAchieved": "Nov 12th, 2017",
+  "dateAchieved": "November 12th, 2017",
   "region": "EU",
   "role": "Offlane",
   "isVerified": true,
@@ -671,7 +692,7 @@
   }]
 }, {
   "name": "Palantimos",
-  "dateAchieved": "Nov 15th, 2017",
+  "dateAchieved": "November 15th, 2017",
   "region": "EU",
   "role": "Carry",
   "isVerified": false,
@@ -681,7 +702,7 @@
   "source": []
 }, {
   "name": "QO",
-  "dateAchieved": "Nov 15th, 2017",
+  "dateAchieved": "November 15th, 2017",
   "region": "NA",
   "role": "Mid",
   "isVerified": false,

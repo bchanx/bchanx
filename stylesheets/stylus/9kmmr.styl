@@ -30,6 +30,9 @@ $blue-light = #309eff
 $blue-dark = #125c9e
 $blue-lightest = #d6ebff
 
+$orange = #FF851B
+$orange-light = #ffad66
+
 $aqua = #51c8f7
 $aqua-light = #7FDBFF
 $aqua-dark = #176e91
@@ -70,7 +73,13 @@ body
 .placeholder
   color: $gray5
   font-style: italic
-  padding: 2rem 1rem
+  text-align: center
+  letter-spacing: -0.5px
+  padding: 0 1rem
+  &:before
+    content: "［ "
+  &:after
+    content: " ］"
 
 // Main grid container
 .container
@@ -240,14 +249,6 @@ body
   &:hover
     border-color: $gray10
 
-.player-index
-  position: absolute
-  left: calc(-2rem - 3px)
-  top: 1.05rem
-  width: 20px
-  text-align: right
-  color: $gray3
-
 .player-image
   margin-right: 0.8rem
   flex-shrink: 0
@@ -272,11 +273,10 @@ body
     font-size: 0.8rem
     text-align: right
     font-style: italic
-    color: $gray5
+    color: $orange-light
     flex-grow: 1
     margin-top: 0.5rem
     margin-right: 2rem
-    letter-spacing: 1px
 
 .player-metadata
   display: flex
@@ -396,8 +396,7 @@ body
     width: 48px
     height: 48px
   .player-profile .date
-    letter-spacing: unset
     position: absolute
-    right: 0.8rem
+    right: 1rem
     bottom: 0.8rem
     margin: 0
