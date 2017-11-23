@@ -17,12 +17,25 @@ $gray13 = #333
 $black = #222
 
 $green = #4ca879
-$darkgreen = #308d58
-$lightgreen = #5cd17d
+$green-dark = #308d58
+$green-light = #5cd17d
+$green-lightest = #defce5
 
 $red = #ff2b2b
-$darkred = #ce1e1e
-$lightred = #ff5b5b
+$red-dark = #ce1e1e
+$red-light = #ff5b5b
+
+$blue = #0074D9
+$blue-light = #309eff
+$blue-dark = #125c9e
+$blue-lightest = #d6ebff
+
+$aqua = #51c8f7
+$aqua-light = #7FDBFF
+$aqua-dark = #176e91
+
+$twitter = #00aced
+$facebook = #3b579d
 
 $max-width = 700px
 
@@ -37,15 +50,29 @@ html
   font-size: 16px
   font-weight: 300
   color: $black
-  font-family: 'Oxygen', Helvetica, arial, sans-serif
+  font-family: "Oxygen", Helvetica, arial, sans-serif
   background-color: $gray0
   overflow-y: scroll
 
 body
   line-height: 1.4
+  overflow: hidden
 
+.action
+  font-size: 0.8rem
+  color: $aqua-light
+  font-weight: 500
+  text-decoration: underline
+  cursor: pointer
+  &:hover
+    color: $aqua
 
-// Main grid containers
+.placeholder
+  color: $gray5
+  font-style: italic
+  padding: 2rem 1rem
+
+// Main grid container
 .container
   min-width: 360px
   max-width: $max-width
@@ -59,53 +86,201 @@ body
     "filters"\
     "results"\
     "footer"
-  grid-template-rows: 3rem 3rem auto 3rem
+  grid-template-rows: 3rem auto 1fr 3rem
 
 .navigation
   grid-area: navigation
   padding: 0.75rem 1rem
 
+.footer
+  grid-area: footer
+
+
+// Filters
 .filters
   grid-area: filters
   background-color: $gray1
   padding: 0.75rem 51rem
   margin: 0 -50rem
 
+.filter-header  
+  display: flex
+
+.filter-toggle
+  flex-shrink: 0
+  cursor: pointer
+  span
+    margin-left: 0.2rem
+
+.filter-reset
+  flex-grow: 1
+  display: flex
+  text-align: right
+  align-items: center
+  flex-direction: row-reverse
+
+.filter-types
+  display: grid
+  grid-template-areas: "one two"\
+    "three four"
+  grid-template-columns: 2fr 1fr
+  grid-template-rows: auto 0
+  grid-column-gap: 1rem
+  font-size: 0.8rem
+  margin-top: 0.5rem
+
+.input-filters
+  grid-area: one / one / three / three
+
+.sort-filters
+  grid-area: two / two / four / four
+  display: flex
+  flex-direction: column
+  padding-left: 3rem
+  .filter-option
+    input[type="radio"]
+      margin-right: 0.3rem
+
+.filter-option
+  display: flex
+  align-items: center
+  height: 2rem
+
+.filter-label
+  flex-shrink: 0
+  margin-right: 0.8rem
+  width: 4rem
+  text-align: right
+  color: $gray5
+
+.filter-input
+  flex-grow: 1
+  position: relative
+  .region
+  .role
+    cursor: pointer
+  .region
+    &:not(.active):hover
+      background-color: $green-lightest
+    &.active:hover
+      background-color: $green
+  .role
+    &:not(.active):hover
+      background-color: $blue-lightest
+    &.active:hover
+      background-color: $blue
+  input
+    width: 100%
+    border: 1px $gray2 solid
+    border-radius: 2px
+    height: 1.8rem
+    font-size: 0.8rem
+    padding: 0 1.5rem 0 0.5rem
+    &:active
+    &:focus
+      outline: none
+    &:focus
+      border-color: $gray4
+
+.filter-input-clear
+  position: absolute
+  right: 0.5rem
+  top: 0
+  line-height: 1.8rem
+
+
+// Result player tiles
 .results
   grid-area: results
   margin: 1.25rem 0
 
-.footer
-  grid-area: footer
-
-
-// Player tiles
 .player-tile
-  border: 1px $gray1 solid
   background-color: $white
   margin: 0.75rem 0
-  padding: 0.5rem 1rem
-  box-shadow: 2px 2px 0 $gray2
+  padding: 0.5rem 1rem 0.5rem calc(1rem - 3px)
   position: relative
+  border-color: $white
+  transition: border-color 0.15s
+  border-left: 3px $white solid
+  display: flex
+  overflow: hidden
   cursor: pointer
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .2),
+    0 1px 1px rgba(0, 0, 0, .14),
+    0 2px 1px -1px rgba(0, 0, 0, .12)
+  &:before
+    width: 4rem
+    height: 4rem
+    position: absolute
+    top: calc(-2rem - 2px)
+    right: calc(-2rem - 2px)
+    content: ""
+    background: $gray0
+    transform: rotateZ(45deg)
+    box-shadow: inset 0 0 0.5rem 1px $gray3
+  &:after
+    font-family: "Ionicons"
+    content: "\f122"
+    color: $green-light
+    position: absolute
+    right: 0.3rem
+    top: 0
+  &.not-verified
+    &:after
+      content: "\f143"
+      color: $gray8
+      right: 0.5rem
+    background: repeating-linear-gradient(
+      -45deg,
+      $gray0,
+      $gray0 10px,
+      $white 10px,
+      $white 20px
+    )
   &:hover
-    box-shadow: 2px 2px 0 $gray4
+    border-color: $gray10
 
-.index
+.player-index
   position: absolute
-  left: -2rem
-  top: 1.1rem
+  left: calc(-2rem - 3px)
+  top: 1.05rem
   width: 20px
   text-align: right
   color: $gray3
 
-.name
-  font-size: 1.8rem
-  font-weight: 500
-  letter-spacing: -1px
+.player-image
+  margin-right: 0.8rem
+  flex-shrink: 0
+  background-color: $gray0
+  img
+    width: 64px
+    height: 64px
+    vertical-align: top
 
-.date
-  font-size: 0.8rem
+.player-details
+  flex-grow: 1
+  margin-top: -0.2rem
+  margin-bottom: 0.2rem
+
+.player-profile
+  display: flex
+  .name
+    font-size: 2rem
+    font-weight: 500
+    letter-spacing: -1px
+  .date
+    font-size: 0.8rem
+    text-align: right
+    font-style: italic
+    color: $gray5
+    flex-grow: 1
+    margin-top: 0.5rem
+    margin-right: 2rem
+    letter-spacing: 1px
+
+.player-metadata
+  display: flex
+  align-items: center
 
 .region
 .role
@@ -115,27 +290,114 @@ body
   font-size: 0.75rem
   font-weight: 600
   letter-spacing: 1px
-  margin-left: 3px
+  margin-right: 0.4rem
+  display: inline-block
+  background: $white
+  text-transform: uppercase
 
 .region
   border-color $green
-  color: $lightgreen
-  box-shadow: 1px 1px 0 $darkgreen
+  color: $green-light
+  box-shadow: 1px 1px 0 $green-dark
+  &.active
+    color: $white
+    background-color: $green-light
+    border-color: $green-dark
 
 .role
-  border-color: $red
-  color: $lightred
-  box-shadow: 1px 1px 0 $darkred
+  border-color: $blue
+  color: $blue-light
+  box-shadow: 1px 1px 0 $blue-dark
   text-transform: uppercase
+  &.active
+    color: $white
+    background-color: $blue-light
+    border-color: $blue-dark
+
+.social
+  margin-left: 3rem
+  display: flex
+  flex-grow: 1
+  justify-content: flex-end
+  a
+    cursor: pointer
+    width: 1.25rem
+    height: 1.25rem
+    display: inline-block
+    margin-left: 0.2rem
+    background-position: center
+    background-repeat: no-repeat
+    opacity: 0.8
+    &:hover
+      opacity: 1
+    &.dotabuff
+      background-image: url("/static/images/9kmmr/dotabuff.jpg")
+      background-size: 1rem
+    &.liquipedia
+      background-image: url("/static/images/9kmmr/liquipedia.png")
+      background-size: 1.25rem
+      margin-right: 0.1rem
+    &.instagram
+      background-image: url("/static/images/9kmmr/instagram.png")
+      background-size: 1rem
+    &.twitch
+      background-image: url("/static/images/9kmmr/twitch.jpg")
+      background-size: 1.3rem
+    &.twitter
+    &.facebook
+      text-decoration: none
+      text-align: center
+      line-height: 1.3rem
+      &:before
+        font-family: "Ionicons"
+    &.twitter
+      color: $twitter
+      &:before
+        content: "\f243"
+    &.facebook
+      color: $facebook
+      font-size: 1.2rem
+      margin-left: 0
+      margin-right: -0.2rem
+      &:before
+        content: "\f231"
 
 
 // Responsive tweaks
-@media screen and (max-width: $max-width)
+@media screen and (max-width: $max-width + 30px)
   html
     font-size: 14px
-  .player-tile
-    margin-left: 1rem
+  .container
+    padding: 0 2rem
+  .player-image img
+    width: 56px
+    height: 56px
+  .filter-types
+    grid-template-rows: auto auto
+  .input-filters
+    grid-area: one / one / two / two
+  .sort-filters
+    grid-area: three / three / four / four
+    padding-left: 4.5rem
+    flex-direction: row
+    .filter-option
+      margin-right: 1.5rem
 
-@media screen and (max-width: 400px)
+@media screen and (max-width: 450px)
   html
     font-size: 12px
+  .player-metadata .social
+    display: none
+  .player-tile .index
+    top: 1.25rem
+    left: -2rem
+    text-align: center
+  .player-image img
+    width: 48px
+    height: 48px
+  .player-profile .date
+    letter-spacing: unset
+    position: absolute
+    right: 0.8rem
+    bottom: 0.8rem
+    margin: 0

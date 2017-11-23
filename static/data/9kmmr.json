@@ -1,13 +1,18 @@
 [{
   "name": "Miracle-",
+  "id": "105248644",
   "dateAchieved": "2016-05-10T20:51:01+00:00",
   "region": "EU",
   "role": "Mid",
   "isVerified": true,
+  "image": "/static/images/9kmmr/players/miracle.png",
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/Miracle-",
     "dotabuff": "https://www.dotabuff.com/players/105248644",
-    "twitter": "https://twitter.com/Liquid_Miracle"
+    "twitter": "https://twitter.com/Liquid_Miracle",
+    "instagram": "https://www.instagram.com/liquid_miracle/",
+    "facebook": "https://www.facebook.com/MiracleDotaOfficial",
+    "twitch": "https://www.twitch.tv/miracle_doto"
   },
   "source": [{
     "type": "reddit",
@@ -26,6 +31,7 @@
   "region": "NA",
   "role": "Carry",
   "isVerified": true,
+  "image": "/static/images/9kmmr/players/arteezy.png",
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/86745912",
     "twitter": "https://twitter.com/Arteezy"
@@ -115,97 +121,175 @@
     "hero": "tiny"
   }]
 }, {
-  "name": "ame",
-  "dateAchieved": "sep 10th 2016",
+  "name": "Ame",
+  "dateAchieved": "2016-09-10T15:35:16+00:00",
   "region": "CN",
   "role": "Carry",
   "isVerified": true,
+  "social": {
+    "dotabuff": "https://www.dotabuff.com/players/177416702"
+  },
   "source": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/523nbp/my_last_9k_post_lgdame_the_new_member_in_the_9k/"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/2634911219",
+    "hero": "drow"
   }]
 }, {
-  "name": "matumbaman",
-  "dateAchieved": "oct 9th 2016",
+  "name": "MATUMBAMAN",
+  "dateAchieved": "2016-10-09T20:29:11+00:00",
   "region": "EU",
   "role": "Carry",
   "isVerified": true,
+  "social": {
+    "dotabuff": "https://www.dotabuff.com/players/72312627"
+  },
   "source": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/56o452/congratulations_to_matumbaman_for_hitting_9000_mmr/"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/2699930588",
+    "hero": "morphling"
   }]
 }, {
-  "name": "sonneiko",
-  "dateAchieved": "nov 3rd 2016",
+  "name": "SoNNeikO",
+  "dateAchieved": "2016-11-06T11:54:57+00:00",
   "region": "CIS",
   "role": "Support",
   "isVerified": true,
+  "social": {
+    "dotabuff": "https://www.dotabuff.com/players/117421467"
+  },
   "source": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/5ax2ty/congrats_sonneiko_on_reaching_9000_mmr/"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/2760440364",
+    "hero": "lion"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=ECCO6SwUu7Y"
   }]
 }, {
-  "name": "gh-god",
-  "dateAchieved": "nov 19th 2016",
+  "name": "gh",
+  "dateAchieved": "2016-11-19T20:47:35+00:00",
   "region": "EU",
   "role": "Support",
   "isVerified": true,
+  "social": {
+    "dotabuff": "https://www.dotabuff.com/players/101356886"
+  },
   "source": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/5duk0k/ghgod_is_now_9k_mmr/"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/2789953291",
+    "hero": "mirana"
   }]
 }, {
-  "name": "alohadance",
-  "dateAchieved": "dec 26th 2016",
+  "name": "ALOHADANCE",
+  "dateAchieved": "2016-12-26T02:28:46+00:00",
   "region": "CIS",
   "role": "Carry",
   "isVerified": true,
+  "social": {
+    "dotabuff": "https://www.dotabuff.com/players/123051238"
+  },
   "source": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/5kbkaf/alohadance_9k_pogchamp/"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/2872132416",
+    "hero": "antimage"
   }]
 }, {
-  "name": "limmp",
-  "dateAchieved": "dec 29th 2016",
+  "name": "Limmp",
+  "dateAchieved": "2016-12-29T00:02:29+00:00",
   "region": "EU",
   "role": "Mid",
   "isVerified": true,
   "source": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/5ktm1t/congratulations_to_alimmp_for_getting_9k_mmr/"
+  }, {
+    "type": "twitter",
+    "url": "https://twitter.com/LimmpDota/status/814262005154582528"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/2878717941",
+    "hero": "mirana"
   }]
 }, {
-  "name": "no[o]ne-",
+  "name": "No[o]ne-",
   "dateAchieved": "jan 13th 2017",
   "region": "CIS",
   "role": "Mid",
   "isVerified": true,
+  "social": {
+    "dotabuff": "https://www.dotabuff.com/players/106573901"
+  },
   "source": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/5npta7/vpnoone_is_new_9k/"
+  }, {
+    "type": "twitter",
+    "url": "https://twitter.com/Noone_dota/status/819846437408219137"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/2912442889",
+    "hero": "weaver"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=yUebkI86jHs"
   }]
 }, {
-  "name": "midone",
+  "name": "MidOne",
   "dateAchieved": "feb 9th 2017",
   "region": "SEA",
   "role": "Mid",
   "isVerified": true,
+  "social": {
+    "dotabuff": "https://www.dotabuff.com/players/116585378"
+  },
   "source": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/5t1sd6/midone_has_just_reached_9k_on_his_stream/"
   }, {
     "type": "facebook",
     "url": "https://www.facebook.com/TeamSecret/videos/1431491756861434"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=Pxw1sV65v1I"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/2987496473",
+    "hero": "sandking"
   }]
 }, {
-  "name": "forev",
-  "dateAchieved": "feb 11th 2017",
-  "region": "SEA",
+  "name": "Forev",
+  "dateAchieved": "2017-02-11T13:08:28+00:00",
+  "region": "NA",
   "role": "Offlane",
   "isVerified": true,
+  "social": {
+    "dotabuff": "https://www.dotabuff.com/players/88933594"
+  },
   "source": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/5tebz7/forev_9k/"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=G8VGv6z7jms"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/2991190630",
+    "hero": "timbersaw"
   }]
 }, {
   "name": "747",
@@ -381,8 +465,12 @@
   "name": "Old Chicken",
   "dateAchieved": "Aug 16th, 2017",
   "region": "CN",
-  "role": "Carry/Mid?",
+  "role": "Carry",
   "isVerified": true,
+  "social": {
+    "dotabuff": "https://www.dotabuff.com/players/135878232",
+    "liquipedia": "http://wiki.teamliquid.net/dota2/Old_chicken"
+  },
   "source": [{
     "type": "twitter",
     "url": "https://twitter.com/EHOMECN/status/897732247691956225"
@@ -508,8 +596,12 @@
   "name": "7ckingmad",
   "dateAchieved": "Oct 21st, 2017",
   "region": "EU",
-  "role": "?",
+  "role": "Coach",
   "isVerified": true,
+  "social": {
+    "twitter": "https://twitter.com/7ckngMadDOTA",
+    "dotabuff": "https://www.dotabuff.com/players/88271237"
+  },
   "source": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/77uy3i/congrats_og7ckngmad_reaching_9k/"
@@ -531,11 +623,15 @@
     "url": "https://www.facebook.com/mineskidota/videos/10156042479396833/"
   }]
 }, {
-  "name": "DEBIL (nisha)",
+  "name": "Nisha",
   "dateAchieved": "Oct 24th, 2017",
   "region": "EU",
-  "role": "?",
+  "role": "Mid",
   "isVerified": false,
+  "social": {
+    "liquipedia": "http://wiki.teamliquid.net/dota2/Nisha",
+    "dotabuff": "https://www.dotabuff.com/players/121769650"
+  },
   "source": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/78gtyf/who_is_debil_89k_mmr_in_860_games_total/"
@@ -579,18 +675,20 @@
   "region": "EU",
   "role": "Carry",
   "isVerified": false,
-  "dotabuff": "116881520",
-  "source": [{
-    "type": "",
-    "url": ""
-  }]
+  "social": {
+    "dotabuff": "https://www.dotabuff.com/players/116881520"
+  },
+  "source": []
 }, {
   "name": "QO",
   "dateAchieved": "Nov 15th, 2017",
   "region": "NA",
   "role": "Mid",
   "isVerified": false,
-  "dotabuff": "93119769",
+  "social": {
+    "liquipedia": "http://wiki.teamliquid.net/dota2/QO",
+    "dotabuff": "https://www.dotabuff.com/players/93119769"
+  },
   "source": [{
     "type": "liquipedia",
     "url": "http://wiki.teamliquid.net/dota2/Leaderboards"
