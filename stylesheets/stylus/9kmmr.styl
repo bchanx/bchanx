@@ -41,6 +41,7 @@ $twitter = #00aced
 $facebook = #3b579d
 
 $max-width = 700px
+$transition-time = 0.15s
 
 
 // Default overrides
@@ -76,6 +77,7 @@ body
   text-align: center
   letter-spacing: -0.5px
   padding: 0 1rem
+  margin-bottom: 1.25rem
   &:before
     content: "［ "
   &:after
@@ -83,7 +85,7 @@ body
 
 // Main grid container
 .container
-  min-width: 360px
+  min-width: 320px
   max-width: $max-width
   padding 0 1rem
   width: 100%
@@ -117,16 +119,44 @@ body
 
 .filter-toggle
   flex-shrink: 0
+  width: 4rem
   cursor: pointer
   span
     margin-left: 0.2rem
 
-.filter-reset
+.filter-preview
   flex-grow: 1
+  padding: 0 1rem
   display: flex
-  text-align: right
+  justify-content: center
   align-items: center
+  div:not(:first-of-type)
+    margin-left: 0.4rem
+  .username
+    font-size: 0.8rem
+    max-width: 10rem
+    overflow: hidden
+    text-overflow: ellipsis
+    position: relative
+    padding-right: 4px
+    &:before
+    &:after
+      content: '"'
+    &:after
+      position: absolute
+      right: 0
+      top: 0
+  .region
+  .role
+    margin: 0
+
+.filter-reset
+  margin-top: -0.1rem
+  width: 4rem
+  flex-shrink: 0
+  display: flex
   flex-direction: row-reverse
+  align-items: center
 
 .filter-types
   display: grid
@@ -140,12 +170,15 @@ body
 
 .input-filters
   grid-area: one / one / three / three
+  width: 66%
+  display: inline-block
 
 .sort-filters
   grid-area: two / two / four / four
-  display: flex
   flex-direction: column
   padding-left: 3rem
+  width: 33%
+  display: inline-block
   .filter-option
     input[type="radio"]
       margin-right: 0.3rem
@@ -153,7 +186,7 @@ body
 .filter-option
   display: flex
   align-items: center
-  height: 2rem
+  min-height: 2rem
 
 .filter-label
   flex-shrink: 0
@@ -201,15 +234,15 @@ body
 // Result player tiles
 .results
   grid-area: results
-  margin: 1.25rem 0
+  margin-top: 1rem
 
 .player-tile
   background-color: $white
-  margin: 0.75rem 0
+  margin-bottom: 0.75rem
   padding: 0.5rem 1rem 0.5rem calc(1rem - 3px)
   position: relative
   border-color: $white
-  transition: border-color 0.15s
+  transition: border-color $transition-time
   border-left: 3px $white solid
   display: flex
   overflow: hidden
@@ -217,6 +250,10 @@ body
   box-shadow: 0 1px 3px rgba(0, 0, 0, .2),
     0 1px 1px rgba(0, 0, 0, .14),
     0 2px 1px -1px rgba(0, 0, 0, .12)
+  &:hover
+    border-color: $gray10
+    .player-image
+      opacity: 1
   &:before
     width: 4rem
     height: 4rem
@@ -246,13 +283,13 @@ body
       $white 10px,
       $white 20px
     )
-  &:hover
-    border-color: $gray10
 
 .player-image
   margin-right: 0.8rem
   flex-shrink: 0
   background-color: $gray0
+  opacity: 0.85
+  transition: opacity $transition-time
   img
     width: 64px
     height: 64px
@@ -281,6 +318,7 @@ body
 .player-metadata
   display: flex
   align-items: center
+  height: 1.25rem
 
 .region
 .role
@@ -290,10 +328,11 @@ body
   font-size: 0.75rem
   font-weight: 600
   letter-spacing: 1px
-  margin-right: 0.4rem
+  margin: 0.2rem 0.4rem 0.2rem 0
   display: inline-block
   background: $white
   text-transform: uppercase
+  transition: background-color $transition-time
 
 .region
   border-color $green
@@ -327,9 +366,11 @@ body
     margin-left: 0.2rem
     background-position: center
     background-repeat: no-repeat
-    opacity: 0.8
+    opacity: 0.7
+    transition: all $transition-time
     &:hover
       opacity: 1
+      transform: scale(1.15)
     &.dotabuff
       background-image: url("/static/images/9kmmr/dotabuff.jpg")
       background-size: 1rem
@@ -376,11 +417,14 @@ body
     grid-template-rows: auto auto
   .input-filters
     grid-area: one / one / two / two
+    width: 100%
   .sort-filters
     grid-area: three / three / four / four
-    padding-left: 4.5rem
+    width: 100%
+    padding-left: 4.85rem
+    display: flex
     flex-direction: row
-    .filter-option
+    div:not(:last-of-type)
       margin-right: 1.5rem
 
 @media screen and (max-width: 450px)
@@ -400,3 +444,14 @@ body
     right: 1rem
     bottom: 0.8rem
     margin: 0
+  .filter-preview .username
+    max-width: 5rem
+
+@supports (display: grid)
+  .input-filters
+    width: auto
+    display: block
+  .sort-filters
+    display: flex
+    width: auto
+

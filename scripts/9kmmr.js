@@ -16,6 +16,14 @@ const SORT_TYPES = {
   ALPHABETICALLY: 'alphabetically'
 };
 
+const SORT_LABELS = {
+  [SORT_TYPES.DATE_ACHIEVED]: 'Date Achieved',
+  [SORT_TYPES.MOST_RECENT]: 'Most Recent',
+  [SORT_TYPES.ALPHABETICALLY]: 'Alphabetically'
+};
+
+const DEFAULT_SORT = SORT_TYPES.DATE_ACHIEVED;
+
 Vue.component('player-tile', {
   props: ['player', 'filters'],
   template: `
@@ -78,6 +86,13 @@ const APP = new Vue({
             Filters
             <span :class="[showFilters ? 'ion-ios-arrow-up' : 'ion-ios-arrow-down']"></span>
           </div>
+          <div class="filter-preview">
+            <template v-if="!showFilters && hasSetFilters">
+              <div class="username" v-if="filters.input">{{filters.input}}</div>
+              <div class="region active" v-if="filters.region">{{filters.region}}</div>
+              <div class="role active" v-if="filters.role">{{filters.role}}</div>
+            </template>
+          </div>
           <div class="filter-reset">
             <span class="action" v-if="hasSetFilters" @click="resetFilters">reset</span>
           </div>
@@ -117,17 +132,9 @@ const APP = new Vue({
             </div>
           </div>
           <div class="sort-filters">
-            <div class="filter-option">
-              <input type="radio" :id="constants.SORT_TYPES.DATE_ACHIEVED" :value="constants.SORT_TYPES.DATE_ACHIEVED" v-model="filters.sort"/>
-              <label :for="constants.SORT_TYPES.DATE_ACHIEVED">Date Achieved</label>
-            </div>
-            <div class="filter-option">
-              <input type="radio" :id="constants.SORT_TYPES.MOST_RECENT" :value="constants.SORT_TYPES.MOST_RECENT" v-model="filters.sort"/>
-              <label :for="constants.SORT_TYPES.MOST_RECENT">Most Recent</label>
-            </div>
-            <div class="filter-option">
-              <input type="radio" :id="constants.SORT_TYPES.ALPHABETICALLY" :value="constants.SORT_TYPES.ALPHABETICALLY" v-model="filters.sort"/>
-              <label :for="constants.SORT_TYPES.ALPHABETICALLY">Alphabetically</label>
+            <div class="filter-option" v-for="sort in sortTypes">
+              <input type="radio" :id="sort" :value="sort" v-model="filters.sort"/>
+              <label :for="sort">{{constants.SORT_LABELS[sort]}}</label>
             </div>
           </div>
         </div>
@@ -157,6 +164,8 @@ const APP = new Vue({
   data: {
     constants: {
       SORT_TYPES: SORT_TYPES,
+      SORT_LABELS: SORT_LABELS,
+      DEFAULT_SORT: DEFAULT_SORT,
       SOCIAL_TYPES: SOCIAL_TYPES
     },
     isLoading: false,
@@ -166,7 +175,7 @@ const APP = new Vue({
       input: '',
       region: '',
       role: '',
-      sort: SORT_TYPES.DATE_ACHIEVED
+      sort: DEFAULT_SORT
     }
   },
   mounted: function() {
@@ -201,21 +210,6 @@ const APP = new Vue({
             p.globalRank = idx + 1;
           });
 
-          // Now sort by default sorting
-          let sort = this.filters.sort;
-          if (sort !== SORT_TYPES.DATE_ACHIEVED) {
-            players = players.sort((a, b) => {
-              if (sort === SORT_TYPES.ALPHABETICALLY) {
-                return a.name > b.name ? 1 : a.name < b.name ? -1 : 0;
-              }
-              else if (sort === SORT_TYPES.MOST_RECENT) {
-                let aDate = a.dateAchieved;
-                let bDate = b.dateAchieved;
-                return aDate > bDate ? -1 : aDate < bDate ? 1 : 0;
-              }
-            });
-          }
-
           // Set the list of players
           this.players = players;
         }
@@ -230,7 +224,7 @@ const APP = new Vue({
     },
     resetFilters: function() {
       Object.keys(this.filters).forEach(filterType => {
-        this.$set(this.filters, filterType, filterType === 'sort' ? SORT_TYPES.DATE_ACHIEVED : '');
+        this.$set(this.filters, filterType, filterType === 'sort' ? DEFAULT_SORT : '');
       });
     },
     clearInput: function() {
@@ -243,22 +237,42 @@ const APP = new Vue({
       let input = this.filters.input.toLowerCase();
       let region = this.filters.region;
       let role = this.filters.role;
-
-      // TODO: add sort
-      // let sort = this.filters.sort;
+      let sort = this.filters.sort;
 
       return this.players.filter(p => {
         return (!region || p.region === region) &&
           (!role || p.role === role) &&
           (p.name || '').toLowerCase().indexOf(input) >= 0;
+      }).sort((a, b) => {
+        let aDate = a.dateAchieved;
+        let bDate = b.dateAchieved;
+        if (sort === SORT_TYPES.ALPHABETICALLY) {
+          return a.name > b.name ? 1 : a.name < b.name ? -1 : 0;
+        } else if (sort === SORT_TYPES.DATE_ACHIEVED) {
+          return aDate > bDate ? 1 : aDate < bDate ? -1 : 0;
+        } else if (sort === SORT_TYPES.MOST_RECENT) {
+          return aDate > bDate ? -1 : aDate < bDate ? 1 : 0;
+        }
       });
     },
     hasSetFilters: function() {
-      return Object.keys(this.filters).filter(x => x === 'sort' ? this.filters[x] !== SORT_TYPES.DATE_ACHIEVED : !!this.filters[x]).length;
+      return Object.keys(this.filters).filter(x => x === 'sort' ? this.filters[x] !== DEFAULT_SORT : !!this.filters[x]).length;
     },
     hasSetInputFilters: function() {
       return Object.keys(this.filters).filter(x => x !== 'sort' && !!this.filters[x]).length;
     },
+    /*
+    filterPreview: function() {
+      let preview = '';
+      let input = this.filters.input;
+      if (input) {
+        preview += '"' + input + '"';
+      }
+      let region = this.filters.region;
+      if (region) {
+        preview += 
+      }
+    },*/
     regionTypes: function() {
       let players = this.players;
       let regions = [... new Set(this.players.map(p => p.region.toLowerCase()))].sort();
@@ -268,6 +282,9 @@ const APP = new Vue({
       let players = this.players;
       let roles = [... new Set(this.players.map(p => p.role.toLowerCase()))].sort();
       return roles;
+    },
+    sortTypes: function() {
+      return Object.keys(SORT_TYPES).map(x => SORT_TYPES[x]);
     }
   }
 });

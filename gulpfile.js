@@ -205,16 +205,44 @@ gulp.task('js', function() {
       .pipe(gulp.dest(JS_DIR));
   });
 
+  // Browserify
+  var jsBrowserify = [{
+    filename: '9kmmr',
+    deps: ['moment', 'superagent', 'vue']
+  }].map(function(br) {
+    var envs = ['development', 'production'];
+    envs = envs.map(function(env) {
+      var browserified = browserify('scripts/' + br.filename + '.js', { debug: false })
+        .external(br.deps)
+        .transform(babelify, {
+          presets: ['es2015']
+        })
+        .transform(envify, {
+          NODE_ENV: env
+        })
+        .bundle()
+        .pipe(source(br.filename + '.js'));
+      if (env === 'production') {
+        browserified = browserified.pipe(streamify(uglify({ mangle: true })))
+        .pipe(rename({
+          extname: '.min.js'
+        }));
+      }
+      browserified = browserified.pipe(gulp.dest(JS_DIR));
+      return browserified;
+    });
+    return merge(envs);
+  });
+
   // No minification, just copy
   var jsCopy = [
-    '9kmmr'
   ].map(function(s) {
     return gulp.src('scripts/' + s + '.js')
       .pipe(rename(normalize(s) + '.js'))
       .pipe(gulp.dest(JS_DIR));
   });
 
-  return merge(js.concat(jsCopy));
+  return merge(js.concat(jsBrowserify).concat(jsCopy));
 });
 
 gulp.task('vendor', function() {
