@@ -40,7 +40,7 @@ const VENDOR_DEPS = [
 ///// STYLESHEETS /////
 
 var handleError = function(err) {
-  console.log(err.toString());
+  gutil.log(gutil.colors.red(err.toString()));
   this.emit('end');
 };
 
@@ -221,6 +221,7 @@ gulp.task('js', function() {
           NODE_ENV: env
         })
         .bundle()
+        .on('error', handleError)
         .pipe(source(br.filename + '.js'));
       if (env === 'production') {
         browserified = browserified.pipe(streamify(uglify({ mangle: true })))
@@ -254,6 +255,7 @@ gulp.task('vendor', function() {
         NODE_ENV: env
       })
       .bundle()
+      .on('error', handleError)
       .pipe(source('vendor.js'));
     if (env === 'production') {
       vendor = vendor.pipe(streamify(uglify({ mangle: true })))
@@ -296,9 +298,7 @@ gulp.task('browserify', function() {
     Object.keys(envs).forEach(function(env) {
       var vendor = envs[env]
         .bundle()
-        .on('error', function(err) {
-          gutil.log(gutil.colors.red(err.toString()));
-        })
+        .on('error', handleError)
         .on('end', function() {
           gutil.log(gutil.colors.green('Finished rebundling in', (Date.now() - start) + 'ms.'));
         })

@@ -28,20 +28,24 @@ Vue.component('player-tile', {
   props: ['player', 'filters'],
   template: `
     <div class="player-tile" :class="{ 'not-verified' : !player.isVerified }" @click="hasSource ? showSource() : null">
+      <div class="player-rank">{{player.rank}}</div>
       <div class="player-image" v-if="player.image">
         <img :src="player.image"/>
       </div>
       <div class="player-details">
         <div class="player-profile">
           <span class="name">{{player.name}}</span>
-          <span class="date">{{dateAchieved}}</span>
         </div>
         <div class="player-metadata">
           <span class="region" :class="{ active: filters.region === player.region }">{{player.region}}</span>
           <span class="role" :class="{ active: filters.role === player.role }">{{player.role}}</span>
           <span class="social" v-if="socialTypes.length">
-            <a :class="socialType" :href="player.social[socialType]" @click.stop v-for="socialType in socialTypes" target="_blank"></a>
+            <a :class="socialType" :href="player.social[socialType]" @click.stop v-for="socialType in socialTypes" :key="socialType" target="_blank"></a>
           </span>
+          <span class="date">
+            <span :title="player.dateAchieved">{{dateAchieved}}</span>
+          </span>
+          <span class="verification"></span>
         </div>
       </div>
     </div>
@@ -49,9 +53,9 @@ Vue.component('player-tile', {
   computed: {
     dateAchieved: function() {
       // date should have been sanitized as a moment.js object
-      let date = this.player.dateAchieved;
-      if (date && moment.isMoment(date)) {
-        return date.format(DATE_FORMAT);
+      let dateObject = this.player.dateObject;
+      if (dateObject && moment.isMoment(dateObject)) {
+        return dateObject.format(DATE_FORMAT);
       }
       return 'N/A';
     },
@@ -132,7 +136,7 @@ const APP = new Vue({
             </div>
           </div>
           <div class="sort-filters">
-            <div class="filter-option" v-for="sort in sortTypes">
+            <div class="filter-option" v-for="sort in sortTypes" :key="sort">
               <input type="radio" :id="sort" :value="sort" v-model="filters.sort"/>
               <label :for="sort">{{constants.SORT_LABELS[sort]}}</label>
             </div>
@@ -150,14 +154,16 @@ const APP = new Vue({
           no player matches found
         </div>
         <div v-else class="player-list">
-          <div class="placeholder">{{!hasSetInputFilters ? 'listing' : 'matching'}} {{filteredPlayers.length}}{{!hasSetInputFilters ? ' total' : ''}} player{{filteredPlayers.length === 1 ? '' : 's'}}</div>
+          <div class="placeholder">
+            {{!hasSetInputFilters ? 'listing ' + players.length + ' total player' : 'matching ' + filteredPlayers.length + ' / ' + players.length + '  player'}}{{players.length === 1 ? '' : 's'}}
+          </div>
           <template v-for="player in filteredPlayers">
-            <player-tile :player="player" :filters="filters"/>
+            <player-tile :player="player" :filters="filters" :key="player.name"/>
           </template>
         </div>
       </div>
       <div class="footer">
-        Footer
+        site: <a class="action" href="http://bchanx.com" target="_blank">@bchanx</a>
       </div>
     </div>
   `,
@@ -194,20 +200,20 @@ const APP = new Vue({
             let date = p.dateAchieved;
             date = DATE_RE.test(date) ? moment(date) : moment(date, DATE_FORMAT);
             // Default malformed dates to current
-            p.dateAchieved = date.isValid() ? date : moment();
+            p.dateObject = date.isValid() ? date : moment();
             p.isVerified = !date.isValid() ? false : !!p.isVerified;
           });
 
           // Sort by date achieved
           players = players.sort((a, b) => {
-            let aDate = a.dateAchieved;
-            let bDate = b.dateAchieved;
+            let aDate = a.dateObject;
+            let bDate = b.dateObject;
             return aDate > bDate ? 1 : aDate < bDate ? -1 : 0;
           });
 
           // Add global ranking
           players.forEach((p, idx) => {
-            p.globalRank = idx + 1;
+            p.rank = idx + 1;
           });
 
           // Set the list of players
@@ -244,8 +250,8 @@ const APP = new Vue({
           (!role || p.role === role) &&
           (p.name || '').toLowerCase().indexOf(input) >= 0;
       }).sort((a, b) => {
-        let aDate = a.dateAchieved;
-        let bDate = b.dateAchieved;
+        let aDate = a.dateObject;
+        let bDate = b.dateObject;
         if (sort === SORT_TYPES.ALPHABETICALLY) {
           return a.name > b.name ? 1 : a.name < b.name ? -1 : 0;
         } else if (sort === SORT_TYPES.DATE_ACHIEVED) {

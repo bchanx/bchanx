@@ -105,14 +105,20 @@ body
 
 .footer
   grid-area: footer
+  font-size: 0.8rem
+  display: flex
+  justify-content: center
+  align-items: center
+  a
+    margin-left: 0.2rem
 
 
 // Filters
 .filters
   grid-area: filters
   background-color: $gray1
-  padding: 0.75rem 51rem
-  margin: 0 -50rem
+  padding: 0.75rem 101rem
+  margin: 0 -100rem
 
 .filter-header  
   display: flex
@@ -239,11 +245,9 @@ body
 .player-tile
   background-color: $white
   margin-bottom: 0.75rem
-  padding: 0.5rem 1rem 0.5rem calc(1rem - 3px)
+  padding: 0.5rem 1rem 0.5rem 0
   position: relative
-  border-color: $white
   transition: border-color $transition-time
-  border-left: 3px $white solid
   display: flex
   overflow: hidden
   cursor: pointer
@@ -251,31 +255,14 @@ body
     0 1px 1px rgba(0, 0, 0, .14),
     0 2px 1px -1px rgba(0, 0, 0, .12)
   &:hover
-    border-color: $gray10
     .player-image
-      opacity: 1
-  &:before
-    width: 4rem
-    height: 4rem
-    position: absolute
-    top: calc(-2rem - 2px)
-    right: calc(-2rem - 2px)
-    content: ""
-    background: $gray0
-    transform: rotateZ(45deg)
-    box-shadow: inset 0 0 0.5rem 1px $gray3
-  &:after
-    font-family: "Ionicons"
-    content: "\f122"
-    color: $green-light
-    position: absolute
-    right: 0.3rem
-    top: 0
+      opacity: 0.9
+    .player-rank
+      background-color: $gray1
+      color: $gray10
+      text-shadow: 1px 1px 0 $gray2
+      box-shadow: inset 0 0 0.5rem 0 $gray4
   &.not-verified
-    &:after
-      content: "\f143"
-      color: $gray8
-      right: 0.5rem
     background: repeating-linear-gradient(
       -45deg,
       $gray0,
@@ -283,12 +270,36 @@ body
       $white 10px,
       $white 20px
     )
+    .date
+      color: $gray8
+    .verification:before
+      content: "\f444"
+      color: $gray8
+      font-weight: 600
+      font-size: 1.5rem
+      line-height: 1.5rem
+
+.player-rank
+  width: 3.5rem
+  background-color: $gray0
+  text-align: center
+  flex-shrink: 0
+  margin: -1.5rem 0 -1.5rem -1rem
+  padding: 1.5rem 0 1.5rem 1rem
+  margin-right: 0.2rem
+  font-size: 1.2rem
+  font-weight: 600
+  line-height: 2.5rem
+  color: $gray7
+  text-shadow: 1px 1px 0 $gray1
+  box-shadow: inset 0 0 0.5rem 0 $gray3
+  transition: all $transition-time
 
 .player-image
-  margin-right: 0.8rem
+  margin-left: 0.8rem
   flex-shrink: 0
   background-color: $gray0
-  opacity: 0.85
+  opacity: 0.8
   transition: opacity $transition-time
   img
     width: 64px
@@ -297,23 +308,17 @@ body
 
 .player-details
   flex-grow: 1
+  margin-left: 0.8rem
   margin-top: -0.2rem
   margin-bottom: 0.2rem
 
 .player-profile
   display: flex
+  padding-right: 2rem
   .name
     font-size: 2rem
     font-weight: 500
     letter-spacing: -1px
-  .date
-    font-size: 0.8rem
-    text-align: right
-    font-style: italic
-    color: $orange-light
-    flex-grow: 1
-    margin-top: 0.5rem
-    margin-right: 2rem
 
 .player-metadata
   display: flex
@@ -353,11 +358,31 @@ body
     background-color: $blue-light
     border-color: $blue-dark
 
-.social
-  margin-left: 3rem
-  display: flex
+.date
+  text-align: right
+  font-size: 0.8rem
+  font-weight: 400
+  font-style: italic
+  color: $orange-light
   flex-grow: 1
-  justify-content: flex-end
+
+.verification
+  flex-shrink: 0
+  margin-left: 0.5rem
+  margin-right: -0.2rem
+  width: 0.8rem
+  text-align: center
+  &:before
+    font-family: "Ionicons"
+    content: "\f3fd"
+    color: $green-light
+    font-size: 2rem
+    line-height: 2rem
+
+.social
+  margin-left: 0.5rem
+  display: flex
+  flex-shrink: 0
   a
     cursor: pointer
     width: 1.25rem
@@ -427,11 +452,13 @@ body
     div:not(:last-of-type)
       margin-right: 1.5rem
 
+@media screen and (max-width: 500px)
+  .player-metadata .social
+    display: none
+
 @media screen and (max-width: 450px)
   html
     font-size: 12px
-  .player-metadata .social
-    display: none
   .player-tile .index
     top: 1.25rem
     left: -2rem
@@ -439,11 +466,6 @@ body
   .player-image img
     width: 48px
     height: 48px
-  .player-profile .date
-    position: absolute
-    right: 1rem
-    bottom: 0.8rem
-    margin: 0
   .filter-preview .username
     max-width: 5rem
 
