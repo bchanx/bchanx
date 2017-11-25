@@ -50,6 +50,7 @@
     "superagent": "^2.3.0",
     "vinyl-source-stream": "^1.1.0",
     "vue": "^2.5.7",
+    "vue-disqus": "^2.0.4",
     "watchify": "^3.7.0"
   },
   "babel": {

@@ -35,7 +35,7 @@ $orange-light = #ffad66
 
 $aqua = #51c8f7
 $aqua-light = #7FDBFF
-$aqua-dark = #176e91
+$aqua-dark = #0e85b5
 
 $twitter = #00aced
 $facebook = #3b579d
@@ -62,14 +62,17 @@ body
   line-height: 1.4
   overflow: hidden
 
+a
+  text-decoration: none
+
 .action
-  font-size: 0.8rem
   color: $aqua-light
   font-weight: 500
-  text-decoration: underline
   cursor: pointer
   &:hover
     color: $aqua
+  &.active
+    color: $aqua-dark
 
 .placeholder
   color: $gray5
@@ -92,25 +95,56 @@ body
   min-height: 100vh
   height: 100%
   margin: 0 auto
+  display: flex
+  flex-direction: column
   display: grid
   grid-template-areas: "navigation"\
     "filters"\
     "results"\
-    "footer"
+    "footnote"
   grid-template-rows: 3rem auto 1fr 3rem
 
+
+// Navigation
 .navigation
   grid-area: navigation
   padding: 0.75rem 1rem
+  height: 3rem
+  display: flex
+  font-size: 0.8rem
+  div:not(:first-of-type)
+    margin-left: 1rem
 
-.footer
-  grid-area: footer
+.route
+  height: 1.1rem
+  &.active
+    font-weight: 600
+    border-bottom: 1px $aqua-dark solid
+
+
+// About, Comments
+.about
+.comments
+  padding: 0.75rem 1rem
+  grid-area: filters / filters / results / results
+  flex-grow: 1
+
+.about
+  p
+    text-indent: 1rem
+    margin: 0
+
+// Footer
+.footnote
+  grid-area: footnote
   font-size: 0.8rem
   display: flex
   justify-content: center
   align-items: center
+  height: 3rem
   a
     margin-left: 0.2rem
+    text-decoration: none
 
 
 // Filters
@@ -158,6 +192,7 @@ body
 
 .filter-reset
   margin-top: -0.1rem
+  font-size: 0.8rem
   width: 4rem
   flex-shrink: 0
   display: flex
@@ -241,6 +276,7 @@ body
 .results
   grid-area: results
   margin-top: 1rem
+  flex-grow: 1
 
 .player-tile
   background-color: $white

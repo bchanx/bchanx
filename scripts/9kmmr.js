@@ -77,113 +77,282 @@ Vue.component('player-tile', {
   }
 });
 
-const APP = new Vue({
-  el: '#app',
+Vue.component('results', {
+  props: ['isLoading', 'players', 'filters'],
   template: `
-    <div class="container">
-      <div class="navigation">
-        Navigation
+    <div class="results">
+      <div v-if="isLoading" class="placeholder">
+        loading...
       </div>
-      <div class="filters">
-        <div class="filter-header">
-          <div class="filter-toggle" @click="toggleShowFilters">
-            Filters
-            <span :class="[showFilters ? 'ion-ios-arrow-up' : 'ion-ios-arrow-down']"></span>
-          </div>
-          <div class="filter-preview">
-            <template v-if="!showFilters && hasSetFilters">
-              <div class="username" v-if="filters.input">{{filters.input}}</div>
-              <div class="region active" v-if="filters.region">{{filters.region}}</div>
-              <div class="role active" v-if="filters.role">{{filters.role}}</div>
-            </template>
-          </div>
-          <div class="filter-reset">
-            <span class="action" v-if="hasSetFilters" @click="resetFilters">reset</span>
-          </div>
-        </div>
-        <div class="filter-types" v-if="showFilters">
-          <div class="input-filters" v-if="showFilters">
-            <div class="filter-option">
-              <div class="filter-label">username</div>
-              <div class="filter-input">
-                <input v-model.trim="filters.input"/>
-                <span class="filter-input-clear action ion-close" v-if="filters.input.length" @click="clearInput"></span>
-              </div>
-            </div>
-            <div class="filter-option">
-              <div class="filter-label">region</div>
-              <div class="filter-input">
-                <div class="region"
-                  :class="{ active: filters.region === region }"
-                  v-for="region in regionTypes"
-                  :key="region"
-                  @click="toggleFilter('region', region)">
-                  {{region}}
-                </div>
-              </div>
-            </div>
-            <div class="filter-option">
-              <div class="filter-label">role</div>
-              <div class="filter-input">
-                <div class="role"
-                  :class="{ active: filters.role === role }"
-                  v-for="role in roleTypes"
-                  :key="role"
-                  @click="toggleFilter('role', role)">
-                  {{role}}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="sort-filters">
-            <div class="filter-option" v-for="sort in sortTypes" :key="sort">
-              <input type="radio" :id="sort" :value="sort" v-model="filters.sort"/>
-              <label :for="sort">{{constants.SORT_LABELS[sort]}}</label>
-            </div>
-          </div>
-        </div>
+      <div v-else-if="!players.length" class="placeholder">
+        no player info available
       </div>
-      <div class="results">
-        <div v-if="isLoading" class="placeholder">
-          loading...
-        </div>
-        <div v-else-if="!players.length" class="placeholder">
-          no player info available
-        </div>
-        <div v-else-if="!filteredPlayers.length" class="placeholder">
-          no player matches found
-        </div>
-        <div v-else class="player-list">
-          <div class="placeholder">
-            {{!hasSetInputFilters ? 'listing ' + players.length + ' total player' : 'matching ' + filteredPlayers.length + ' / ' + players.length + '  player'}}{{players.length === 1 ? '' : 's'}}
-          </div>
-          <template v-for="player in filteredPlayers">
-            <player-tile :player="player" :filters="filters" :key="player.name"/>
-          </template>
-        </div>
+      <div v-else-if="!filteredPlayers.length" class="placeholder">
+        no player matches found
       </div>
-      <div class="footer">
-        site: <a class="action" href="http://bchanx.com" target="_blank">@bchanx</a>
+      <div v-else class="player-list">
+        <div class="placeholder">
+          {{!hasSetInputFilters ? 'listing ' + players.length + ' total player' : 'matching ' + filteredPlayers.length + ' / ' + players.length + '  player'}}{{players.length === 1 ? '' : 's'}}
+        </div>
+        <template v-for="player in filteredPlayers">
+          <player-tile :player="player" :filters="filters" :key="player.name"/>
+        </template>
       </div>
     </div>
   `,
-  data: {
-    constants: {
-      SORT_TYPES: SORT_TYPES,
-      SORT_LABELS: SORT_LABELS,
-      DEFAULT_SORT: DEFAULT_SORT,
-      SOCIAL_TYPES: SOCIAL_TYPES
+  computed: {
+    hasSetInputFilters: function() {
+      return Object.keys(this.filters).filter(x => x !== 'sort' && !!this.filters[x]).length;
     },
+    filteredPlayers: function() {
+      let players = this.players;
+      let input = this.filters.input.toLowerCase();
+      let region = this.filters.region;
+      let role = this.filters.role;
+      let sort = this.filters.sort;
+
+      return this.players.filter(p => {
+        return (!region || p.region === region) &&
+          (!role || p.role === role) &&
+          (p.name || '').toLowerCase().indexOf(input) >= 0;
+      }).sort((a, b) => {
+        let aDate = a.dateObject;
+        let bDate = b.dateObject;
+        if (sort === SORT_TYPES.ALPHABETICALLY) {
+          return a.name > b.name ? 1 : a.name < b.name ? -1 : 0;
+        } else if (sort === SORT_TYPES.DATE_ACHIEVED) {
+          return aDate > bDate ? 1 : aDate < bDate ? -1 : 0;
+        } else if (sort === SORT_TYPES.MOST_RECENT) {
+          return aDate > bDate ? -1 : aDate < bDate ? 1 : 0;
+        }
+      });
+    }
+  }
+});
+
+Vue.component('filters', {
+  props: ['players', 'filters', 'constants'],
+  data: function() {
+    return {
+      showFilters: true
+    };
+  },
+  template: `
+    <div class="filters">
+      <div class="filter-header">
+        <div class="filter-toggle" @click="toggleShowFilters">
+          Filters
+          <span :class="[showFilters ? 'ion-ios-arrow-up' : 'ion-ios-arrow-down']"></span>
+        </div>
+        <div class="filter-preview">
+          <template v-if="!showFilters && hasSetFilters">
+            <div class="username" v-if="filters.input">{{filters.input}}</div>
+            <div class="region active" v-if="filters.region">{{filters.region}}</div>
+            <div class="role active" v-if="filters.role">{{filters.role}}</div>
+          </template>
+        </div>
+        <div class="filter-reset">
+          <span class="action" v-if="hasSetFilters" @click="resetFilters">reset</span>
+        </div>
+      </div>
+      <div class="filter-types" v-if="showFilters">
+        <div class="input-filters" v-if="showFilters">
+          <div class="filter-option">
+            <div class="filter-label">username</div>
+            <div class="filter-input">
+              <input v-model.trim="filterInput"/>
+              <span class="filter-input-clear action ion-close" v-if="filters.input.length" @click="clearInput"></span>
+            </div>
+          </div>
+          <div class="filter-option" v-for="(types, key) in filterTypes">
+            <div class="filter-label">{{key}}</div>
+            <div class="filter-input">
+              <div :class="[key, { active: filters[key] === value }]"
+                v-for="value in types"
+                :key="value"
+                @click="toggleFilter(key, value)">
+                {{value}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sort-filters">
+          <div class="filter-option" v-for="sort in sortTypes" :key="sort">
+            <input type="radio" :id="sort" :value="sort" v-model="filterSort"/>
+            <label :for="sort">{{constants.SORT_LABELS[sort]}}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  `,
+  methods: {
+    toggleShowFilters: function() {
+      this.showFilters = !this.showFilters;
+    },
+    toggleFilter: function(type, value) {
+      this.$emit('setFilter', type, this.filters[type] === value ? '' : value);
+    },
+    resetFilters: function() {
+      this.$emit('resetFilters');
+    },
+    clearInput: function() {
+      this.$emit('setFilter', 'input', '');
+    }
+  },
+  computed: {
+    filterInput: {
+      get: function getInput() {
+        return this.filters.input;
+      },
+      set: function setInput(newVal) {
+        this.$emit('setFilter', 'input', newVal);
+      }
+    },
+    filterSort: {
+      get: function getSort() {
+        return this.filters.sort;
+      },
+      set: function setSort(newVal) {
+        this.$emit('setFilter', 'sort', newVal);
+      }
+    },
+    hasSetFilters: function() {
+      return Object.keys(this.filters).filter(x => x === 'sort' ? this.filters[x] !== DEFAULT_SORT : !!this.filters[x]).length;
+    },
+    filterTypes: function() {
+      let players = this.players;
+      let regions = [... new Set(this.players.map(p => p.region.toLowerCase()))].sort();
+      let roles = [... new Set(this.players.map(p => p.role.toLowerCase()))].sort();
+      return {
+        region: regions,
+        role: roles
+      };
+    },
+    sortTypes: function() {
+      return Object.keys(SORT_TYPES).map(x => SORT_TYPES[x]);
+    }
+  }
+});
+
+Vue.component('footnote', {
+  template: `
+    <div class="footnote">
+      site: <a class="action" href="http://bchanx.com" target="_blank">@bchanx</a>
+    </div>
+  `
+});
+
+Vue.component('navigation', {
+  props: ['constants', 'currentRoute'],
+  template: `
+    <div class="navigation">
+      <div class="route action"
+        :class="{ active: currentRoute === routeName }"
+        v-for="routeName in constants.ROUTES"
+        @click="goToRoute(routeName)"
+      >
+        {{routeName}}
+      </div>
+    </div>
+  `,
+  methods: {
+    goToRoute: function(routeName) {
+      this.$emit('changeRoute', routeName);
+    }
+  }
+});
+
+Vue.component('about', {
+  props: ['constants'],
+  template: `
+    <div class="about">
+      <p>
+        This project is an effort to document all players who achieved over <b>9 0 0 0</b> solo ranked matchmaking points in Dota 2 before the <a href="http://blog.dota2.com/2017/11/seasonal-ranked-update/" target="_blank" class="action">seasonal ranked update</a> and recalibration on November 22nd, 2017.
+      </p>
+      <br/>
+      <p>
+        A big thank you to <a href="https://www.dotabuff.com/" target="_blank" class="action">dotabuff</a> and <a href="http://wiki.teamliquid.net/dota2/Main_Page" target="_blank" class="action">liquipedia</a> for sourcing player information, images, and match details.
+      </p>
+      <br/>
+      <p>
+        If there are any mistakes, inconsistencies, or you want to provide general feedback, please leave a <span class="action" @click="goToComments">comment</span>.
+      </p>
+      <br/>
+      <p>
+        Dota is a trademark of Valve Corporation.
+      </p>
+    </div>
+  `,
+  methods: {
+    goToComments: function() {
+      this.$emit('changeRoute', this.constants.ROUTES.COMMENTS);
+    }
+  }
+});
+
+Vue.component('comments', {
+  template: `
+    <div class="comments">
+      <vue-disqus shortname="bchanx" title="9 0 0 0 Matchmaking Points" identifier="9kmmr" url="http://www.bchanx.com/9kmmr""></vue-disqus>
+    </div>
+  `
+});
+
+const ROUTES = {
+  HOME: 'home',
+  COMMENTS: 'comments',
+  ABOUT: 'about'
+};
+
+const APP = new Vue({
+  el: '#app',
+  data: {
     isLoading: false,
     players: [],
-    showFilters: true,
     filters: {
       input: '',
       region: '',
       role: '',
       sort: DEFAULT_SORT
-    }
+    },
+    currentRoute: ROUTES.HOME,
+    constants: {
+      SORT_TYPES: SORT_TYPES,
+      SORT_LABELS: SORT_LABELS,
+      DEFAULT_SORT: DEFAULT_SORT,
+      SOCIAL_TYPES: SOCIAL_TYPES,
+      ROUTES: ROUTES
+    },
   },
+  template: `
+    <div class="container">
+      <navigation
+        :constants="constants"
+        :currentRoute="currentRoute"
+        v-on:changeRoute="changeRoute"
+      />
+      <template v-if="currentRoute === constants.ROUTES.HOME">
+        <filters
+          :players="players"
+          :filters="filters"
+          :constants="constants"
+          v-on:setFilter="setFilter"
+          v-on:resetFilters="resetFilters"
+        />
+        <results :isLoading="isLoading" :players="players" :filters="filters"/>
+      </template>
+      <template v-else-if="currentRoute === constants.ROUTES.ABOUT">
+        <about
+          :constants="constants"
+          v-on:changeRoute="changeRoute"
+        />
+      </template>
+      <template v-else-if="currentRoute === constants.ROUTES.COMMENTS">
+        <comments/>
+      </template>
+      <footnote/>
+    </div>
+  `,
   mounted: function() {
     this.isLoading = true;
     superagent.get('/static/data/9kmmr.json')
@@ -222,75 +391,16 @@ const APP = new Vue({
       });
   },
   methods: {
-    toggleShowFilters: function() {
-      this.showFilters = !this.showFilters;
-    },
-    toggleFilter: function(type, name) {
-      this.$set(this.filters, type, this.filters[type] === name ? '' : name);
+    setFilter: function(key, value) {
+      this.$set(this.filters, key, value);
     },
     resetFilters: function() {
       Object.keys(this.filters).forEach(filterType => {
         this.$set(this.filters, filterType, filterType === 'sort' ? DEFAULT_SORT : '');
       });
     },
-    clearInput: function() {
-      this.$set(this.filters, 'input', '');
-    }
-  },
-  computed: {
-    filteredPlayers: function() {
-      let players = this.players;
-      let input = this.filters.input.toLowerCase();
-      let region = this.filters.region;
-      let role = this.filters.role;
-      let sort = this.filters.sort;
-
-      return this.players.filter(p => {
-        return (!region || p.region === region) &&
-          (!role || p.role === role) &&
-          (p.name || '').toLowerCase().indexOf(input) >= 0;
-      }).sort((a, b) => {
-        let aDate = a.dateObject;
-        let bDate = b.dateObject;
-        if (sort === SORT_TYPES.ALPHABETICALLY) {
-          return a.name > b.name ? 1 : a.name < b.name ? -1 : 0;
-        } else if (sort === SORT_TYPES.DATE_ACHIEVED) {
-          return aDate > bDate ? 1 : aDate < bDate ? -1 : 0;
-        } else if (sort === SORT_TYPES.MOST_RECENT) {
-          return aDate > bDate ? -1 : aDate < bDate ? 1 : 0;
-        }
-      });
-    },
-    hasSetFilters: function() {
-      return Object.keys(this.filters).filter(x => x === 'sort' ? this.filters[x] !== DEFAULT_SORT : !!this.filters[x]).length;
-    },
-    hasSetInputFilters: function() {
-      return Object.keys(this.filters).filter(x => x !== 'sort' && !!this.filters[x]).length;
-    },
-    /*
-    filterPreview: function() {
-      let preview = '';
-      let input = this.filters.input;
-      if (input) {
-        preview += '"' + input + '"';
-      }
-      let region = this.filters.region;
-      if (region) {
-        preview += 
-      }
-    },*/
-    regionTypes: function() {
-      let players = this.players;
-      let regions = [... new Set(this.players.map(p => p.region.toLowerCase()))].sort();
-      return regions;
-    },
-    roleTypes: function() {
-      let players = this.players;
-      let roles = [... new Set(this.players.map(p => p.role.toLowerCase()))].sort();
-      return roles;
-    },
-    sortTypes: function() {
-      return Object.keys(SORT_TYPES).map(x => SORT_TYPES[x]);
+    changeRoute: function(newRoute) {
+      this.currentRoute = newRoute;
     }
   }
 });

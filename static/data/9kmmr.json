@@ -214,6 +214,11 @@
   "region": "EU",
   "role": "Mid",
   "isVerified": true,
+  "social": {
+    "liquipedia": "http://wiki.teamliquid.net/dota2/Limmp",
+    "twitter": "https://twitter.com/LimmpDota",
+    "dotabuff": "https://www.dotabuff.com/players/12231202"
+  },
   "source": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/5ktm1t/congratulations_to_alimmp_for_getting_9k_mmr/"

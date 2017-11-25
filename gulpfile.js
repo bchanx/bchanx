@@ -182,6 +182,7 @@ gulp.task('deps.js', function() {
     'node_modules/marked/marked.min.js',
     'node_modules/vue/dist/vue.js',
     'node_modules/vue/dist/vue.min.js',
+    'scripts/static/vue-disqus.js',
     'bower_components/slidr/slidr.min.js',
     'bower_components/jquery/dist/jquery.min.js'
   ].map(function(dep) {
@@ -208,7 +209,7 @@ gulp.task('js', function() {
   // Browserify
   var jsBrowserify = [{
     filename: '9kmmr',
-    deps: ['moment', 'superagent', 'vue']
+    deps: ['moment', 'superagent', 'vue', 'vue-disqus']
   }].map(function(br) {
     var envs = ['development', 'production'];
     envs = envs.map(function(env) {
