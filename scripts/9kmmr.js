@@ -6,7 +6,7 @@ const SOCIAL_TYPES = {
   dotabuff: 2,
   opendota: 3,
   twitter: 4,
-//  facebook: 5,
+  weibo: 5,
   instagram: 6,
   twitch: 7,
 };

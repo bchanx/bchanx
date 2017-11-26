@@ -12,7 +12,6 @@
     "opendota": "https://www.opendota.com/players/105248644",
     "twitter": "https://twitter.com/Liquid_Miracle",
     "instagram": "https://www.instagram.com/liquid_miracle/",
-    "facebook": "https://www.facebook.com/MiracleDotaOfficial",
     "twitch": "https://www.twitch.tv/miracle_doto"
   },
   "sources": [{
@@ -519,7 +518,8 @@
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/Zhizhizhi",
     "dotabuff": "https://www.dotabuff.com/players/168028715",
-    "opendota": "https://www.opendota.com/players/168028715"
+    "opendota": "https://www.opendota.com/players/168028715",
+    "weibo": "https://weibo.com/u/5618949616"
   },
   "sources": [{
     "type": "twitter",
@@ -592,7 +592,8 @@
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/Ori",
     "dotabuff": "https://www.dotabuff.com/players/107803494",
-    "opendota": "https://www.opendota.com/players/107803494"
+    "opendota": "https://www.opendota.com/players/107803494",
+    "weibo": "https://weibo.com/u/1019594145"
   },
   "sources": [{
     "type": "reddit",
@@ -1133,7 +1134,8 @@
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/Agressif",
     "dotabuff": "https://www.dotabuff.com/players/130416036",
-    "opendota": "https://www.opendota.com/players/130416036"
+    "opendota": "https://www.opendota.com/players/130416036",
+    "weibo": "https://weibo.com/u/2841676082"
   },
   "sources": [{
     "type": "youtube",
