@@ -533,7 +533,8 @@
   "hero": "troll-warlord",
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/Monet",
-    "dotabuff": "https://www.dotabuff.com/players/148215639"
+    "dotabuff": "https://www.dotabuff.com/players/148215639",
+    "weibo": "https://weibo.com/u/5762818363"
   },
   "sources": [{
     "type": "reddit",
@@ -541,6 +542,9 @@
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3181748985"
+  }, {
+    "type": "imgur",
+    "url": "https://i.imgur.com/ccK705K.jpg"
   }]
 }, {
   "name": "SmAsH",
@@ -641,7 +645,8 @@
   "hero": "venomancer",
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/June",
-    "dotabuff": "https://www.dotabuff.com/players/138885864"
+    "dotabuff": "https://www.dotabuff.com/players/138885864",
+    "weibo": "https://weibo.com/u/2028501225"
   },
   "sources": [{
     "type": "liquipedia",
@@ -649,6 +654,9 @@
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3333224353"
+  }, {
+    "type": "imgur",
+    "url": "https://i.imgur.com/t1WJNZX.jpg"
   }]
 }, {
   "name": "vanN",
@@ -697,7 +705,7 @@
     "url": "https://www.dotabuff.com/matches/3360764804"
   }]
 }, {
-  "name": "Old Chicken",
+  "name": "old chicken",
   "image": "/static/images/9kmmr/players/oldchicken.png",
   "dateAchieved": "Aug 16th, 2017",
   "region": "CN",
@@ -774,37 +782,80 @@
     "url": "https://www.dotabuff.com/matches/3414134114"
   }]
 }, {
-  "name": "Cr1t",
-  "dateAchieved": "Sep 1st, 2017",
+  "name": "Cr1t-",
+  "image": "/static/images/9kmmr/players/crit.png",
+  "dateAchieved": "2017-09-01T16:36:29+00:00",
   "region": "NA",
   "role": "Support",
   "isVerified": true,
-  "isMissingInfo": true,
+  "hero": "ancient-apparition",
+  "social": {
+    "liquipedia": "http://wiki.teamliquid.net/dota2/Cr1t-",
+    "twitter": "https://twitter.com/Cr1tdota",
+    "dotabuff": "https://www.dotabuff.com/players/25907144",
+    "twitch": "https://www.twitch.tv/cr1tdota",
+    "instagram": "https://www.instagram.com/Cr1tdota/"
+  },
   "sources": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/6xfrws/congratulations_to_cr1t_for_hitting_9k/"
   }, {
     "type": "twitter",
     "url": "https://twitter.com/Cr1tdota/status/903659490704273408"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3417970972"
   }]
 }, {
   "name": "Gabbi",
+  "image": "/static/images/9kmmr/players/gabbi.png",
   "dateAchieved": "Sep 25th, 2017",
   "region": "SEA",
   "role": "Mid",
   "isVerified": true,
   "isMissingInfo": true,
+  "hero": "templar-assassin",
+  "social": {
+    "liquipedia": "http://wiki.teamliquid.net/dota2/Gabbi",
+    "dotabuff": "https://www.dotabuff.com/players/152545459",
+    "twitter": "https://twitter.com/gabbidoto",
+    "instagram": "https://www.instagram.com/khimvillafuerte/"
+  },
   "sources": [{
     "type": "twitter",
     "url": "https://twitter.com/gabbidoto/status/912380624035495936"
   }]
 }, {
+  "name": "Afoninje",
+  "image": "/static/images/9kmmr/players/afoninje.png",
+  "dateAchieved": "2017-09-26T10:47:15+00:00",
+  "region": "CIS",
+  "role": "Mid",
+  "isVerified": true,
+  "hero": "lina",
+  "social": {
+    "liquipedia": "http://wiki.teamliquid.net/dota2/Afoninje",
+    "dotabuff": "https://www.dotabuff.com/players/81852496",
+    "twitter": "https://twitter.com/afoninje"
+  },
+  "sources": [{
+    "type": "twitter",
+    "url": "https://twitter.com/Afoninje/status/912630932938661893"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3466876610"
+  }]
+}, {
   "name": "Badman",
-  "dateAchieved": "Sep 26th, 2017",
+  "image": "/static/images/9kmmr/players/badman.png",
+  "dateAchieved": "2017-09-26T22:27:01+00:00",
   "region": "EU",
   "role": "Carry",
   "isVerified": true,
-  "isMissingInfo": true,
+  "hero": "spectre",
+  "social": {
+    "dotabuff": "https://www.dotabuff.com/players/91735466"
+  },
   "sources": [{
     "type": "youtube",
     "url": "https://youtu.be/LeOiTbKq2Vg?t=895"
@@ -813,48 +864,67 @@
     "url": "https://www.dotabuff.com/matches/3468076996"
   }]
 }, {
-  "name": "Afoninje",
-  "dateAchieved": "Sep 26th, 2017",
-  "region": "CIS",
-  "role": "Mid",
+  "name": "BoBoKa",
+  "image": "/static/images/9kmmr/players/boboka.png",
+  "dateAchieved": "2017-10-02T13:29:07+00:00",
+  "region": "CN",
+  "role": "Support",
   "isVerified": true,
-  "isMissingInfo": true,
+  "hero": "nyx-assassin",
+  "social": {
+    "liquipedia": "http://wiki.teamliquid.net/dota2/BoBoKa",
+    "dotabuff": "https://www.dotabuff.com/players/207829314",
+    "weibo": "https://weibo.com/u/5363716341"
+  },
   "sources": [{
-    "type": "twitter",
-    "url": "https://twitter.com/Afoninje/status/912630932938661893"
+    "type": "imgur",
+    "url": "https://i.imgur.com/HwS3wtm.png"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3478846003"
   }]
 }, {
-  "name": "Mind_control",
-  "dateAchieved": "Oct 4th, 2017",
+  "name": "MinD_ContRoL",
+  "image": "/static/images/9kmmr/players/mindcontrol.png",
+  "dateAchieved": "2017-10-04T11:43:43+00:00",
   "region": "EU",
   "role": "Offlane",
   "isVerified": true,
-  "isMissingInfo": true,
+  "hero": "pugna",
+  "social": {
+    "liquipedia": "http://wiki.teamliquid.net/dota2/MinD_ContRoL",
+    "dotabuff": "https://www.dotabuff.com/players/34505203",
+    "twitter": "https://twitter.com/LiquidMinD_ctrL",
+    "twitch": "https://www.twitch.tv/mindcontrolll"
+  },
   "sources": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/747tup/congratulations_team_liquid_for_being_the_first_4/"
+  }, {
+    "type": "imgur",
+    "url": "https://i.imgur.com/CWT101b.jpg"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3482300457"
   }]
 }, {
   "name": "Benhur",
-  "dateAchieved": "Oct 5th, 2017",
+  "image": "/static/images/9kmmr/players/benhur.png",
+  "dateAchieved": "2017-10-05T17:14:10+00:00",
   "region": "SEA",
   "role": "Mid",
   "isVerified": true,
-  "isMissingInfo": true,
+  "hero": "puck",
+  "social": {
+    "liquipedia": "http://wiki.teamliquid.net/dota2/Benhur",
+    "dotabuff": "https://www.dotabuff.com/players/177085220"
+  },
   "sources": [{
     "type": "facebook",
     "url": "https://www.facebook.com/HappyfeetDotA/photos/a.136772986342471.19742.136771886342581/1690108581008896"
-  }]
-}, {
-  "name": "Boboka",
-  "dateAchieved": "Oct 6th 2017",
-  "region": "CN",
-  "role": "Support",
-  "isVerified": false,
-  "isMissingInfo": true,
-  "sources": [{
-    "type": "liquipedia",
-    "url": "http://wiki.teamliquid.net/dota2/Leaderboards"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3484720829"
   }]
 }, {
   "name": "Agressif",
