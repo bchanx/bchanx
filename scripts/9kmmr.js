@@ -78,7 +78,7 @@ Vue.component('v-link', {
 Vue.component('player-tile', {
   props: ['player', 'filters'],
   template: `
-    <div class="player-tile" :class="{ 'not-verified' : !player.isVerified, 'missing-info': player.isMissingInfo }" @click="hasSource ? showSource() : null">
+    <div class="player-tile" :class="{ 'not-verified' : !player.isVerified }" @click="hasSource ? showSource() : null">
       <div class="player-rank">{{player.rank}}</div>
       <div class="player-image" v-if="player.image">
         <img :src="player.image"/>
@@ -312,7 +312,6 @@ Vue.component('about', {
       "Dotabuff": "https://www.dotabuff.com/",
       "OpenDota": "https://www.opendota.com/",
       "Liquipedia": "http://wiki.teamliquid.net/dota2/Main_Page",
-      "Gamepedia": "https://dota2.gamepedia.com/Dota_2_Wiki",
       "GosuGamers": "http://www.gosugamers.net/dota2",
       "G:G": "https://ggscore.com/en/dota-2",
       "GT": "http://en.game-tournaments.com/dota-2"

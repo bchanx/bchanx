@@ -244,6 +244,9 @@
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/2872132416"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=KBZKH1zVgV8"
   }]
 }, {
   "name": "Limmp",
@@ -350,7 +353,7 @@
 }, {
   "name": "Ryoya",
   "aliases": ["747"],
-  "image": "/static/images/9kmmr/players/ryora.png",
+  "image": "/static/images/9kmmr/players/ryoya.png",
   "dateAchieved": "2017-02-25T06:00:46+00:00",
   "region": "NA",
   "role": "Mid",
@@ -402,8 +405,7 @@
   "dateAchieved": "Mar 15th, 2017",
   "region": "CN",
   "role": "Carry",
-  "isVerified": true,
-  "isMissingInfo": true,
+  "isVerified": false,
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/Zhizhizhi",
     "dotabuff": "https://www.dotabuff.com/players/168028715"
@@ -485,8 +487,7 @@
   "dateAchieved": "Apr 15th, 2017",
   "region": "EU",
   "role": "Carry",
-  "isVerified": true,
-  "isMissingInfo": true,
+  "isVerified": false,
   "hero": "terrorblade",
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/Madara",
@@ -601,8 +602,7 @@
   "dateAchieved": "Jul 6th, 2017",
   "region": "SEA",
   "role": "Mid",
-  "isVerified": true,
-  "isMissingInfo": true,
+  "isVerified": false,
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/118233883"
   },
@@ -710,8 +710,7 @@
   "dateAchieved": "Aug 16th, 2017",
   "region": "CN",
   "role": "Carry",
-  "isVerified": true,
-  "isMissingInfo": true,
+  "isVerified": false,
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/135878232",
     "liquipedia": "http://wiki.teamliquid.net/dota2/Old_chicken"
@@ -812,8 +811,7 @@
   "dateAchieved": "Sep 25th, 2017",
   "region": "SEA",
   "role": "Mid",
-  "isVerified": true,
-  "isMissingInfo": true,
+  "isVerified": false,
   "hero": "templar-assassin",
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/Gabbi",
@@ -928,25 +926,41 @@
   }]
 }, {
   "name": "Agressif",
-  "dateAchieved": "Oct 16th, 2017",
+  "image": "/static/images/9kmmr/players/agressif.png",
+  "dateAchieved": "2017-10-09T17:42:20+00:00",
   "region": "CN",
   "role": "Carry",
-  "isVerified": false,
-  "isMissingInfo": true,
+  "isVerified": true,
+  "hero": "pugna",
+  "social": {
+    "liquipedia": "http://wiki.teamliquid.net/dota2/Agressif",
+    "dotabuff": "https://www.dotabuff.com/players/130416036"
+  },
   "sources": [{
     "type": "youtube",
     "url": "https://www.youtube.com/watch?v=I4YgtrLG5I8"
+  }, {
+    "type": "imgur",
+    "url": "https://i.imgur.com/BIPyUbd.jpg"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3492784089"
   }]
 }, {
-  "name": "7ckingmad",
-  "dateAchieved": "Oct 21st, 2017",
+  "name": "7mad",
+  "aliases": ["7ckngMad"],
+  "image": "/static/images/9kmmr/players/7mad.png",
+  "dateAchieved": "2017-10-21T17:14:22+00:00",
   "region": "EU",
   "role": "Coach",
   "isVerified": true,
-  "isMissingInfo": true,
+  "hero": "lina",
   "social": {
     "twitter": "https://twitter.com/7ckngMadDOTA",
-    "dotabuff": "https://www.dotabuff.com/players/88271237"
+    "dotabuff": "https://www.dotabuff.com/players/88271237",
+    "liquipedia": "http://wiki.teamliquid.net/dota2/7ckngMad",
+    "twitch": "https://www.twitch.tv/7ckngmad",
+    "instagram": "https://www.instagram.com/7ckngmaddota/"
   },
   "sources": [{
     "type": "reddit",
@@ -954,28 +968,45 @@
   }, {
     "type": "instagram",
     "url": "https://www.instagram.com/p/BahKyp-l16J/"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3515042382"
   }]
 }, {
   "name": "Jabz",
-  "dateAchieved": "Oct 21st, 2017",
+  "image": "/static/images/9kmmr/players/jabz.png",
+  "dateAchieved": "2017-10-21T19:02:59+00:00",
   "region": "SEA",
   "role": "Support",
   "isVerified": true,
-  "isMissingInfo": true,
+  "hero": "necrophos",
+  "social": {
+    "liquipedia": "http://wiki.teamliquid.net/dota2/Jabz",
+    "dotabuff": "https://www.dotabuff.com/players/100471531",
+    "twitch": "https://www.twitch.tv/jal3z"
+  },
   "sources": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/77wkek/congratulations_to_mineskijabz_for_hitting_9k_mmr/"
   }, {
     "type": "facebook",
     "url": "https://www.facebook.com/mineskidota/videos/10156042479396833/"
+  }, {
+    "type": "facebook",
+    "url": "https://www.facebook.com/Jabzdota2/photos/a.1200007336767675.1073741828.1187718121329930/1207785059323236"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3515221202"
   }]
 }, {
   "name": "Nisha",
-  "dateAchieved": "Oct 24th, 2017",
+  "aliases": ["DEBIL"],
+  "image": "/static/images/9kmmr/players/nisha.png",
+  "dateAchieved": "2017-10-24T16:16:00+00:00",
   "region": "EU",
   "role": "Mid",
-  "isVerified": false,
-  "isMissingInfo": true,
+  "isVerified": true,
+  "hero": "templar-assassin",
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/Nisha",
     "dotabuff": "https://www.dotabuff.com/players/121769650"
@@ -983,42 +1014,96 @@
   "sources": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/78gtyf/who_is_debil_89k_mmr_in_860_games_total/"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=r1DAujujXt8"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3520672693"
   }]
 }, {
   "name": "Universe",
-  "dateAchieved": "Oct 28th, 2017",
+  "image": "/static/images/9kmmr/players/universe.png",
+  "dateAchieved": "2017-10-28T22:59:09+00:00",
   "region": "NA",
   "role": "Offlane",
   "isVerified": true,
-  "isMissingInfo": true,
+  "hero": "beastmaster",
+  "social": {
+    "liquipedia": "http://wiki.teamliquid.net/dota2/UNiVeRsE",
+    "dotabuff": "https://www.dotabuff.com/players/87276347",
+    "twitter": "https://twitter.com/UniverseDota",
+    "twitch": "https://www.twitch.tv/universedota",
+    "instagram": "https://www.instagram.com/arora.saahil/"
+  },
   "sources": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/79d9po/congratulations_to_universe_for_hitting_9k/"
   }, {
     "type": "twitter",
     "url": "https://twitter.com/UniverseDota/status/924413939391152128"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3528531504"
   }]
 }, {
   "name": "Bryle",
-  "dateAchieved": "Nov 8th, 2017",
+  "image": "/static/images/9kmmr/players/bryle.png",
+  "dateAchieved": "2017-11-09T05:21:42+00:00",
   "region": "NA",
   "role": "Mid",
   "isVerified": true,
-  "isMissingInfo": true,
+  "hero": "queen-of-pain",
+  "social": {
+    "dotabuff": "https://www.dotabuff.com/players/238239590",
+    "twitter": "https://twitter.com/bryledota",
+    "twitch": "https://www.twitch.tv/bryle_"
+  },
   "sources": [{
     "type": "twitter",
     "url": "https://twitter.com/bryledota/status/928494391185903621"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3551252688"
   }]
 }, {
   "name": "33",
-  "dateAchieved": "Nov 12th, 2017",
+  "aliases": ["TheCoon"],
+  "image": "/static/images/9kmmr/players/33.png",
+  "dateAchieved": "2017-11-13T04:16:30+00:00",
   "region": "EU",
   "role": "Offlane",
   "isVerified": true,
-  "isMissingInfo": true,
+  "hero": "batrider",
+  "social": {
+    "liquipedia": "http://wiki.teamliquid.net/dota2/33",
+    "dotabuff": "https://www.dotabuff.com/players/86698277",
+    "twitch": "https://www.twitch.tv/33dota",
+    "twitter": "https://twitter.com/33Dota"
+  },
   "sources": [{
     "type": "twitter",
     "url": "https://twitter.com/33Dota/status/929928424902266880"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3559175554"
+  }]
+}, {
+  "name": "QO",
+  "image": "/static/images/9kmmr/players/qo.png",
+  "dateAchieved": "Nov 15th, 2017",
+  "region": "NA",
+  "role": "Mid",
+  "isVerified": false,
+  "social": {
+    "liquipedia": "http://wiki.teamliquid.net/dota2/QO",
+    "dotabuff": "https://www.dotabuff.com/players/93119769",
+    "twitter": "https://twitter.com/QOdota",
+    "twitch": "https://www.twitch.tv/iamqo"
+  },
+  "sources": [{
+    "type": "imgur",
+    "url": "https://i.imgur.com/kCZJvkR.png"
   }]
 }, {
   "name": "Palantimos",
@@ -1034,20 +1119,5 @@
   "sources": [{
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3564883192"
-  }]
-}, {
-  "name": "QO",
-  "dateAchieved": "Nov 15th, 2017",
-  "region": "NA",
-  "role": "Mid",
-  "isVerified": false,
-  "isMissingInfo": true,
-  "social": {
-    "liquipedia": "http://wiki.teamliquid.net/dota2/QO",
-    "dotabuff": "https://www.dotabuff.com/players/93119769"
-  },
-  "sources": [{
-    "type": "liquipedia",
-    "url": "http://wiki.teamliquid.net/dota2/Leaderboards"
   }]
 }]
