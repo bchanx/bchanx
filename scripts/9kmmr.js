@@ -4,10 +4,11 @@ const DATE_FORMAT = 'MMM Do, YYYY';
 const SOCIAL_TYPES = {
   liquipedia: 1,
   dotabuff: 2,
-  twitter: 3,
-//  facebook: 4,
-  instagram: 5,
-  twitch: 6,
+  opendota: 3,
+  twitter: 4,
+//  facebook: 5,
+  instagram: 6,
+  twitch: 7,
 };
 
 const SORT_TYPES = {
@@ -77,7 +78,7 @@ Vue.component('v-link', {
 Vue.component('player-tile', {
   props: ['player', 'filters'],
   template: `
-    <div class="player-tile" :class="{ 'not-verified' : !player.isVerified }" @click="hasSource ? showSource() : null">
+    <div class="player-tile" :class="{ 'not-verified' : !player.isVerified, 'missing-info': player.isMissingInfo }" @click="hasSource ? showSource() : null">
       <div class="player-rank">{{player.rank}}</div>
       <div class="player-image" v-if="player.image">
         <img :src="player.image"/>
@@ -120,7 +121,7 @@ Vue.component('player-tile', {
       });
     },
     hasSource: function() {
-      return !!(this.player.source || []).length;
+      return !!(this.player.sources || []).length;
     }
   },
   methods: {
@@ -306,6 +307,21 @@ Vue.component('navigation', {
 });
 
 Vue.component('about', {
+  data: function() {
+    let sources = {
+      "Dotabuff": "https://www.dotabuff.com/",
+      "OpenDota": "https://www.opendota.com/",
+      "Liquipedia": "http://wiki.teamliquid.net/dota2/Main_Page",
+      "Gamepedia": "https://dota2.gamepedia.com/Dota_2_Wiki",
+      "GosuGamers": "http://www.gosugamers.net/dota2",
+      "G:G": "https://ggscore.com/en/dota-2",
+      "GT": "http://en.game-tournaments.com/dota-2"
+    };
+    return {
+      sources,
+      length: Object.keys(sources).length
+    };
+  },
   template: `
     <div class="about">
       <p>
@@ -313,11 +329,19 @@ Vue.component('about', {
       </p>
       <br/>
       <p>
-        A big thank you to <a class="action" href="https://www.dotabuff.com/" target="_blank">Dotabuff</a>, <a class="action" href="http://wiki.teamliquid.net/dota2/Main_Page" target="_blank">Liquipedia</a>, and <a class="action" href="https://dota2.gamepedia.com/Dota_2_Wiki" target="_blank">Gamepedia</a>, <a class="action" href="https://ggscore.com/en/dota-2" target="_blank">G:G</a> for sourcing player information, images, and match details.
+        A big thank you to
+        <span class="sources">
+          <template v-for="(href, name, index) in sources">
+            <template v-if="length === index + 1"> and </template>
+            <a class="action" :key="name" :href="href" target="_blank">{{name}}</a>
+            <template v-if="length !== index + 1">,</template>
+          </template>
+        </span>
+        for sourcing player information, images, and match details.
       </p>
       <br/>
       <p>
-        If there are any mistakes, inconsistencies, or you want to provide general feedback, please leave a <v-link :hash="$root.constants.ROUTES.COMMENTS">comment</v-link>.
+        If there are any mistakes, inconsistencies, or you want to provide a source or general feedback, please leave a <v-link :hash="$root.constants.ROUTES.COMMENTS">comment</v-link>.
       </p>
       <br/>
       <p>

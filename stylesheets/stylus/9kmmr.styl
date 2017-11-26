@@ -37,6 +37,8 @@ $aqua = #51c8f7
 $aqua-light = #7FDBFF
 $aqua-dark = #0e85b5
 
+$yellow = #FFDC00
+
 $twitter = #00aced
 $facebook = #3b579d
 
@@ -133,6 +135,9 @@ a
   p
     text-indent: 1rem
     margin: 0
+  .sources
+    a:not(:last-of-type)
+      margin-right: -0.2rem
 
 // Footer
 .footnote
@@ -298,6 +303,12 @@ a
       color: $gray10
       text-shadow: 1px 1px 0 $gray2
       box-shadow: inset 0 0 0.5rem 0 $gray4
+  &.missing-info
+    .verification:before
+      content: "\f101"
+      color: $yellow
+      font-size: 0.7rem
+      margin-left: -0.2rem
   &.not-verified
     background: repeating-linear-gradient(
       -45deg,
@@ -450,6 +461,9 @@ a
     &.dotabuff
       background-image: url("/static/images/9kmmr/social/dotabuff.jpg")
       background-size: 1rem
+    &.opendota
+      background-image: url("/static/images/9kmmr/social/opendota.png")
+      background-size: 1.1rem
     &.liquipedia
       background-image: url("/static/images/9kmmr/social/liquipedia.png")
       background-size: 1.25rem
