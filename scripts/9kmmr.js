@@ -341,7 +341,7 @@ Vue.component('about', {
       </p>
       <br/>
       <p>
-        The raw list of compiled data can be viewed <a class="action" :href="dataURL" target="_blank">here</a>. If there are any mistakes, inconsistencies, or you want to provide a source or general feedback, please leave a <v-link :hash="$root.constants.ROUTES.COMMENTS">comment</v-link>.
+        The raw list of compiled data can be viewed <a class="action" :href="dataURL" target="_blank">here</a>. If there are any mistakes, inconsistencies, or you want to provide a source or give feedback, please leave a <v-link :hash="$root.constants.ROUTES.COMMENTS">comment</v-link>.
       </p>
       <br/>
       <p>

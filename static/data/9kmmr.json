@@ -27,6 +27,27 @@
   }, {
     "type": "youtube",
     "url": "https://www.youtube.com/watch?v=FMle9OH9hR4"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=fE1Q2rdomd4"
+  }, {
+    "type": "twitter",
+    "url": "https://twitter.com/RyanSmithEditor/status/730127020185767937"
+  }, {
+    "type": "twitter",
+    "url": "https://twitter.com/the_evany/status/730137306229821440"
+  }, {
+    "type": "twitter",
+    "url": "https://twitter.com/MoonMeanderated/status/730140490809659392"
+  }, {
+    "type": "twitter",
+    "url": "https://twitter.com/OGDota2/status/730141288809566208"
+  }, {
+    "type": "twitter",
+    "url": "https://twitter.com/the_evany/status/730146900666687488"
+  }, {
+    "type": "instagram",
+    "url": "https://www.instagram.com/p/BFPbfiSLVxR/"
   }]
 }, {
   "name": "Arteezy",
@@ -59,9 +80,6 @@
   }, {
     "type": "twitter",
     "url": "https://twitter.com/claycausin/status/747941469382643716"
-  }, {
-    "type": "instagram",
-    "url": "https://www.instagram.com/p/BXd6sfoguOe/"
   }]
 }, {
   "name": "kaka",
@@ -74,7 +92,8 @@
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/139876032",
     "opendota": "https://www.opendota.com/players/139876032",
-    "liquipedia": "http://wiki.teamliquid.net/dota2/Kaka"
+    "liquipedia": "http://wiki.teamliquid.net/dota2/Kaka",
+    "weibo": "https://weibo.com/kashifu"
   },
   "sources": [{
     "type": "reddit",
@@ -88,6 +107,9 @@
   }, {
     "type": "youtube",
     "url": "https://www.youtube.com/watch?v=agNJNZpClcA"
+  }, {
+    "type": "imgur",
+    "url": "https://i.imgur.com/YYqXsEj.png"
   }]
 }, {
   "name": "Ramzes666",
@@ -114,6 +136,9 @@
   }, {
     "type": "opendota",
     "url": "https://www.opendota.com/matches/2610851669"
+  }, {
+    "type": "imgur",
+    "url": "https://i.imgur.com/m7Uroic.jpg"
   }]
 }, {
   "name": "Sccc",
@@ -126,7 +151,8 @@
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/Sccc",
     "dotabuff": "https://www.dotabuff.com/players/149486894",
-    "opendota": "https://www.opendota.com/players/149486894"
+    "opendota": "https://www.opendota.com/players/149486894",
+    "weibo": "https://weibo.com/u/5634860315"
   },
   "sources": [{
     "type": "reddit",
@@ -137,6 +163,9 @@
   }, {
     "type": "opendota",
     "url": "https://www.opendota.com/matches/2621993670"
+  }, {
+    "type": "imgur",
+    "url": "https://i.imgur.com/KltRxeM.jpg"
   }]
 }, {
   "name": "Paparazi",
@@ -149,7 +178,8 @@
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/137193239",
     "opendota": "https://www.opendota.com/players/137193239",
-    "liquipedia": "http://wiki.teamliquid.net/dota2/Paparazi%E7%81%AC"
+    "liquipedia": "http://wiki.teamliquid.net/dota2/Paparazi%E7%81%AC",
+    "weibo": "https://weibo.com/u/5712134260"
   },
   "sources": [{
     "type": "reddit",
@@ -160,6 +190,9 @@
   }, {
     "type": "opendota",
     "url": "https://www.opendota.com/matches/2632211136"
+  }, {
+    "type": "imgur",
+    "url": "https://i.imgur.com/DISqSLl.png"
   }]
 }, {
   "name": "Ame",
@@ -172,7 +205,8 @@
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/177416702",
     "opendota": "https://www.opendota.com/players/177416702",
-    "liquipedia": "http://wiki.teamliquid.net/dota2/Ame"
+    "liquipedia": "http://wiki.teamliquid.net/dota2/Ame",
+    "weibo": "https://weibo.com/u/5695452105"
   },
   "sources": [{
     "type": "reddit",
@@ -183,6 +217,9 @@
   }, {
     "type": "opendota",
     "url": "https://www.opendota.com/matches/2634911219"
+  }, {
+    "type": "imgur",
+    "url": "https://i.imgur.com/fRFncue.jpg"
   }]
 }, {
   "name": "MATUMBAMAN",
@@ -209,6 +246,9 @@
   }, {
     "type": "opendota",
     "url": "https://www.opendota.com/matches/2699930588"
+  }, {
+    "type": "imgur",
+    "url": "https://i.imgur.com/jlP7qV7.png"
   }]
 }, {
   "name": "SoNNeikO",
@@ -290,6 +330,9 @@
   }, {
     "type": "youtube",
     "url": "https://www.youtube.com/watch?v=KBZKH1zVgV8"
+  }, {
+    "type": "twitch",
+    "url": "https://clips.twitch.tv/GiftedSmellyAmazonKeyboardCat"
   }]
 }, {
   "name": "Limmp",
