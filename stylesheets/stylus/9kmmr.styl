@@ -112,7 +112,7 @@ a
   height: 3rem
   display: flex
   font-size: 0.8rem
-  span:not(:first-of-type)
+  a:not(:first-of-type)
     margin-left: 1rem
 
 .route
@@ -355,6 +355,21 @@ a
     font-size: 2rem
     font-weight: 500
     letter-spacing: -1px
+  .aliases
+    margin-left: 0.5rem
+    font-size: 0.8rem
+    align-self: center
+    &:before
+      content: "（"
+    &:after
+      content: "）"
+    span:not(:last-of-type)
+      margin-right: 0.2rem
+      &:after
+        content: ","
+    .alias
+      font-weight: 400
+      color: $gray8
 
 .player-metadata
   display: flex
@@ -433,17 +448,17 @@ a
       opacity: 1
       transform: scale(1.15)
     &.dotabuff
-      background-image: url("/static/images/9kmmr/dotabuff.jpg")
+      background-image: url("/static/images/9kmmr/social/dotabuff.jpg")
       background-size: 1rem
     &.liquipedia
-      background-image: url("/static/images/9kmmr/liquipedia.png")
+      background-image: url("/static/images/9kmmr/social/liquipedia.png")
       background-size: 1.25rem
       margin-right: 0.1rem
     &.instagram
-      background-image: url("/static/images/9kmmr/instagram.png")
+      background-image: url("/static/images/9kmmr/social/instagram.png")
       background-size: 1rem
     &.twitch
-      background-image: url("/static/images/9kmmr/twitch.jpg")
+      background-image: url("/static/images/9kmmr/social/twitch.jpg")
       background-size: 1.3rem
     &.twitter
     &.facebook

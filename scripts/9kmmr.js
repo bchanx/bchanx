@@ -1,13 +1,13 @@
 const DATE_RE = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+\d{2}:\d{2}/;
-const DATE_FORMAT = 'MMMM Do, YYYY';
+const DATE_FORMAT = 'MMM Do, YYYY';
 
 const SOCIAL_TYPES = {
   liquipedia: 1,
   dotabuff: 2,
-  twitter: 4,
-  facebook: 5,
-  instagram: 6,
-  twitch: 3,
+  twitter: 3,
+//  facebook: 4,
+  instagram: 5,
+  twitch: 6,
 };
 
 const SORT_TYPES = {
@@ -34,13 +34,14 @@ const DEFAULT_ROUTE = ROUTES.HOME;
 
 Vue.component('v-link', {
   template: `
-    <span
+    <a
+      :href="href"
       class="action"
       :class="{ active: isActive }"
       @click="go"
     >
       #<slot></slot>
-    </span>
+    </a>
   `,
   props: {
     hash: {
@@ -51,6 +52,9 @@ Vue.component('v-link', {
   computed: {
     isActive: function() {
       return this.hash === this.$root.currentRoute;
+    },
+    href: function() {
+      return window.location.pathname + (this.hash === DEFAULT_ROUTE ? '' : '#' + this.hash);
     }
   },
   methods: {
@@ -81,6 +85,9 @@ Vue.component('player-tile', {
       <div class="player-details">
         <div class="player-profile">
           <span class="name">{{player.name}}</span>
+          <span class="aliases" v-if="player.aliases">
+            <span class="alias" v-for="alias in player.aliases" :key="alias">{{alias}}</span>
+          </span>
         </div>
         <div class="player-metadata">
           <span class="region" :class="{ active: filters.region === player.region }">{{player.region}}</span>
@@ -160,7 +167,8 @@ Vue.component('results', {
       return this.players.filter(p => {
         return (!region || p.region === region) &&
           (!role || p.role === role) &&
-          (p.name || '').toLowerCase().indexOf(input) >= 0;
+          ((p.name || '').toLowerCase().indexOf(input) >= 0 ||
+           !!(p.aliases || []).map(alias => alias.toLowerCase().indexOf(input) >= 0).filter(x => !!x).length);
       }).sort((a, b) => {
         let aDate = a.dateObject;
         let bDate = b.dateObject;
@@ -305,7 +313,7 @@ Vue.component('about', {
       </p>
       <br/>
       <p>
-        A big thank you to <a href="https://www.dotabuff.com/" target="_blank" class="action">dotabuff</a> and <a href="http://wiki.teamliquid.net/dota2/Main_Page" target="_blank" class="action">liquipedia</a> for sourcing player information, images, and match details.
+        A big thank you to <a class="action" href="https://www.dotabuff.com/" target="_blank">Dotabuff</a>, <a class="action" href="http://wiki.teamliquid.net/dota2/Main_Page" target="_blank">Liquipedia</a>, and <a class="action" href="https://dota2.gamepedia.com/Dota_2_Wiki" target="_blank">Gamepedia</a>, <a class="action" href="https://ggscore.com/en/dota-2" target="_blank">G:G</a> for sourcing player information, images, and match details.
       </p>
       <br/>
       <p>
