@@ -24,6 +24,52 @@ const SORT_LABELS = {
 
 const DEFAULT_SORT = SORT_TYPES.DATE_ACHIEVED;
 
+const ROUTES = {
+  HOME: 'home',
+  COMMENTS: 'comments',
+  ABOUT: 'about'
+};
+
+const DEFAULT_ROUTE = ROUTES.HOME;
+
+Vue.component('v-link', {
+  template: `
+    <span
+      class="action"
+      :class="{ active: isActive }"
+      @click="go"
+    >
+      #<slot></slot>
+    </span>
+  `,
+  props: {
+    hash: {
+      type: String,
+      required: true
+    }
+  },
+  computed: {
+    isActive: function() {
+      return this.hash === this.$root.currentRoute;
+    }
+  },
+  methods: {
+    go: function(event) {
+      event.preventDefault();
+      this.$root.currentRoute = this.hash;
+      let route = window.location.pathname;
+      if (this.hash !== DEFAULT_ROUTE) {
+        route += '#' + this.hash;
+      }
+      window.history.pushState(
+        null,
+        ROUTES[this.hash],
+        route
+      )
+    }
+  }
+});
+
 Vue.component('player-tile', {
   props: ['player', 'filters'],
   template: `
@@ -72,7 +118,7 @@ Vue.component('player-tile', {
   },
   methods: {
     showSource: function() {
-      console.log("-->> show source!!");
+      // TODO: toggle source data for player tile
     }
   }
 });
@@ -243,27 +289,15 @@ Vue.component('footnote', {
 });
 
 Vue.component('navigation', {
-  props: ['constants', 'currentRoute'],
+  props: ['routes'],
   template: `
     <div class="navigation">
-      <div class="route action"
-        :class="{ active: currentRoute === routeName }"
-        v-for="routeName in constants.ROUTES"
-        @click="goToRoute(routeName)"
-      >
-        {{routeName}}
-      </div>
+      <v-link class="route" v-for="routeName in routes" :hash="routeName" :key="routeName">{{routeName}}</v-link>
     </div>
-  `,
-  methods: {
-    goToRoute: function(routeName) {
-      this.$emit('changeRoute', routeName);
-    }
-  }
+  `
 });
 
 Vue.component('about', {
-  props: ['constants'],
   template: `
     <div class="about">
       <p>
@@ -275,19 +309,14 @@ Vue.component('about', {
       </p>
       <br/>
       <p>
-        If there are any mistakes, inconsistencies, or you want to provide general feedback, please leave a <span class="action" @click="goToComments">comment</span>.
+        If there are any mistakes, inconsistencies, or you want to provide general feedback, please leave a <v-link :hash="$root.constants.ROUTES.COMMENTS">comment</v-link>.
       </p>
       <br/>
       <p>
         Dota is a trademark of Valve Corporation.
       </p>
     </div>
-  `,
-  methods: {
-    goToComments: function() {
-      this.$emit('changeRoute', this.constants.ROUTES.COMMENTS);
-    }
-  }
+  `
 });
 
 Vue.component('comments', {
@@ -297,12 +326,6 @@ Vue.component('comments', {
     </div>
   `
 });
-
-const ROUTES = {
-  HOME: 'home',
-  COMMENTS: 'comments',
-  ABOUT: 'about'
-};
 
 const APP = new Vue({
   el: '#app',
@@ -315,7 +338,7 @@ const APP = new Vue({
       role: '',
       sort: DEFAULT_SORT
     },
-    currentRoute: ROUTES.HOME,
+    currentRoute: DEFAULT_ROUTE,
     constants: {
       SORT_TYPES: SORT_TYPES,
       SORT_LABELS: SORT_LABELS,
@@ -327,9 +350,7 @@ const APP = new Vue({
   template: `
     <div class="container">
       <navigation
-        :constants="constants"
-        :currentRoute="currentRoute"
-        v-on:changeRoute="changeRoute"
+        :routes="constants.ROUTES"
       />
       <template v-if="currentRoute === constants.ROUTES.HOME">
         <filters
@@ -341,18 +362,30 @@ const APP = new Vue({
         />
         <results :isLoading="isLoading" :players="players" :filters="filters"/>
       </template>
-      <template v-else-if="currentRoute === constants.ROUTES.ABOUT">
-        <about
-          :constants="constants"
-          v-on:changeRoute="changeRoute"
-        />
-      </template>
       <template v-else-if="currentRoute === constants.ROUTES.COMMENTS">
         <comments/>
+      </template>
+      <template v-else-if="currentRoute === constants.ROUTES.ABOUT">
+        <about/>
       </template>
       <footnote/>
     </div>
   `,
+  beforeMount: function() {
+    let route = window.location.hash.slice(1);
+    if (Object.keys(ROUTES).map(x => ROUTES[x]).indexOf(route) >= 0) {
+      this.currentRoute = route;
+    }
+    else {
+      if (window.location.href.indexOf('#') > 0) {
+        window.history.replaceState(
+          null,
+          DEFAULT_ROUTE,
+          window.location.pathname
+        )
+      }
+    }
+  },
   mounted: function() {
     this.isLoading = true;
     superagent.get('/static/data/9kmmr.json')
@@ -398,11 +431,13 @@ const APP = new Vue({
       Object.keys(this.filters).forEach(filterType => {
         this.$set(this.filters, filterType, filterType === 'sort' ? DEFAULT_SORT : '');
       });
-    },
-    changeRoute: function(newRoute) {
-      this.currentRoute = newRoute;
     }
   }
 });
 
-
+window.addEventListener('popstate', () => {
+  let newRoute = window.location.hash.slice(1) || DEFAULT_ROUTE;
+  if (Object.keys(ROUTES).map(x => ROUTES[x]).indexOf(newRoute) >= 0) {
+    APP.currentRoute = newRoute;
+  }
+});
