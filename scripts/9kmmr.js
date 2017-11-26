@@ -318,7 +318,8 @@ Vue.component('about', {
     };
     return {
       sources,
-      length: Object.keys(sources).length
+      length: Object.keys(sources).length,
+      dataURL: window.location.origin + '/static/data/9kmmr.json'
     };
   },
   template: `
@@ -340,7 +341,7 @@ Vue.component('about', {
       </p>
       <br/>
       <p>
-        If there are any mistakes, inconsistencies, or you want to provide a source or general feedback, please leave a <v-link :hash="$root.constants.ROUTES.COMMENTS">comment</v-link>.
+        The raw list of compiled data can be viewed <a class="action" :href="dataURL" target="_blank">here</a>. If there are any mistakes, inconsistencies, or you want to provide a source or general feedback, please leave a <v-link :hash="$root.constants.ROUTES.COMMENTS">comment</v-link>.
       </p>
       <br/>
       <p>
@@ -434,7 +435,7 @@ const APP = new Vue({
             date = DATE_RE.test(date) ? moment(date) : moment(date, DATE_FORMAT);
             // Default malformed dates to current
             p.dateObject = date.isValid() ? date : moment();
-            p.isVerified = !date.isValid() ? false : !!p.isVerified;
+            p.isVerified = !date.isValid() ? false : !!p.hasMatchInfo;
           });
 
           // Sort by date achieved
