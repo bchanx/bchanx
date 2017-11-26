@@ -631,6 +631,26 @@
     "url": "https://www.dotabuff.com/matches/3303771878"
   }]
 }, {
+  "name": "June",
+  "image": "/static/images/9kmmr/players/june.png",
+  "aliases": ["丶MINI幂"],
+  "dateAchieved": "2017-07-24T11:10:44+00:00",
+  "region": "CN",
+  "role": "Offlane",
+  "isVerified": true,
+  "hero": "venomancer",
+  "social": {
+    "liquipedia": "http://wiki.teamliquid.net/dota2/June",
+    "dotabuff": "https://www.dotabuff.com/players/138885864"
+  },
+  "sources": [{
+    "type": "liquipedia",
+    "url": "http://wiki.teamliquid.net/dota2/Leaderboards"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3333224353"
+  }]
+}, {
   "name": "vanN",
   "image": "/static/images/9kmmr/players/vann.png",
   "dateAchieved": "2017-07-30T08:21:45+00:00",
@@ -655,31 +675,30 @@
   }]
 }, {
   "name": "Saksa",
-  "dateAchieved": "Aug 6th, 2017",
+  "image": "/static/images/9kmmr/players/saksa.png",
+  "dateAchieved": "2017-08-07T03:35:36+00:00",
   "region": "EU",
   "role": "Support",
   "isVerified": true,
-  "isMissingInfo": true,
+  "hero": "sandking",
+  "social": {
+    "liquipedia": "http://wiki.teamliquid.net/dota2/Saksa",
+    "dotabuff": "https://www.dotabuff.com/players/103735745",
+    "twitter": "https://twitter.com/Saksadota"
+  },
   "sources": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/6s3m80/saksa_9k_mmr/"
   }, {
     "type": "twitter",
     "url": "https://twitter.com/Saksadota/status/894403263369420802"
-  }]
-}, {
-  "name": "June",
-  "dateAchieved": "Aug 9th, 2017",
-  "region": "CN",
-  "role": "Offlane",
-  "isVerified": false,
-  "isMissingInfo": true,
-  "sources": [{
-    "type": "liquipedia",
-    "url": "http://wiki.teamliquid.net/dota2/Leaderboards"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3360764804"
   }]
 }, {
   "name": "Old Chicken",
+  "image": "/static/images/9kmmr/players/oldchicken.png",
   "dateAchieved": "Aug 16th, 2017",
   "region": "CN",
   "role": "Carry",
@@ -695,37 +714,64 @@
   }]
 }, {
   "name": "Nine",
-  "dateAchieved": "Aug 23rd, 2017",
+  "image": "/static/images/9kmmr/players/nine.png",
+  "dateAchieved": "2017-08-23T15:07:33+00:00",
   "region": "EU",
   "role": "Mid",
   "isVerified": true,
-  "isMissingInfo": true,
-  "dotabuff": "94786276",
+  "hero": "mirana",
+  "social": {
+    "liquipedia": "http://wiki.teamliquid.net/dota2/Nine",
+    "dotabuff": "https://www.dotabuff.com/players/94786276",
+    "twitter": "https://twitter.com/RAX_Nine",
+    "twitch": "https://www.twitch.tv/rax_nine"
+  },
   "sources": [{
     "type": "twitter",
     "url": "https://twitter.com/RAX_Nine/status/900377950784278528"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3397422380"
   }]
 }, {
-  "name": "Cancel^^",
-  "dateAchieved": "Aug 29th, 2017",
+  "name": "canceL^^",
+  "image": "/static/images/9kmmr/players/cancel.png",
+  "dateAchieved": "2017-08-29T19:00:44+00:00",
   "region": "EU",
   "role": "Mid",
   "isVerified": true,
-  "isMissingInfo": true,
+  "hero": "venomancer",
+  "social": {
+    "liquipedia": "http://wiki.teamliquid.net/dota2/CanceL%5E%5E",
+    "dotabuff": "https://www.dotabuff.com/players/141690233",
+    "twitter": "https://twitter.com/canceldota",
+    "instagram": "https://www.instagram.com/canceldota/"
+  },
   "sources": [{
     "type": "twitter",
     "url": "https://twitter.com/canceldota/status/902610126925950976"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3411647558"
   }]
 }, {
   "name": "Topson",
-  "dateAchieved": "Aug 31st, 2017",
+  "image": "/static/images/9kmmr/players/topson.png",
+  "dateAchieved": "2017-08-30T22:45:24+00:00",
   "region": "EU",
   "role": "Mid",
   "isVerified": true,
-  "isMissingInfo": true,
+  "hero": "monkey-king",
+  "social": {
+    "dotabuff": "https://www.dotabuff.com/players/94054712",
+    "twitch": "https://www.twitch.tv/Topsonous"
+  },
   "sources": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/6x5d48/congratulations_to_topson_for_reaching_9k_mmr/"
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3414134114"
   }]
 }, {
   "name": "Cr1t",
