@@ -235,14 +235,16 @@ Vue.component('player-tile', {
       });
     },
     matchSources: function() {
-      let matches = this.player.sources.filter(s => s.type === SOURCE_TYPES.DOTABUFF || s.type === SOURCE_TYPES.OPENDOTA).sort((a, b) => a.type > b.type ? 1 : a.type < b.type ? -1 : 0);
+      let is10k = this.filters.misc === '10k' && !!this.player.misc['10k'];
+      let matches = ((is10k ? this.player.misc['10k'].sources : this.player.sources) || []).filter(s => s.type === SOURCE_TYPES.DOTABUFF || s.type === SOURCE_TYPES.OPENDOTA).sort((a, b) => a.type > b.type ? 1 : a.type < b.type ? -1 : 0);
       return {
         matches,
-        hero: this.player.hero
+        hero: (is10k ? this.player.misc['10k'].hero : this.player.hero)
       };
     },
     mediaSources: function() {
-      let media = this.player.sources.filter(s => s.type !== SOURCE_TYPES.DOTABUFF && s.type !== SOURCE_TYPES.OPENDOTA);
+      let is10k = this.filters.misc === '10k' && !!this.player.misc['10k'];
+      let media = ((is10k ? this.player.misc['10k'].sources : this.player.sources) || []).filter(s => s.type !== SOURCE_TYPES.DOTABUFF && s.type !== SOURCE_TYPES.OPENDOTA);
       return media;
     }
   },
@@ -354,13 +356,14 @@ Vue.component('filters', {
       </div>
       <div class="filter-types" v-if="showFilters">
         <div class="input-filters" v-if="showFilters">
+          <!--
           <div class="filter-option">
             <div class="filter-label">username</div>
             <div class="filter-input">
               <input v-model.trim="filterInput"/>
               <span class="filter-input-clear action ion-close" v-if="filters.input.length" @click="clearInput"></span>
             </div>
-          </div>
+          </div>-->
           <div class="filter-option" v-for="(types, key) in filterTypes">
             <div class="filter-label">{{key}}</div>
             <div class="filter-input">
