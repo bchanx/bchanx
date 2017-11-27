@@ -46,6 +46,29 @@ const ROUTES = {
 
 const DEFAULT_ROUTE = ROUTES.HOME;
 
+const SOURCE_TYPES = {
+  REDDIT: 'reddit',
+  DOTABUFF: 'dotabuff',
+  OPENDOTA: 'opendota',
+  IMGUR: 'imgur',
+  TWITTER: 'twitter',
+  INSTAGRAM: 'instagram',
+  FACEBOOK: 'facebook',
+  YOUTUBE: 'youtube'
+};
+
+const CONSTANTS = {
+  FILTER_TYPES,
+  MISC_FILTER_TYPES,
+  SORT_TYPES,
+  SORT_LABELS,
+  DEFAULT_SORT,
+  SOCIAL_TYPES,
+  SOURCE_TYPES,
+  ROUTES
+};
+
+
 Vue.component('v-link', {
   template: `
     <a
@@ -90,36 +113,101 @@ Vue.component('v-link', {
 
 Vue.component('player-tile', {
   props: ['player', 'filters'],
+  data: function() {
+    return {
+      showPlayerSource: false
+    };
+  },
   template: `
-    <div class="player-tile" :class="{ 'not-verified' : !player.isVerified }" @click="showSource">
+    <div class="player-tile" :class="{ 'not-verified' : !player.isVerified, 'active': showPlayerSource }" @click="showSource">
       <div class="player-rank">{{filters.misc === '10k' && !!player['10k'] ? player['10k'].rank : player.rank}}</div>
-      <div class="player-image" v-if="player.image">
-        <img :src="player.image"/>
-      </div>
-      <div class="player-details">
-        <div class="player-profile">
-          <span class="name">{{player.name}}</span>
-          <span class="aliases" v-if="player.aliases">
-            <span class="alias" v-for="alias in player.aliases" :key="alias">{{alias}}</span>
-          </span>
-          <span class="social" v-if="socialTypes.length">
-            <a :class="socialType" :href="player.social[socialType]" @click.stop v-for="socialType in socialTypes" :key="socialType" target="_blank"></a>
-          </span>
+      <div class="player-info">
+        <div class="player-image" v-if="player.image">
+          <img :src="player.image"/>
         </div>
-        <div class="player-metadata">
-          <span class="region" :class="{ active: filters.region === player.region }">{{player.region}}</span>
-          <span class="role" :class="{ active: filters.role === player.role }">{{player.role}}</span>
-          <template v-if="!!player.misc">
-            <span class="misc" :class="{ active: !!player.misc[$root.constants.MISC_FILTER_TYPES[filters.misc]], 'ti-winner': type === 'ti winner' }" v-for="type in Object.keys($root.constants.MISC_FILTER_TYPES)" v-if="player.misc[$root.constants.MISC_FILTER_TYPES[type]]">{{type === 'ti winner' ? 'ti ' + player.misc[$root.constants.MISC_FILTER_TYPES[type]] : type}}</span>
-          </template>
-          <span class="date">
-            <span :title="player.dateAchieved">{{dateAchieved}}</span>
-          </span>
-          <span class="verification"></span>
+        <div class="player-details">
+          <div class="player-profile">
+            <span class="name">{{player.name}}</span>
+            <span class="aliases" v-if="player.aliases">
+              <span class="alias" v-for="alias in player.aliases" :key="alias">{{alias}}</span>
+            </span>
+            <span class="social" v-if="socialTypes.length">
+              <a :class="socialType" :href="player.social[socialType]" @click.stop v-for="socialType in socialTypes" :key="socialType" target="_blank"></a>
+            </span>
+          </div>
+          <div class="player-metadata">
+            <span class="region" :class="{ active: filters.region === player.region }">{{player.region}}</span>
+            <span class="role" :class="{ active: filters.role === player.role }">{{player.role}}</span>
+            <template v-if="!!player.misc">
+              <span class="misc" :class="{ active: !!player.misc[$root.constants.MISC_FILTER_TYPES[filters.misc]], 'ti-winner': type === 'ti winner' }" v-for="type in Object.keys($root.constants.MISC_FILTER_TYPES)" :key="type" v-if="player.misc[$root.constants.MISC_FILTER_TYPES[type]]">{{type === 'ti winner' ? 'ti ' + player.misc[$root.constants.MISC_FILTER_TYPES[type]] : type}}</span>
+            </template>
+            <span class="date">
+              <span :title="player.dateAchieved">{{dateAchieved}}</span>
+            </span>
+            <span class="verification"></span>
+          </div>
+        </div>
+      </div>
+      <div class="player-sources" v-if="showPlayerSource">
+        <div class="source-row">
+          <div class="source-type">details</div>
+          <div class="source-details match-info">
+            <div class="match-hero" v-if="matchSources.hero">
+              <img :title="matchSources.hero" :src="getHeroImageURL(matchSources.hero)"/>
+            </div>
+            <template v-if="matchSources.matches.length">
+              <a class="match-link action" :href="match.url" target="_blank" @click.stop v-for="match in matchSources.matches" :key="match.type">{{match.type}}</a>
+            </template>
+            <template v-else>
+              <span class="placeholder">missing match info.</span>
+            </template>
+          </div>
+        </div>
+        <div class="source-row" v-for="source in mediaSources">
+          <div class="source-type">{{source.type}}</div>
+          <div class="source-details" :class="source.type" @click.stop>
+            <template v-if="source.type === $root.constants.SOURCE_TYPES.REDDIT">
+              <blockquote class="reddit-card" data-card-preview="0"><a :href="source.url"></a><span>loading...</span></blockquote>
+            </template>
+            <template v-else-if="source.type === $root.constants.SOURCE_TYPES.IMGUR">
+              <a :href="source.url.replace('i.imgur', 'imgur')" target="_blank"><img :src="source.url"/></a>
+            </template>
+            <template v-else-if="source.type === $root.constants.SOURCE_TYPES.TWITTER">
+              <blockquote class="twitter-tweet" data-lang="en"><a :href="source.url" target="_blank"></a><span>loading...</span></blockquote>
+            </template>
+            <template v-else-if="source.type === $root.constants.SOURCE_TYPES.INSTAGRAM">
+              <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-version="7" style="width:100%"><a :href="source.url" target="_blank"></a><span>loading...</span></blockquote>
+            </template>
+            <template v-else>
+              <a :href="source.url" target="_blank">{{source.url}}</a>
+            </template>
+          </div>
         </div>
       </div>
     </div>
   `,
+  watch: {
+    filters: {
+      handler:  function() {
+        // Whenever filter changes, collapse the source cause some embeds stop working
+        this.showPlayerSource = false;
+      },
+      deep: true
+    }
+  },
+  updated: function() {
+    if (this.showPlayerSource) {
+      if (window.instgrm) {
+        instgrm.Embeds.process();
+      }
+      // Need to load twitter embeds on a timeout otherwise the layout gets all chopped...
+      setTimeout(() => {
+        if (window.twttr) {
+          twttr.widgets.load(this.$el);
+        }
+      }, 500);
+    }
+  },
   computed: {
     dateAchieved: function() {
       // date should have been sanitized as a moment.js object
@@ -136,11 +224,25 @@ Vue.component('player-tile', {
         b = SOCIAL_TYPES[b];
         return a > b ? 1 : a < b ? -1 : 0;
       });
+    },
+    matchSources: function() {
+      let matches = this.player.sources.filter(s => s.type === SOURCE_TYPES.DOTABUFF || s.type === SOURCE_TYPES.OPENDOTA).sort((a, b) => a.type > b.type ? 1 : a.type < b.type ? -1 : 0);
+      return {
+        matches,
+        hero: this.player.hero
+      };
+    },
+    mediaSources: function() {
+      let media = this.player.sources.filter(s => s.type !== SOURCE_TYPES.DOTABUFF && s.type !== SOURCE_TYPES.OPENDOTA);
+      return media;
     }
   },
   methods: {
     showSource: function() {
-      // TODO: toggle source data for player tile
+      this.showPlayerSource = !this.showPlayerSource;
+    },
+    getHeroImageURL: function(hero) {
+      return window.location.origin + '/static/images/9kmmr/heroes/' + hero + '.png';
     }
   }
 });
@@ -153,7 +255,7 @@ Vue.component('results', {
         loading...
       </div>
       <div v-else-if="!players.length" class="placeholder">
-        no player info available
+        something went wrong
       </div>
       <div v-else-if="!filteredPlayers.length" class="placeholder">
         no player matches found
@@ -394,15 +496,7 @@ const APP = new Vue({
       misc: ''
     },
     currentRoute: DEFAULT_ROUTE,
-    constants: {
-      FILTER_TYPES: FILTER_TYPES,
-      MISC_FILTER_TYPES: MISC_FILTER_TYPES,
-      SORT_TYPES: SORT_TYPES,
-      SORT_LABELS: SORT_LABELS,
-      DEFAULT_SORT: DEFAULT_SORT,
-      SOCIAL_TYPES: SOCIAL_TYPES,
-      ROUTES: ROUTES
-    },
+    constants: CONSTANTS
   },
   template: `
     <div class="container">
@@ -411,10 +505,9 @@ const APP = new Vue({
       />
       <template v-if="currentRoute === constants.ROUTES.HOME">
         <filters
-          v-if="!isLoading"
+          v-if="!isLoading && players.length"
           :players="players"
           :filters="filters"
-          :constants="constants"
           v-on:setFilter="setFilter"
           v-on:resetFilters="resetFilters"
         />

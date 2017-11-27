@@ -6,9 +6,6 @@
   "role": "mid",
   "hasMatchInfo": true,
   "hero": "antimage",
-  "misc": {
-    "wonTI": 7
-  },
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/Miracle-",
     "dotabuff": "https://www.dotabuff.com/players/105248644",
@@ -27,20 +24,14 @@
     "type": "opendota",
     "url": "https://www.opendota.com/matches/2354268232"
   }, {
-    "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=FMle9OH9hR4"
-  }, {
-    "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=fE1Q2rdomd4"
-  }, {
     "type": "twitter",
     "url": "https://twitter.com/RyanSmithEditor/status/730127020185767937"
   }, {
     "type": "twitter",
     "url": "https://twitter.com/the_evany/status/730137306229821440"
   }, {
-    "type": "twitter",
-    "url": "https://twitter.com/MoonMeanderated/status/730140490809659392"
+    "type": "instagram",
+    "url": "https://www.instagram.com/p/BFPbfiSLVxR/"
   }, {
     "type": "twitter",
     "url": "https://twitter.com/OGDota2/status/730141288809566208"
@@ -48,9 +39,15 @@
     "type": "twitter",
     "url": "https://twitter.com/the_evany/status/730146900666687488"
   }, {
-    "type": "instagram",
-    "url": "https://www.instagram.com/p/BFPbfiSLVxR/"
-  }]
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=fE1Q2rdomd4"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=FMle9OH9hR4"
+  }],
+  "misc": {
+    "wonTI": 7
+  }
 }, {
   "name": "Arteezy",
   "image": "/static/images/9kmmr/players/arteezy.png",
@@ -59,14 +56,6 @@
   "role": "carry",
   "hasMatchInfo": true,
   "hero": "terrorblade",
-  "misc": {
-    "10k": {
-      "dateAchieved": "2017-08-06T21:19:29+00:00",
-      "dotabuff": "https://www.dotabuff.com/matches/3360411392",
-      "youtube": "https://www.youtube.com/watch?v=_kpVf9JthvQ",
-      "hero": "lycan"
-    }
-  },
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/86745912",
     "opendota": "https://www.opendota.com/players/86745912",
@@ -85,12 +74,34 @@
     "type": "opendota",
     "url": "https://www.opendota.com/matches/2468602034"
   }, {
-    "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=3tE1_Sz98i0"
-  }, {
     "type": "twitter",
     "url": "https://twitter.com/claycausin/status/747941469382643716"
-  }]
+  }, {
+    "type": "twitter",
+    "url": "https://twitter.com/Arteezy/status/747926638151802884"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=3tE1_Sz98i0"
+  }],
+  "misc": {
+    "10k": {
+      "dateAchieved": "2017-08-06T21:19:29+00:00",
+      "hero": "lycan",
+      "sources": [{
+        "type": "dotabuff",
+        "url": "https://www.dotabuff.com/matches/3360411392"
+      }, {
+        "type": "opendota",
+        "url": "https://www.opendota.com/matches/3360411392"
+      }, {
+        "type": "twitter",
+        "url": "https://twitter.com/Arteezy/status/894309175597047808"
+      }, {
+        "type": "youtube",
+        "url": "https://www.youtube.com/watch?v=_kpVf9JthvQ"
+      }]
+    }
+  }
 }, {
   "name": "kaka",
   "image": "/static/images/9kmmr/players/kaka.png",
@@ -98,7 +109,7 @@
   "region": "cn",
   "role": "support",
   "hasMatchInfo": true,
-  "hero": "skywrath",
+  "hero": "skywrath_mage",
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/139876032",
     "opendota": "https://www.opendota.com/players/139876032",
@@ -115,11 +126,11 @@
     "type": "opendota",
     "url": "https://www.opendota.com/matches/2610417124"
   }, {
-    "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=agNJNZpClcA"
-  }, {
     "type": "imgur",
     "url": "https://i.imgur.com/YYqXsEj.png"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=agNJNZpClcA"
   }]
 }, {
   "name": "Ramzes666",
@@ -129,14 +140,6 @@
   "role": "carry",
   "hasMatchInfo": true,
   "hero": "huskar",
-  "misc": {
-    "10k": {
-      "dateAchieved": "2017-11-10T14:46:26+00:00",
-      "dotabuff": "https://www.dotabuff.com/matches/3553867241",
-      "youtube": "https://www.youtube.com/watch?v=45bVrBtCU6E",
-      "hero": "juggernaut"
-    }
-  },
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/132851371",
     "opendota": "https://www.opendota.com/players/132851371",
@@ -155,9 +158,28 @@
     "type": "opendota",
     "url": "https://www.opendota.com/matches/2610851669"
   }, {
-    "type": "imgur",
-    "url": "https://i.imgur.com/m7Uroic.jpg"
-  }]
+    "type": "twitter",
+    "url": "https://twitter.com/ramzesdoto/status/770663652710055936"
+  }],
+  "misc": {
+    "10k": {
+      "dateAchieved": "2017-11-10T14:46:26+00:00",
+      "hero": "juggernaut",
+      "sources": [{
+        "type": "dotabuff",
+        "url": "https://www.dotabuff.com/matches/3553867241"
+      }, {
+        "type": "opendota",
+        "url": "https://www.opendota.com/matches/3553867241"
+      }, {
+        "type": "twitter",
+        "url": "https://twitter.com/ramzesdoto/status/928998835497717760"
+      }, {
+        "type": "youtube",
+        "url": "https://www.youtube.com/watch?v=45bVrBtCU6E"
+      }]
+    }
+  }
 }, {
   "name": "Sccc",
   "image": "/static/images/9kmmr/players/sccc.png",
@@ -219,7 +241,7 @@
   "region": "cn",
   "role": "carry",
   "hasMatchInfo": true,
-  "hero": "drow",
+  "hero": "drow_ranger",
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/177416702",
     "opendota": "https://www.opendota.com/players/177416702",
@@ -247,9 +269,6 @@
   "role": "carry",
   "hasMatchInfo": true,
   "hero": "morphling",
-  "misc": {
-    "wonTI": 7
-  },
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/72312627",
     "opendota": "https://www.opendota.com/players/72312627",
@@ -268,9 +287,12 @@
     "type": "opendota",
     "url": "https://www.opendota.com/matches/2699930588"
   }, {
-    "type": "imgur",
-    "url": "https://i.imgur.com/jlP7qV7.png"
-  }]
+    "type": "twitter",
+    "url": "https://twitter.com/LiquidMATUMBA/status/785218492240986114"
+  }],
+  "misc": {
+    "wonTI": 7
+  }
 }, {
   "name": "SoNNeikO",
   "image": "/static/images/9kmmr/players/sonneiko.png",
@@ -307,9 +329,6 @@
   "role": "support",
   "hasMatchInfo": true,
   "hero": "mirana",
-  "misc": {
-    "wonTI": 7
-  },
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/101356886",
     "opendota": "https://www.opendota.com/players/101356886",
@@ -326,7 +345,10 @@
   }, {
     "type": "opendota",
     "url": "https://www.opendota.com/matches/2789953291"
-  }]
+  }],
+  "misc": {
+    "wonTI": 7
+  }
 }, {
   "name": "ALOHADANCE",
   "image": "/static/images/9kmmr/players/alohadance.png",
@@ -352,11 +374,11 @@
     "type": "opendota",
     "url": "https://www.opendota.com/matches/2872132416"
   }, {
-    "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=KBZKH1zVgV8"
-  }, {
     "type": "twitch",
     "url": "https://clips.twitch.tv/GiftedSmellyAmazonKeyboardCat"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=KBZKH1zVgV8"
   }]
 }, {
   "name": "Limmp",
@@ -425,15 +447,7 @@
   "region": "sea",
   "role": "mid",
   "hasMatchInfo": true,
-  "hero": "sandking",
-  "misc": {
-    "10k": {
-      "dateAchieved": "2017-07-09T05:09:32+00:00",
-      "dotabuff": "https://www.dotabuff.com/matches/3302064942",
-      "youtube": "https://www.youtube.com/watch?v=fDRw3fxg8bk",
-      "hero": "ursa"
-    }
-  },
+  "hero": "sand_king",
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/116585378",
     "opendota": "https://www.opendota.com/players/116585378",
@@ -456,7 +470,26 @@
   }, {
     "type": "opendota",
     "url": "https://www.opendota.com/matches/2987496473"
-  }]
+  }],
+  "misc": {
+    "10k": {
+      "dateAchieved": "2017-07-09T05:09:32+00:00",
+      "hero": "ursa",
+      "sources": [{
+        "type": "dotabuff",
+        "url": "https://www.dotabuff.com/matches/3302064942"
+      }, {
+        "type": "opendota",
+        "url": "https://www.opendota.com/matches/3302064942"
+      }, {
+        "type": "twitter",
+        "url": "https://twitter.com/midonedota2/status/883926103936483329"
+      }, {
+        "type": "youtube",
+        "url": "https://www.youtube.com/watch?v=fDRw3fxg8bk"
+      }]
+    }
+  }
 }, {
   "name": "Forev",
   "image": "/static/images/9kmmr/players/forev.png",
@@ -520,7 +553,7 @@
   "region": "eu",
   "role": "mid",
   "hasMatchInfo": true,
-  "hero": "outworld-devourer",
+  "hero": "outworld_devourer",
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/311360822",
     "opendota": "https://www.opendota.com/players/311360822",
@@ -544,7 +577,7 @@
   "name": "zhizhizhi",
   "aliases": ["之之之~"],
   "image": "/static/images/9kmmr/players/zhizhizhi.png",
-  "dateAchieved": "Mar 15th, 2017",
+  "dateAchieved": "Mar 16th, 2017",
   "region": "cn",
   "role": "carry",
   "hasMatchInfo": false,
@@ -594,14 +627,6 @@
   "role": "mid",
   "hasMatchInfo": true,
   "hero": "meepo",
-  "misc": {
-    "10k": {
-      "dateAchieved": "2017-06-26T04:18:51+00:00",
-      "dotabuff": "https://www.dotabuff.com/matches/3274457422",
-      "youtube": "https://www.youtube.com/watch?v=ZPTW82LtTCc",
-      "hero": "queen-of-pain"
-    }
-  },
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/Abed",
     "twitch": "https://www.twitch.tv/abed_dota",
@@ -619,9 +644,28 @@
     "type": "opendota",
     "url": "https://www.opendota.com/matches/3066291606"
   }, {
-    "type": "imgur",
-    "url": "https://i.imgur.com/XYXMbI0.jpg"
-  }]
+    "type": "twitter",
+    "url": "https://twitter.com/abedyusop/status/843701748854272000"
+  }],
+  "misc": {
+    "10k": {
+      "dateAchieved": "2017-06-26T04:18:51+00:00",
+      "hero": "queen_of_pain",
+      "sources": [{
+        "type": "dotabuff",
+        "url": "https://www.dotabuff.com/matches/3274457422"
+      }, {
+        "type": "opendota",
+        "url": "https://www.opendota.com/matches/3274457422"
+      }, {
+        "type": "twitter",
+        "url": "https://twitter.com/abedyusop/status/879200167995383808"
+      }, {
+        "type": "youtube",
+        "url": "https://www.youtube.com/watch?v=ZPTW82LtTCc"
+      }]
+    }
+  }
 }, {
   "name": "Ori",
   "image": "/static/images/9kmmr/players/ori.png",
@@ -675,7 +719,7 @@
   "region": "sea",
   "role": "mid",
   "hasMatchInfo": true,
-  "hero": "templar-assassin",
+  "hero": "templar_assassin",
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/InYourdreaM",
     "dotabuff": "https://www.dotabuff.com/players/181716137",
@@ -701,7 +745,7 @@
   "region": "cn",
   "role": "mid",
   "hasMatchInfo": true,
-  "hero": "troll-warlord",
+  "hero": "troll_warlord",
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/Monet",
     "dotabuff": "https://www.dotabuff.com/players/148215639",
@@ -757,9 +801,6 @@
   "role": "offlane",
   "hasMatchInfo": true,
   "hero": "bristleback",
-  "misc": {
-    "wonTI": 3
-  },
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/S4",
     "twitter": "https://twitter.com/s4dota",
@@ -780,7 +821,10 @@
   }, {
     "type": "opendota",
     "url": "https://www.opendota.com/matches/3239671579"
-  }]
+  }],
+  "misc": {
+    "wonTI": 3
+  }
 }, {
   "name": "Alacrity",
   "image": "/static/images/9kmmr/players/alacrity.png",
@@ -803,7 +847,7 @@
   "region": "na",
   "role": "mid",
   "hasMatchInfo": true,
-  "hero": "death-prophet",
+  "hero": "death_prophet",
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/CC%26C",
     "dotabuff": "https://www.dotabuff.com/players/221666230",
@@ -840,9 +884,6 @@
     "weibo": "https://weibo.com/u/2028501225"
   },
   "sources": [{
-    "type": "liquipedia",
-    "url": "http://wiki.teamliquid.net/dota2/Leaderboards"
-  }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3333224353"
   }, {
@@ -886,7 +927,7 @@
   "region": "eu",
   "role": "support",
   "hasMatchInfo": true,
-  "hero": "sandking",
+  "hero": "sand_king",
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/Saksa",
     "dotabuff": "https://www.dotabuff.com/players/103735745",
@@ -979,7 +1020,7 @@
   "region": "eu",
   "role": "mid",
   "hasMatchInfo": true,
-  "hero": "monkey-king",
+  "hero": "monkey_king",
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/94054712",
     "opendota": "https://www.opendota.com/players/94054712",
@@ -1002,7 +1043,7 @@
   "region": "na",
   "role": "support",
   "hasMatchInfo": true,
-  "hero": "ancient-apparition",
+  "hero": "ancient_apparition",
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/Cr1t-",
     "twitter": "https://twitter.com/Cr1tdota",
@@ -1031,7 +1072,7 @@
   "region": "sea",
   "role": "mid",
   "hasMatchInfo": false,
-  "hero": "templar-assassin",
+  "hero": "templar_assassin",
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/Gabbi",
     "dotabuff": "https://www.dotabuff.com/players/152545459",
@@ -1080,9 +1121,6 @@
     "opendota": "https://www.opendota.com/players/91735466"
   },
   "sources": [{
-    "type": "youtube",
-    "url": "https://youtu.be/LeOiTbKq2Vg"
-  }, {
     "type": "imgur",
     "url": "https://i.imgur.com/woyPxUQ.png"
   }, {
@@ -1091,6 +1129,9 @@
   }, {
     "type": "opendota",
     "url": "https://www.opendota.com/matches/3468076996"
+  }, {
+    "type": "youtube",
+    "url": "https://youtu.be/LeOiTbKq2Vg"
   }]
 }, {
   "name": "BoBoKa",
@@ -1099,7 +1140,7 @@
   "region": "cn",
   "role": "support",
   "hasMatchInfo": true,
-  "hero": "nyx-assassin",
+  "hero": "nyx_assassin",
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/BoBoKa",
     "dotabuff": "https://www.dotabuff.com/players/207829314",
@@ -1124,9 +1165,6 @@
   "role": "offlane",
   "hasMatchInfo": true,
   "hero": "pugna",
-  "misc": {
-    "wonTI": 7
-  },
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/MinD_ContRoL",
     "dotabuff": "https://www.dotabuff.com/players/34505203",
@@ -1146,7 +1184,10 @@
   }, {
     "type": "opendota",
     "url": "https://www.opendota.com/matches/3482300457"
-  }]
+  }],
+  "misc": {
+    "wonTI": 7
+  }
 }, {
   "name": "Benhur",
   "image": "/static/images/9kmmr/players/benhur.png",
@@ -1185,17 +1226,17 @@
     "weibo": "https://weibo.com/u/2841676082"
   },
   "sources": [{
-    "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=I4YgtrLG5I8"
-  }, {
-    "type": "imgur",
-    "url": "https://i.imgur.com/BIPyUbd.jpg"
-  }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3492784089"
   }, {
     "type": "opendota",
     "url": "https://www.opendota.com/matches/3492784089"
+  }, {
+    "type": "imgur",
+    "url": "https://i.imgur.com/BIPyUbd.jpg"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=I4YgtrLG5I8"
   }]
 }, {
   "name": "7mad",
@@ -1265,7 +1306,7 @@
   "region": "eu",
   "role": "mid",
   "hasMatchInfo": true,
-  "hero": "templar-assassin",
+  "hero": "templar_assassin",
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/Nisha",
     "dotabuff": "https://www.dotabuff.com/players/121769650",
@@ -1292,9 +1333,6 @@
   "role": "offlane",
   "hasMatchInfo": true,
   "hero": "beastmaster",
-  "misc": {
-    "wonTI": 5
-  },
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/UNiVeRsE",
     "dotabuff": "https://www.dotabuff.com/players/87276347",
@@ -1315,7 +1353,10 @@
   }, {
     "type": "opendota",
     "url": "https://www.opendota.com/matches/3528531504"
-  }]
+  }],
+  "misc": {
+    "wonTI": 5
+  }
 }, {
   "name": "Bryle",
   "image": "/static/images/9kmmr/players/bryle.png",
@@ -1323,7 +1364,7 @@
   "region": "na",
   "role": "mid",
   "hasMatchInfo": true,
-  "hero": "queen-of-pain",
+  "hero": "queen_of_pain",
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/238239590",
     "opendota": "https://www.opendota.com/players/238239590",

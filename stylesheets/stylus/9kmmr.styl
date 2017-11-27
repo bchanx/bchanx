@@ -71,9 +71,6 @@ body
   line-height: 1.4
   overflow: hidden
 
-a
-  text-decoration: none
-
 .action
   color: $aqua-light
   font-weight: 500
@@ -86,14 +83,6 @@ a
 .placeholder
   color: $gray5
   font-style: italic
-  text-align: center
-  letter-spacing: -0.5px
-  padding: 0 1rem
-  margin-bottom: 1.25rem
-  &:before
-    content: "［ "
-  &:after
-    content: " ］"
 
 // Main grid container
 .container
@@ -121,6 +110,8 @@ a
   height: 3rem
   display: flex
   font-size: 0.8rem
+  a
+    text-decoration: none
   a:not(:first-of-type)
     margin-left: 1rem
 
@@ -275,27 +266,48 @@ a
   grid-area: results
   margin-top: 1rem
   flex-grow: 1
+  max-width: calc(100vw - 2rem)
+
+.player-list > .placeholder
+.results > .placeholder
+  text-align: center
+  letter-spacing: -0.5px
+  padding: 0 1rem
+  margin-bottom: 1.25rem
+  &:before
+    content: "［ "
+  &:after
+    content: " ］"
 
 .player-tile
   background-color: $white
   margin-bottom: 0.75rem
-  padding: 0.5rem 1rem 0.5rem 0
+  margin-left: 2.5rem
+  padding: 0.5rem 1rem
   position: relative
   transition: border-color $transition-time
   display: flex
-  overflow: hidden
+  flex-direction: column
   cursor: pointer
   box-shadow: 0 1px 3px rgba(0, 0, 0, .2),
     0 1px 1px rgba(0, 0, 0, .14),
     0 2px 1px -1px rgba(0, 0, 0, .12)
+  &:before
+    content: ""
+    position: absolute
+    width: 2.5rem
+    height: 5rem
+    left: -2.5rem
+    top: 0
   &:hover
+  &.active
     .player-image
       opacity: 0.95
     .player-rank
       background-color: $gray1
       color: $gray10
       text-shadow: 1px 1px 0 $gray2
-      box-shadow: inset 0 0 0.5rem 0 $gray4
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 1px 1px rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), inset -0.5rem 0px 0.5rem -0.5rem rgba(0,0, 0, 0.25)
     .social
       opacity: 1
   &.not-verified
@@ -315,24 +327,85 @@ a
       font-size: 1.5rem
       line-height: 1.5rem
 
-.player-rank
+.player-info
+  display: flex
+
+.player-sources
+  display: flex
+  flex-direction: column
+  margin-top: 0.5rem
+  padding-top: 0.5rem
+  border-top: 1px $gray1 dotted
+
+.source-row
+  display: flex
+  margin-bottom: 0.5rem
+  overflow: hidden
+  width: 100%
+
+.source-type
+  width: 4rem
+  flex-shrink: 0
+  font-size: 0.8rem
+  line-height: 2rem
+  font-style: italic
+  display: flex
+  justify-content: flex-end
+  color: $gray5
+
+.source-details
+  flex-grow: 1
+  word-break: break-all
+  display: flex
+  margin-left: 0.8rem
+  align-items: center
+  font-size: 0.8rem
+  max-width: 500px
+  overflow: hidden
+  blockquote
+    margin: 0
+  &.reddit
+    .embedly-card-hug
+      margin: -2px !important
+      background: $white
+  &.imgur
+    img
+      width: 100%
+  &.twitter
+    .twitter-tweet
+      margin: 0 !important
+
+.match-hero
   width: 3.5rem
+  height: 2rem
+  margin-right: 1rem
+  img
+    width: 100%
+    height: 100%
+
+.match-link
+  margin-right: 1rem
+
+.player-rank
+  width: 2.5rem
   background-color: $gray0
   text-align: center
   flex-shrink: 0
-  margin: -1.5rem 0 -1.5rem -1rem
-  padding: 1.5rem 0 1.5rem 1rem
-  margin-right: 0.2rem
+  padding: 0.5rem 0
+  position: absolute
+  left: -2.5rem
+  top: 0
+  height: 5rem
+  line-height: 2.5rem
   font-size: 1.2rem
   font-weight: 600
-  line-height: 2.5rem
   color: $gray7
   text-shadow: 1px 1px 0 $gray1
-  box-shadow: inset 0 0 0.5rem 0 $gray3
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 1px 1px rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), inset -0.5rem 0px 0.5rem -0.5rem rgba(0,0, 0, 0.15)
   transition: all $transition-time
+  z-index: -1
 
 .player-image
-  margin-left: 0.8rem
   flex-shrink: 0
   background-color: $gray0
   opacity: 0.8
@@ -511,6 +584,8 @@ tag-color(color-dark, color, color-light, color-lightest)
     font-size: 14px
   .container
     padding: 0 2rem
+  .results
+    max-width: calc(100vw - 4rem)
   .player-image img
     width: 56px
     height: 56px
