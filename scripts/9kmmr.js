@@ -25,6 +25,19 @@ const SORT_LABELS = {
 
 const DEFAULT_SORT = SORT_TYPES.DATE_ACHIEVED;
 
+const FILTER_TYPES = {
+  INPUT: 'input',
+  REGION: 'region',
+  ROLE: 'role',
+  SORT: 'sort',
+  MISC: 'misc'
+};
+
+const MISC_FILTER_TYPES = {
+  'ti winner': 'isTIWinner',
+  '10k': 'is10kMMR'
+};
+
 const ROUTES = {
   HOME: 'home',
   COMMENTS: 'comments',
@@ -79,7 +92,7 @@ Vue.component('player-tile', {
   props: ['player', 'filters'],
   template: `
     <div class="player-tile" :class="{ 'not-verified' : !player.isVerified }" @click="showSource">
-      <div class="player-rank">{{player.rank}}</div>
+      <div class="player-rank">{{filters.misc === '10k' && !!player['10k'] ? player['10k'].rank : player.rank}}</div>
       <div class="player-image" v-if="player.image">
         <img :src="player.image"/>
       </div>
@@ -96,6 +109,9 @@ Vue.component('player-tile', {
         <div class="player-metadata">
           <span class="region" :class="{ active: filters.region === player.region }">{{player.region}}</span>
           <span class="role" :class="{ active: filters.role === player.role }">{{player.role}}</span>
+          <template v-if="!!player.misc">
+            <span class="misc" :class="{ active: !!player.misc[$root.constants.MISC_FILTER_TYPES[filters.misc]], 'ti-winner': type === 'ti winner' }" v-for="type in Object.keys($root.constants.MISC_FILTER_TYPES)" v-if="player.misc[$root.constants.MISC_FILTER_TYPES[type]]">{{type === 'ti winner' ? 'ti ' + player.misc[$root.constants.MISC_FILTER_TYPES[type]] : type}}</span>
+          </template>
           <span class="date">
             <span :title="player.dateAchieved">{{dateAchieved}}</span>
           </span>
@@ -107,7 +123,8 @@ Vue.component('player-tile', {
   computed: {
     dateAchieved: function() {
       // date should have been sanitized as a moment.js object
-      let dateObject = this.player.dateObject;
+      let is10k = this.filters.misc === '10k' && this.player['10k'];
+      let dateObject = is10k ? this.player['10k'].dateObject : this.player.dateObject;
       if (dateObject && moment.isMoment(dateObject)) {
         return dateObject.format(DATE_FORMAT);
       }
@@ -143,7 +160,7 @@ Vue.component('results', {
       </div>
       <div v-else class="player-list">
         <div class="placeholder">
-          {{!hasSetInputFilters ? 'listing ' + players.length + ' total player' : 'matching ' + filteredPlayers.length + ' / ' + players.length + '  player'}}{{players.length === 1 ? '' : 's'}}
+          {{!hasSetInputFilters ? 'listing ' + players.length + ' total player' : 'matching ' + filteredPlayers.length + ' / ' + playerList.length + '  player'}}{{playerList.length === 1 ? '' : 's'}}
         </div>
         <template v-for="player in filteredPlayers">
           <player-tile :player="player" :filters="filters" :key="player.name"/>
@@ -153,23 +170,25 @@ Vue.component('results', {
   `,
   computed: {
     hasSetInputFilters: function() {
-      return Object.keys(this.filters).filter(x => x !== 'sort' && !!this.filters[x]).length;
+      return Object.keys(this.filters).filter(x => x !== FILTER_TYPES.SORT && !!this.filters[x]).length;
     },
     filteredPlayers: function() {
       let players = this.players;
       let input = this.filters.input.toLowerCase();
       let region = this.filters.region;
       let role = this.filters.role;
+      let misc = this.filters.misc;
       let sort = this.filters.sort;
 
       return this.players.filter(p => {
         return (!region || p.region === region) &&
           (!role || p.role === role) &&
+          (!misc || p.misc && !!p.misc[MISC_FILTER_TYPES[misc]]) &&
           ((p.name || '').toLowerCase().indexOf(input) >= 0 ||
            !!(p.aliases || []).map(alias => alias.toLowerCase().indexOf(input) >= 0).filter(x => !!x).length);
       }).sort((a, b) => {
-        let aDate = a.dateObject;
-        let bDate = b.dateObject;
+        let aDate = misc === '10k' && a['10k'] ? a['10k'].dateObject : a.dateObject;
+        let bDate = misc === '10k' && b['10k'] ? b['10k'].dateObject : b.dateObject;
         let aName = a.name.toLowerCase();
         let bName = b.name.toLowerCase();
         if (sort === SORT_TYPES.ALPHABETICALLY) {
@@ -180,12 +199,16 @@ Vue.component('results', {
           return aDate > bDate ? -1 : aDate < bDate ? 1 : 0;
         }
       });
+    },
+    playerList: function() {
+      let is10k = this.filters.misc === '10k';
+      return is10k ? this.players.filter(p => !!p['10k']) : this.players;
     }
   }
 });
 
 Vue.component('filters', {
-  props: ['players', 'filters', 'constants'],
+  props: ['players', 'filters'],
   data: function() {
     return {
       showFilters: true
@@ -196,13 +219,12 @@ Vue.component('filters', {
       <div class="filter-header">
         <div class="filter-toggle" @click="toggleShowFilters">
           Filters
-          <span :class="[showFilters ? 'ion-ios-arrow-up' : 'ion-ios-arrow-down']"></span>
+          <span :class="[showFilters ? 'ion-ios-arrow-down' : 'ion-ios-arrow-up']"></span>
         </div>
         <div class="filter-preview">
           <template v-if="!showFilters && hasSetFilters">
             <div class="username" v-if="filters.input">{{filters.input}}</div>
-            <div class="region active" v-if="filters.region">{{filters.region}}</div>
-            <div class="role active" v-if="filters.role">{{filters.role}}</div>
+            <div class="active" :class="type" v-for="type in Object.keys(filterTypes)" v-if="filters[type]" :key="type">{{filters[type]}}</div>
           </template>
         </div>
         <div class="filter-reset">
@@ -221,19 +243,17 @@ Vue.component('filters', {
           <div class="filter-option" v-for="(types, key) in filterTypes">
             <div class="filter-label">{{key}}</div>
             <div class="filter-input">
-              <div :class="[key, { active: filters[key] === value }]"
+              <div :class="[key, 'has-hover', { active: filters[key] === value, 'ti-winner': key === $root.constants.FILTER_TYPES.MISC && value === 'ti winner' }]"
                 v-for="value in types"
                 :key="value"
-                @click="toggleFilter(key, value)">
-                {{value}}
-              </div>
+                @click="toggleFilter(key, value)">{{value}}</div>
             </div>
           </div>
         </div>
         <div class="sort-filters">
           <div class="filter-option" v-for="sort in sortTypes" :key="sort">
             <input type="radio" :id="sort" :value="sort" v-model="filterSort"/>
-            <label :for="sort">{{constants.SORT_LABELS[sort]}}</label>
+            <label :for="sort">{{$root.constants.SORT_LABELS[sort]}}</label>
           </div>
         </div>
       </div>
@@ -241,7 +261,8 @@ Vue.component('filters', {
   `,
   methods: {
     toggleShowFilters: function() {
-      this.showFilters = !this.showFilters;
+      // TODO: turn this back on if needed
+      // this.showFilters = !this.showFilters;
     },
     toggleFilter: function(type, value) {
       this.$emit('setFilter', type, this.filters[type] === value ? '' : value);
@@ -250,7 +271,7 @@ Vue.component('filters', {
       this.$emit('resetFilters');
     },
     clearInput: function() {
-      this.$emit('setFilter', 'input', '');
+      this.$emit('setFilter', FILTER_TYPES.INPUT, '');
     }
   },
   computed: {
@@ -259,7 +280,7 @@ Vue.component('filters', {
         return this.filters.input;
       },
       set: function setInput(newVal) {
-        this.$emit('setFilter', 'input', newVal);
+        this.$emit('setFilter', FILTER_TYPES.INPUT, newVal);
       }
     },
     filterSort: {
@@ -267,19 +288,21 @@ Vue.component('filters', {
         return this.filters.sort;
       },
       set: function setSort(newVal) {
-        this.$emit('setFilter', 'sort', newVal);
+        this.$emit('setFilter', FILTER_TYPES.SORT, newVal);
       }
     },
     hasSetFilters: function() {
-      return Object.keys(this.filters).filter(x => x === 'sort' ? this.filters[x] !== DEFAULT_SORT : !!this.filters[x]).length;
+      return Object.keys(this.filters).filter(x => x === FILTER_TYPES.SORT ? this.filters[x] !== DEFAULT_SORT : !!this.filters[x]).length;
     },
     filterTypes: function() {
       let players = this.players;
       let regions = [... new Set(this.players.map(p => p.region.toLowerCase()))].sort();
       let roles = [... new Set(this.players.map(p => p.role.toLowerCase()))].sort();
+      let misc = Object.keys(MISC_FILTER_TYPES);
       return {
         region: regions,
-        role: roles
+        role: roles,
+        misc: misc
       };
     },
     sortTypes: function() {
@@ -367,10 +390,13 @@ const APP = new Vue({
       input: '',
       region: '',
       role: '',
-      sort: DEFAULT_SORT
+      sort: DEFAULT_SORT,
+      misc: ''
     },
     currentRoute: DEFAULT_ROUTE,
     constants: {
+      FILTER_TYPES: FILTER_TYPES,
+      MISC_FILTER_TYPES: MISC_FILTER_TYPES,
       SORT_TYPES: SORT_TYPES,
       SORT_LABELS: SORT_LABELS,
       DEFAULT_SORT: DEFAULT_SORT,
@@ -406,8 +432,7 @@ const APP = new Vue({
     let route = window.location.hash.slice(1);
     if (Object.keys(ROUTES).map(x => ROUTES[x]).indexOf(route) >= 0) {
       this.currentRoute = route;
-    }
-    else {
+    } else {
       if (window.location.href.indexOf('#') > 0) {
         window.history.replaceState(
           null,
@@ -436,6 +461,13 @@ const APP = new Vue({
             // Default malformed dates to current
             p.dateObject = date.isValid() ? date : moment();
             p.isVerified = !date.isValid() ? false : !!p.hasMatchInfo;
+
+            let is10k = p.misc && !!p.misc[MISC_FILTER_TYPES['10k']];
+            if (is10k) {
+              p['10k'] = {
+                dateObject: moment(p.misc[MISC_FILTER_TYPES['10k']].dateAchieved)
+              };
+            }
           });
 
           // Sort by date achieved
@@ -450,6 +482,15 @@ const APP = new Vue({
             p.rank = idx + 1;
           });
 
+          // Add 10k ranking
+          players.filter(p => !!p['10k']).sort((a, b) => {
+            let aDate = a['10k'].dateObject;
+            let bDate = b['10k'].dateObject;
+            return aDate > bDate ? 1 : aDate < bDate ? -1 : 0;
+          }).forEach((p, idx) => {
+            p['10k'].rank = idx + 1;
+          });
+
           // Set the list of players
           this.players = players;
         }
@@ -461,7 +502,7 @@ const APP = new Vue({
     },
     resetFilters: function() {
       Object.keys(this.filters).forEach(filterType => {
-        this.$set(this.filters, filterType, filterType === 'sort' ? DEFAULT_SORT : '');
+        this.$set(this.filters, filterType, filterType === FILTER_TYPES.SORT ? DEFAULT_SORT : '');
       });
     }
   }

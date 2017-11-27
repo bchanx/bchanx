@@ -16,28 +16,35 @@ $gray12 = #444
 $gray13 = #333
 $black = #222
 
-$green = #4ca879
 $green-dark = #308d58
+$green = #4ca879
 $green-light = #5cd17d
 $green-lightest = #defce5
 
-$red = #ff2b2b
-$red-dark = #ce1e1e
+$red-dark = #960d0d
+$red = #f21818
 $red-light = #ff5b5b
+$red-lightest = #fce5e5
 
+$blue-dark = #125c9e
 $blue = #0074D9
 $blue-light = #309eff
-$blue-dark = #125c9e
 $blue-lightest = #d6ebff
 
+$orange-dark = #a0500b
 $orange = #FF851B
 $orange-light = #ffad66
+$orange-lightest = #ffe5ce
 
+$aqua-dark = #0e85b5
 $aqua = #51c8f7
 $aqua-light = #7FDBFF
-$aqua-dark = #0e85b5
+$aqua-lighest = #cef1ff
 
-$yellow = #FFDC00
+$yellow-dark = #998507
+$yellow = #c1a90d
+$yellow-light = #e0c82a
+$yellow-lightest = #fffadd
 
 $twitter = #00aced
 $facebook = #3b579d
@@ -165,7 +172,6 @@ a
 .filter-toggle
   flex-shrink: 0
   width: 4rem
-  cursor: pointer
   span
     margin-left: 0.2rem
 
@@ -244,19 +250,6 @@ a
 .filter-input
   flex-grow: 1
   position: relative
-  .region
-  .role
-    cursor: pointer
-  .region
-    &:not(.active):hover
-      background-color: $green-lightest
-    &.active:hover
-      background-color: $green
-  .role
-    &:not(.active):hover
-      background-color: $blue-lightest
-    &.active:hover
-      background-color: $blue
   input
     width: 100%
     border: 1px $gray2 solid
@@ -384,6 +377,7 @@ a
 
 .region
 .role
+.misc
   border: 1px solid
   padding: 0 3px
   border-radius: 2px
@@ -394,26 +388,38 @@ a
   display: inline-block
   background: $white
   text-transform: uppercase
+  box-shadow: 1px 1px 0 $black
   transition: background-color $transition-time
+  &.has-hover
+    cursor: pointer
+
+tag-color(color-dark, color, color-light, color-lightest)
+  border-color color
+  color: color-light
+  box-shadow: 1px 1px 0 color-dark
+  &.active
+    color: $white
+    background-color: color-light
+    border-color: color-dark
+  &.has-hover
+    &:not(.active):hover
+      background-color: color-lightest
+    &.active:hover
+      background-color: color
 
 .region
-  border-color $green
-  color: $green-light
-  box-shadow: 1px 1px 0 $green-dark
-  &.active
-    color: $white
-    background-color: $green-light
-    border-color: $green-dark
+  tag-color($green-dark, $green, $green-light, $green-lightest)
 
 .role
-  border-color: $blue
-  color: $blue-light
-  box-shadow: 1px 1px 0 $blue-dark
-  text-transform: uppercase
-  &.active
-    color: $white
-    background-color: $blue-light
-    border-color: $blue-dark
+  tag-color($blue-dark, $blue, $blue-light, $blue-lightest)
+
+.misc
+  tag-color($yellow-dark, $yellow, $yellow-light, $yellow-lightest)
+  &.ti-winner:before
+    font-family: "Ionicons"
+    content: "\f356"
+    margin-right: 0.2rem
+    font-size: 0.7rem
 
 .date
   text-align: right
@@ -522,6 +528,10 @@ a
     div:not(:last-of-type)
       margin-right: 1.5rem
 
+@media screen and (max-width: 550px)
+  .filter-preview .username
+    max-width: 5rem
+
 @media screen and (max-width: 500px)
   .player-profile .social
     display: none
@@ -536,8 +546,6 @@ a
   .player-image img
     width: 48px
     height: 48px
-  .filter-preview .username
-    max-width: 5rem
 
 @supports (display: grid)
   .input-filters

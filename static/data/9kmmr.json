@@ -6,6 +6,9 @@
   "role": "mid",
   "hasMatchInfo": true,
   "hero": "antimage",
+  "misc": {
+    "isTIWinner": 7
+  },
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/Miracle-",
     "dotabuff": "https://www.dotabuff.com/players/105248644",
@@ -56,6 +59,14 @@
   "role": "carry",
   "hasMatchInfo": true,
   "hero": "terrorblade",
+  "misc": {
+    "is10kMMR": {
+      "dateAchieved": "2017-08-06T21:19:29+00:00",
+      "dotabuff": "https://www.dotabuff.com/matches/3360411392",
+      "youtube": "https://www.youtube.com/watch?v=_kpVf9JthvQ",
+      "hero": "lycan"
+    }
+  },
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/86745912",
     "opendota": "https://www.opendota.com/players/86745912",
@@ -118,6 +129,14 @@
   "role": "carry",
   "hasMatchInfo": true,
   "hero": "huskar",
+  "misc": {
+    "is10kMMR": {
+      "dateAchieved": "2017-11-10T14:46:26+00:00",
+      "dotabuff": "https://www.dotabuff.com/matches/3553867241",
+      "youtube": "https://www.youtube.com/watch?v=45bVrBtCU6E",
+      "hero": "juggernaut"
+    }
+  },
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/132851371",
     "opendota": "https://www.opendota.com/players/132851371",
@@ -228,6 +247,9 @@
   "role": "carry",
   "hasMatchInfo": true,
   "hero": "morphling",
+  "misc": {
+    "isTIWinner": 7
+  },
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/72312627",
     "opendota": "https://www.opendota.com/players/72312627",
@@ -285,6 +307,9 @@
   "role": "support",
   "hasMatchInfo": true,
   "hero": "mirana",
+  "misc": {
+    "isTIWinner": 7
+  },
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/101356886",
     "opendota": "https://www.opendota.com/players/101356886",
@@ -401,6 +426,14 @@
   "role": "mid",
   "hasMatchInfo": true,
   "hero": "sandking",
+  "misc": {
+    "is10kMMR": {
+      "dateAchieved": "2017-07-09T05:09:32+00:00",
+      "dotabuff": "https://www.dotabuff.com/matches/3302064942",
+      "youtube": "https://www.youtube.com/watch?v=fDRw3fxg8bk",
+      "hero": "ursa"
+    }
+  },
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/116585378",
     "opendota": "https://www.opendota.com/players/116585378",
@@ -561,6 +594,14 @@
   "role": "mid",
   "hasMatchInfo": true,
   "hero": "meepo",
+  "misc": {
+    "is10kMMR": {
+      "dateAchieved": "2017-06-26T04:18:51+00:00",
+      "dotabuff": "https://www.dotabuff.com/matches/3274457422",
+      "youtube": "https://www.youtube.com/watch?v=ZPTW82LtTCc",
+      "hero": "queen-of-pain"
+    }
+  },
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/Abed",
     "twitch": "https://www.twitch.tv/abed_dota",
@@ -716,6 +757,9 @@
   "role": "offlane",
   "hasMatchInfo": true,
   "hero": "bristleback",
+  "misc": {
+    "isTIWinner": 3
+  },
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/S4",
     "twitter": "https://twitter.com/s4dota",
@@ -1080,6 +1124,9 @@
   "role": "offlane",
   "hasMatchInfo": true,
   "hero": "pugna",
+  "misc": {
+    "isTIWinner": 7
+  },
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/MinD_ContRoL",
     "dotabuff": "https://www.dotabuff.com/players/34505203",
@@ -1245,6 +1292,9 @@
   "role": "offlane",
   "hasMatchInfo": true,
   "hero": "beastmaster",
+  "misc": {
+    "isTIWinner": 5
+  },
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/UNiVeRsE",
     "dotabuff": "https://www.dotabuff.com/players/87276347",
