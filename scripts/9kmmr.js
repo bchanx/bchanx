@@ -438,7 +438,11 @@ Vue.component('filters', {
 Vue.component('footnote', {
   template: `
     <div class="footnote">
-      site: <a class="action" href="http://bchanx.com" target="_blank">@bchanx</a>
+      <share/>
+      <div class="links">
+        site: <a class="action" href="http://bchanx.com" target="_blank">bchanx.com</a>
+        me: <a class="action" href="https://twitter.com/bchanx" target="_blank">@bchanx</a>
+      </div>
     </div>
   `
 });
@@ -501,6 +505,15 @@ Vue.component('comments', {
   template: `
     <div class="comments">
       <vue-disqus shortname="bchanx" title="9 0 0 0 Matchmaking Points" identifier="9kmmr" url="http://www.bchanx.com/9kmmr""></vue-disqus>
+    </div>
+  `
+});
+
+Vue.component('share', {
+  template: `
+    <div class="share">
+      <div class="fb-like" data-href="http://bchanx.com/9kmmr" data-layout="button" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+      <a class="twitter-share-button" href="https://twitter.com/intent/tweet" data-via="bchanx"></a>
     </div>
   `
 });
