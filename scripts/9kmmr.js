@@ -78,7 +78,7 @@ Vue.component('v-link', {
 Vue.component('player-tile', {
   props: ['player', 'filters'],
   template: `
-    <div class="player-tile" :class="{ 'not-verified' : !player.isVerified }" @click="hasSource ? showSource() : null">
+    <div class="player-tile" :class="{ 'not-verified' : !player.isVerified }" @click="showSource">
       <div class="player-rank">{{player.rank}}</div>
       <div class="player-image" v-if="player.image">
         <img :src="player.image"/>
@@ -89,13 +89,13 @@ Vue.component('player-tile', {
           <span class="aliases" v-if="player.aliases">
             <span class="alias" v-for="alias in player.aliases" :key="alias">{{alias}}</span>
           </span>
+          <span class="social" v-if="socialTypes.length">
+            <a :class="socialType" :href="player.social[socialType]" @click.stop v-for="socialType in socialTypes" :key="socialType" target="_blank"></a>
+          </span>
         </div>
         <div class="player-metadata">
           <span class="region" :class="{ active: filters.region === player.region }">{{player.region}}</span>
           <span class="role" :class="{ active: filters.role === player.role }">{{player.role}}</span>
-          <span class="social" v-if="socialTypes.length">
-            <a :class="socialType" :href="player.social[socialType]" @click.stop v-for="socialType in socialTypes" :key="socialType" target="_blank"></a>
-          </span>
           <span class="date">
             <span :title="player.dateAchieved">{{dateAchieved}}</span>
           </span>
@@ -119,9 +119,6 @@ Vue.component('player-tile', {
         b = SOCIAL_TYPES[b];
         return a > b ? 1 : a < b ? -1 : 0;
       });
-    },
-    hasSource: function() {
-      return !!(this.player.sources || []).length;
     }
   },
   methods: {
@@ -173,8 +170,10 @@ Vue.component('results', {
       }).sort((a, b) => {
         let aDate = a.dateObject;
         let bDate = b.dateObject;
+        let aName = a.name.toLowerCase();
+        let bName = b.name.toLowerCase();
         if (sort === SORT_TYPES.ALPHABETICALLY) {
-          return a.name > b.name ? 1 : a.name < b.name ? -1 : 0;
+          return aName > bName ? 1 : aName < bName ? -1 : 0;
         } else if (sort === SORT_TYPES.DATE_ACHIEVED) {
           return aDate > bDate ? 1 : aDate < bDate ? -1 : 0;
         } else if (sort === SORT_TYPES.MOST_RECENT) {
@@ -429,6 +428,7 @@ const APP = new Vue({
 
           // Sanitize
           players.forEach(p => {
+            p.name = p.name || '';
             p.region = (p.region || '').toLowerCase();
             p.role = (p.role || '').toLowerCase();
             let date = p.dateAchieved;

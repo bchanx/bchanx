@@ -357,7 +357,6 @@ a
 
 .player-profile
   display: flex
-  padding-right: 2rem
   .name
     font-size: 2rem
     font-weight: 500
@@ -438,10 +437,13 @@ a
     line-height: 2rem
 
 .social
-  margin-left: 0.5rem
   display: flex
-  flex-shrink: 0
-  opacity: 0.15
+  flex-grow: 1
+  justify-content: flex-end
+  align-self: center
+  margin-left: 0.5rem
+  margin-right: -0.3rem
+  opacity: 0.08
   transition: opacity $transition-time
   a
     cursor: pointer
@@ -476,6 +478,7 @@ a
       background-image: url("/static/images/9kmmr/social/weibo.png")
       background-size: 1.4rem
       margin-left: 0.4rem
+      margin-top: -0.05rem
     &.twitter
     &.facebook
       text-decoration: none
@@ -520,7 +523,7 @@ a
       margin-right: 1.5rem
 
 @media screen and (max-width: 500px)
-  .player-metadata .social
+  .player-profile .social
     display: none
 
 @media screen and (max-width: 450px)
