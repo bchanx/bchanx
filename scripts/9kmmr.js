@@ -159,7 +159,7 @@ Vue.component('player-tile', {
               <a class="match-link action" :href="match.url" target="_blank" @click.stop v-for="match in matchSources.matches" :key="match.type">{{match.type}}</a>
             </template>
             <template v-else>
-              <span class="placeholder">missing match info.</span>
+              <span class="placeholder">missing match id.</span>
             </template>
           </div>
         </div>
@@ -177,6 +177,12 @@ Vue.component('player-tile', {
             </template>
             <template v-else-if="source.type === $root.constants.SOURCE_TYPES.INSTAGRAM">
               <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-version="7" style="width:100%"><a :href="source.url" target="_blank"></a><span>loading...</span></blockquote>
+            </template>
+            <template v-else-if="source.type === $root.constants.SOURCE_TYPES.YOUTUBE">
+              <iframe :width="getElementWidth()" height="280" :src="getYouTubeURL(source.url)" frameborder="0" allowfullscreen></iframe>
+            </template>
+            <template v-else-if="source.type === $root.constants.SOURCE_TYPES.FACEBOOK">
+              <div class="fb-post" :data-href="source.url" :data-width="getElementWidth()"></div>
             </template>
             <template v-else>
               <a :href="source.url" target="_blank">{{source.url}}</a>
@@ -199,6 +205,9 @@ Vue.component('player-tile', {
     if (this.showPlayerSource) {
       if (window.instgrm) {
         instgrm.Embeds.process();
+      }
+      if (window.FB) {
+        FB.XFBML.parse(this.$el);
       }
       // Need to load twitter embeds on a timeout otherwise the layout gets all chopped...
       setTimeout(() => {
@@ -243,6 +252,16 @@ Vue.component('player-tile', {
     },
     getHeroImageURL: function(hero) {
       return window.location.origin + '/static/images/9kmmr/heroes/' + hero + '.png';
+    },
+    getYouTubeURL: function(url) {
+      return url.replace('/watch?v=', '/embed/');
+    },
+    getFacebookURL: function(url) {
+      let isVideo = url.indexOf('/videos/') > 0;
+      return 'https://www.facebook.com/plugins/' + (isVideo ? 'video' : 'post') + '.php?href=' + encodeURIComponent(url) + (isVideo ? '&show_text=0&width=500' : '');
+    },
+    getElementWidth: function() {
+      return Math.min(this.$el.querySelector('.player-details').offsetWidth, 500);
     }
   }
 });

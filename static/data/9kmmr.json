@@ -160,6 +160,9 @@
   }, {
     "type": "twitter",
     "url": "https://twitter.com/ramzesdoto/status/770663652710055936"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=xxgyNzSwEQs"
   }],
   "misc": {
     "10k": {
@@ -206,6 +209,9 @@
   }, {
     "type": "imgur",
     "url": "https://i.imgur.com/KltRxeM.jpg"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=JgaXeYvGgvg"
   }]
 }, {
   "name": "Paparazi",
@@ -289,6 +295,9 @@
   }, {
     "type": "twitter",
     "url": "https://twitter.com/LiquidMATUMBA/status/785218492240986114"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=BlR8pjG-ClU"
   }],
   "misc": {
     "wonTI": 7
@@ -362,7 +371,8 @@
     "opendota": "https://www.opendota.com/players/123051238",
     "liquipedia": "http://wiki.teamliquid.net/dota2/ALOHADANCE",
     "twitch": "https://www.twitch.tv/ALOHADANCETV",
-    "twitter": "https://twitter.com/alohad4nce"
+    "twitter": "https://twitter.com/alohad4nce",
+    "instagram": "https://www.instagram.com/alohadanceq/"
   },
   "sources": [{
     "type": "reddit",
@@ -373,9 +383,6 @@
   }, {
     "type": "opendota",
     "url": "https://www.opendota.com/matches/2872132416"
-  }, {
-    "type": "twitch",
-    "url": "https://clips.twitch.tv/GiftedSmellyAmazonKeyboardCat"
   }, {
     "type": "youtube",
     "url": "https://www.youtube.com/watch?v=KBZKH1zVgV8"
@@ -408,6 +415,9 @@
   }, {
     "type": "opendota",
     "url": "https://www.opendota.com/matches/2878717941"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=66FP6aLs1Yk"
   }]
 }, {
   "name": "No[o]ne-",
@@ -458,6 +468,9 @@
   "sources": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/5t1sd6/midone_has_just_reached_9k_on_his_stream/"
+  }, {
+    "type": "twitter",
+    "url": "https://twitter.com/midonedota2/status/829758502897872896"
   }, {
     "type": "facebook",
     "url": "https://www.facebook.com/TeamSecret/videos/1431491756861434"
@@ -646,6 +659,9 @@
   }, {
     "type": "twitter",
     "url": "https://twitter.com/abedyusop/status/843701748854272000"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=UzTwi4-2JO0"
   }],
   "misc": {
     "10k": {
@@ -792,6 +808,9 @@
   }, {
     "type": "opendota",
     "url": "https://www.opendota.com/matches/3227280666"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=38eEaH4jdPc"
   }]
 }, {
   "name": "s4",
@@ -821,6 +840,9 @@
   }, {
     "type": "opendota",
     "url": "https://www.opendota.com/matches/3239671579"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=ja_IGHKgrhI"
   }],
   "misc": {
     "wonTI": 3
@@ -858,6 +880,9 @@
   "sources": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/6m9lec/ccnc_hits_9k/"
+  }, {
+    "type": "twitter",
+    "url": "https://twitter.com/ccncdota2/status/884139872424005635"
   }, {
     "type": "imgur",
     "url": "https://i.imgur.com/SnxT187.png"
@@ -1064,6 +1089,9 @@
   }, {
     "type": "opendota",
     "url": "https://www.opendota.com/matches/3417970972"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=p4e5zA50QWg"
   }]
 }, {
   "name": "Gabbi",
@@ -1131,7 +1159,7 @@
     "url": "https://www.opendota.com/matches/3468076996"
   }, {
     "type": "youtube",
-    "url": "https://youtu.be/LeOiTbKq2Vg"
+    "url": "https://www.youtube.com/watch?v=LeOiTbKq2Vg"
   }]
 }, {
   "name": "BoBoKa",
@@ -1184,6 +1212,9 @@
   }, {
     "type": "opendota",
     "url": "https://www.opendota.com/matches/3482300457"
+  }, {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=WvHNZO5ce3s"
   }],
   "misc": {
     "wonTI": 7
@@ -1285,9 +1316,6 @@
   "sources": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/77wkek/congratulations_to_mineskijabz_for_hitting_9k_mmr/"
-  }, {
-    "type": "facebook",
-    "url": "https://www.facebook.com/mineskidota/videos/10156042479396833/"
   }, {
     "type": "facebook",
     "url": "https://www.facebook.com/Jabzdota2/photos/a.1200007336767675.1073741828.1187718121329930/1207785059323236"
