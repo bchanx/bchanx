@@ -34,8 +34,8 @@ const FILTER_TYPES = {
 };
 
 const MISC_FILTER_TYPES = {
-  'ti winner': 'isTIWinner',
-  '10k': 'is10kMMR'
+  'ti winner': 'wonTI',
+  '10k': '10k'
 };
 
 const ROUTES = {
@@ -411,6 +411,7 @@ const APP = new Vue({
       />
       <template v-if="currentRoute === constants.ROUTES.HOME">
         <filters
+          v-if="!isLoading"
           :players="players"
           :filters="filters"
           :constants="constants"

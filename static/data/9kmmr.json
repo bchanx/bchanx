@@ -7,7 +7,7 @@
   "hasMatchInfo": true,
   "hero": "antimage",
   "misc": {
-    "isTIWinner": 7
+    "wonTI": 7
   },
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/Miracle-",
@@ -60,7 +60,7 @@
   "hasMatchInfo": true,
   "hero": "terrorblade",
   "misc": {
-    "is10kMMR": {
+    "10k": {
       "dateAchieved": "2017-08-06T21:19:29+00:00",
       "dotabuff": "https://www.dotabuff.com/matches/3360411392",
       "youtube": "https://www.youtube.com/watch?v=_kpVf9JthvQ",
@@ -130,7 +130,7 @@
   "hasMatchInfo": true,
   "hero": "huskar",
   "misc": {
-    "is10kMMR": {
+    "10k": {
       "dateAchieved": "2017-11-10T14:46:26+00:00",
       "dotabuff": "https://www.dotabuff.com/matches/3553867241",
       "youtube": "https://www.youtube.com/watch?v=45bVrBtCU6E",
@@ -248,7 +248,7 @@
   "hasMatchInfo": true,
   "hero": "morphling",
   "misc": {
-    "isTIWinner": 7
+    "wonTI": 7
   },
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/72312627",
@@ -308,7 +308,7 @@
   "hasMatchInfo": true,
   "hero": "mirana",
   "misc": {
-    "isTIWinner": 7
+    "wonTI": 7
   },
   "social": {
     "dotabuff": "https://www.dotabuff.com/players/101356886",
@@ -427,7 +427,7 @@
   "hasMatchInfo": true,
   "hero": "sandking",
   "misc": {
-    "is10kMMR": {
+    "10k": {
       "dateAchieved": "2017-07-09T05:09:32+00:00",
       "dotabuff": "https://www.dotabuff.com/matches/3302064942",
       "youtube": "https://www.youtube.com/watch?v=fDRw3fxg8bk",
@@ -595,7 +595,7 @@
   "hasMatchInfo": true,
   "hero": "meepo",
   "misc": {
-    "is10kMMR": {
+    "10k": {
       "dateAchieved": "2017-06-26T04:18:51+00:00",
       "dotabuff": "https://www.dotabuff.com/matches/3274457422",
       "youtube": "https://www.youtube.com/watch?v=ZPTW82LtTCc",
@@ -758,7 +758,7 @@
   "hasMatchInfo": true,
   "hero": "bristleback",
   "misc": {
-    "isTIWinner": 3
+    "wonTI": 3
   },
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/S4",
@@ -1125,7 +1125,7 @@
   "hasMatchInfo": true,
   "hero": "pugna",
   "misc": {
-    "isTIWinner": 7
+    "wonTI": 7
   },
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/MinD_ContRoL",
@@ -1293,7 +1293,7 @@
   "hasMatchInfo": true,
   "hero": "beastmaster",
   "misc": {
-    "isTIWinner": 5
+    "wonTI": 5
   },
   "social": {
     "liquipedia": "http://wiki.teamliquid.net/dota2/UNiVeRsE",
