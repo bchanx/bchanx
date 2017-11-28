@@ -29,6 +29,16 @@
   <script src="/static/dist/js/lib/moment.min.js"></script>
   <script src="/static/dist/js/lib/vue{{min}}.js"></script>
   <script src="/static/dist/js/lib/vue-disqus.js"></script>
+  <script src="/static/dist/js/lib/Chart.bundle.min.js"></script>
+  <script src="/static/dist/js/lib/chartkick.min.js"></script>
+  <script src="/static/dist/js/lib/vue-chartkick.min.js"></script>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', {
+      "packages": ["geochart"],
+      "mapsApiKey": "AIzaSyCQ4MJ1bX-UFZdxcBrNGL1V2Y1FEP7y_kQ",
+    });
+  </script>
 {% endblock %}
 
 {% block body %}

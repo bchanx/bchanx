@@ -75,6 +75,7 @@ gulp.task('less', function() {
   var lesses = LESS.map(function(l) {
     return gulp.src('stylesheets/less/' + l + '.less')
       .pipe(less())
+      .on('error', handleError)
       .pipe(rename(normalize(l) + '.css'))
       .pipe(gulp.dest('stylesheets/gulp'));
   });
@@ -88,6 +89,7 @@ gulp.task('css', function() {
         browsers: ['last 2 versions'],
         cascade: false
       }))
+      .on('error', handleError)
       .pipe(gulp.dest(CSS_DIR))
       .pipe(cssmin())
       .pipe(rename({
@@ -167,7 +169,8 @@ gulp.task('deps.js', function() {
   // Minify js dependencies
   var minify = [
     'node_modules/superagent/superagent.js',
-    'node_modules/moment/moment.js'
+    'node_modules/moment/moment.js',
+    'node_modules/chartkick/chartkick.js'
   ].map(function(js) {
     return gulp.src(js)
       .pipe(uglify())
@@ -182,6 +185,8 @@ gulp.task('deps.js', function() {
     'node_modules/marked/marked.min.js',
     'node_modules/vue/dist/vue.js',
     'node_modules/vue/dist/vue.min.js',
+    'node_modules/chart.js/dist/Chart.bundle.min.js',
+    'node_modules/vue-chartkick/dist/vue-chartkick.min.js',
     'scripts/static/vue-disqus.js',
     'bower_components/slidr/slidr.min.js',
     'bower_components/jquery/dist/jquery.min.js'

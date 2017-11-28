@@ -123,10 +123,11 @@ body
     border-bottom: 1px $aqua-dark solid
 
 
-// About, Comments
+// About, Comments, Stats
 .about
 .comments
-  padding: 0.75rem 1rem
+.stats
+  padding: 1rem
   grid-area: filters / filters / results / results
   flex-grow: 1
 
@@ -137,6 +138,56 @@ body
   .sources
     a:not(:last-of-type)
       margin-right: -0.2rem
+
+
+// Stats
+.stats
+  max-width: calc(100vw - 2rem)
+  overflow: hidden
+
+.stats div[id^="chart-"]
+  margin-bottom: 2rem
+
+.chart-title
+  text-align: center
+  font-size: 0.8rem
+  margin-bottom: 1rem
+  font-style: italic
+  color: $gray5
+  font-weight: 500
+  text-shadow: 1px 1px 0 $white
+
+.hero-chart
+  margin-bottom: 2rem
+  > div
+    &:not(:last-of-type)
+      margin-bottom: 0.5rem
+      border-bottom: 1px $gray2 dashed
+    &:first-of-type
+      .match-hero
+        width: 5rem
+        height: 2.8rem
+    &:nth-of-type(2)
+      .match-hero
+        width: 4.2rem
+        height: 2.4rem
+
+.hero-row
+  display: flex
+
+.hero-count
+  width: 3rem
+  flex-shrink: 0
+  text-align: center
+  align-self: center
+  font-size: 0.8rem
+  color: $gray11
+  margin-top: -0.3rem
+
+.hero-images
+  flex-grow: 1
+  .match-hero
+    display: inline-block
 
 // Footer
 .footnote
@@ -170,7 +221,7 @@ body
 .filters
   grid-area: filters
   background-color: $gray1
-  padding: 0.75rem 101rem
+  padding: 1rem 101rem
   margin: 0 -100rem
 
 .filter-header  
@@ -284,16 +335,19 @@ body
   flex-grow: 1
   max-width: calc(100vw - 2rem)
 
-.player-list > .placeholder
-.results > .placeholder
-  text-align: center
-  letter-spacing: -0.5px
-  padding: 0 1rem
-  margin-bottom: 1.25rem
-  &:before
-    content: "［ "
-  &:after
-    content: " ］"
+.player-list
+.results
+.stats
+  & > .placeholder
+    text-align: center
+    letter-spacing: -0.5px
+    padding: 0 1rem
+    margin-bottom: 1.25rem
+    text-shadow: 1px 1px 0 $white
+    &:before
+      content: "［ "
+    &:after
+      content: " ］"
 
 .player-tile
   background-color: $white

@@ -40,6 +40,7 @@ const MISC_FILTER_TYPES = {
 
 const ROUTES = {
   HOME: 'home',
+  STATS: 'stats',
   COMMENTS: 'comments',
   ABOUT: 'about'
 };
@@ -111,8 +112,133 @@ Vue.component('v-link', {
   }
 });
 
-Vue.component('player-tile', {
+Vue.component('player-info', {
   props: ['player', 'filters'],
+  template: `
+    <div class="player-info">
+      <div class="player-image" v-if="player.image">
+        <img :src="player.image"/>
+      </div>
+      <div class="player-details">
+        <div class="player-profile">
+          <span class="name">{{player.name}}</span>
+          <span class="aliases" v-if="player.aliases">
+            <span class="alias" v-for="alias in player.aliases" :key="alias">{{alias}}</span>
+          </span>
+          <span class="social" v-if="socialTypes.length">
+            <a :class="socialType" :href="player.social[socialType]" @click.stop v-for="socialType in socialTypes" :key="socialType" target="_blank"></a>
+          </span>
+        </div>
+        <div class="player-metadata">
+          <span class="region" :class="{ active: filters.region === player.region }">{{player.region}}</span>
+          <span class="role" :class="{ active: filters.role === player.role }">{{player.role}}</span>
+          <template v-if="!!player.misc">
+            <span class="misc" :class="{ active: !!player.misc[$root.constants.MISC_FILTER_TYPES[filters.misc]], 'ti-winner': type === 'ti winner' }" v-for="type in Object.keys($root.constants.MISC_FILTER_TYPES)" :key="type" v-if="player.misc[$root.constants.MISC_FILTER_TYPES[type]]">{{type === 'ti winner' ? 'ti ' + player.misc[$root.constants.MISC_FILTER_TYPES[type]] : type}}</span>
+          </template>
+          <span class="date">
+            <span :title="player.dateAchieved">{{dateAchieved}}</span>
+          </span>
+          <span class="verification"></span>
+        </div>
+      </div>
+    </div>
+  `,
+  computed: {
+    socialTypes: function() {
+      return Object.keys(this.player.social || {}).filter(x => !!SOCIAL_TYPES[x]).sort((a, b) => {
+        a = SOCIAL_TYPES[a];
+        b = SOCIAL_TYPES[b];
+        return a > b ? 1 : a < b ? -1 : 0;
+      });
+    },
+    dateAchieved: function() {
+      // date should have been sanitized as a moment.js object
+      let is10k = this.filters.misc === '10k' && this.player['10k'];
+      let dateObject = is10k ? this.player['10k'].dateObject : this.player.dateObject;
+      if (dateObject && moment.isMoment(dateObject)) {
+        return dateObject.format(DATE_FORMAT);
+      }
+      return 'N/A';
+    }
+  }
+});
+
+Vue.component('player-sources', {
+  props: ['player', 'filters', 'getHeroImageURL', 'width'],
+  template: ` 
+    <div class="player-sources">
+      <div class="source-row">
+        <div class="source-type">details</div>
+        <div class="source-details match-info">
+          <div class="match-hero" v-if="matchSources.hero">
+            <img :title="matchSources.title" :src="getHeroImageURL(matchSources.hero)"/>
+          </div>
+          <template v-if="matchSources.matches.length">
+            <a class="match-link action" :href="match.url" target="_blank" @click.stop v-for="match in matchSources.matches" :key="match.type">{{match.type}}</a>
+          </template>
+          <template v-else>
+            <span class="placeholder">missing match id.</span>
+          </template>
+        </div>
+      </div>
+      <div class="source-row" v-for="source in mediaSources">
+        <div class="source-type">{{source.type}}</div>
+        <div class="source-details" :class="source.type" @click.stop>
+          <template v-if="source.type === $root.constants.SOURCE_TYPES.REDDIT">
+            <blockquote class="reddit-card" data-card-preview="0"><a :href="source.url"></a><span>loading...</span></blockquote>
+          </template>
+          <template v-else-if="source.type === $root.constants.SOURCE_TYPES.IMGUR">
+            <a :href="source.url.replace('i.imgur', 'imgur')" target="_blank"><img :src="source.url"/></a>
+          </template>
+          <template v-else-if="source.type === $root.constants.SOURCE_TYPES.TWITTER">
+            <blockquote class="twitter-tweet" data-lang="en"><a :href="source.url" target="_blank"></a><span>loading...</span></blockquote>
+          </template>
+          <template v-else-if="source.type === $root.constants.SOURCE_TYPES.INSTAGRAM">
+            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-version="7" style="width:100%"><a :href="source.url" target="_blank"></a><span>loading...</span></blockquote>
+          </template>
+          <template v-else-if="source.type === $root.constants.SOURCE_TYPES.YOUTUBE">
+            <iframe :width="width" height="280" :src="getYouTubeURL(source.url)" frameborder="0" allowfullscreen></iframe>
+          </template>
+          <template v-else-if="source.type === $root.constants.SOURCE_TYPES.FACEBOOK">
+            <div class="fb-post" :data-href="source.url" :data-width="width"></div>
+          </template>
+          <template v-else>
+            <a :href="source.url" target="_blank">{{source.url}}</a>
+          </template>
+        </div>
+      </div>
+    </div>
+  `,
+  computed: {
+    matchSources: function() {
+      let is10k = this.filters.misc === '10k' && !!this.player.misc['10k'];
+      let matches = ((is10k ? this.player.misc['10k'].sources : this.player.sources) || []).filter(s => s.type === SOURCE_TYPES.DOTABUFF || s.type === SOURCE_TYPES.OPENDOTA).sort((a, b) => a.type > b.type ? 1 : a.type < b.type ? -1 : 0);
+      let hero = is10k ? this.player.misc['10k'].hero : this.player.hero;
+      return {
+        matches,
+        hero: hero,
+        title: hero.split('_').map(x => x[0].toUpperCase() + x.slice(1)).join(' ')
+      };
+    },
+    mediaSources: function() {
+      let is10k = this.filters.misc === '10k' && !!this.player.misc['10k'];
+      let media = ((is10k ? this.player.misc['10k'].sources : this.player.sources) || []).filter(s => s.type !== SOURCE_TYPES.DOTABUFF && s.type !== SOURCE_TYPES.OPENDOTA);
+      return media;
+    }
+  },
+  methods: {
+    getYouTubeURL: function(url) {
+      return url.replace('/watch?v=', '/embed/');
+    },
+    getFacebookURL: function(url) {
+      let isVideo = url.indexOf('/videos/') > 0;
+      return 'https://www.facebook.com/plugins/' + (isVideo ? 'video' : 'post') + '.php?href=' + encodeURIComponent(url) + (isVideo ? '&show_text=0&width=500' : '');
+    }
+  }
+});
+
+Vue.component('player-tile', {
+  props: ['player', 'filters', 'getHeroImageURL'],
   data: function() {
     return {
       showPlayerSource: false
@@ -121,75 +247,8 @@ Vue.component('player-tile', {
   template: `
     <div class="player-tile" :class="{ 'not-verified' : !player.isVerified, 'active': showPlayerSource }" @click="showSource">
       <div class="player-rank">{{filters.misc === '10k' && !!player['10k'] ? player['10k'].rank : player.rank}}</div>
-      <div class="player-info">
-        <div class="player-image" v-if="player.image">
-          <img :src="player.image"/>
-        </div>
-        <div class="player-details">
-          <div class="player-profile">
-            <span class="name">{{player.name}}</span>
-            <span class="aliases" v-if="player.aliases">
-              <span class="alias" v-for="alias in player.aliases" :key="alias">{{alias}}</span>
-            </span>
-            <span class="social" v-if="socialTypes.length">
-              <a :class="socialType" :href="player.social[socialType]" @click.stop v-for="socialType in socialTypes" :key="socialType" target="_blank"></a>
-            </span>
-          </div>
-          <div class="player-metadata">
-            <span class="region" :class="{ active: filters.region === player.region }">{{player.region}}</span>
-            <span class="role" :class="{ active: filters.role === player.role }">{{player.role}}</span>
-            <template v-if="!!player.misc">
-              <span class="misc" :class="{ active: !!player.misc[$root.constants.MISC_FILTER_TYPES[filters.misc]], 'ti-winner': type === 'ti winner' }" v-for="type in Object.keys($root.constants.MISC_FILTER_TYPES)" :key="type" v-if="player.misc[$root.constants.MISC_FILTER_TYPES[type]]">{{type === 'ti winner' ? 'ti ' + player.misc[$root.constants.MISC_FILTER_TYPES[type]] : type}}</span>
-            </template>
-            <span class="date">
-              <span :title="player.dateAchieved">{{dateAchieved}}</span>
-            </span>
-            <span class="verification"></span>
-          </div>
-        </div>
-      </div>
-      <div class="player-sources" v-if="showPlayerSource">
-        <div class="source-row">
-          <div class="source-type">details</div>
-          <div class="source-details match-info">
-            <div class="match-hero" v-if="matchSources.hero">
-              <img :title="matchSources.hero" :src="getHeroImageURL(matchSources.hero)"/>
-            </div>
-            <template v-if="matchSources.matches.length">
-              <a class="match-link action" :href="match.url" target="_blank" @click.stop v-for="match in matchSources.matches" :key="match.type">{{match.type}}</a>
-            </template>
-            <template v-else>
-              <span class="placeholder">missing match id.</span>
-            </template>
-          </div>
-        </div>
-        <div class="source-row" v-for="source in mediaSources">
-          <div class="source-type">{{source.type}}</div>
-          <div class="source-details" :class="source.type" @click.stop>
-            <template v-if="source.type === $root.constants.SOURCE_TYPES.REDDIT">
-              <blockquote class="reddit-card" data-card-preview="0"><a :href="source.url"></a><span>loading...</span></blockquote>
-            </template>
-            <template v-else-if="source.type === $root.constants.SOURCE_TYPES.IMGUR">
-              <a :href="source.url.replace('i.imgur', 'imgur')" target="_blank"><img :src="source.url"/></a>
-            </template>
-            <template v-else-if="source.type === $root.constants.SOURCE_TYPES.TWITTER">
-              <blockquote class="twitter-tweet" data-lang="en"><a :href="source.url" target="_blank"></a><span>loading...</span></blockquote>
-            </template>
-            <template v-else-if="source.type === $root.constants.SOURCE_TYPES.INSTAGRAM">
-              <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-version="7" style="width:100%"><a :href="source.url" target="_blank"></a><span>loading...</span></blockquote>
-            </template>
-            <template v-else-if="source.type === $root.constants.SOURCE_TYPES.YOUTUBE">
-              <iframe :width="getElementWidth()" height="280" :src="getYouTubeURL(source.url)" frameborder="0" allowfullscreen></iframe>
-            </template>
-            <template v-else-if="source.type === $root.constants.SOURCE_TYPES.FACEBOOK">
-              <div class="fb-post" :data-href="source.url" :data-width="getElementWidth()"></div>
-            </template>
-            <template v-else>
-              <a :href="source.url" target="_blank">{{source.url}}</a>
-            </template>
-          </div>
-        </div>
-      </div>
+      <player-info :player="player" :filters="filters"/>
+      <player-sources v-bind="{ player, filters, getHeroImageURL }" :width="getElementWidth()" v-if="showPlayerSource"/>
     </div>
   `,
   watch: {
@@ -217,50 +276,9 @@ Vue.component('player-tile', {
       }, 500);
     }
   },
-  computed: {
-    dateAchieved: function() {
-      // date should have been sanitized as a moment.js object
-      let is10k = this.filters.misc === '10k' && this.player['10k'];
-      let dateObject = is10k ? this.player['10k'].dateObject : this.player.dateObject;
-      if (dateObject && moment.isMoment(dateObject)) {
-        return dateObject.format(DATE_FORMAT);
-      }
-      return 'N/A';
-    },
-    socialTypes: function() {
-      return Object.keys(this.player.social || {}).filter(x => !!SOCIAL_TYPES[x]).sort((a, b) => {
-        a = SOCIAL_TYPES[a];
-        b = SOCIAL_TYPES[b];
-        return a > b ? 1 : a < b ? -1 : 0;
-      });
-    },
-    matchSources: function() {
-      let is10k = this.filters.misc === '10k' && !!this.player.misc['10k'];
-      let matches = ((is10k ? this.player.misc['10k'].sources : this.player.sources) || []).filter(s => s.type === SOURCE_TYPES.DOTABUFF || s.type === SOURCE_TYPES.OPENDOTA).sort((a, b) => a.type > b.type ? 1 : a.type < b.type ? -1 : 0);
-      return {
-        matches,
-        hero: (is10k ? this.player.misc['10k'].hero : this.player.hero)
-      };
-    },
-    mediaSources: function() {
-      let is10k = this.filters.misc === '10k' && !!this.player.misc['10k'];
-      let media = ((is10k ? this.player.misc['10k'].sources : this.player.sources) || []).filter(s => s.type !== SOURCE_TYPES.DOTABUFF && s.type !== SOURCE_TYPES.OPENDOTA);
-      return media;
-    }
-  },
   methods: {
     showSource: function() {
       this.showPlayerSource = !this.showPlayerSource;
-    },
-    getHeroImageURL: function(hero) {
-      return window.location.origin + '/static/images/9kmmr/heroes/' + hero + '.png';
-    },
-    getYouTubeURL: function(url) {
-      return url.replace('/watch?v=', '/embed/');
-    },
-    getFacebookURL: function(url) {
-      let isVideo = url.indexOf('/videos/') > 0;
-      return 'https://www.facebook.com/plugins/' + (isVideo ? 'video' : 'post') + '.php?href=' + encodeURIComponent(url) + (isVideo ? '&show_text=0&width=500' : '');
     },
     getElementWidth: function() {
       return Math.min(this.$el.querySelector('.player-details').offsetWidth, 500);
@@ -269,7 +287,7 @@ Vue.component('player-tile', {
 });
 
 Vue.component('results', {
-  props: ['isLoading', 'players', 'filters'],
+  props: ['isLoading', 'players', 'filters', 'getHeroImageURL'],
   template: `
     <div class="results">
       <div v-if="isLoading" class="placeholder">
@@ -286,7 +304,7 @@ Vue.component('results', {
           {{!hasSetInputFilters ? 'listing ' + players.length + ' total player' : 'matching ' + filteredPlayers.length + ' / ' + playerList.length + '  player'}}{{playerList.length === 1 ? '' : 's'}}
         </div>
         <template v-for="player in filteredPlayers">
-          <player-tile :player="player" :filters="filters" :key="player.name"/>
+          <player-tile v-bind="{ player, filters, getHeroImageURL }" :key="player.name"/>
         </template>
       </div>
     </div>
@@ -518,6 +536,167 @@ Vue.component('share', {
   `
 });
 
+Vue.component('hero-chart', {
+  props: ['data'],
+  template: `
+    <div class="hero-chart">
+      <div class="hero-row" v-for="row in data" :key="row.count">
+        <div class="hero-count">{{row.count}}x</div>
+        <div class="hero-images">
+          <div class="match-hero" v-for="hero in row.heroes" :key="hero.name">
+            <img :title="hero.title" :src="hero.url"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  `
+});
+
+Vue.component('stats', {
+  props: ['players', 'isLoading', 'getHeroImageURL'],
+  data: function() {
+    return {
+      MONTHS: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    };
+  },
+  template: `
+    <div class="stats">
+      <div v-if="isLoading" class="placeholder">
+        loading...
+      </div>
+      <div v-else-if="!players.length" class="placeholder">
+        something went wrong
+      </div>
+      <template v-else>
+        <div class="chart-title"># players achieved by date</div>
+        <line-chart :data="dateAchievedData" :discrete="true" :colors="['#125c9e']"/>
+        <div class="chart-title"># players by role</div>
+        <column-chart :data="roleData" :colors="['#0074D9']"/>
+        <div class="chart-title">hero used for 9k match (for {{hasHeroCount}} players with hero data)</div>
+        <hero-chart :data="heroData"/>
+        <div class="chart-title"># players by region</div>
+        <column-chart :data="regionData" :colors="['#0074D9']"/>
+        <div class="chart-title"># players by country</div>
+        <geo-chart :data="countryData" :library="{ backgroundColor: 'transparent', colorAxis: { colors: ['#d6ebff', '#125c9e'] } }"/>
+      </template>
+    </div>
+  `,
+  computed: {
+    dateAchievedData: function() {
+      let data = {};
+      this.players.forEach(p => {
+        let date = p.dateObject;
+        let month = date.format('MMM');
+        let year = date.year().toString();
+        if (!data[year]) {
+          data[year] = {};
+        }
+        data[year][month] = (data[year][month] || 0) + 1;
+      });
+      let years = Object.keys(data).sort();
+      years.forEach(y => {
+        this.MONTHS.forEach(m => {
+          if (!data[y][m]) {
+            data[y][m] = 0;
+          }
+        });
+      });
+
+      let result = [];
+      years.forEach((y, ydx) => {
+        let crawlIdx = 0;
+        if (ydx === 0) {
+          // If this is the first year, find the first datapoint
+          while(!data[y][this.MONTHS[crawlIdx]]) crawlIdx++;
+        } else if (ydx === years.length - 1) {
+          // If this is the last year, find the last datapoint
+          crawlIdx = this.MONTHS.length - 1;
+          while(!data[y][this.MONTHS[crawlIdx]]) crawlIdx--;
+        }
+        this.MONTHS.forEach((m, mdx) => {
+          let skip = (ydx === 0) ? mdx < crawlIdx : (ydx === years.length - 1) ? mdx > crawlIdx : false;
+          if (!skip) {
+            let key = m + ' ' + y;
+            result.push([key, data[y][m]]);
+          }
+        });
+      });
+      return result;
+    },
+    regionData: function() {
+      let data = {};
+      this.players.forEach(p => {
+        data[p.region] = (data[p.region] || 0) + 1;
+      });
+      let result = [];
+      Object.keys(data).sort().forEach(d => {
+        result.push([[d.toUpperCase()], data[d]]);
+      });
+      return result;
+    },
+    roleData: function() {
+      let data = {};
+      this.players.forEach(p => {
+        data[p.role] = (data[p.role] || 0) + 1;
+      });
+      let result = [];
+      Object.keys(data).sort().forEach(d => {
+        result.push([[d[0].toUpperCase() + d.slice(1)], data[d]]);
+      });
+      return result;
+    },
+    hasHeroCount: function() {
+      return this.players.filter(p => !!p.hero).length;
+    },
+    heroData: function() {
+      let data = {};
+      this.players.filter(p => !!p.hero).forEach(p => {
+        if (!data[p.hero]) {
+          data[p.hero] = {
+            count: 0,
+            players: []
+          };
+        }
+        data[p.hero].count += 1;
+        data[p.hero].players.push(p.name);
+      });
+
+      let byCount = {};
+      Object.keys(data).forEach(d => {
+        let count = data[d].count;
+        if (!byCount[count]) {
+          byCount[count] = [];
+        }
+        byCount[count].push(d);
+      });
+
+      let result = [];
+      Object.keys(byCount).sort().reverse().forEach(count => {
+        result.push({
+          count: count,
+          heroes: byCount[count].sort().map(name => {
+            return {
+              name: name,
+              url: this.getHeroImageURL(name),
+              title: name.split('_').map(x => x[0].toUpperCase() + x.slice(1)).join(' ') + ' - (' + data[name].players.sort().join(', ') + ')'
+            };
+          })
+        });
+      });
+      return result;
+    },
+    countryData: function() {
+      let data = {};
+      this.players.forEach(p => {
+        data[p.country] = (data[p.country] || 0) + 1;
+      });
+
+      let result = Object.keys(data).map(country => [country.split('_').map(c => c[0].toUpperCase() + c.slice(1)).join(' '), data[country]]);
+      return result;
+    }
+  }
+});
+
 const APP = new Vue({
   el: '#app',
   data: {
@@ -535,18 +714,18 @@ const APP = new Vue({
   },
   template: `
     <div class="container">
-      <navigation
-        :routes="constants.ROUTES"
-      />
+      <navigation :routes="constants.ROUTES"/>
       <template v-if="currentRoute === constants.ROUTES.HOME">
         <filters
           v-if="!isLoading && players.length"
-          :players="players"
-          :filters="filters"
+          v-bind="{ players, filters }"
           v-on:setFilter="setFilter"
           v-on:resetFilters="resetFilters"
         />
-        <results :isLoading="isLoading" :players="players" :filters="filters"/>
+        <results v-bind="{ isLoading, players, filters, getHeroImageURL }"/>
+      </template>
+      <template v-else-if="currentRoute === constants.ROUTES.STATS">
+        <stats v-bind="{ players, isLoading, getHeroImageURL }"/>
       </template>
       <template v-else-if="currentRoute === constants.ROUTES.COMMENTS">
         <comments/>
@@ -633,6 +812,9 @@ const APP = new Vue({
       Object.keys(this.filters).forEach(filterType => {
         this.$set(this.filters, filterType, filterType === FILTER_TYPES.SORT ? DEFAULT_SORT : '');
       });
+    },
+    getHeroImageURL: function(hero) {
+      return window.location.origin + '/static/images/9kmmr/heroes/' + hero + '.png';
     }
   }
 });
