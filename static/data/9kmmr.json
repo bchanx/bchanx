@@ -42,7 +42,7 @@
     "url": "https://twitter.com/the_evany/status/730146900666687488"
   }, {
     "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=fE1Q2rdomd4"
+    "url": "https://www.youtube.com/watch?v=fE1Q2rdomd4?start=40"
   }, {
     "type": "youtube",
     "url": "https://www.youtube.com/watch?v=FMle9OH9hR4"
@@ -82,10 +82,11 @@
     "url": "https://twitter.com/claycausin/status/747941469382643716"
   }, {
     "type": "twitter",
-    "url": "https://twitter.com/Arteezy/status/747926638151802884"
+    "url": "https://twitter.com/Arteezy/status/747926638151802884",
+    "self": true
   }, {
     "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=3tE1_Sz98i0"
+    "url": "https://www.youtube.com/watch?v=3tE1_Sz98i0?start=159"
   }],
   "misc": {
     "10k": {
@@ -102,7 +103,7 @@
         "url": "https://twitter.com/Arteezy/status/894309175597047808"
       }, {
         "type": "youtube",
-        "url": "https://www.youtube.com/watch?v=_kpVf9JthvQ"
+        "url": "https://www.youtube.com/watch?v=_kpVf9JthvQ?start=415"
       }]
     }
   }
@@ -133,7 +134,9 @@
     "url": "https://www.opendota.com/matches/2610417124"
   }, {
     "type": "imgur",
-    "url": "https://i.imgur.com/YYqXsEj.png"
+    "url": "https://i.imgur.com/vO9bVjN.jpg",
+    "source": "weibo",
+    "self": true
   }, {
     "type": "youtube",
     "url": "https://www.youtube.com/watch?v=agNJNZpClcA"
@@ -167,10 +170,11 @@
     "url": "https://www.opendota.com/matches/2610851669"
   }, {
     "type": "twitter",
-    "url": "https://twitter.com/ramzesdoto/status/770663652710055936"
+    "url": "https://twitter.com/ramzesdoto/status/770663652710055936",
+    "self": true
   }, {
     "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=xxgyNzSwEQs"
+    "url": "https://www.youtube.com/watch?v=xxgyNzSwEQs?start=432"
   }],
   "misc": {
     "10k": {
@@ -218,7 +222,9 @@
     "url": "https://www.opendota.com/matches/2621993670"
   }, {
     "type": "imgur",
-    "url": "https://i.imgur.com/KltRxeM.jpg"
+    "url": "https://i.imgur.com/KltRxeM.jpg",
+    "source": "weibo",
+    "self": true
   }, {
     "type": "youtube",
     "url": "https://www.youtube.com/watch?v=JgaXeYvGgvg"
@@ -250,7 +256,8 @@
     "url": "https://www.opendota.com/matches/2632211136"
   }, {
     "type": "imgur",
-    "url": "https://i.imgur.com/DISqSLl.png"
+    "url": "https://i.imgur.com/DISqSLl.png",
+    "source": "screenshot"
   }]
 }, {
   "name": "Ame",
@@ -279,7 +286,8 @@
     "url": "https://www.opendota.com/matches/2634911219"
   }, {
     "type": "imgur",
-    "url": "https://i.imgur.com/fRFncue.jpg"
+    "url": "https://i.imgur.com/fRFncue.jpg",
+    "source": "screenshot"
   }]
 }, {
   "name": "MATUMBAMAN",
@@ -310,10 +318,11 @@
     "url": "https://www.opendota.com/matches/2699930588"
   }, {
     "type": "twitter",
-    "url": "https://twitter.com/LiquidMATUMBA/status/785218492240986114"
+    "url": "https://twitter.com/LiquidMATUMBA/status/785218492240986114",
+    "self": true
   }, {
     "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=BlR8pjG-ClU"
+    "url": "https://www.youtube.com/watch?v=BlR8pjG-ClU?start=256"
   }],
   "misc": {
     "wonTI": 7
@@ -346,7 +355,7 @@
     "url": "https://www.opendota.com/matches/2760440364"
   }, {
     "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=ECCO6SwUu7Y"
+    "url": "https://www.youtube.com/watch?v=ECCO6SwUu7Y?start=445"
   }]
 }, {
   "name": "Gh",
@@ -407,7 +416,7 @@
     "url": "https://www.opendota.com/matches/2872132416"
   }, {
     "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=KBZKH1zVgV8"
+    "url": "https://www.youtube.com/watch?v=KBZKH1zVgV8?start=18"
   }]
 }, {
   "name": "Limmp",
@@ -432,7 +441,8 @@
     "url": "https://www.reddit.com/r/DotA2/comments/5ktm1t/congratulations_to_alimmp_for_getting_9k_mmr/"
   }, {
     "type": "twitter",
-    "url": "https://twitter.com/LimmpDota/status/814262005154582528"
+    "url": "https://twitter.com/LimmpDota/status/814262005154582528",
+    "self": true
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/2878717941"
@@ -441,7 +451,7 @@
     "url": "https://www.opendota.com/matches/2878717941"
   }, {
     "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=66FP6aLs1Yk"
+    "url": "https://www.youtube.com/watch?v=66FP6aLs1Yk?start=20"
   }]
 }, {
   "name": "No[o]ne-",
@@ -465,7 +475,8 @@
     "url": "https://www.reddit.com/r/DotA2/comments/5npta7/vpnoone_is_new_9k/"
   }, {
     "type": "twitter",
-    "url": "https://twitter.com/Noone_dota/status/819846437408219137"
+    "url": "https://twitter.com/Noone_dota/status/819846437408219137",
+    "self": true
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/2912442889"
@@ -474,7 +485,7 @@
     "url": "https://www.opendota.com/matches/2912442889"
   }, {
     "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=yUebkI86jHs"
+    "url": "https://www.youtube.com/watch?v=yUebkI86jHs?start=21"
   }]
 }, {
   "name": "MidOne",
@@ -498,7 +509,8 @@
     "url": "https://www.reddit.com/r/DotA2/comments/5t1sd6/midone_has_just_reached_9k_on_his_stream/"
   }, {
     "type": "twitter",
-    "url": "https://twitter.com/midonedota2/status/829758502897872896"
+    "url": "https://twitter.com/midonedota2/status/829758502897872896",
+    "self": true
   }, {
     "type": "facebook",
     "url": "https://www.facebook.com/TeamSecret/videos/1431491756861434"
@@ -545,14 +557,15 @@
     "dotabuff": "https://www.dotabuff.com/players/88933594",
     "opendota": "https://www.opendota.com/players/88933594",
     "liquipedia": "http://wiki.teamliquid.net/dota2/Forev",
-    "twitch": "https://www.twitch.tv/forev"
+    "twitch": "https://www.twitch.tv/forev",
+    "twitter": "https://twitter.com/forevdoto"
   },
   "sources": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/5tebz7/forev_9k/"
   }, {
     "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=G8VGv6z7jms"
+    "url": "https://www.youtube.com/watch?v=G8VGv6z7jms?start=5"
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/2991190630"
@@ -583,7 +596,8 @@
     "url": "https://www.reddit.com/r/DotA2/comments/5w2qx9/747_first_na_servers_only_9k/"
   }, {
     "type": "twitter",
-    "url": "https://twitter.com/RyoyaDota/status/835371190420131841"
+    "url": "https://twitter.com/RyoyaDota/status/835371190420131841",
+    "self": true
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3019262537"
@@ -612,7 +626,7 @@
     "url": "https://www.reddit.com/r/DotA2/comments/5wkvzc/ana_reached_9k/"
   }, {
     "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=0gOrOyTxvs0"
+    "url": "https://www.youtube.com/watch?v=0gOrOyTxvs0?start=586"
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3025511400"
@@ -662,7 +676,8 @@
     "url": "https://www.reddit.com/r/DotA2/comments/5zzqas/xcalibur_hit_9k_mmr/"
   }, {
     "type": "twitter",
-    "url": "https://twitter.com/XcaliburYe/status/842823108264386561"
+    "url": "https://twitter.com/XcaliburYe/status/842823108264386561",
+    "self": true
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3061005644"
@@ -698,10 +713,11 @@
     "url": "https://www.opendota.com/matches/3066291606"
   }, {
     "type": "twitter",
-    "url": "https://twitter.com/abedyusop/status/843701748854272000"
+    "url": "https://twitter.com/abedyusop/status/843701748854272000",
+    "self": true
   }, {
     "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=UzTwi4-2JO0"
+    "url": "https://www.youtube.com/watch?v=UzTwi4-2JO0?start=440"
   }],
   "misc": {
     "10k": {
@@ -718,7 +734,7 @@
         "url": "https://twitter.com/abedyusop/status/879200167995383808"
       }, {
         "type": "youtube",
-        "url": "https://www.youtube.com/watch?v=ZPTW82LtTCc"
+        "url": "https://www.youtube.com/watch?v=ZPTW82LtTCc?start=358"
       }]
     }
   }
@@ -770,7 +786,8 @@
     "url": "https://www.reddit.com/r/DotA2/comments/65iu1t/madara_has_joined_the_9k_club/"
   }, {
     "type": "twitter",
-    "url": "https://twitter.com/MadaraDotA2/status/853222535709822977"
+    "url": "https://twitter.com/MadaraDotA2/status/853222535709822977",
+    "self": true
   }]
 }, {
   "name": "inYourdreaM",
@@ -798,7 +815,7 @@
     "url": "https://www.opendota.com/matches/3143159275"
   }, {
     "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=5qwDDgLEQSc"
+    "url": "https://www.youtube.com/watch?v=5qwDDgLEQSc?start=312"
   }]
 }, {
   "name": "Monet",
@@ -827,7 +844,9 @@
     "url": "https://www.opendota.com/matches/3181748985"
   }, {
     "type": "imgur",
-    "url": "https://i.imgur.com/ccK705K.jpg"
+    "url": "https://i.imgur.com/ccK705K.jpg",
+    "source": "weibo",
+    "self": true
   }]
 }, {
   "name": "SmAsH",
@@ -851,7 +870,8 @@
     "url": "https://www.reddit.com/r/DotA2/comments/6fgc3p/smash_just_hit_9k_mmr/"
   }, {
     "type": "imgur",
-    "url": "https://i.imgur.com/Ar0CU47.png"
+    "url": "https://i.imgur.com/Ar0CU47.png",
+    "source": "screenshot"
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3227280666"
@@ -885,7 +905,8 @@
     "url": "https://www.reddit.com/r/DotA2/comments/6giq5v/s4_is_now_9k/"
   }, {
     "type": "twitter",
-    "url": "https://twitter.com/s4dota/status/873704253315067904"
+    "url": "https://twitter.com/s4dota/status/873704253315067904",
+    "self": true
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3239671579"
@@ -894,7 +915,7 @@
     "url": "https://www.opendota.com/matches/3239671579"
   }, {
     "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=ja_IGHKgrhI"
+    "url": "https://www.youtube.com/watch?v=ja_IGHKgrhI?start=420"
   }],
   "misc": {
     "wonTI": 3
@@ -938,10 +959,13 @@
     "url": "https://www.reddit.com/r/DotA2/comments/6m9lec/ccnc_hits_9k/"
   }, {
     "type": "twitter",
-    "url": "https://twitter.com/ccncdota2/status/884139872424005635"
+    "url": "https://twitter.com/ccncdota2/status/884139872424005635",
+    "self": true
   }, {
     "type": "imgur",
-    "url": "https://i.imgur.com/SnxT187.png"
+    "url": "https://i.imgur.com/SnxT187.png",
+    "source": "twitter",
+    "self": true
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3303771878"
@@ -974,7 +998,9 @@
     "url": "https://www.opendota.com/matches/3333224353"
   }, {
     "type": "imgur",
-    "url": "https://i.imgur.com/t1WJNZX.jpg"
+    "url": "https://i.imgur.com/t1WJNZX.jpg",
+    "source": "weibo",
+    "self": true
   }]
 }, {
   "name": "vanN",
@@ -997,7 +1023,8 @@
     "url": "https://www.reddit.com/r/DotA2/comments/6qgebh/congratulations_to_vann_for_reaching_9kna_servers/"
   }, {
     "type": "imgur",
-    "url": "https://i.imgur.com/wDdAnPx.png"
+    "url": "https://i.imgur.com/wDdAnPx.png",
+    "source": "screenshot"
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3345208542"
@@ -1026,7 +1053,8 @@
     "url": "https://www.reddit.com/r/DotA2/comments/6s3m80/saksa_9k_mmr/"
   }, {
     "type": "twitter",
-    "url": "https://twitter.com/Saksadota/status/894403263369420802"
+    "url": "https://twitter.com/Saksadota/status/894403263369420802",
+    "self": true
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3360764804"
@@ -1071,7 +1099,8 @@
   },
   "sources": [{
     "type": "twitter",
-    "url": "https://twitter.com/RAX_Nine/status/900377950784278528"
+    "url": "https://twitter.com/RAX_Nine/status/900377950784278528",
+    "self": true
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3397422380"
@@ -1098,7 +1127,8 @@
   },
   "sources": [{
     "type": "twitter",
-    "url": "https://twitter.com/canceldota/status/902610126925950976"
+    "url": "https://twitter.com/canceldota/status/902610126925950976",
+    "self": true
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3411647558"
@@ -1154,7 +1184,8 @@
     "url": "https://www.reddit.com/r/DotA2/comments/6xfrws/congratulations_to_cr1t_for_hitting_9k/"
   }, {
     "type": "twitter",
-    "url": "https://twitter.com/Cr1tdota/status/903659490704273408"
+    "url": "https://twitter.com/Cr1tdota/status/903659490704273408",
+    "self": true
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3417970972"
@@ -1184,7 +1215,8 @@
   },
   "sources": [{
     "type": "twitter",
-    "url": "https://twitter.com/gabbidoto/status/912380624035495936"
+    "url": "https://twitter.com/gabbidoto/status/912380624035495936",
+    "self": true
   }]
 }, {
   "name": "Afoninje",
@@ -1204,7 +1236,8 @@
   },
   "sources": [{
     "type": "twitter",
-    "url": "https://twitter.com/Afoninje/status/912630932938661893"
+    "url": "https://twitter.com/Afoninje/status/912630932938661893",
+    "self": true
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3466876610"
@@ -1228,7 +1261,8 @@
   },
   "sources": [{
     "type": "imgur",
-    "url": "https://i.imgur.com/woyPxUQ.png"
+    "url": "https://i.imgur.com/woyPxUQ.png",
+    "source": "screenshot"
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3468076996"
@@ -1237,7 +1271,7 @@
     "url": "https://www.opendota.com/matches/3468076996"
   }, {
     "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=LeOiTbKq2Vg"
+    "url": "https://www.youtube.com/watch?v=LeOiTbKq2Vg?start=4"
   }]
 }, {
   "name": "BoBoKa",
@@ -1257,7 +1291,9 @@
   },
   "sources": [{
     "type": "imgur",
-    "url": "https://i.imgur.com/HwS3wtm.png"
+    "url": "https://i.imgur.com/HwS3wtm.png",
+    "source": "weibo",
+    "self": true
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3478846003"
@@ -1287,7 +1323,8 @@
     "url": "https://www.reddit.com/r/DotA2/comments/747tup/congratulations_team_liquid_for_being_the_first_4/"
   }, {
     "type": "imgur",
-    "url": "https://i.imgur.com/CWT101b.jpg"
+    "url": "https://i.imgur.com/CWT101b.jpg",
+    "source": "screenshot"
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3482300457"
@@ -1350,10 +1387,9 @@
     "url": "https://www.opendota.com/matches/3492784089"
   }, {
     "type": "imgur",
-    "url": "https://i.imgur.com/BIPyUbd.jpg"
-  }, {
-    "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=I4YgtrLG5I8"
+    "url": "https://i.imgur.com/BIPyUbd.jpg",
+    "source": "weibo",
+    "self": true
   }]
 }, {
   "name": "7mad",
@@ -1379,7 +1415,8 @@
     "url": "https://www.reddit.com/r/DotA2/comments/77uy3i/congrats_og7ckngmad_reaching_9k/"
   }, {
     "type": "instagram",
-    "url": "https://www.instagram.com/p/BahKyp-l16J/"
+    "url": "https://www.instagram.com/p/BahKyp-l16J/",
+    "self": true
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3515042382"
@@ -1408,7 +1445,8 @@
     "url": "https://www.reddit.com/r/DotA2/comments/77wkek/congratulations_to_mineskijabz_for_hitting_9k_mmr/"
   }, {
     "type": "facebook",
-    "url": "https://www.facebook.com/Jabzdota2/photos/a.1200007336767675.1073741828.1187718121329930/1207785059323236"
+    "url": "https://www.facebook.com/Jabzdota2/photos/a.1200007336767675.1073741828.1187718121329930/1207785059323236",
+    "self": true
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3515221202"
@@ -1435,9 +1473,6 @@
   "sources": [{
     "type": "reddit",
     "url": "https://www.reddit.com/r/DotA2/comments/78gtyf/who_is_debil_89k_mmr_in_860_games_total/"
-  }, {
-    "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=r1DAujujXt8"
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3520672693"
@@ -1468,7 +1503,8 @@
     "url": "https://www.reddit.com/r/DotA2/comments/79d9po/congratulations_to_universe_for_hitting_9k/"
   }, {
     "type": "twitter",
-    "url": "https://twitter.com/UniverseDota/status/924413939391152128"
+    "url": "https://twitter.com/UniverseDota/status/924413939391152128",
+    "self": true
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3528531504"
@@ -1497,7 +1533,8 @@
   },
   "sources": [{
     "type": "twitter",
-    "url": "https://twitter.com/bryledota/status/928494391185903621"
+    "url": "https://twitter.com/bryledota/status/928494391185903621",
+    "self": true
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3551252688"
@@ -1525,7 +1562,8 @@
   },
   "sources": [{
     "type": "twitter",
-    "url": "https://twitter.com/33Dota/status/929928424902266880"
+    "url": "https://twitter.com/33Dota/status/929928424902266880",
+    "self": true
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3559175554"
@@ -1551,7 +1589,8 @@
   },
   "sources": [{
     "type": "imgur",
-    "url": "https://i.imgur.com/kCZJvkR.png"
+    "url": "https://i.imgur.com/kCZJvkR.png",
+    "source": "liquipedia"
   }]
 }, {
   "name": "Palantimos",
@@ -1569,7 +1608,8 @@
   },
   "sources": [{
     "type": "imgur",
-    "url": "https://i.imgur.com/lwXPCUy.png"
+    "url": "https://i.imgur.com/lwXPCUy.png",
+    "source": "leaderboards"
   }, {
     "type": "dotabuff",
     "url": "https://www.dotabuff.com/matches/3564883192"

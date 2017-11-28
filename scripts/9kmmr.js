@@ -69,6 +69,9 @@ const CONSTANTS = {
   ROUTES
 };
 
+const capitalize = function(str) {
+  return (str[0] || '').toUpperCase() + str.slice(1);
+};
 
 Vue.component('v-link', {
   template: `
@@ -213,11 +216,11 @@ Vue.component('player-sources', {
     matchSources: function() {
       let is10k = this.filters.misc === '10k' && !!this.player.misc['10k'];
       let matches = ((is10k ? this.player.misc['10k'].sources : this.player.sources) || []).filter(s => s.type === SOURCE_TYPES.DOTABUFF || s.type === SOURCE_TYPES.OPENDOTA).sort((a, b) => a.type > b.type ? 1 : a.type < b.type ? -1 : 0);
-      let hero = is10k ? this.player.misc['10k'].hero : this.player.hero;
+      let hero = (is10k ? this.player.misc['10k'].hero : this.player.hero) || '';
       return {
         matches,
         hero: hero,
-        title: hero.split('_').map(x => x[0].toUpperCase() + x.slice(1)).join(' ')
+        title: hero && hero.split('_').map(capitalize).join(' ')
       };
     },
     mediaSources: function() {
@@ -543,8 +546,8 @@ Vue.component('hero-chart', {
       <div class="hero-row" v-for="row in data" :key="row.count">
         <div class="hero-count">{{row.count}}x</div>
         <div class="hero-images">
-          <div class="match-hero" v-for="hero in row.heroes" :key="hero.name">
-            <img :title="hero.title" :src="hero.url"/>
+          <div class="match-hero" v-for="hero in row.heroes" :key="hero.name" :data-hero="hero.hero" :data-players="hero.players">
+            <img :src="hero.url"/>
           </div>
         </div>
       </div>
@@ -556,7 +559,14 @@ Vue.component('stats', {
   props: ['players', 'isLoading', 'getHeroImageURL'],
   data: function() {
     return {
-      MONTHS: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+      MONTHS: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      COLORS: {
+        facebook: '#3B5998',
+        twitter: '#1DA1F2',
+        weibo: '#df2029',
+        instagram: '#262626',
+        default: '#d8d8d8'
+      }
     };
   },
   template: `
@@ -571,13 +581,15 @@ Vue.component('stats', {
         <div class="chart-title"># players achieved by date</div>
         <line-chart :data="dateAchievedData" :discrete="true" :colors="['#125c9e']"/>
         <div class="chart-title"># players by role</div>
-        <column-chart :data="roleData" :colors="['#0074D9']"/>
-        <div class="chart-title">hero used for 9k match (for {{hasHeroCount}} players with hero data)</div>
+        <bar-chart :data="roleData" :colors="['#0074D9']"/>
+        <div class="chart-title">heroes used for 9k match{{hasHeroCount < players.length ? ' (for ' + hasHeroCount + ' players with hero data)' : ''}}</div>
         <hero-chart :data="heroData"/>
         <div class="chart-title"># players by region</div>
         <column-chart :data="regionData" :colors="['#0074D9']"/>
         <div class="chart-title"># players by country</div>
         <geo-chart :data="countryData" :library="{ backgroundColor: 'transparent', colorAxis: { colors: ['#d6ebff', '#125c9e'] } }"/>
+        <div class="chart-title"># players that posted their achievement on social media</div>
+        <pie-chart :data="socialData.result" :colors="socialData.colors" :donut="true"/>
       </template>
     </div>
   `,
@@ -641,7 +653,7 @@ Vue.component('stats', {
       });
       let result = [];
       Object.keys(data).sort().forEach(d => {
-        result.push([[d[0].toUpperCase() + d.slice(1)], data[d]]);
+        result.push([[capitalize(d)], data[d]]);
       });
       return result;
     },
@@ -678,7 +690,8 @@ Vue.component('stats', {
             return {
               name: name,
               url: this.getHeroImageURL(name),
-              title: name.split('_').map(x => x[0].toUpperCase() + x.slice(1)).join(' ') + ' - (' + data[name].players.sort().join(', ') + ')'
+              hero: name.split('_').map(capitalize).join(' '),
+              players: '(' + data[name].players.sort().join(', ') + ')'
             };
           })
         });
@@ -691,8 +704,38 @@ Vue.component('stats', {
         data[p.country] = (data[p.country] || 0) + 1;
       });
 
-      let result = Object.keys(data).map(country => [country.split('_').map(c => c[0].toUpperCase() + c.slice(1)).join(' '), data[country]]);
+      let result = Object.keys(data).map(country => [country.split('_').map(capitalize).join(' '), data[country]]);
       return result;
+    },
+    socialData: function() {
+      let data = {};
+
+      this.players.forEach(p => {
+        let selfPost = null;
+        (p.sources || []).forEach(source => {
+          if (!selfPost && !!source.self) {
+            selfPost = source;
+          }
+        });
+        let type = selfPost ? (selfPost.source || selfPost.type) : 'N/A';
+        if (!data[type]) {
+          data[type] = { count: 0, players: [] };
+        }
+        data[type].count += 1;
+        data[type].players.push(p.name);
+      });
+
+      let result = Object.keys(data).sort((a, b) => data[a].count > data[b].count ? -1 : data[a].count < data[b].count ? 1 : 0);
+      let colors = result.map(type => this.COLORS[type] || this.COLORS.default);
+
+      result = result.map(socialType => {
+        return [capitalize(socialType), data[socialType].count];
+      });
+
+      return {
+        result,
+        colors
+      };
     }
   }
 });

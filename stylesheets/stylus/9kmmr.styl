@@ -46,8 +46,10 @@ $yellow = #c1a90d
 $yellow-light = #e0c82a
 $yellow-lightest = #fffadd
 
-$twitter = #00aced
-$facebook = #3b579d
+$twitter = #1DA1F2
+$facebook = #3B5998
+$weibo = #df2029
+$instagram = #8a3ab9
 
 $max-width = 700px
 $transition-time = 0.15s
@@ -189,6 +191,40 @@ body
   flex-grow: 1
   .match-hero
     display: inline-block
+    position: relative
+    opacity: 0.8
+    transition: opacity $transition-time
+    &:before
+      content: ""
+      background-color: $black
+      position: absolute
+      bottom: 105%
+      left: 5%
+      width: 0.5rem
+      height: 0.5rem
+      transform: rotateZ(45deg)
+      pointer-events: none
+      opacity: 0
+      z-index: 1
+    &:after
+      position: absolute
+      left: -10%
+      bottom: 110%
+      font-size: 0.6rem
+      border-radius: 2px
+      content: attr(data-hero) "\A" attr(data-players)
+      white-space: pre
+      opacity: 0
+      pointer-events: none
+      background: $black
+      color: $white
+      padding: 0.2rem 0.5rem
+      z-index: 2
+    &:hover
+      opacity: 1
+      &:before
+      &:after
+        opacity: 1
 
 // Footer
 .footnote
@@ -453,6 +489,7 @@ body
   img
     width: 100%
     height: 100%
+    backface-visibility: hidden
 
 .match-link
   margin-right: 1rem
@@ -610,22 +647,28 @@ tag-color(color-dark, color, color-light, color-lightest)
       transform: scale(1.15)
     &.dotabuff
       background-image: url("/static/images/9kmmr/social/dotabuff.jpg")
+      backface-visibility: hidden
       background-size: 1rem
     &.opendota
       background-image: url("/static/images/9kmmr/social/opendota.png")
+      backface-visibility: hidden
       background-size: 1.1rem
     &.liquipedia
       background-image: url("/static/images/9kmmr/social/liquipedia.png")
+      backface-visibility: hidden
       background-size: 1.25rem
       margin-right: 0.1rem
     &.instagram
       background-image: url("/static/images/9kmmr/social/instagram.png")
+      backface-visibility: hidden
       background-size: 1rem
     &.twitch
       background-image: url("/static/images/9kmmr/social/twitch.jpg")
+      backface-visibility: hidden
       background-size: 1.3rem
     &.weibo
       background-image: url("/static/images/9kmmr/social/weibo.png")
+      backface-visibility: hidden
       background-size: 1.4rem
       margin-left: 0.4rem
       margin-top: -0.05rem
