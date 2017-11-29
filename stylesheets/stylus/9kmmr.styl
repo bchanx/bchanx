@@ -207,7 +207,7 @@ body
       left: -10%
       bottom: 110%
       font-size: 0.6rem
-      font-weight: 500
+      font-weight: 600
       border-radius: 2px
       content: attr(data-hero) "\A" attr(data-players)
       white-space: pre
@@ -481,6 +481,13 @@ body
 .match-link
   margin-right: 1rem
 
+.player-age
+  flex-grow: 1
+  text-align: right
+  font-style: italic
+  padding-right: 2px
+  color: $orange-dark
+
 .player-rank
   width: 2.5rem
   background-color: $gray0
@@ -602,12 +609,13 @@ tag-color(color-dark, color, color-light, color-lightest)
   font-weight: 400
   font-style: italic
   color: $orange-light
+  padding-right: 1px
   flex-grow: 1
 
 .verification
   flex-shrink: 0
   margin-left: 0.5rem
-  margin-right: -0.2rem
+  margin-right: -0.1rem
   width: 0.8rem
   text-align: center
   &:before
@@ -640,7 +648,7 @@ tag-color(color-dark, color, color-light, color-lightest)
       opacity: 1
       transform: scale(1.15)
     &.dotabuff
-      background-image: url("/static/images/9kmmr/social/dotabuff.jpg")
+      background-image: url("/static/images/9kmmr/social/dotabuff.png")
       backface-visibility: hidden
       background-size: 1rem
     &.opendota
@@ -657,9 +665,9 @@ tag-color(color-dark, color, color-light, color-lightest)
       backface-visibility: hidden
       background-size: 1rem
     &.twitch
-      background-image: url("/static/images/9kmmr/social/twitch.jpg")
+      background-image: url("/static/images/9kmmr/social/twitch.png")
       backface-visibility: hidden
-      background-size: 1.3rem
+      background-size: 0.9rem
     &.weibo
       background-image: url("/static/images/9kmmr/social/weibo.png")
       backface-visibility: hidden
@@ -675,6 +683,7 @@ tag-color(color-dark, color, color-light, color-lightest)
         font-family: "Ionicons"
     &.twitter
       color: $twitter
+      margin-left: 0.3rem
       &:before
         content: "\f243"
     &.facebook
@@ -702,6 +711,10 @@ tag-color(color-dark, color, color-light, color-lightest)
     flex-direction: row
     div:not(:last-of-type)
       margin-right: 1.5rem
+
+@media screen and (max-width: 659px)
+  .player-age
+    padding-right: 1.4rem
 
 @media screen and (max-width: 550px)
   .filter-preview .username

@@ -1,4 +1,4 @@
-const DATE_RE = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+\d{2}:\d{2}/;
+const DATE_RE = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}/;
 const DATE_FORMAT = 'MMM Do, YYYY';
 
 const SOCIAL_TYPES = {
@@ -182,6 +182,7 @@ Vue.component('player-sources', {
           <template v-else>
             <span class="placeholder">missing match id.</span>
           </template>
+          <span class="player-age">Age Achieved: <b>{{player.ageAchieved || '?'}}</b></span>
         </div>
       </div>
       <div class="source-row" v-for="source in mediaSources">
@@ -512,7 +513,7 @@ Vue.component('about', {
       </p>
       <br/>
       <p>
-        The raw list of compiled data can be viewed <a class="action" :href="dataURL" target="_blank">here</a>. If there are any mistakes, inconsistencies, or you want to provide a source or give feedback, please leave a <v-link :hash="$root.constants.ROUTES.COMMENTS">comment</v-link>.
+        The raw list of compiled data can be viewed <a class="action" :href="dataURL" target="_blank">here</a>. If there are any mistakes, inconsistencies, or you want to add to the list or give feedback, leave me a <v-link :hash="$root.constants.ROUTES.COMMENTS">comment</v-link>.
       </p>
       <br/>
       <p>
@@ -579,13 +580,15 @@ Vue.component('stats', {
       </div>
       <template v-else>
         <div class="chart-title"># players achieved by date</div>
-        <line-chart :data="dateAchievedData" :discrete="true" :colors="['#125c9e']"/>
+        <line-chart :data="dateData" :discrete="true" :colors="['#125c9e']" :library="playerTooltipOptions"/>
+        <div class="chart-title">players by date achieved vs age{{ageData.length < players.length ? ' (for ' + ageData.length + ' players with age data)' : ''}}</div>
+        <scatter-chart :data="ageData" xtitle="time" ytitle="age" :library="ageDataOptions"/>
         <div class="chart-title"># players by role</div>
-        <bar-chart :data="roleData" :colors="['#0074D9']"/>
+        <bar-chart :data="roleData" :colors="['#0074D9']" :library="playerTooltipOptions"/>
         <div class="chart-title">heroes used for 9k match{{hasHeroCount < players.length ? ' (for ' + hasHeroCount + ' players with hero data)' : ''}}</div>
         <hero-chart :data="heroData"/>
         <div class="chart-title"># players by region</div>
-        <column-chart :data="regionData" :colors="['#0074D9']"/>
+        <column-chart :data="regionData" :colors="['#0074D9']" :library="playerTooltipOptions"/>
         <div class="chart-title"># players by country</div>
         <geo-chart :data="countryData" :library="{ backgroundColor: 'transparent', colorAxis: { colors: ['#d6ebff', '#125c9e'] } }"/>
         <div class="chart-title"># players that posted their achievement on social media</div>
@@ -594,7 +597,7 @@ Vue.component('stats', {
     </div>
   `,
   computed: {
-    dateAchievedData: function() {
+    dateData: function() {
       let data = {};
       this.players.forEach(p => {
         let date = p.dateObject;
@@ -634,6 +637,46 @@ Vue.component('stats', {
         });
       });
       return result;
+    },
+    ageData: function() {
+      let result = [];
+      this.players.filter(p => !!p.ageAchieved && !!p.dateObject).forEach(p => {
+        result.push([p.dateObject.unix(), p.ageAchieved, p.name]);
+      });
+      return result;
+    },
+    ageDataOptions: function() {
+      return {
+        scales: {
+          xAxes: [{
+            ticks: {
+              userCallback: function(label, index, labels) {
+                return moment.unix(label).format(DATE_FORMAT)
+              }
+            }
+          }]
+        },
+        tooltips: {
+          callbacks: {
+            title: this.titleCallback,
+            label: function(tooltipItem, data) {
+              let timestamp = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].x;
+              return moment.unix(timestamp).format(DATE_FORMAT);
+            }
+          }
+        }
+      };
+    },
+    playerTooltipOptions: function() {
+      return {
+        tooltips: {
+          callbacks: {
+            label: function(tooltipItem, data) {
+              return 'Players: ' + (data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index] || "0");
+            }
+          }
+        }
+      };
     },
     regionData: function() {
       let data = {};
@@ -737,6 +780,17 @@ Vue.component('stats', {
         colors
       };
     }
+  },
+  methods: {
+    titleCallback: function(tooltipItem, data) {
+      let index = tooltipItem[0].index;
+      let name = this.ageData[index][2];
+      let age = this.ageData[index][1];
+      return name + ' (' + age + ')';
+    },
+    numPlayerCallback: function(tooltipItem, data) {
+      return 'value';
+    }
   }
 });
 
@@ -807,6 +861,7 @@ const APP = new Vue({
             p.name = p.name || '';
             p.region = (p.region || '').toLowerCase();
             p.role = (p.role || '').toLowerCase();
+
             let date = p.dateAchieved;
             date = DATE_RE.test(date) ? moment(date) : moment(date, DATE_FORMAT);
             // Default malformed dates to current
@@ -819,6 +874,15 @@ const APP = new Vue({
                 dateObject: moment(p.misc[MISC_FILTER_TYPES['10k']].dateAchieved)
               };
             }
+
+            if (date.isValid()) {
+              let age = moment(p.dob, DATE_FORMAT);
+              if (age.isValid()) {
+                // Both age and date achieved is known, figure out age at time of achievement
+                p.ageAchieved = Math.floor(moment.duration(date.diff(age)).asYears());
+              }
+            }
+
           });
 
           // Sort by date achieved

@@ -185,7 +185,7 @@ gulp.task('deps.js', function() {
     'node_modules/marked/marked.min.js',
     'node_modules/vue/dist/vue.js',
     'node_modules/vue/dist/vue.min.js',
-    'node_modules/chart.js/dist/Chart.bundle.min.js',
+    'node_modules/chart.js/dist/Chart.min.js',
     'node_modules/vue-chartkick/dist/vue-chartkick.min.js',
     'scripts/static/vue-disqus.js',
     'bower_components/slidr/slidr.min.js',
