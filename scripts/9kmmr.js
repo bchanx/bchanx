@@ -371,8 +371,8 @@ Vue.component('filters', {
             <div class="active" :class="type" v-for="type in Object.keys(filterTypes)" v-if="filters[type]" :key="type">{{filters[type]}}</div>
           </template>
         </div>
-        <div class="filter-reset">
-          <span class="action" v-if="hasSetFilters" @click="resetFilters">reset</span>
+        <div class="filter-reset" v-if="hasSetFilters">
+          <span class="action" @click="resetFilters">reset</span>
         </div>
       </div>
       <div class="filter-types" v-if="showFilters">

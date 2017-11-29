@@ -37,9 +37,9 @@ $orange-light = #ffad66
 $orange-lightest = #ffe5ce
 
 $aqua-dark = #0e85b5
-$aqua = #51c8f7
-$aqua-light = #7FDBFF
-$aqua-lighest = #cef1ff
+$aqua = #219fd1
+$aqua-light = #51c8f7
+$aqua-lightest = #7FDBFF
 
 $yellow-dark = #998507
 $yellow = #c1a90d
@@ -78,6 +78,7 @@ body
   font-weight: 500
   text-shadow: 1px 1px 0 $white
   cursor: pointer
+  transition: color $transition-time
   &:hover
     color: $aqua
   &.active
@@ -99,17 +100,10 @@ body
   margin: 0 auto
   display: flex
   flex-direction: column
-  display: grid
-  grid-template-areas: "navigation"\
-    "filters"\
-    "results"\
-    "footnote"
-  grid-template-rows: 3rem auto 1fr 5.5rem
 
 
 // Navigation
 .navigation
-  grid-area: navigation
   padding: 0.75rem 1rem
   height: 3rem
   display: flex
@@ -131,7 +125,6 @@ body
 .comments
 .stats
   padding: 1rem
-  grid-area: filters / filters / results / results
   flex-grow: 1
 
 .about
@@ -211,6 +204,7 @@ body
       left: -10%
       bottom: 110%
       font-size: 0.6rem
+      font-weight: 500
       border-radius: 2px
       content: attr(data-hero) "\A" attr(data-players)
       white-space: pre
@@ -228,11 +222,10 @@ body
 
 // Footer
 .footnote
-  grid-area: footnote
   font-size: 0.8rem
   display: flex
   flex-direction: column
-  height: 4rem
+  height: 5rem
   margin-top: 1.5rem
   position: relative
   a
@@ -252,11 +245,10 @@ body
   align-items: center
   margin-top: 0.75rem
   a:not(:last-of-type)
-    margin-right: 0.5rem
+    margin-right: 1rem
 
 // Filters
 .filters
-  grid-area: filters
   background-color: $gray1
   padding: 1rem 101rem
   margin: 0 -100rem
@@ -297,35 +289,28 @@ body
     margin: 0
 
 .filter-reset
-  margin-top: -0.1rem
   font-size: 0.8rem
-  width: 4rem
+  padding: 0 0.5rem
+  border: 1px $aqua-light dashed
   flex-shrink: 0
   display: flex
   flex-direction: row-reverse
   align-items: center
 
 .filter-types
-  display: grid
-  grid-template-areas: "one two"\
-    "three four"
-  grid-template-columns: 2fr 1fr
-  grid-template-rows: auto 0
-  grid-column-gap: 1rem
   font-size: 0.8rem
   margin-top: 0.5rem
 
 .input-filters
-  grid-area: one / one / three / three
   width: 66%
   display: inline-block
 
 .sort-filters
-  grid-area: two / two / four / four
+  display: inline-flex
   flex-direction: column
-  padding-left: 3rem
+  padding-left: 2rem
+  vertical-align: top
   width: 33%
-  display: inline-block
   .filter-option
     input[type="radio"]
       margin-right: 0.3rem
@@ -338,7 +323,7 @@ body
 .filter-label
   flex-shrink: 0
   margin-right: 0.8rem
-  width: 4rem
+  width: 3.5rem
   text-align: right
   color: $gray5
 
@@ -367,7 +352,6 @@ body
 
 // Result player tiles
 .results
-  grid-area: results
   margin-top: 1rem
   flex-grow: 1
   max-width: calc(100vw - 2rem)
@@ -699,13 +683,9 @@ tag-color(color-dark, color, color-light, color-lightest)
   .player-image img
     width: 56px
     height: 56px
-  .filter-types
-    grid-template-rows: auto auto
   .input-filters
-    grid-area: one / one / two / two
     width: 100%
   .sort-filters
-    grid-area: three / three / four / four
     width: 100%
     padding-left: 4.85rem
     display: flex
@@ -737,10 +717,43 @@ tag-color(color-dark, color, color-light, color-lightest)
     display: none
 
 @supports (display: grid)
+  .container
+    display: grid
+    grid-template-areas: "navigation"\
+      "filters"\
+      "results"\
+      "footnote"
+    grid-template-rows: 3rem auto 1fr 6.5rem
+  .navigation
+    grid-area: navigation
+  .filters
+    grid-area: filters
+  .about
+  .comments
+  .stats
+    grid-area: filters / filters / results / results
+  .results
+    grid-area: results
+  .footnote
+    grid-area: footnote
+  .filter-types
+    display: grid
+    grid-template-areas: "one two"\
+      "three four"
+    grid-template-columns: 2fr 1fr
+    grid-template-rows: auto 0
+    grid-column-gap: 1rem
   .input-filters
+    grid-area: one / one / three / three
     width: auto
     display: block
   .sort-filters
-    display: flex
+    grid-area: two / two / four / four
     width: auto
-
+  @media screen and (max-width: $max-width + 30px)
+    .filter-types
+      grid-template-rows: auto auto
+    .input-filters
+      grid-area: one / one / two / two
+    .sort-filters
+      grid-area: three / three / four / four
