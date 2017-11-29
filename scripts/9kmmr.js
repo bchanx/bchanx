@@ -586,7 +586,7 @@ Vue.component('stats', {
         <div class="chart-title"># players achieved by date</div>
         <line-chart :data="dateData" :discrete="true" :colors="['#125c9e']" :library="playerTooltipOptions"/>
         <div class="chart-title">players by date achieved vs age{{ageData.length < players.length ? ' (for ' + ageData.length + ' players with age data)' : ''}}</div>
-        <scatter-chart :data="ageData" xtitle="time" ytitle="age" :colors="['#309eff']" :library="ageDataOptions"/>
+        <scatter-chart :data="ageData" xtitle="date" ytitle="age" :colors="['#309eff']" :library="ageDataOptions"/>
         <div class="chart-title"># players by role</div>
         <bar-chart :data="roleData" :colors="['#0074D9']" :library="playerTooltipOptions"/>
         <div class="chart-title">heroes used for 9k match{{hasHeroCount < players.length ? ' (for ' + hasHeroCount + ' players with hero data)' : ''}}</div>
