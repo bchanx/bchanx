@@ -182,7 +182,7 @@ Vue.component('player-sources', {
           <template v-else>
             <span class="placeholder">missing match id.</span>
           </template>
-          <span class="player-age">Age Achieved: <b>{{player.ageAchieved || '?'}}</b></span>
+          <span class="player-age">Age Achieved: <b>{{ageAchieved}}</b></span>
         </div>
       </div>
       <div class="source-row" v-for="source in mediaSources">
@@ -215,7 +215,7 @@ Vue.component('player-sources', {
   `,
   computed: {
     matchSources: function() {
-      let is10k = this.filters.misc === '10k' && !!this.player.misc['10k'];
+      let is10k = !!(this.filters.misc === '10k' && !!this.player.misc['10k']);
       let matches = ((is10k ? this.player.misc['10k'].sources : this.player.sources) || []).filter(s => s.type === SOURCE_TYPES.DOTABUFF || s.type === SOURCE_TYPES.OPENDOTA).sort((a, b) => a.type > b.type ? 1 : a.type < b.type ? -1 : 0);
       let hero = (is10k ? this.player.misc['10k'].hero : this.player.hero) || '';
       return {
@@ -225,9 +225,13 @@ Vue.component('player-sources', {
       };
     },
     mediaSources: function() {
-      let is10k = this.filters.misc === '10k' && !!this.player.misc['10k'];
+      let is10k = !!(this.filters.misc === '10k' && !!this.player.misc['10k']);
       let media = ((is10k ? this.player.misc['10k'].sources : this.player.sources) || []).filter(s => s.type !== SOURCE_TYPES.DOTABUFF && s.type !== SOURCE_TYPES.OPENDOTA);
       return media;
+    },
+    ageAchieved: function() {
+      let is10k = !!(this.filters.misc === '10k' && this.player.misc['10k']);
+      return (is10k ? this.player['10k'].ageAchieved : this.player.ageAchieved) || '?';
     }
   },
   methods: {
@@ -880,6 +884,10 @@ const APP = new Vue({
               if (age.isValid()) {
                 // Both age and date achieved is known, figure out age at time of achievement
                 p.ageAchieved = Math.floor(moment.duration(date.diff(age)).asYears());
+                if (p['10k'] && p['10k'].dateObject) {
+                  // Add 10k age achieved
+                  p['10k'].ageAchieved = Math.floor(moment.duration(p['10k'].dateObject.diff(age)).asYears());
+                }
               }
             }
 
