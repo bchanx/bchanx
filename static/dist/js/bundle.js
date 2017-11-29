@@ -183,10 +183,10 @@ var Home = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { id: 'social' },
-          _react2.default.createElement('a', { href: 'https://www.twitter.com/bchanx', className: 'ion-social-twitter' }),
-          _react2.default.createElement('a', { href: 'https://www.instagram.com/bchanx', className: 'ion-social-instagram' }),
-          _react2.default.createElement('a', { href: 'https://www.github.com/bchanx', className: 'ion-social-github' }),
-          _react2.default.createElement('a', { href: 'https://www.linkedin.com/bchanx', className: 'ion-social-linkedin' })
+          _react2.default.createElement('a', { href: 'https://www.twitter.com/bchanx', className: 'ion-social-twitter', target: '_blank' }),
+          _react2.default.createElement('a', { href: 'https://www.instagram.com/bchanx', className: 'ion-social-instagram', target: '_blank' }),
+          _react2.default.createElement('a', { href: 'https://www.github.com/bchanx', className: 'ion-social-github', target: '_blank' }),
+          _react2.default.createElement('a', { href: 'https://www.linkedin.com/bchanx', className: 'ion-social-linkedin', target: '_blank' })
         )
       );
     }

@@ -21,10 +21,10 @@ class Home extends React.Component {
           <a href="/logos-in-pure-css">Logos in Pure CSS</a> (2013)
         </div>
         <div id="social">
-          <a href="https://www.twitter.com/bchanx" className="ion-social-twitter"></a>
-          <a href="https://www.instagram.com/bchanx" className="ion-social-instagram"></a>
-          <a href="https://www.github.com/bchanx" className="ion-social-github"></a>
-          <a href="https://www.linkedin.com/bchanx" className="ion-social-linkedin"></a>
+          <a href="https://www.twitter.com/bchanx" className="ion-social-twitter" target="_blank"></a>
+          <a href="https://www.instagram.com/bchanx" className="ion-social-instagram" target="_blank"></a>
+          <a href="https://www.github.com/bchanx" className="ion-social-github" target="_blank"></a>
+          <a href="https://www.linkedin.com/bchanx" className="ion-social-linkedin" target="_blank"></a>
         </div>
       </div>
     );
