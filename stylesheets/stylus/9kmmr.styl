@@ -185,8 +185,11 @@ body
   .match-hero
     display: inline-block
     position: relative
-    opacity: 0.8
+    opacity: 0.85
     transition: opacity $transition-time
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .2),
+      0 1px 1px rgba(0, 0, 0, .14),
+      0 2px 1px -1px rgba(0, 0, 0, .12)
     &:before
       content: ""
       background-color: $black
@@ -502,6 +505,9 @@ body
   background-color: $gray0
   opacity: 0.8
   transition: opacity $transition-time
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .2),
+    0 1px 1px rgba(0, 0, 0, .14),
+    0 2px 1px -1px rgba(0, 0, 0, .12)
   img
     width: 64px
     height: 64px
@@ -567,6 +573,10 @@ tag-color(color-dark, color, color-light, color-lightest)
     background-color: color-light
     border-color: color-dark
   &.has-hover
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .2),
+      0 1px 1px rgba(0, 0, 0, .14),
+      0 2px 1px -1px rgba(0, 0, 0, .12),
+      1px 1px 0 color-dark
     &:not(.active):hover
       background-color: color-lightest
     &.active:hover
