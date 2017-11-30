@@ -861,6 +861,7 @@ const APP = new Vue({
           let players = res.body;
 
           // Sanitize
+          players = players.filter(p => !!(p.name && p.region && p.role));
           players.forEach(p => {
             p.name = p.name || '';
             p.region = (p.region || '').toLowerCase();
@@ -890,7 +891,6 @@ const APP = new Vue({
                 }
               }
             }
-
           });
 
           // Sort by date achieved

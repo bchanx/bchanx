@@ -877,7 +877,7 @@
   "dob": "",
   "image": "/static/images/9kmmr/players/smash.png",
   "dateAchieved": "2017-06-05T18:48:39+00:00",
-  "region": "na",
+  "region": "sa",
   "country": "peru",
   "countryCode": "pe",
   "role": "offlane",
@@ -1036,7 +1036,7 @@
   "dob": "Jun 15th, 1994",
   "image": "/static/images/9kmmr/players/vann.png",
   "dateAchieved": "2017-07-30T08:21:45+00:00",
-  "region": "na",
+  "region": "sa",
   "country": "peru",
   "countryCode": "pe",
   "role": "carry",
@@ -1111,6 +1111,64 @@
   "sources": [{
     "type": "twitter",
     "url": "https://twitter.com/EHOMECN/status/897732247691956225"
+  }]
+}, {
+  "name": "oliver",
+  "dob": "",
+  "image": "/static/images/9kmmr/players/oliver.png",
+  "dateAchieved": "2017-08-17T20:00:42+00:00",
+  "region": "eu",
+  "country": "slovakia",
+  "countryCode": "sk",
+  "role": "carry",
+  "hasMatchInfo": true,
+  "hero": "faceless_void",
+  "social": {
+    "dotabuff": "https://www.dotabuff.com/players/100058342",
+    "opendota": "https://www.opendota.com/players/100058342",
+    "twitter": "https://twitter.com/penta_oliver",
+    "twitch": "https://www.twitch.tv/skiter1998/",
+    "liquipedia": "http://wiki.teamliquid.net/dota2/Skiter"
+  },
+  "sources": [{
+    "type": "twitter",
+    "url": "https://twitter.com/PENTA_oliver/status/898275198046162944",
+    "self": true
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3383464088"
+  }, {
+    "type": "opendota",
+    "url": "https://www.opendota.com/matches/3383464088"
+  }]
+}, {
+  "name": "Chessie",
+  "dob": "Dec 26th, 1992",
+  "image": "/static/images/9kmmr/players/chessie.png",
+  "dateAchieved": "2017-08-20T21:08:24+00:00",
+  "region": "eu",
+  "country": "sweden",
+  "countryCode": "se",
+  "role": "carry",
+  "hasMatchInfo": true,
+  "hero": "brewmaster",
+  "social": {
+    "liquipedia": "http://wiki.teamliquid.net/dota2/Chessie",
+    "twitter": "https://twitter.com/ChessieDota",
+    "dotabuff": "https://www.dotabuff.com/players/172424257",
+    "opendota": "https://www.opendota.com/players/172424257",
+    "twitch": "https://www.twitch.tv/Chessie"
+  },
+  "sources": [{
+    "type": "twitter",
+    "url": "https://twitter.com/ChessieDota/status/899383470094503936",
+    "self": true
+  }, {
+    "type": "dotabuff",
+    "url": "https://www.dotabuff.com/matches/3391287006"
+  }, {
+    "type": "opendota",
+    "url": "https://www.opendota.com/matches/3391287006"
   }]
 }, {
   "name": "Nine",
