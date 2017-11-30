@@ -466,6 +466,7 @@ Vue.component('footnote', {
     <div class="footnote">
       <share/>
       <div class="links">
+        reddit: <a class="action" href="https://www.reddit.com/r/DotA2/comments/7gi91n/all_the_stats_about_players_that_reached_9_0_0_0" target="_blank">thread</a>
         site: <a class="action" href="http://bchanx.com" target="_blank">bchanx.com</a>
         me: <a class="action" href="https://twitter.com/bchanx" target="_blank">@bchanx</a>
       </div>
