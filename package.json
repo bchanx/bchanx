@@ -16,7 +16,7 @@
     "bower": "^1.8.2",
     "browserify": "^13.1.1",
     "chart.js": "^2.7.1",
-    "chartkick": "^2.2.4",
+    "chartkick": "^3.0.1",
     "classnames": "^2.2.5",
     "compression": "^1.6.2",
     "consolidate": "^0.14.1",
