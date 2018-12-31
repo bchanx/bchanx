@@ -218,8 +218,7 @@ gulp.task('deps.js', function() {
   // Minify js dependencies
   var minify = [
     'node_modules/superagent/superagent.js',
-    'node_modules/moment/moment.js',
-    'node_modules/chartkick/chartkick.js'
+    'node_modules/moment/moment.js'
   ].map(function(js) {
     return gulp.src(js)
       .pipe(uglify())
@@ -235,6 +234,7 @@ gulp.task('deps.js', function() {
     'node_modules/vue/dist/vue.js',
     'node_modules/vue/dist/vue.min.js',
     'node_modules/chart.js/dist/Chart.min.js',
+    'node_modules/chartkick/dist/chartkick.min.js',
     'node_modules/vue-chartkick/dist/vue-chartkick.min.js',
     'scripts/static/vue-disqus.js',
     'bower_components/slidr/slidr.min.js',
