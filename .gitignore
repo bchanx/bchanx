@@ -1,6 +1,6 @@
 node_modules/
 bower_components/
-static/dist/
+static/dist
 stylesheets/gulp
 .DS_Store
 *.sw?
