@@ -1,0 +1,91 @@
+.nav
+  width: $app-full * 0.3
+  margin-left: "calc((100vw - %s)/2)" % $app-full
+  position: relative
+  flex-shrink: 0
+  padding: 60px 40px
+  display: flex
+  flex-direction: column
+  border-right: 2px $gray3 solid;
+  a,
+  a:link,
+  a:visited,
+  a:active
+  a:focus
+    font-weight: 300
+    color: $gray5
+  a:hover
+    color: $gray8
+
+.nav-logo
+  background-image: url('/cestlacreme/images/logo-light.png')
+  background-size: 135%
+  background-repeat: no-repeat
+  background-position: -40px -50px
+  height: 175px
+  width: 220px
+  margin-top: -20px
+
+.nav-links
+  margin-top: 20px
+  font-size: 30px
+  text-align: right
+  flex-grow: 1
+
+.nav-link
+  display: block
+  margin-bottom: 10px
+  .active
+    color: $gray8 !important
+    position: relative
+    &:after
+      content: "\2022"
+      position: absolute
+      right: -20px
+      color: $gray6 !important
+
+@media screen and (max-width: $app-full)
+  .nav
+    width: 100%
+    max-width: none
+    margin-left: initial;
+    padding: 2vw 4vw
+    border-right: none;
+    border-bottom: 2px $gray3 solid;
+    flex-direction: row
+  .nav-brand
+    padding-right: 4vw
+    line-height: 38px
+  .nav-logo
+    background-size: 135%
+    background-position: -33px -155px
+    height: 38px
+    width: 185px
+    margin-top: 0
+  .nav-links
+    margin-top: 0
+    text-align: left
+    font-size: 3vw
+  .nav-link
+    margin-bottom: 0;
+    margin-right: 15px
+    display: inline-block
+    line-height: 38px
+    .active:after
+      right: 0
+      bottom: -24px
+      width: 100%
+      text-align: center
+
+@media screen and (max-width: $app-medium)
+  .nav
+    padding: 10px 20px
+  .nav-brand
+    padding-right: 20px
+  .nav-logo
+    background-size: 250%
+    height: 38px
+    width: 38px
+    background-position: 50% 28%
+  .nav-link
+    font-size: 18px

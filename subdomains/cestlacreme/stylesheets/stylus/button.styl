@@ -1,0 +1,32 @@
+$darken = 15%
+
+btn-style(color)
+  background-color: color
+  border-color: darken(@background-color, $darken)
+  &:hover:enabled
+    background-color: darken(@background-color, $darken)
+    border-color: darken(@background-color, $darken)
+
+.btn
+  padding: 6.5px 15px
+  display: inline-block
+  border-width: 1px
+  border-style: solid
+  border-radius: 3px
+  font-weight: 400
+  btn-style($gray3)
+
+.btn:not(:first-of-type)
+  margin-left: 10px
+
+.btn-default
+  color: white
+  btn-style($gray5)
+
+.btn-success
+  color: white
+  btn-style($green)
+
+.btn-danger
+  color: white
+  btn-style($red)

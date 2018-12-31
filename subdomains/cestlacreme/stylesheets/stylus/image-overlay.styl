@@ -1,0 +1,114 @@
+.image-overlay
+  z-index: 9001
+  background-color: rgba(34, 34, 34, 0.95)
+  position: fixed
+  top: 0
+  left: 0
+  width: 100vw
+  height: 100vh
+  min-width: $min-width
+  display: flex
+  flex-direction: column
+  justify-content: center
+  min-height: 400px
+  color: $white
+  visibility: hidden
+  opacity: 0
+  pointer-events: none
+  transition: opacity 0.2s linear
+  &.active
+    opacity: 1
+    visibility: visible
+    pointer-events: auto
+
+.image-overlay-close
+  position: fixed
+  right: 20px
+  top: 20px
+  color: $gray4
+  font-size: 1.2rem
+  cursor: pointer
+  &:hover
+    color: $white
+
+.image-overlay-container
+  display: flex
+  flex-direction: row
+  justify-content: center
+  position: relative
+  .chevron
+    user-select: none
+    touch-callout: none
+    position: absolute
+    color: $gray4
+    width: 10%
+    height: 100%
+    cursor: pointer
+    display: flex
+    flex-direction: column
+    justify-content: center
+    font-size: 2rem
+    &:hover
+      color: $white
+    &.left
+      left: 0
+    &.right
+      right: 0
+
+.image-background
+  max-width: 80vh
+  min-width: 300px
+  width: 80%
+  position: relative
+  &:after
+    content: ""
+    display: block
+    padding-top: 100%
+  &:hover
+    .image-meta
+      opacity: 1
+
+.image-picture
+  background-size: 100%
+  background-repeat: no-repeat
+  background-position-x: 50%
+  background-position-y: 50%
+  width: 100%
+  height: 100%
+  position: absolute
+  left: 0
+  top: 0
+
+.image-meta
+  opacity: 0
+  position: absolute
+  bottom: 0
+  background-color: rgba(34, 34, 34, 0.85)
+  font-size: 0.8rem
+  max-height: 100%
+  padding: 15px 20px 5px
+  width: 100%
+  overflow: hidden
+  transition: opacity 0.2s linear
+  a:hover
+    color: $orange-light
+  > div
+    margin-bottom: 10px
+
+.image-description
+  overflow: hidden
+  text-overflow: ellipsis
+  text-align: left
+
+.image-header
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  text-decoration: underline
+
+.image-timestamp
+  flex-shrink: 0
+
+.image-source
+  flex-shrink: 0
+

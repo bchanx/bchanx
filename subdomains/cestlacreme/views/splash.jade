@@ -1,0 +1,16 @@
+extends layout
+
+block stylesheets
+  link(rel="stylesheet", href="/cestlacreme/dist/css/lib/deps#{min}.css")
+  link(rel="stylesheet", href="/cestlacreme/dist/css/splash#{min}.css")
+
+block content
+  div.container
+    div.banner C'est la Creme
+    div Coming Soon
+    br
+    div.social
+      a.ion-icon.ion-social-instagram(href="https://www.instagram.com/cestlacreme/" target="_blank")
+      a.ion-icon.ion-social-facebook(href="https://www.facebook.com/cestlacreme" target="_blank")
+      a.ion-icon.ion-social-twitter(href="https://www.twitter.com/cestlacreme" target="_blank")
+  

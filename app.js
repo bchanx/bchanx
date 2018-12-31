@@ -9,6 +9,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import consolidate from 'consolidate';
 import nunjucks from 'nunjucks';
+import subdomain from 'express-subdomain';
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use(bodyParser.json({ limit: '500mb' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/static', express.static(path.join(__dirname, 'static')));
+app.use('/cestlacreme', express.static(path.join(__dirname, 'subdomains/cestlacreme/static')));
 
 app.locals = {
   env: ENV,
@@ -68,6 +70,14 @@ const allowCrossDomain = (req, res, next) => {
   next();
 }
 app.use(allowCrossDomain);
+
+// Setup subdomains
+const SUBDOMAIN_DIR = './subdomains';
+const subdomains = fs.readdirSync(SUBDOMAIN_DIR);
+subdomains.forEach(subdomainName => {
+  let subdomainApp = `${SUBDOMAIN_DIR}/${subdomainName}/app.js`;
+  app.use(subdomain(subdomainName, require(subdomainApp).router));
+});
 
 // Setup custom routes
 const ROUTE_DIR = './routes';

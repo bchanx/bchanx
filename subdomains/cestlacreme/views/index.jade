@@ -1,0 +1,15 @@
+extends layout
+
+block stylesheets
+  link(rel="stylesheet", href="/cestlacreme/dist/css/lib/deps#{min}.css")
+  link(rel="stylesheet", href="/cestlacreme/dist/css/main#{min}.css")
+
+block scriptshead
+  script(src="/static/dist/js/vendor#{min}.js")
+
+block content
+  div#app #{html}
+
+block scripts
+  script(src="/cestlacreme/dist/js/bundle#{min}.js")
+

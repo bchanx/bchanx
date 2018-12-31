@@ -1,0 +1,42 @@
+.selection
+  .Select
+    margin-top: 5px
+    width: 65px
+    text-align: left
+    &.is-disabled
+      opacity: 0.65
+    &.is-focused:not(.is-open) > .Select-control
+      border-color: $orange
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px rgba(236, 185, 55, 0.2)
+  .Select-value,
+  .Select-option
+    padding-left: 20px !important
+  .Select-option.is-focused
+    background-color: $orange-lightest
+
+.menu-options
+  margin-left: 20px
+  display: inline-block
+  vertical-align: top
+  width: 82px
+  height: 250px
+  padding-top: 90px
+  text-align: left
+
+.menu-caption
+  font-size: 1.25rem
+
+.menu-images
+  width: 250px
+  height: 250px
+  opacity: 0.85
+  cursor: pointer
+  display: inline-block
+
+@media screen and (max-width: $app-medium)
+  .menu-images
+    width: 200px
+    height: 200px
+  .menu-options
+    height: 200px
+    padding-top: 65px

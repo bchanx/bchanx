@@ -154,7 +154,7 @@ var Home = function (_React$Component) {
           _react2.default.createElement('br', null),
           _react2.default.createElement(
             'a',
-            { href: 'http://www.cestlacreme.ca', target: '_blank' },
+            { href: 'http://cestlacreme.bchanx.com', target: '_blank' },
             'C\'est la Creme'
           ),
           ' (2016)',

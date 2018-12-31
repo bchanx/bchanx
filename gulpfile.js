@@ -19,6 +19,7 @@ var streamify = require('gulp-streamify');
 var gutil = require('gulp-util');
 var babel = require('gulp-babel');
 var spawn = require('child_process').spawn;
+var cestlacremeConfig = require('./subdomains/cestlacreme/config');
 
 var ENV = 'development';
 const DIST_DIR = 'static/dist';
@@ -26,14 +27,16 @@ const JS_DIR = DIST_DIR + '/js';
 const CSS_DIR = DIST_DIR + '/css';
 const VENDOR_DEPS = [
   'classnames',
+  'email-validator',
   'moment',
   'react',
+  'react-credit-card',
   'react-dom',
+  'react-localstorage',
   'react-router',
+  'react-script-loader',
   'react-select',
   'react-timer-mixin',
-  'react-script-loader',
-  'react-localstorage',
   'superagent'
 ];
 
@@ -53,6 +56,11 @@ var STYLUS = [
   '9kmmr'
 ];
 
+var CESTLACREME_STYLUS = [
+  'splash',
+  'main'
+];
+
 gulp.task('stylus', function() {
   var styls = STYLUS.map(function(s) {
     return gulp.src('stylesheets/stylus/' + s + '.styl')
@@ -61,7 +69,16 @@ gulp.task('stylus', function() {
       .pipe(rename(normalize(s) + '.css'))
       .pipe(gulp.dest('stylesheets/gulp'));
   });
-  return merge(styls);
+
+  var cestlacreme = CESTLACREME_STYLUS.map(s => {
+    return gulp.src(`subdomains/cestlacreme/stylesheets/stylus/${s}.styl`)
+      .pipe(stylus())
+      .on('error', handleError)
+      .pipe(rename(normalize(s) + '.css'))
+      .pipe(gulp.dest('subdomains/cestlacreme/stylesheets/gulp'));
+  });
+
+  return merge(styls, cestlacreme);
 });
 
 var LESS = [
@@ -97,12 +114,29 @@ gulp.task('css', function() {
       }))
       .pipe(gulp.dest(CSS_DIR));
   });
-  return merge(css);
+
+  var cestlacreme = CESTLACREME_STYLUS.map(c => {
+    return gulp.src('subdomains/cestlacreme/stylesheets/gulp/' + normalize(c) + '.css')
+      .pipe(autoprefixer({
+        browsers: ['last 2 versions'],
+        cascade: false
+      }))
+      .on('error', handleError)
+      .pipe(gulp.dest(`subdomains/cestlacreme/${CSS_DIR}`))
+      .pipe(cssmin())
+      .pipe(rename({
+        extname: '.min.css'
+      }))
+      .pipe(gulp.dest(`subdomains/cestlacreme/${CSS_DIR}`));
+  });
+
+  return merge(css, cestlacreme);
 });
 
 gulp.task('others', function() {
   var fonts = gulp.src('bower_components/Ionicons/fonts/*')
-    .pipe(gulp.dest(CSS_DIR + '/fonts'));
+    .pipe(gulp.dest(CSS_DIR + '/fonts'))
+    .pipe(gulp.dest(`subdomains/cestlacreme/${CSS_DIR}/fonts`));
 
   var css = gulp.src('stylesheets/static/markdown.css')
     .pipe(cssmin())
@@ -146,13 +180,28 @@ gulp.task('deps.css', ['lib.css', 'others'], function() {
     'github.min.css'
   ];
 
-  return gulp.src([
+  let main = gulp.src([
     CSS_DIR + '/lib/*.css',
   ].concat(exclude.map(function(e) {
     return '!' + CSS_DIR + '/lib/' + e;
   })))
     .pipe(concat('deps.css'))
-    .pipe(gulp.dest(CSS_DIR + '/lib'));   
+    .pipe(gulp.dest(CSS_DIR + '/lib'));
+
+  let cestlacreme = gulp.src([
+    'bower_components/normalize-css/normalize.css',
+    'bower_components/Ionicons/css/ionicons.css',
+    'node_modules/react-credit-card/source/card*.css',
+    'node_modules/react-select/dist/react-select.css'
+  ]).pipe(concat('deps.css'))
+    .pipe(gulp.dest(`subdomains/cestlacreme/${CSS_DIR}/lib`))
+    .pipe(cssmin())
+    .pipe(rename({
+      extname: '.min.css'
+    }))
+    .pipe(gulp.dest(`subdomains/cestlacreme/${CSS_DIR}/lib`));
+
+  return merge(main, cestlacreme);
 });
 
 gulp.task('stylus-less-css', ['stylus', 'less'], function() {
@@ -275,7 +324,7 @@ gulp.task('vendor', function() {
   return merge(envs);
 });
 
-gulp.task('browserify', function() {
+gulp.task('bundle', function() {
   var envs = {
     development: null,
     production: null
@@ -322,6 +371,51 @@ gulp.task('browserify', function() {
   }
 });
 
+gulp.task('cestlacreme-bundle', function() {
+  var envs = {
+    development: null,
+    production: null
+  };
+  Object.keys(envs).forEach(function(env) {
+    var bundler = browserify('subdomains/cestlacreme/app/main.js', { debug: false });
+    if (env === 'development') {
+      bundler = watchify(bundler);
+    }
+    bundler = bundler.external(VENDOR_DEPS)
+      .transform(babelify, {
+        presets: ['es2015', 'react']
+      })
+      .transform(envify, cestlacremeConfig.all(env))
+    if (env === 'development') {
+      bundler = bundler.on('update', rebundle);
+    }
+    envs[env] = bundler;
+  });
+  return rebundle();
+
+  function rebundle() {
+    var start = Date.now();
+    Object.keys(envs).forEach(function(env) {
+      var vendor = envs[env]
+        .bundle()
+        .on('error', handleError)
+        .on('end', function() {
+          gutil.log(gutil.colors.green('Finished rebundling C\'est la Creme in', (Date.now() - start) + 'ms.'));
+        })
+        .pipe(source('bundle.js'));
+      if (env === 'production') {
+        vendor = vendor
+          .pipe(streamify(uglify({ mangle: true })))
+          .pipe(rename({
+            extname: '.min.js'
+          }));
+      }
+      vendor = vendor.pipe(gulp.dest(`subdomains/cestlacreme/${JS_DIR}`));
+    });
+    return envs.development;
+  }
+});
+
 gulp.task('server', function() {
   gulp.src('app.js')
     .pipe(babel({
@@ -331,16 +425,20 @@ gulp.task('server', function() {
     .pipe(gulp.dest('./'));
 });
 
-gulp.task('scripts', ['deps.js', 'js', 'vendor', 'browserify', 'server']);
+gulp.task('scripts', ['deps.js', 'js', 'vendor', 'bundle', 'cestlacreme-bundle', 'server']);
 
 ///// WATCH && RUN /////
 
 gulp.task('watch', function() {
-  gulp.watch('stylesheets/stylus/*.*', ['stylus']);
+  ['', 'subdomains/cestlacreme/'].forEach(dir => {
+    gulp.watch(`${dir}stylesheets/stylus/*.*`, ['stylus']);
+    gulp.watch(`${dir}stylesheets/gulp/*.css`, ['css']);
+    gulp.watch(`${dir}app.js`, ['server']);
+    gulp.watch(`${dir}routes/**/*.js`, ['server']);
+  });
+
   gulp.watch('stylesheets/less/*.*', ['less']);
-  gulp.watch('stylesheets/gulp/*.css', ['css']);
   gulp.watch('scripts/**/*.js', ['js']);
-  gulp.watch('app.js', ['server']);
 });
 
 gulp.task('start', ['stylesheets', 'scripts', 'watch'], function() {

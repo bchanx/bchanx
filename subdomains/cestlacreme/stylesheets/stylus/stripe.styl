@@ -1,0 +1,117 @@
+@import 'colors'
+
+.stripe
+  opacity: 1
+  margin-top: -5px
+
+.stripe-payment
+  opacity: 0
+  max-height: 0
+  overflow: hidden
+  visibility: hidden
+  transition: opacity 0.5s linear
+  &.active
+    opacity: 1
+    visibility: visible
+    max-height: 1000px
+
+.stripe-card
+  text-align: left
+
+.stripe-form
+  margin: 10px auto 0
+  max-width: 350px
+  .stripe-input,
+  .stripe-textarea
+    outline: none
+    padding: 5px 10px
+    width: calc(100% - 4px)
+    margin: 2px 2px 0
+    border-radius: 3px
+    border: 1px $gray3 solid
+  .stripe-textarea
+    resize: none
+    max-height: 50px
+    height: 50px
+    min-height: 50px
+    margin-bottom: -5px
+  .stripe-input
+    &[name="cvc"],
+    &[name="expiry"]
+      width: calc(50% - 4px)
+    &.error
+      border-color: $red !important
+    &:focus
+      border-color: $orange
+  button
+    margin-top: 20px
+
+.stripe-form-error
+  margin-top: 20px
+  .note
+    color: $red
+
+.stripe-success
+  .ion-checkmark
+    color: $green
+    margin-left: 5px
+  .btn
+    margin: 20px auto 0
+
+.stripe-success-text
+  line-height: 2em
+  margin-top: -5px
+
+.stripe-order-number
+  font-size: 1.4rem
+
+.react-credit-card
+  margin-top: 5px
+  min-width: 280px
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4)
+
+.react-credit-card__container
+  margin: 0 auto
+
+.react-credit-card__front,
+.react-credit-card__back
+  background: $gray5
+
+.react-credit-card__front
+  opacity: 1
+
+.react-credit-card__back
+  transform: none
+  opacity: 0
+
+.react-credit-card--focused
+  font-weight: 400
+
+.react-credit-card--flipped
+  transform: none
+  .react-credit-card__front
+    opacity: 0
+  .react-credit-card__back
+    opacity: 1
+
+.react-credit-card__expiry
+  text-align: right
+  &:before
+    margin-right: 3px
+  &:after
+    bottom: 5px
+    margin-right: -11px
+
+.react-credit-card__name
+  bottom: -4px
+
+.react-credit-card__number
+  font-size: 1.33rem
+
+.react-credit-card__container
+  min-width: 280px
+  max-width: 350px
+  width: auto
+
+.react-credit-card__shiny:after
+  width: 200px

@@ -1,0 +1,43 @@
+.instagram
+  text-align: center
+
+.instagram-image
+  display: inline-block
+  font-size: 0
+
+.instagram-thumbnail
+  display: inline-block
+  margin: 5px 10px
+  width: 180px
+  height: 180px
+  overflow: hidden
+  opacity: 0.8
+  cursor: pointer
+  img
+    width: 226px
+    height: 226px
+    margin-top: -23px
+    margin-left: -23px
+  &:hover
+    opacity: 1
+
+.default-thumbnail
+  display: inline-block
+  width: 60%
+  height: 60%
+  max-width: 400px
+  margin: 5px 0
+  cursor: pointer
+
+.instagram-carousel
+  width: 60vw
+  height: 60vw
+  margin: 0 auto
+  display: none
+  cursor: pointer
+
+@media screen and (max-width: $app-small)
+  .instagram-carousel
+    display: block
+  .instagram-image
+    display: none

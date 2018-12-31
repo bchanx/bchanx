@@ -1,0 +1,22 @@
+.google-maps
+  width: 70%
+  max-width: 450px
+  min-width: 240px
+  margin: 25px auto
+  position: relative
+  iframe
+    border: 0
+    position: absolute
+    left: 0
+    top: 0
+  &:after
+    content: ""
+    display: block
+    padding-top: 80%
+
+@media screen and (max-width: $app-small)
+  .google-maps
+    width: 60vw
+    margin: 20px auto
+    &:after 
+      padding-top: 100%

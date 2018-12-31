@@ -12,7 +12,7 @@ class Home extends React.Component {
         <div id="projects">
           <a href="/9kmmr">9k MMR</a> (2017)
           <br/>
-          <a href="http://www.cestlacreme.ca" target="_blank">C'est la Creme</a> (2016)
+          <a href="http://cestlacreme.bchanx.com" target="_blank">C'est la Creme</a> (2016)
           <br/>
           <a href="/animated-gameboy-in-css">Animated Gameboy in CSS</a> (2015)
           <br/>

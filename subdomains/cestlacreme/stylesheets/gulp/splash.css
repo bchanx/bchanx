@@ -54,9 +54,32 @@ html {
   height: 100%;
   align-self: center;
   justify-content: center;
+  background-image: url("/cestlacreme/images/brulee.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 .banner {
   font-weight: 300;
   font-size: 80px;
   margin-top: -50px;
+}
+.social {
+  font-size: 30px;
+}
+.social .ion-icon {
+  margin: 0 10px;
+}
+a,
+a:link,
+a:visited,
+a:active,
+a:focus {
+  color: #e8e8e8;
+  font-weight: 400;
+  text-decoration: none;
+}
+a:hover {
+  color: #f8f8f8;
 }
