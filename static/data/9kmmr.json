@@ -650,7 +650,10 @@
   }, {
     "type": "opendota",
     "url": "https://www.opendota.com/matches/3025511400"
-  }]
+  }],
+  "misc": {
+    "wonTI": 8
+  }
 }, {
   "name": "zhizhizhi",
   "dob": "",
@@ -1253,7 +1256,10 @@
   }, {
     "type": "opendota",
     "url": "https://www.opendota.com/matches/3414134114"
-  }]
+  }],
+  "misc": {
+    "wonTI": 8
+  }
 }, {
   "name": "Cr1t-",
   "dob": "Jul 13th, 1996",
@@ -1493,9 +1499,9 @@
     "self": true
   }]
 }, {
-  "name": "7mad",
+  "name": "Ceb",
   "dob": "May 11th, 1992",
-  "aliases": ["7ckngMad"],
+  "aliases": ["7mad", "7ckngMad"],
   "image": "/static/images/9kmmr/players/7mad.png",
   "dateAchieved": "2017-10-21T17:14:22+00:00",
   "region": "eu",
@@ -1525,7 +1531,10 @@
   }, {
     "type": "opendota",
     "url": "https://www.opendota.com/matches/3515042382"
-  }]
+  }],
+  "misc": {
+    "wonTI": 8
+  }
 }, {
   "name": "Jabz",
   "dob": "Sep 22nd, 1998",
